@@ -1,0 +1,4 @@
+PermissionGroupNotification = "We'd love to keep you up-to-date from time to time.";
+NSMicrophoneUsageDescription = "Enabling your microphone can help you record instead of type.";
+NSUserTrackingUsageDescription = "iEvangelize uses your Personal information to provide you with relevant advertisements or communications we believe may be of interest to you.";
+NSLocationWhenInUseUsageDescription = "iEvangelize uses your device location to provide you with relevant resources we believe may be of interest to you.";

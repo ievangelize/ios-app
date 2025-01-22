@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>iEvangelize</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>iEvangelize</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ja</string>
+		<string>zh_Hans</string>
+		<string>hi</string>
+		<string>ml</string>
+		<string>ru</string>
+		<string>ko</string>
+		<string>de</string>
+		<string>es</string>
+		<string>pt</string>
+		<string>id</string>
+		<string>fr</string>
+		<string>it</string>
+		<string>ar</string>
+		<string>uk</string>
+		<string>nl</string>
+		<string>pl</string>
+		<string>bg</string>
+		<string>tr</string>
+		<string>sv</string>
+		<string>ms</string>
+		<string>ro</string>
+		<string>el</string>
+		<string>cs</string>
+		<string>da</string>
+		<string>fi</string>
+		<string>hr</string>
+		<string>sk</string>
+		<string>ta</string>
+		<string>be</string>
+		<string>et</string>
+		<string>ka</string>
+		<string>hu</string>
+		<string>mn</string>
+		<string>my</string>
+		<string>no</string>
+		<string>fa</string>
+		<string>sr</string>
+		<string>sd</string>
+		<string>sl</string>
+		<string>ur</string>
+		<string>uz</string>
+		<string>vi</string>
+		<string>bn</string>
+		<string>sq</string>
+		<string>hy</string>
+		<string>am</string>
+		<string>eu</string>
+		<string>bs</string>
+		<string>ca</string>
+		<string>zh_Hant</string>
+		<string>gl</string>
+		<string>gu</string>
+		<string>kn</string>
+		<string>lv</string>
+		<string>lt</string>
+		<string>mk</string>
+		<string>mr</string>
+		<string>ne</string>
+		<string>or</string>
+		<string>pa</string>
+		<string>si</string>
+	</array>
+
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!--FF_REVERSED_CLIENT_ID-->
+                
+            </array>
+        </dict>
+
+
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.926695597529-t92cgvu4gki2tkuqtvm7kccebp395que</string>
+            </array>
+        </dict>
+
+        <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>link.ievangelize.app</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+        <string>ievangelize</string>
+        </array>
+        </dict>
+    </array>
+    <key>FlutterDeepLinkingEnabled</key>
+    <true/>
+
+
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+
+	<key>NSCameraUsageDescription</key>
+    <string>In order to take a picture or video, this app requires permission to access the camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>In order to upload data, this app requires permission to access the photo library.</string>
+	<key>PermissionGroupNotification</key>
+    <string>We'd love to keep you up-to-date from time to time.</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>Enabling your microphone can help you record instead of type.</string>
+	<key>NSUserTrackingUsageDescription</key>
+    <string>iEvangelize uses your Personal information to provide you with relevant advertisements or communications we believe may be of interest to you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>iEvangelize uses your device location to provide you with relevant resources we believe may be of interest to you.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>audio</string>
+    </array>
+
+
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+
+</dict>
+</plist>
