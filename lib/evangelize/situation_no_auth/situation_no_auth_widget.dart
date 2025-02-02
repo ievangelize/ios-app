@@ -775,7 +775,7 @@ evangelize ... */
                                                       .showSnackBar(
                                                     SnackBar(
                                                       content: Text(
-                                                        'Please try again!',
+                                                        'Please try another prompt!',
                                                         style:
                                                             GoogleFonts.getFont(
                                                           'Inter',
@@ -835,7 +835,7 @@ evangelize ... */
                                         children: [
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'id4hmc29' /* A barista */,
+                                              '9ao7e77x' /* A barista */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -849,7 +849,7 @@ evangelize ... */
                                           ),
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'fz87vi51' /* at my favorite coffee shop */,
+                                              'aadudsug' /* at my favorite coffee shop */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -885,7 +885,7 @@ evangelize ... */
                                         children: [
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'nawcwlc8' /* A non-religious */,
+                                              '3nivup8c' /* An atheist */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -899,7 +899,7 @@ evangelize ... */
                                           ),
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'povv2de4' /* classmate in a study group */,
+                                              'fza38ehz' /* friend in a study group */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -935,7 +935,7 @@ evangelize ... */
                                         children: [
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'btv59p92' /* A non-religious */,
+                                              'qq7l3jg9' /* A co-worker */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -949,7 +949,7 @@ evangelize ... */
                                           ),
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              '3iw6i7rj' /* classmate in a study group */,
+                                              'b3wa099f' /* confused about their gender */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)

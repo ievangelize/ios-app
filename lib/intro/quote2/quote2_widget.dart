@@ -89,10 +89,10 @@ class _Quote2WidgetState extends State<Quote2Widget> {
                       child: custom_widgets.TypewriterAnimation(
                         width: double.infinity,
                         height: 100.0,
-                        fontSize: 26.0,
+                        fontSize: 24.0,
                         fontColor: FlutterFlowTheme.of(context).info,
-                        textSpeed: 35,
-                        text: 'IF NOT NOW, THEN WHEN?',
+                        textSpeed: 25,
+                        text: '\"Go into all the world and...',
                       ),
                     ),
                   ),

@@ -58,3 +58,10 @@ export '/evangelize/situation_no_auth/situation_no_auth_widget.dart'
     show SituationNoAuthWidget;
 export '/follow_up/follow_up_no_auth/follow_up_no_auth_widget.dart'
     show FollowUpNoAuthWidget;
+export '/church/join_churc/join_churc_widget.dart' show JoinChurcWidget;
+export '/church/church/church_widget.dart' show ChurchWidget;
+export '/tools/tools/tools_widget.dart' show ToolsWidget;
+export '/tools/equipping_card/equipping_card_widget.dart'
+    show EquippingCardWidget;
+export '/tools/equipping_card_info/equipping_card_info_widget.dart'
+    show EquippingCardInfoWidget;

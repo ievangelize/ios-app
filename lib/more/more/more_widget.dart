@@ -177,203 +177,280 @@ class _MoreWidgetState extends State<MoreWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         if (loggedIn)
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 24.0, 16.0, 18.0),
-                            child: FutureBuilder<List<UsersRow>>(
-                              future: FFAppState().profile(
-                                requestFn: () => UsersTable().querySingleRow(
-                                  queryFn: (q) => q.eqOrNull(
-                                    'id',
-                                    currentUserUid,
-                                  ),
+                          FutureBuilder<List<UsersRow>>(
+                            future: FFAppState().profile(
+                              requestFn: () => UsersTable().querySingleRow(
+                                queryFn: (q) => q.eqOrNull(
+                                  'id',
+                                  currentUserUid,
                                 ),
                               ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 20.0,
-                                      height: 20.0,
-                                      child: SpinKitFadingCircle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 20.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<UsersRow> containerUsersRowList =
-                                    snapshot.data!;
-
-                                final containerUsersRow =
-                                    containerUsersRowList.isNotEmpty
-                                        ? containerUsersRowList.first
-                                        : null;
-
-                                return InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.pushNamed(
-                                      'Account',
-                                      queryParameters: {
-                                        'account': serializeParam(
-                                          containerUsersRow,
-                                          ParamType.SupabaseRow,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  },
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 0.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 90.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            blurRadius: 20.0,
-                                            color: Color(0x1A000000),
-                                            offset: Offset(
-                                              0.0,
-                                              0.0,
-                                            ),
-                                          )
-                                        ],
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 16.0, 0.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(50.0),
-                                                child: CachedNetworkImage(
-                                                  fadeInDuration: const Duration(
-                                                      milliseconds: 300),
-                                                  fadeOutDuration: const Duration(
-                                                      milliseconds: 300),
-                                                  imageUrl:
-                                                      valueOrDefault<String>(
-                                                    containerUsersRow
-                                                                ?.profileAdded ==
-                                                            true
-                                                        ? containerUsersRow
-                                                            ?.profileUrl
-                                                        : 'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg',
-                                                    'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg',
-                                                  ),
-                                                  width: 60.0,
-                                                  height: 60.0,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 16.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  8.0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          containerUsersRow
-                                                              ?.fullName,
-                                                          'Name not set',
-                                                        ).maybeHandleOverflow(
-                                                          maxChars: 20,
-                                                          replacement: '…',
-                                                        ),
-                                                        maxLines: 2,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyLarge
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontSize: 18.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      valueOrDefault<String>(
-                                                        currentUserEmail,
-                                                        'tinotendachiwara97@gmail.com',
-                                                      ).maybeHandleOverflow(
-                                                        maxChars: 28,
-                                                        replacement: '…',
-                                                      ),
-                                                      maxLines: 1,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            fontSize: 16.0,
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            FaIcon(
-                                              FontAwesomeIcons.chevronRight,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              size: 24.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 20.0,
+                                    height: 20.0,
+                                    child: SpinKitFadingCircle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 20.0,
                                     ),
                                   ),
                                 );
-                              },
-                            ),
+                              }
+                              List<UsersRow> columnUsersRowList =
+                                  snapshot.data!;
+
+                              final columnUsersRow =
+                                  columnUsersRowList.isNotEmpty
+                                      ? columnUsersRowList.first
+                                      : null;
+
+                              return Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 24.0, 16.0, 18.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          'Account',
+                                          queryParameters: {
+                                            'account': serializeParam(
+                                              columnUsersRow,
+                                              ParamType.SupabaseRow,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        elevation: 0.0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 90.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                blurRadius: 20.0,
+                                                color: Color(0x1A000000),
+                                                offset: Offset(
+                                                  0.0,
+                                                  0.0,
+                                                ),
+                                              )
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 16.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 16.0, 0.0),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
+                                                    child: CachedNetworkImage(
+                                                      fadeInDuration: const Duration(
+                                                          milliseconds: 300),
+                                                      fadeOutDuration: const Duration(
+                                                          milliseconds: 300),
+                                                      imageUrl: valueOrDefault<
+                                                          String>(
+                                                        columnUsersRow
+                                                                    ?.profileAdded ==
+                                                                true
+                                                            ? columnUsersRow
+                                                                ?.profileUrl
+                                                            : 'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg',
+                                                        'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg',
+                                                      ),
+                                                      width: 60.0,
+                                                      height: 60.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                16.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      8.0),
+                                                          child: Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              columnUsersRow
+                                                                  ?.fullName,
+                                                              'Name not set',
+                                                            ).maybeHandleOverflow(
+                                                              maxChars: 20,
+                                                              replacement: '…',
+                                                            ),
+                                                            maxLines: 2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          valueOrDefault<
+                                                              String>(
+                                                            currentUserEmail,
+                                                            'tinotendachiwara97@gmail.com',
+                                                          ).maybeHandleOverflow(
+                                                            maxChars: 28,
+                                                            replacement: '…',
+                                                          ),
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                FaIcon(
+                                                  FontAwesomeIcons.chevronRight,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 24.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 16.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        if (columnUsersRow!.joinedChurch!) {
+                                          context.pushNamed('Church');
+                                        } else {
+                                          context.pushNamed('JoinChurc');
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 50.0,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'dj790a7x' /* Church */,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 18.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                ),
+                                              ),
+                                              FaIcon(
+                                                FontAwesomeIcons.angleRight,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                size: 24.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         if (!loggedIn)
                           Padding(

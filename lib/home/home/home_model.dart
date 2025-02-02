@@ -7,6 +7,12 @@ import 'package:flutter/material.dart';
 class HomeModel extends FlutterFlowModel<HomeWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Custom Action - getFCMToken] action in TextField widget.
+  String? response;
   // Models for mission dynamic component.
   late FlutterFlowDynamicModels<MissionModel> missionModels;
   // Model for NavBar component.
@@ -20,6 +26,9 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   @override
   void dispose() {
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+
     missionModels.dispose();
     navBarModel.dispose();
   }

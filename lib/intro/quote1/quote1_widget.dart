@@ -124,10 +124,10 @@ class _Quote1WidgetState extends State<Quote1Widget> {
                       child: custom_widgets.TypewriterAnimation(
                         width: double.infinity,
                         height: 100.0,
-                        fontSize: 26.0,
+                        fontSize: 24.0,
                         fontColor: FlutterFlowTheme.of(context).info,
-                        textSpeed: 35,
-                        text: 'IF NOT YOU, THEN WHO?',
+                        textSpeed: 25,
+                        text: 'And Jesus said...',
                       ),
                     ),
                   ),

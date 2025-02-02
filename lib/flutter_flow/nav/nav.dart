@@ -449,6 +449,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'followUpNoAuth',
               path: 'followupNoAuth',
               builder: (context, params) => const FollowUpNoAuthWidget(),
+            ),
+            FFRoute(
+              name: 'JoinChurc',
+              path: 'joinChurc',
+              builder: (context, params) => const JoinChurcWidget(),
+            ),
+            FFRoute(
+              name: 'Church',
+              path: 'church',
+              builder: (context, params) => const ChurchWidget(),
+            ),
+            FFRoute(
+              name: 'Tools',
+              path: 'tools',
+              builder: (context, params) => const ToolsWidget(),
+            ),
+            FFRoute(
+              name: 'EquippingCard',
+              path: 'equippingCard',
+              builder: (context, params) => const EquippingCardWidget(),
+            ),
+            FFRoute(
+              name: 'EquippingCardInfo',
+              path: 'equippingCardInfo',
+              builder: (context, params) => const EquippingCardInfoWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

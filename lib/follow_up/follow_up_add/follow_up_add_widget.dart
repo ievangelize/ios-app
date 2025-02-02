@@ -600,7 +600,7 @@ class _FollowUpAddWidgetState extends State<FollowUpAddWidget> {
                                   ),
                                 ),
                               ),
-                              if (columnUsersRow?.joinedChurch ?? true)
+                              if (columnUsersRow!.joinedChurch! ? true : false)
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
@@ -795,7 +795,7 @@ class _FollowUpAddWidgetState extends State<FollowUpAddWidget> {
                                       'Address':
                                           _model.addressTextController.text,
                                       'created_by': currentUserUid,
-                                      'church_id': columnUsersRow?.churchId,
+                                      'church_id': columnUsersRow.churchId,
                                       'plugged_in': _model.churchValue == 'Yes'
                                           ? true
                                           : false,

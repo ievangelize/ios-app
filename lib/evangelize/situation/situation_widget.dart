@@ -767,6 +767,32 @@ evangelize ... */
                                                       ),
                                                     }.withoutNulls,
                                                   );
+                                                } else {
+                                                  _model.btnClicked = false;
+                                                  safeSetState(() {});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Please try another prompt!',
+                                                        style:
+                                                            GoogleFonts.getFont(
+                                                          'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                      duration: const Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                    ),
+                                                  );
                                                 }
                                               } else {
                                                 _model.btnClicked = false;
@@ -885,7 +911,7 @@ evangelize ... */
                                         children: [
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              '3kpifrws' /* A non-religious */,
+                                              '3kpifrws' /* An atheist */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -899,7 +925,7 @@ evangelize ... */
                                           ),
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'vklusfq9' /* classmate in a study group */,
+                                              'vklusfq9' /* friend in a study group */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -935,7 +961,7 @@ evangelize ... */
                                         children: [
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'nd54di3h' /* A non-religious */,
+                                              'nd54di3h' /* A co-worker */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -949,7 +975,7 @@ evangelize ... */
                                           ),
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'r6w5n1tg' /* classmate in a study group */,
+                                              'r6w5n1tg' /* confused about their gender */,
                                             ),
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)

@@ -94,11 +94,10 @@ class _Quote3WidgetState extends State<Quote3Widget> {
                       child: custom_widgets.TypewriterAnimation(
                         width: double.infinity,
                         height: 100.0,
-                        fontSize: 26.0,
+                        fontSize: 24.0,
                         fontColor: FlutterFlowTheme.of(context).info,
-                        textSpeed: 27,
-                        text:
-                            'HOW WILL THE WORLD HEAR THE GOSPEL IF WE DON\'T SHARE IT?',
+                        textSpeed: 25,
+                        text: 'preach the Gospel to all creation.\"',
                       ),
                     ),
                   ),
