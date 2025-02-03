@@ -11023,7 +11023,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '5i0qey52': {
       'en':
-          'Someone deciding to give their life to Jesus is a very important decision. \n \n• The Bible says all have sinned (Romans 3:23),\n\n• And the wages of sin is death, but the gift of God is eternal life (Romans 6:23),\n\n• And everyone who calls upon the name of the Lord shall be saved (Romans 10:13).\n\nTo lead someone to Christ, you can pray this prayer with them:\n\n\"Heavenly Father, I believe that Jesus died on the cross for me and rose again. Lord Jesus, I confess you as my Lord and Savior, I give You my life. Amen.\"',
+          'Someone deciding to give their life to Jesus is a very important decision. \n \n• The Bible says all have sinned (Romans 3:23),\n\n• And the wages of sin is death, but the gift of God is eternal life (Romans 6:23),\n\n• And everyone who calls upon the name of the Lord shall be saved (Romans 10:13).\n\nTo lead someone to Christ, you can pray this prayer with them:\n\n\"Heavenly Father, I believe that Jesus died on the cross for me and rose again. Jesus forgive me of my sin. I confess you as my Lord and Savior, I give You my life. Amen.\"',
       'am': '',
       'ar': '',
       'be': '',
@@ -12694,7 +12694,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '3sqz53ph': {
       'en':
-          'Someone deciding to give their life to Jesus is a very important decision. \n \n• The Bible says all have sinned (Romans 3:23),\n\n• And the wages of sin is death, but the gift of God is eternal life (Romans 6:23),\n\n• And everyone who calls upon the name of the Lord shall be saved (Romans 10:13).\n\nTo lead someone to Christ, you can pray this prayer with them:\n\n\"Heavenly Father, I believe that Jesus died on the cross for me and rose again. Lord Jesus, I confess you as my Lord and Savior, I give You my life. Amen.\"',
+          'Someone deciding to give their life to Jesus is a very important decision. \n \n• The Bible says all have sinned (Romans 3:23),\n\n• And the wages of sin is death, but the gift of God is eternal life (Romans 6:23),\n\n• And everyone who calls upon the name of the Lord shall be saved (Romans 10:13).\n\nTo lead someone to Christ, you can pray this prayer with them:\n\n\"Heavenly Father, I believe that Jesus died on the cross for me and rose again. Jesus forgive me of my sin. I confess you as my Lord and Savior, I give You my life. Amen.\"',
       'am': '',
       'ar': '',
       'be': '',
