@@ -100,7 +100,7 @@ class _JoinChurcWidgetState extends State<JoinChurcWidget> {
                             fontFamily: 'Inter',
                             fontSize: 18.0,
                             letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.normal,
                           ),
                     ),
                   ),
@@ -160,15 +160,7 @@ class _JoinChurcWidgetState extends State<JoinChurcWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(32.0, 16.0, 32.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    context.goNamed(
-                      'home',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: const TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.topToBottom,
-                        ),
-                      },
-                    );
+                    context.safePop();
                   },
                   text: FFLocalizations.of(context).getText(
                     'hota102h' /* CANCEL */,

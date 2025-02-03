@@ -25,4 +25,7 @@ class ChurchesRow extends SupabaseDataRow {
 
   DateTime get createdAt => getField<DateTime>('created_at')!;
   set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+
+  String? get logoUrl => getField<String>('logo_url');
+  set logoUrl(String? value) => setField<String>('logo_url', value);
 }

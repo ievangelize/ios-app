@@ -630,14 +630,10 @@ class _FollowUpAddWidgetState extends State<FollowUpAddWidget> {
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: FlutterFlowDropDown<String>(
-                                          controller:
-                                              _model.churchValueController ??=
-                                                  FormFieldController<String>(
-                                            _model.churchValue ??= '',
-                                          ),
-                                          options: List<String>.from(
-                                              ['Saved', 'Unsaved']),
-                                          optionLabels: [
+                                          controller: _model
+                                                  .churchValueController ??=
+                                              FormFieldController<String>(null),
+                                          options: [
                                             FFLocalizations.of(context).getText(
                                               'q7zy3f78' /* Yes */,
                                             ),
@@ -786,20 +782,36 @@ class _FollowUpAddWidgetState extends State<FollowUpAddWidget> {
                                             .validate()) {
                                       return;
                                     }
-                                    await ReachedTable().insert({
-                                      'Name': _model.nameTextController.text,
-                                      'Note': _model.noteTextController.text,
-                                      'status': _model.statusValue,
-                                      'Email': _model.emailTextController.text,
-                                      'Phone': _model.phoneTextController.text,
-                                      'Address':
-                                          _model.addressTextController.text,
-                                      'created_by': currentUserUid,
-                                      'church_id': columnUsersRow.churchId,
-                                      'plugged_in': _model.churchValue == 'Yes'
-                                          ? true
-                                          : false,
-                                    });
+                                    if (_model.churchValue == 'Yes') {
+                                      await ReachedTable().insert({
+                                        'Name': _model.nameTextController.text,
+                                        'Note': _model.noteTextController.text,
+                                        'status': _model.statusValue,
+                                        'Email':
+                                            _model.emailTextController.text,
+                                        'Phone':
+                                            _model.phoneTextController.text,
+                                        'Address':
+                                            _model.addressTextController.text,
+                                        'created_by': currentUserUid,
+                                        'church_id': columnUsersRow.churchId,
+                                        'plugged_in': true,
+                                      });
+                                    } else {
+                                      await ReachedTable().insert({
+                                        'Name': _model.nameTextController.text,
+                                        'Note': _model.noteTextController.text,
+                                        'status': _model.statusValue,
+                                        'Email':
+                                            _model.emailTextController.text,
+                                        'Phone':
+                                            _model.phoneTextController.text,
+                                        'Address':
+                                            _model.addressTextController.text,
+                                        'created_by': currentUserUid,
+                                      });
+                                    }
+
                                     FFAppState().clearReachedCache();
 
                                     context.pushNamed(

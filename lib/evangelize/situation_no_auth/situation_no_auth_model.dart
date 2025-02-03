@@ -31,10 +31,6 @@ class SituationNoAuthModel extends FlutterFlowModel<SituationNoAuthWidget> {
   ApiCallResponse? apiOutputAuth;
   // Model for NavBar component.
   late NavBarModel navBarModel;
-  // State field(s) for Search widget.
-  FocusNode? searchFocusNode;
-  TextEditingController? searchTextController;
-  String? Function(BuildContext, String?)? searchTextControllerValidator;
 
   @override
   void initState(BuildContext context) {
@@ -49,7 +45,5 @@ class SituationNoAuthModel extends FlutterFlowModel<SituationNoAuthWidget> {
     situationInfoTextController?.dispose();
 
     navBarModel.dispose();
-    searchFocusNode?.dispose();
-    searchTextController?.dispose();
   }
 }

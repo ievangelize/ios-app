@@ -47,6 +47,9 @@ class FollowUpUpdateModel extends FlutterFlowModel<FollowUpUpdateWidget> {
     return null;
   }
 
+  // State field(s) for Church widget.
+  String? churchValue;
+  FormFieldController<String>? churchValueController;
   // State field(s) for Status widget.
   String? statusValue;
   FormFieldController<String>? statusValueController;

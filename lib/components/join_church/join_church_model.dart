@@ -11,23 +11,11 @@ class JoinChurchModel extends FlutterFlowModel<JoinChurchWidget> {
   FocusNode? codeFieldFocusNode;
   TextEditingController? codeFieldTextController;
   String? Function(BuildContext, String?)? codeFieldTextControllerValidator;
-  String? _codeFieldTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return FFLocalizations.of(context).getText(
-        'nzxkivix' /* Field is required */,
-      );
-    }
-
-    return null;
-  }
-
   // Stores action output result for [Backend Call - Query Rows] action in Button widget.
   List<ChurchesRow>? foundChurch;
 
   @override
-  void initState(BuildContext context) {
-    codeFieldTextControllerValidator = _codeFieldTextControllerValidator;
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {

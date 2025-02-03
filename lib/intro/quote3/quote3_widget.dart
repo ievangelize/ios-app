@@ -96,7 +96,7 @@ class _Quote3WidgetState extends State<Quote3Widget> {
                         height: 100.0,
                         fontSize: 24.0,
                         fontColor: FlutterFlowTheme.of(context).info,
-                        textSpeed: 25,
+                        textSpeed: 35,
                         text: 'preach the Gospel to all creation.\"',
                       ),
                     ),

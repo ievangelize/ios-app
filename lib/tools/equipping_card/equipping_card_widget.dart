@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'equipping_card_model.dart';
 export 'equipping_card_model.dart';
 
@@ -71,123 +70,80 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Builder(
-            builder: (context) => InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                await Share.share(
-                  'ievangelize://link.ievangelize.app${GoRouterState.of(context).uri.toString()}',
-                  sharePositionOrigin: getWidgetBoundingBox(context),
-                );
-              },
-              child: Stack(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              'hj2t2jzt' /* Tap card to flip */,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        FFLocalizations.of(context).getText(
+                          'hj2t2jzt' /* Tap card to flip */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 18.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                          ),
-                          Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
-                            child: FlipCard(
-                              fill: Fill.fillBack,
-                              direction: FlipDirection.HORIZONTAL,
-                              speed: 250,
-                              front: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    'assets/images/card-back.png',
-                                    width: double.infinity,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              back: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    'assets/images/Card-front.jpg',
-                                    width: double.infinity,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              await launchURL('https://jesusatthedoor.com/');
-                            },
-                            child: Text(
-                              FFLocalizations.of(context).getText(
-                                '1a804z14' /* by Jesus At the Door */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                            ),
-                          ),
-                        ]
-                            .divide(const SizedBox(height: 25.0))
-                            .addToStart(const SizedBox(height: 8.0))
-                            .addToEnd(const SizedBox(height: 90.0)),
                       ),
-                    ),
-                  ),
-                  Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
-                    child: wrapWithModel(
-                      model: _model.navBarModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: const NavBarWidget(
-                        selectedPage: 'home',
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: FlipCard(
+                          fill: Fill.fillBack,
+                          direction: FlipDirection.HORIZONTAL,
+                          speed: 250,
+                          front: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.asset(
+                                'assets/images/card-back.png',
+                                width: double.infinity,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          back: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.asset(
+                                'assets/images/Card-front.jpg',
+                                width: double.infinity,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ]
+                        .divide(const SizedBox(height: 25.0))
+                        .addToStart(const SizedBox(height: 8.0))
+                        .addToEnd(const SizedBox(height: 90.0)),
                   ),
-                ],
+                ),
               ),
-            ),
+              Align(
+                alignment: const AlignmentDirectional(0.0, 1.0),
+                child: wrapWithModel(
+                  model: _model.navBarModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: const NavBarWidget(
+                    selectedPage: 'home',
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -458,7 +458,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Church',
               path: 'church',
-              builder: (context, params) => const ChurchWidget(),
+              builder: (context, params) => ChurchWidget(
+                churchID: params.getParam(
+                  'churchID',
+                  ParamType.String,
+                ),
+              ),
             ),
             FFRoute(
               name: 'Tools',

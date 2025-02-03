@@ -91,7 +91,7 @@ class _Quote2WidgetState extends State<Quote2Widget> {
                         height: 100.0,
                         fontSize: 24.0,
                         fontColor: FlutterFlowTheme.of(context).info,
-                        textSpeed: 25,
+                        textSpeed: 35,
                         text: '\"Go into all the world and...',
                       ),
                     ),

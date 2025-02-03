@@ -199,8 +199,6 @@ class _MissionWidgetState extends State<MissionWidget>
                       );
                       FFAppState().clearProfileCache();
                       FFAppState().clearMissionsCache();
-                      _model.completed = !_model.completed;
-                      _model.updatePage(() {});
                       if (animationsMap['containerOnActionTriggerAnimation'] !=
                           null) {
                         await animationsMap[
@@ -215,8 +213,6 @@ class _MissionWidgetState extends State<MissionWidget>
                       });
                       FFAppState().clearProfileCache();
                       FFAppState().clearMissionsCache();
-                      _model.completed = !_model.completed;
-                      _model.updatePage(() {});
                       if (animationsMap['containerOnActionTriggerAnimation'] !=
                           null) {
                         await animationsMap[
@@ -264,7 +260,7 @@ class _MissionWidgetState extends State<MissionWidget>
                       Text(
                         valueOrDefault<String>(
                           widget.missionTitle,
-                          'Mission Title',
+                          'This is the second church challenge',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -332,7 +328,10 @@ class _MissionWidgetState extends State<MissionWidget>
                   ),
                 ),
               ),
-            ].divide(const SizedBox(width: 10.0)).addToStart(const SizedBox(width: 12.0)),
+            ]
+                .divide(const SizedBox(width: 10.0))
+                .addToStart(const SizedBox(width: 12.0))
+                .addToEnd(const SizedBox(width: 12.0)),
           ),
         ),
       ).animateOnActionTrigger(

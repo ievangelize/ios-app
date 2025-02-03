@@ -28,7 +28,6 @@ void main() async {
   await actions.changeBarColors();
   await actions.appLinksUsage();
   await actions.initAudioBackground();
-  await actions.appTrackingDialog();
   // End initial custom actions code
 
   await SupaFlow.initialize();

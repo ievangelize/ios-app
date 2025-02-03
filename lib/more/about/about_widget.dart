@@ -240,7 +240,7 @@ class _AboutWidgetState extends State<AboutWidget> {
                                           ),
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'bv1dx4xp' /* Rate us */,
+                                              'qz3gis6z' /* Rate us */,
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge

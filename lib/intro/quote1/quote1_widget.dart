@@ -126,7 +126,7 @@ class _Quote1WidgetState extends State<Quote1Widget> {
                         height: 100.0,
                         fontSize: 24.0,
                         fontColor: FlutterFlowTheme.of(context).info,
-                        textSpeed: 25,
+                        textSpeed: 35,
                         text: 'And Jesus said...',
                       ),
                     ),
