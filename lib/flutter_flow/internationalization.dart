@@ -21489,7 +21489,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // NavBar
   {
-    '6y1xcni3': {
+    '3gg5imcp': {
       'en': 'Home',
       'am': '',
       'ar': '',
@@ -21553,7 +21553,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'zh_Hans': '',
       'zh_Hant': '',
     },
-    'imz6u5qa': {
+    'jxq04hsp': {
       'en': 'Evangelize',
       'am': '',
       'ar': '',
@@ -21617,7 +21617,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'zh_Hans': '',
       'zh_Hant': '',
     },
-    'tcdo89vs': {
+    'dd9gxzvk': {
       'en': 'Explore',
       'am': '',
       'ar': '',
@@ -21681,7 +21681,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'zh_Hans': '',
       'zh_Hant': '',
     },
-    '83qz4g7o': {
+    'jtqvto1t': {
       'en': 'Follow Up',
       'am': '',
       'ar': '',
@@ -21745,7 +21745,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'zh_Hans': '',
       'zh_Hant': '',
     },
-    '53v4xd01': {
+    'ircq75se': {
       'en': 'More',
       'am': '',
       'ar': '',
