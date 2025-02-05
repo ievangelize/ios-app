@@ -1454,10 +1454,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 16.0, 32.0, 16.0, 0.0),
                             child: FutureBuilder<List<ChallengeWeeksRow>>(
                               future: ChallengeWeeksTable().querySingleRow(
-                                queryFn: (q) => q.eqOrNull(
-                                  'in_progress',
-                                  true,
-                                ),
+                                queryFn: (q) => q
+                                    .eqOrNull(
+                                      'in_progress',
+                                      true,
+                                    )
+                                    .eqOrNull(
+                                      'global',
+                                      true,
+                                    ),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -1620,6 +1625,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     .eqOrNull(
                                       'church_id',
                                       homeUsersRow.churchId,
+                                    )
+                                    .eqOrNull(
+                                      'global',
+                                      false,
                                     ),
                               ),
                               builder: (context, snapshot) {

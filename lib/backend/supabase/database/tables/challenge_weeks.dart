@@ -32,4 +32,7 @@ class ChallengeWeeksRow extends SupabaseDataRow {
 
   String? get churchId => getField<String>('church_id');
   set churchId(String? value) => setField<String>('church_id', value);
+
+  bool? get global => getField<bool>('global');
+  set global(bool? value) => setField<bool>('global', value);
 }
