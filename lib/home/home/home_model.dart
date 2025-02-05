@@ -8,19 +8,23 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Models for mission dynamic component.
-  late FlutterFlowDynamicModels<MissionModel> missionModels;
+  late FlutterFlowDynamicModels<MissionModel> missionModels1;
+  // Models for mission dynamic component.
+  late FlutterFlowDynamicModels<MissionModel> missionModels2;
   // Model for NavBar component.
   late NavBarModel navBarModel;
 
   @override
   void initState(BuildContext context) {
-    missionModels = FlutterFlowDynamicModels(() => MissionModel());
+    missionModels1 = FlutterFlowDynamicModels(() => MissionModel());
+    missionModels2 = FlutterFlowDynamicModels(() => MissionModel());
     navBarModel = createModel(context, () => NavBarModel());
   }
 
   @override
   void dispose() {
-    missionModels.dispose();
+    missionModels1.dispose();
+    missionModels2.dispose();
     navBarModel.dispose();
   }
 }

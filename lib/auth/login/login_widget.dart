@@ -306,9 +306,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     return;
                                                   }
 
-                                                  context.goNamedAuth(
-                                                      'situation',
-                                                      context.mounted);
+                                                  context.pushNamedAuth(
+                                                      'home', context.mounted);
                                                 } else {
                                                   if (_model.formKey
                                                               .currentState ==

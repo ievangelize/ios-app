@@ -76,14 +76,13 @@ class _StoryViewerWidgetState extends State<StoryViewerWidget> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: double.infinity,
                       height: double.infinity,
                       child: custom_widgets.CustomStoryView(
                         width: double.infinity,
                         height: double.infinity,
-                        imageUrls:
-                            'https://api.ievangelize.app/storage/v1/object/public/evangelism-essentials/Bible%20Verse%20Phone%20Wallpaper.png,https://api.ievangelize.app/storage/v1/object/public/evangelism-essentials/Bible%20Verse%20Phone%20Wallpaper.png',
+                        imageUrls: widget.story!.images!,
                       ),
                     ),
                     Align(

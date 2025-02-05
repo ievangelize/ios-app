@@ -310,8 +310,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                                   }
 
                                                   context.goNamedAuth(
-                                                      'situation',
-                                                      context.mounted);
+                                                      'home', context.mounted);
                                                 } else {
                                                   if (_model.formKey
                                                               .currentState ==

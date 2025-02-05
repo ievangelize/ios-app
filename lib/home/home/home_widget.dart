@@ -1448,164 +1448,329 @@ class _HomeWidgetState extends State<HomeWidget> {
                             },
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 32.0, 16.0, 0.0),
-                          child: FutureBuilder<List<ChallengeWeeksRow>>(
-                            future: ChallengeWeeksTable().querySingleRow(
-                              queryFn: (q) => q
-                                  .eqOrNull(
-                                    'in_progress',
-                                    true,
-                                  )
-                                  .eqOrNull(
-                                    'church_id',
-                                    homeUsersRow?.churchId,
-                                  ),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return const MissionsLoadingWidget();
-                              }
-                              List<ChallengeWeeksRow>
-                                  columnChallengeWeeksRowList = snapshot.data!;
+                        if (!homeUsersRow!.joinedChurch!)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 32.0, 16.0, 0.0),
+                            child: FutureBuilder<List<ChallengeWeeksRow>>(
+                              future: ChallengeWeeksTable().querySingleRow(
+                                queryFn: (q) => q.eqOrNull(
+                                  'in_progress',
+                                  true,
+                                ),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return const MissionsLoadingWidget();
+                                }
+                                List<ChallengeWeeksRow>
+                                    columnChallengeWeeksRowList =
+                                    snapshot.data!;
 
-                              // Return an empty Container when the item does not exist.
-                              if (snapshot.data!.isEmpty) {
-                                return Container();
-                              }
-                              final columnChallengeWeeksRow =
-                                  columnChallengeWeeksRowList.isNotEmpty
-                                      ? columnChallengeWeeksRowList.first
-                                      : null;
+                                // Return an empty Container when the item does not exist.
+                                if (snapshot.data!.isEmpty) {
+                                  return Container();
+                                }
+                                final columnChallengeWeeksRow =
+                                    columnChallengeWeeksRowList.isNotEmpty
+                                        ? columnChallengeWeeksRowList.first
+                                        : null;
 
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        valueOrDefault<String>(
-                                          columnChallengeWeeksRow?.title,
-                                          'Weekly Missions',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 10.0, 0.0, 0.0),
-                                    child: FutureBuilder<List<UserMissionsRow>>(
-                                      future: UserMissionsTable().queryRows(
-                                        queryFn: (q) => q.eqOrNull(
-                                          'user_id',
-                                          currentUserUid,
-                                        ),
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return const MissionsLoadingWidget();
-                                        }
-                                        List<UserMissionsRow>
-                                            containerUserMissionsRowList =
-                                            snapshot.data!;
-
-                                        return Container(
-                                          decoration: const BoxDecoration(),
-                                          child:
-                                              FutureBuilder<List<MissionsRow>>(
-                                            future: FFAppState().missions(
-                                              requestFn: () =>
-                                                  MissionsTable().queryRows(
-                                                queryFn: (q) => q
-                                                    .eqOrNull(
-                                                      'challenge_week_id',
-                                                      columnChallengeWeeksRow
-                                                          ?.id,
-                                                    )
-                                                    .order('created_at',
-                                                        ascending: true),
-                                              ),
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return const MissionsLoadingWidget();
-                                              }
-                                              List<MissionsRow>
-                                                  listViewMissionsRowList =
-                                                  snapshot.data!;
-
-                                              return ListView.separated(
-                                                padding: EdgeInsets.zero,
-                                                primary: false,
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.vertical,
-                                                itemCount:
-                                                    listViewMissionsRowList
-                                                        .length,
-                                                separatorBuilder: (_, __) =>
-                                                    const SizedBox(height: 14.0),
-                                                itemBuilder:
-                                                    (context, listViewIndex) {
-                                                  final listViewMissionsRow =
-                                                      listViewMissionsRowList[
-                                                          listViewIndex];
-                                                  return wrapWithModel(
-                                                    model: _model.missionModels
-                                                        .getModel(
-                                                      listViewMissionsRow.id,
-                                                      listViewIndex,
-                                                    ),
-                                                    updateCallback: () =>
-                                                        safeSetState(() {}),
-                                                    updateOnChange: true,
-                                                    child: MissionWidget(
-                                                      key: Key(
-                                                        'Keyguc_${listViewMissionsRow.id}',
-                                                      ),
-                                                      missionTitle:
-                                                          listViewMissionsRow
-                                                              .title!,
-                                                      peopleCompleted:
-                                                          formatNumber(
-                                                        listViewMissionsRow
-                                                            .peopleCompleted!,
-                                                        formatType:
-                                                            FormatType.compact,
-                                                      ),
-                                                      mission:
-                                                          listViewMissionsRow,
-                                                      userMissions:
-                                                          containerUserMissionsRowList,
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          valueOrDefault<String>(
+                                            columnChallengeWeeksRow?.title,
+                                            'Weekly Missions',
                                           ),
-                                        );
-                                      },
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                fontSize: 20.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              );
-                            },
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 10.0, 0.0, 0.0),
+                                      child:
+                                          FutureBuilder<List<UserMissionsRow>>(
+                                        future: UserMissionsTable().queryRows(
+                                          queryFn: (q) => q.eqOrNull(
+                                            'user_id',
+                                            currentUserUid,
+                                          ),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return const MissionsLoadingWidget();
+                                          }
+                                          List<UserMissionsRow>
+                                              containerUserMissionsRowList =
+                                              snapshot.data!;
+
+                                          return Container(
+                                            decoration: const BoxDecoration(),
+                                            child: FutureBuilder<
+                                                List<MissionsRow>>(
+                                              future: FFAppState().missions(
+                                                requestFn: () =>
+                                                    MissionsTable().queryRows(
+                                                  queryFn: (q) => q
+                                                      .eqOrNull(
+                                                        'challenge_week_id',
+                                                        columnChallengeWeeksRow
+                                                            ?.id,
+                                                      )
+                                                      .order('created_at',
+                                                          ascending: true),
+                                                ),
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return const MissionsLoadingWidget();
+                                                }
+                                                List<MissionsRow>
+                                                    listViewMissionsRowList =
+                                                    snapshot.data!;
+
+                                                return ListView.separated(
+                                                  padding: EdgeInsets.zero,
+                                                  primary: false,
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount:
+                                                      listViewMissionsRowList
+                                                          .length,
+                                                  separatorBuilder: (_, __) =>
+                                                      const SizedBox(height: 14.0),
+                                                  itemBuilder:
+                                                      (context, listViewIndex) {
+                                                    final listViewMissionsRow =
+                                                        listViewMissionsRowList[
+                                                            listViewIndex];
+                                                    return wrapWithModel(
+                                                      model: _model
+                                                          .missionModels1
+                                                          .getModel(
+                                                        listViewMissionsRow.id,
+                                                        listViewIndex,
+                                                      ),
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      updateOnChange: true,
+                                                      child: MissionWidget(
+                                                        key: Key(
+                                                          'Keyguc_${listViewMissionsRow.id}',
+                                                        ),
+                                                        missionTitle:
+                                                            listViewMissionsRow
+                                                                .title!,
+                                                        peopleCompleted:
+                                                            formatNumber(
+                                                          listViewMissionsRow
+                                                              .peopleCompleted!,
+                                                          formatType: FormatType
+                                                              .compact,
+                                                        ),
+                                                        mission:
+                                                            listViewMissionsRow,
+                                                        userMissions:
+                                                            containerUserMissionsRowList,
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
                           ),
-                        ),
+                        if (homeUsersRow.joinedChurch ?? true)
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 32.0, 16.0, 0.0),
+                            child: FutureBuilder<List<ChallengeWeeksRow>>(
+                              future: ChallengeWeeksTable().querySingleRow(
+                                queryFn: (q) => q
+                                    .eqOrNull(
+                                      'in_progress',
+                                      true,
+                                    )
+                                    .eqOrNull(
+                                      'church_id',
+                                      homeUsersRow.churchId,
+                                    ),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return const MissionsLoadingWidget();
+                                }
+                                List<ChallengeWeeksRow>
+                                    columnChurchChallengeWeeksRowList =
+                                    snapshot.data!;
+
+                                // Return an empty Container when the item does not exist.
+                                if (snapshot.data!.isEmpty) {
+                                  return Container();
+                                }
+                                final columnChurchChallengeWeeksRow =
+                                    columnChurchChallengeWeeksRowList.isNotEmpty
+                                        ? columnChurchChallengeWeeksRowList
+                                            .first
+                                        : null;
+
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          valueOrDefault<String>(
+                                            columnChurchChallengeWeeksRow
+                                                ?.title,
+                                            'Weekly Missions',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                fontSize: 20.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 10.0, 0.0, 0.0),
+                                      child:
+                                          FutureBuilder<List<UserMissionsRow>>(
+                                        future: UserMissionsTable().queryRows(
+                                          queryFn: (q) => q.eqOrNull(
+                                            'user_id',
+                                            currentUserUid,
+                                          ),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return const MissionsLoadingWidget();
+                                          }
+                                          List<UserMissionsRow>
+                                              containerUserMissionsRowList =
+                                              snapshot.data!;
+
+                                          return Container(
+                                            decoration: const BoxDecoration(),
+                                            child: FutureBuilder<
+                                                List<MissionsRow>>(
+                                              future: FFAppState().missions(
+                                                requestFn: () =>
+                                                    MissionsTable().queryRows(
+                                                  queryFn: (q) => q
+                                                      .eqOrNull(
+                                                        'challenge_week_id',
+                                                        columnChurchChallengeWeeksRow
+                                                            ?.id,
+                                                      )
+                                                      .order('created_at',
+                                                          ascending: true),
+                                                ),
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return const MissionsLoadingWidget();
+                                                }
+                                                List<MissionsRow>
+                                                    listViewMissionsRowList =
+                                                    snapshot.data!;
+
+                                                return ListView.separated(
+                                                  padding: EdgeInsets.zero,
+                                                  primary: false,
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount:
+                                                      listViewMissionsRowList
+                                                          .length,
+                                                  separatorBuilder: (_, __) =>
+                                                      const SizedBox(height: 14.0),
+                                                  itemBuilder:
+                                                      (context, listViewIndex) {
+                                                    final listViewMissionsRow =
+                                                        listViewMissionsRowList[
+                                                            listViewIndex];
+                                                    return wrapWithModel(
+                                                      model: _model
+                                                          .missionModels2
+                                                          .getModel(
+                                                        listViewMissionsRow.id,
+                                                        listViewIndex,
+                                                      ),
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      updateOnChange: true,
+                                                      child: MissionWidget(
+                                                        key: Key(
+                                                          'Keyska_${listViewMissionsRow.id}',
+                                                        ),
+                                                        missionTitle:
+                                                            listViewMissionsRow
+                                                                .title!,
+                                                        peopleCompleted:
+                                                            formatNumber(
+                                                          listViewMissionsRow
+                                                              .peopleCompleted!,
+                                                          formatType: FormatType
+                                                              .compact,
+                                                        ),
+                                                        mission:
+                                                            listViewMissionsRow,
+                                                        userMissions:
+                                                            containerUserMissionsRowList,
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
                       ].addToEnd(const SizedBox(height: 100.0)),
                     ),
                   ),
