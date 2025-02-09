@@ -8,8 +8,7 @@ export '/follow_up/follow_up_update/follow_up_update_widget.dart'
     show FollowUpUpdateWidget;
 export '/evangelize/icebreakers_list/icebreakers_list_widget.dart'
     show IcebreakersListWidget;
-export '/intro/explore/lessons_list/lessons_list_widget.dart'
-    show LessonsListWidget;
+export '/explore/lessons_list/lessons_list_widget.dart' show LessonsListWidget;
 export '/more/more/more_widget.dart' show MoreWidget;
 export '/account/account/account_widget.dart' show AccountWidget;
 export '/more/languages/languages_widget.dart' show LanguagesWidget;
@@ -20,8 +19,7 @@ export '/auth/authentication/authentication_widget.dart'
 export '/account/email_updated/email_updated_widget.dart'
     show EmailUpdatedWidget;
 export '/more/about/about_widget.dart' show AboutWidget;
-export '/intro/explore/audio_player/audio_player_widget.dart'
-    show AudioPlayerWidget;
+export '/explore/audio_player/audio_player_widget.dart' show AudioPlayerWidget;
 export '/auth/email_sent/email_sent_widget.dart' show EmailSentWidget;
 export '/evangelize/new_situation/new_situation_widget.dart'
     show NewSituationWidget;
@@ -31,24 +29,22 @@ export '/evangelize/selected_situation/selected_situation_widget.dart'
     show SelectedSituationWidget;
 export '/home/home/home_widget.dart' show HomeWidget;
 export '/donate/donate/donate_widget.dart' show DonateWidget;
-export '/donate/payit_forward/payit_forward_widget.dart'
-    show PayitForwardWidget;
-export '/intro/explore/explore/explore_widget.dart' show ExploreWidget;
-export '/intro/explore/vertical_video_player/vertical_video_player_widget.dart'
+export '/explore/explore/explore_widget.dart' show ExploreWidget;
+export '/explore/vertical_video_player/vertical_video_player_widget.dart'
     show VerticalVideoPlayerWidget;
-export '/intro/explore/category_horizontal/category_horizontal_widget.dart'
+export '/explore/category_horizontal/category_horizontal_widget.dart'
     show CategoryHorizontalWidget;
-export '/intro/explore/category_vertical/category_vertical_widget.dart'
+export '/explore/category_vertical/category_vertical_widget.dart'
     show CategoryVerticalWidget;
 export '/home/story_viewer/story_viewer_widget.dart' show StoryViewerWidget;
 export '/home/add_impact/add_impact_widget.dart' show AddImpactWidget;
 export '/home/record_info_choice/record_info_choice_widget.dart'
     show RecordInfoChoiceWidget;
-export '/intro/explore/horizontal_video_player/horizontal_video_player_widget.dart'
+export '/explore/horizontal_video_player/horizontal_video_player_widget.dart'
     show HorizontalVideoPlayerWidget;
-export '/intro/explore/resource_credit/resource_credit_widget.dart'
+export '/explore/resource_credit/resource_credit_widget.dart'
     show ResourceCreditWidget;
-export '/intro/explore/search_results/search_results_widget.dart'
+export '/explore/search_results/search_results_widget.dart'
     show SearchResultsWidget;
 export '/intro/get_started/get_started_widget.dart' show GetStartedWidget;
 export '/intro/quote1/quote1_widget.dart' show Quote1Widget;

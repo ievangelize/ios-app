@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
 import 'donate_model.dart';
 export 'donate_model.dart';
@@ -158,28 +157,7 @@ share ... */
                                 0.0, 24.0, 0.0, 0.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
-                                '46skcb2a' /* Just as others paid your acces... */,
-                              ),
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 24.0, 0.0, 0.0),
-                            child: Text(
-                              FFLocalizations.of(context).getText(
-                                'zgqyys34' /* You have a chance to empower 
-... */
-                                ,
+                                '46skcb2a' /* Just as others paid for your a... */,
                               ),
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
@@ -198,43 +176,11 @@ share ... */
                                 0.0, 24.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                final isEntitled =
-                                    await revenue_cat.isEntitled('supporter') ??
-                                        false;
-                                if (!isEntitled) {
-                                  await revenue_cat.loadOfferings();
-                                }
-
-                                if (isEntitled) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Looks like you\'re already a supporter!',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: const Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).success,
-                                    ),
-                                  );
-                                } else {
-                                  context.pushNamed(
-                                    'PayitForward',
-                                    extra: <String, dynamic>{
-                                      kTransitionInfoKey: const TransitionInfo(
-                                        hasTransition: true,
-                                        transitionType: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 0),
-                                      ),
-                                    },
-                                  );
-                                }
+                                await launchURL(
+                                    'https://www.ievangelize.app/donate');
                               },
                               text: FFLocalizations.of(context).getText(
-                                'gsua0gz4' /* PAY IT FORWARD */,
+                                'gsua0gz4' /* DONATE */,
                               ),
                               options: FFButtonOptions(
                                 width: double.infinity,

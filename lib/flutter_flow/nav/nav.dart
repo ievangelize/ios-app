@@ -271,11 +271,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => const DonateWidget(),
             ),
             FFRoute(
-              name: 'PayitForward',
-              path: 'payitForward',
-              builder: (context, params) => const PayitForwardWidget(),
-            ),
-            FFRoute(
               name: 'Explore',
               path: 'explore',
               builder: (context, params) => const ExploreWidget(),

@@ -411,79 +411,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 16.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    final user = await authManager
-                                        .signInWithGoogle(context);
-                                    if (user == null) {
-                                      return;
-                                    }
-
-                                    context.goNamedAuth(
-                                        'home', context.mounted);
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 54.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      borderRadius: BorderRadius.circular(50.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent1,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 14.0, 0.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.asset(
-                                              'assets/images/google.png',
-                                              width: 20.0,
-                                              height: 20.0,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          FFLocalizations.of(context).getText(
-                                            'wi46uxt2' /* Continue with Google */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
                               if (isiOS)
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
@@ -562,6 +489,79 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     ),
                                   ),
                                 ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 16.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    final user = await authManager
+                                        .signInWithGoogle(context);
+                                    if (user == null) {
+                                      return;
+                                    }
+
+                                    context.goNamedAuth(
+                                        'home', context.mounted);
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 54.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent1,
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 14.0, 0.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'assets/images/google.png',
+                                              width: 20.0,
+                                              height: 20.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'wi46uxt2' /* Continue with Google */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
 
                               // You will have to add an action on this rich text to go to your login page.
                               Align(

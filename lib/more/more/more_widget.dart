@@ -1022,7 +1022,7 @@ class _MoreWidgetState extends State<MoreWidget> {
                                     0.0, 32.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
-                                    's0bsim11' /* v2.0.2 */,
+                                    's0bsim11' /* v2.0.3 */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium

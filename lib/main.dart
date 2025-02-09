@@ -15,7 +15,6 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'flutter_flow/revenue_cat_util.dart' as revenue_cat;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,6 @@ void main() async {
   // Start initial custom actions code
   await actions.changeBarColors();
   await actions.appLinksUsage();
-  await actions.initAudioBackground();
   // End initial custom actions code
 
   await SupaFlow.initialize();
@@ -38,12 +36,6 @@ void main() async {
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
-
-  await revenue_cat.initialize(
-    "appl_DJbgIgzeOPuhaffhQqxQzgVkLqo",
-    "goog_FuzjVPWHDnfZwoEDMLIOqzZNHZP",
-    loadDataAfterLaunch: true,
-  );
 
   if (!kIsWeb) {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
