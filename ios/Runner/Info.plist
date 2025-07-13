@@ -132,6 +132,8 @@
     <string>iEvangelize uses your Personal information to provide you with relevant advertisements or communications we believe may be of interest to you.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>iEvangelize uses your device location to provide you with relevant resources we believe may be of interest to you.</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Rec instead of typing bruv.</string>
     <key>UIBackgroundModes</key>
     <array>
       <string>audio</string>
