@@ -7,9 +7,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'follow_up_update_model.dart';
 export 'follow_up_update_model.dart';
 
@@ -20,6 +22,9 @@ class FollowUpUpdateWidget extends StatefulWidget {
   });
 
   final ReachedRow? selectedPerson;
+
+  static String routeName = 'followUpUpdate';
+  static String routePath = 'followUpUpdate';
 
   @override
   State<FollowUpUpdateWidget> createState() => _FollowUpUpdateWidgetState();
@@ -98,7 +103,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                   context.safePop();
                 },
               ),
-              actions: const [],
+              actions: [],
               elevation: 0.0,
             )
           ],
@@ -107,7 +112,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
               return SafeArea(
                 top: false,
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
                   child: FutureBuilder<List<UsersRow>>(
                     future: FFAppState().profile(
                       requestFn: () => UsersTable().querySingleRow(
@@ -143,7 +148,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 0.0, 24.0),
                               child: Text(
                                 FFLocalizations.of(context).getText(
@@ -153,15 +158,23 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .headlineLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineLarge
+                                            .fontStyle,
+                                      ),
                                       fontSize: 26.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineLarge
+                                          .fontStyle,
                                     ),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 12.0, 16.0, 0.0),
                               child: Form(
                                 key: _model.formKey,
@@ -171,9 +184,9 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
-                                      child: SizedBox(
+                                      child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.nameTextController,
@@ -230,18 +243,29 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                   BorderRadius.circular(12.0),
                                             ),
                                             filled: true,
-                                            fillColor: const Color(0x00FFFFFF),
+                                            fillColor: Color(0x00FFFFFF),
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
                                               ),
                                           maxLength: 50,
                                           maxLengthEnforcement:
@@ -258,9 +282,9 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
-                                      child: SizedBox(
+                                      child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller:
@@ -318,18 +342,29 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                   BorderRadius.circular(12.0),
                                             ),
                                             filled: true,
-                                            fillColor: const Color(0x00FFFFFF),
+                                            fillColor: Color(0x00FFFFFF),
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
                                               ),
                                           maxLength: 50,
                                           maxLengthEnforcement:
@@ -348,9 +383,9 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
-                                      child: SizedBox(
+                                      child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller:
@@ -408,18 +443,29 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                   BorderRadius.circular(12.0),
                                             ),
                                             filled: true,
-                                            fillColor: const Color(0x00FFFFFF),
+                                            fillColor: Color(0x00FFFFFF),
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
                                               ),
                                           maxLength: 15,
                                           maxLengthEnforcement:
@@ -437,9 +483,9 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
-                                      child: SizedBox(
+                                      child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller:
@@ -497,18 +543,29 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                   BorderRadius.circular(12.0),
                                             ),
                                             filled: true,
-                                            fillColor: const Color(0x00FFFFFF),
+                                            fillColor: Color(0x00FFFFFF),
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
                                               ),
                                           maxLength: 60,
                                           maxLengthEnforcement:
@@ -527,9 +584,9 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
-                                      child: SizedBox(
+                                      child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
                                           controller: _model.noteTextController,
@@ -586,18 +643,29 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                   BorderRadius.circular(12.0),
                                             ),
                                             filled: true,
-                                            fillColor: const Color(0x00FFFFFF),
+                                            fillColor: Color(0x00FFFFFF),
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
                                               ),
                                           maxLines: 10,
                                           maxLength: 600,
@@ -613,7 +681,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                         ? true
                                         : false)
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -621,7 +689,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 10.0),
                                               child: Text(
@@ -633,16 +701,30 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyLarge
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontStyle,
+                                                          ),
                                                           fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLarge
+                                                                  .fontStyle,
                                                         ),
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 8.0),
                                               child:
                                                   FlutterFlowDropDown<String>(
@@ -670,18 +752,32 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                         .churchValue = val),
                                                 width: double.infinity,
                                                 height: 56.0,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                textStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyLarge
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .fontStyle,
+                                                    ),
                                                 hintText:
                                                     FFLocalizations.of(context)
                                                         .getText(
@@ -704,7 +800,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                         .accent1,
                                                 borderWidth: 1.0,
                                                 borderRadius: 12.0,
-                                                margin: const EdgeInsetsDirectional
+                                                margin: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 4.0, 16.0, 4.0),
                                                 hidesUnderline: true,
@@ -717,7 +813,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                         ),
                                       ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -726,7 +822,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 10.0),
                                             child: Text(
                                               FFLocalizations.of(context)
@@ -737,11 +833,24 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLarge
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .fontStyle,
                                                       ),
                                             ),
                                           ),
@@ -768,16 +877,27 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                 () => _model.statusValue = val),
                                             width: double.infinity,
                                             height: 56.0,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      fontSize: 16.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                            textStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .bodyMedium
+                                                .override(
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  fontSize: 16.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                             hintText:
                                                 FFLocalizations.of(context)
                                                     .getText(
@@ -800,7 +920,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                             borderWidth: 1.0,
                                             borderRadius: 12.0,
                                             margin:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 4.0, 16.0, 4.0),
                                             hidesUnderline: true,
                                             isOverButton: false,
@@ -841,10 +961,10 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                     .clearReachedCache();
 
                                                 context.pushNamed(
-                                                  'followUpList',
+                                                  FollowUpListWidget.routeName,
                                                   extra: <String, dynamic>{
                                                     kTransitionInfoKey:
-                                                        const TransitionInfo(
+                                                        TransitionInfo(
                                                       hasTransition: true,
                                                       transitionType:
                                                           PageTransitionType
@@ -860,9 +980,9 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                         builder:
                                                             (alertDialogContext) {
                                                           return AlertDialog(
-                                                            title: const Text(
+                                                            title: Text(
                                                                 'Delete record?'),
-                                                            content: const Text(
+                                                            content: Text(
                                                                 'This action can\'t be undone.'),
                                                             actions: [
                                                               TextButton(
@@ -870,7 +990,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                                     Navigator.pop(
                                                                         alertDialogContext,
                                                                         false),
-                                                                child: const Text(
+                                                                child: Text(
                                                                     'Cancel'),
                                                               ),
                                                               TextButton(
@@ -878,7 +998,7 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                                     Navigator.pop(
                                                                         alertDialogContext,
                                                                         true),
-                                                                child: const Text(
+                                                                child: Text(
                                                                     'Delete'),
                                                               ),
                                                             ],
@@ -898,10 +1018,10 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                     .clearReachedCache();
 
                                                 context.pushNamed(
-                                                  'followUpList',
+                                                  FollowUpListWidget.routeName,
                                                   extra: <String, dynamic>{
                                                     kTransitionInfoKey:
-                                                        const TransitionInfo(
+                                                        TransitionInfo(
                                                       hasTransition: true,
                                                       transitionType:
                                                           PageTransitionType
@@ -921,10 +1041,10 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                           options: FFButtonOptions(
                                             height: 40.0,
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryBackground,
@@ -932,12 +1052,33 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily: 'Inter',
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                      ),
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .error,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
                                                     ),
                                             elevation: 0.0,
                                             borderSide: BorderSide(
@@ -1012,10 +1153,10 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                             FFAppState().clearReachedCache();
 
                                             context.pushNamed(
-                                              'followUpList',
+                                              FollowUpListWidget.routeName,
                                               extra: <String, dynamic>{
                                                 kTransitionInfoKey:
-                                                    const TransitionInfo(
+                                                    TransitionInfo(
                                                   hasTransition: true,
                                                   transitionType:
                                                       PageTransitionType
@@ -1031,10 +1172,10 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                           options: FFButtonOptions(
                                             height: 40.0,
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     20.0, 0.0, 20.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .secondary,
@@ -1042,19 +1183,40 @@ class _FollowUpUpdateWidgetState extends State<FollowUpUpdateWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily: 'Inter',
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                      ),
                                                       color: Colors.white,
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
                                                     ),
                                             elevation: 0.0,
-                                            borderSide: const BorderSide(
+                                            borderSide: BorderSide(
                                               color: Color(0x00FFFFFF),
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(12.0),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(width: 16.0)),
+                                      ].divide(SizedBox(width: 16.0)),
                                     ),
                                   ],
                                 ),

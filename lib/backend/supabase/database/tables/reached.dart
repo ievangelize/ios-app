@@ -9,7 +9,7 @@ class ReachedTable extends SupabaseTable<ReachedRow> {
 }
 
 class ReachedRow extends SupabaseDataRow {
-  ReachedRow(super.data);
+  ReachedRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ReachedTable();
@@ -52,4 +52,12 @@ class ReachedRow extends SupabaseDataRow {
 
   bool? get pluggedIn => getField<bool>('plugged_in');
   set pluggedIn(bool? value) => setField<bool>('plugged_in', value);
+
+  String? get followUpStatus => getField<String>('follow_up_status');
+  set followUpStatus(String? value) =>
+      setField<String>('follow_up_status', value);
+
+  String? get followUpMethod => getField<String>('follow_up_method');
+  set followUpMethod(String? value) =>
+      setField<String>('follow_up_method', value);
 }

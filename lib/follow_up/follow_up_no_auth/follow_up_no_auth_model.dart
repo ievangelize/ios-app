@@ -2,6 +2,7 @@ import '/components/list_empty/list_empty_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'follow_up_no_auth_widget.dart' show FollowUpNoAuthWidget;
 import 'package:flutter/material.dart';
 

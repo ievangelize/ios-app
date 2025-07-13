@@ -1,5 +1,6 @@
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'more_widget.dart' show MoreWidget;
 import 'package:flutter/material.dart';
 

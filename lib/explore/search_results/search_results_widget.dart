@@ -5,10 +5,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'search_results_model.dart';
 export 'search_results_model.dart';
@@ -22,6 +24,9 @@ class SearchResultsWidget extends StatefulWidget {
 
   final String? initialSearch;
   final String? initialChoiceChip;
+
+  static String routeName = 'SearchResults';
+  static String routePath = 'search-results';
 
   @override
   State<SearchResultsWidget> createState() => _SearchResultsWidgetState();
@@ -83,9 +88,9 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
             highlightColor: Colors.transparent,
             onTap: () async {
               context.goNamed(
-                'Explore',
+                ExploreWidget.routeName,
                 extra: <String, dynamic>{
-                  kTransitionInfoKey: const TransitionInfo(
+                  kTransitionInfoKey: TransitionInfo(
                     hasTransition: true,
                     transitionType: PageTransitionType.fade,
                   ),
@@ -98,7 +103,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
               size: 24.0,
             ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -135,7 +140,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                         child: FutureBuilder<ApiCallResponse>(
                           future: SearchResourcesCall.call(
                             supabaseKey: FFAppState().SupabaseKey,
@@ -173,7 +178,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                   scrollDirection: Axis.vertical,
                                   itemCount: resources.length,
                                   separatorBuilder: (_, __) =>
-                                      const SizedBox(height: 16.0),
+                                      SizedBox(height: 16.0),
                                   itemBuilder: (context, resourcesIndex) {
                                     final resourcesItem =
                                         resources[resourcesIndex];
@@ -185,18 +190,117 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                       onTap: () async {
                                         if (getJsonField(
                                           resourcesItem,
-                                          r'''$.is_vertical''',
+                                          r'''$.is_video''',
                                         )) {
+                                          if (getJsonField(
+                                            resourcesItem,
+                                            r'''$.is_vertical''',
+                                          )) {
+                                            context.pushNamed(
+                                              VerticalVideoPlayerWidget
+                                                  .routeName,
+                                              queryParameters: {
+                                                'videoURL': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.media_url''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'title': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.title''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'description': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.sub_title''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'shareURL': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.share_url''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType
+                                                          .bottomToTop,
+                                                ),
+                                              },
+                                            );
+                                          } else {
+                                            context.pushNamed(
+                                              HorizontalVideoPlayerWidget
+                                                  .routeName,
+                                              queryParameters: {
+                                                'title': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.title''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'description': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.description''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'videoURL': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.media_url''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'providerID': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.provider''',
+                                                  ),
+                                                  ParamType.int,
+                                                ),
+                                                'shareURL': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.share_url''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'categoryTitle': serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.sub_title''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                                'categoryThumbnail':
+                                                    serializeParam(
+                                                  getJsonField(
+                                                    resourcesItem,
+                                                    r'''$.thumbnail_url''',
+                                                  ).toString(),
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+                                          }
+                                        } else {
                                           context.pushNamed(
-                                            'VerticalVideoPlayer',
+                                            AudioPlayerWidget.routeName,
                                             queryParameters: {
-                                              'videoURL': serializeParam(
-                                                getJsonField(
-                                                  resourcesItem,
-                                                  r'''$.media_url''',
-                                                ).toString(),
-                                                ParamType.String,
-                                              ),
                                               'title': serializeParam(
                                                 getJsonField(
                                                   resourcesItem,
@@ -204,10 +308,24 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                 ).toString(),
                                                 ParamType.String,
                                               ),
-                                              'description': serializeParam(
+                                              'thumbnailURL': serializeParam(
+                                                getJsonField(
+                                                  resourcesItem,
+                                                  r'''$.thumbnail_url''',
+                                                ).toString(),
+                                                ParamType.String,
+                                              ),
+                                              'subTitle': serializeParam(
                                                 getJsonField(
                                                   resourcesItem,
                                                   r'''$.sub_title''',
+                                                ).toString(),
+                                                ParamType.String,
+                                              ),
+                                              'audioURL': serializeParam(
+                                                getJsonField(
+                                                  resourcesItem,
+                                                  r'''$.media_url''',
                                                 ).toString(),
                                                 ParamType.String,
                                               ),
@@ -215,42 +333,6 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                 getJsonField(
                                                   resourcesItem,
                                                   r'''$.share_url''',
-                                                ).toString(),
-                                                ParamType.String,
-                                              ),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              kTransitionInfoKey:
-                                                  const TransitionInfo(
-                                                hasTransition: true,
-                                                transitionType:
-                                                    PageTransitionType
-                                                        .bottomToTop,
-                                              ),
-                                            },
-                                          );
-                                        } else {
-                                          context.pushNamed(
-                                            'HorizontalVideoPlayer',
-                                            queryParameters: {
-                                              'title': serializeParam(
-                                                getJsonField(
-                                                  resourcesItem,
-                                                  r'''$.title''',
-                                                ).toString(),
-                                                ParamType.String,
-                                              ),
-                                              'description': serializeParam(
-                                                getJsonField(
-                                                  resourcesItem,
-                                                  r'''$.description''',
-                                                ).toString(),
-                                                ParamType.String,
-                                              ),
-                                              'videoURL': serializeParam(
-                                                getJsonField(
-                                                  resourcesItem,
-                                                  r'''$.media_url''',
                                                 ).toString(),
                                                 ParamType.String,
                                               ),
@@ -260,28 +342,6 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                   r'''$.provider''',
                                                 ),
                                                 ParamType.int,
-                                              ),
-                                              'shareURL': serializeParam(
-                                                getJsonField(
-                                                  resourcesItem,
-                                                  r'''$.share_url''',
-                                                ).toString(),
-                                                ParamType.String,
-                                              ),
-                                              'categoryTitle': serializeParam(
-                                                getJsonField(
-                                                  resourcesItem,
-                                                  r'''$.sub_title''',
-                                                ).toString(),
-                                                ParamType.String,
-                                              ),
-                                              'categoryThumbnail':
-                                                  serializeParam(
-                                                getJsonField(
-                                                  resourcesItem,
-                                                  r'''$.thumbnail_url''',
-                                                ).toString(),
-                                                ParamType.String,
                                               ),
                                             }.withoutNulls,
                                           );
@@ -313,10 +373,10 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                   BorderRadius.circular(8.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 1.0),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         12.0, 0.0, 12.0, 8.0),
                                                 child: Row(
@@ -331,7 +391,7 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                     Container(
                                                       width: 18.0,
                                                       height: 18.0,
-                                                      decoration: const BoxDecoration(
+                                                      decoration: BoxDecoration(
                                                         color:
                                                             Color(0x9A000000),
                                                         shape: BoxShape.circle,
@@ -358,28 +418,37 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                         width: 36.0,
                                                         height: 18.0,
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     1.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     0.0),
                                                         color:
-                                                            const Color(0x9A000000),
+                                                            Color(0x9A000000),
                                                         textStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .titleSmall
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .fontStyle,
+                                                                  ),
                                                                   color: Colors
                                                                       .white,
                                                                   fontSize: 1.0,
@@ -388,6 +457,10 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w300,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontStyle,
                                                                 ),
                                                         elevation: 0.0,
                                                         borderRadius:
@@ -422,15 +495,28 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: Text(
@@ -442,8 +528,30 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
@@ -451,9 +559,9 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                                             ),
                                           ),
                                         ]
-                                            .divide(const SizedBox(width: 12.0))
-                                            .addToStart(const SizedBox(width: 16.0))
-                                            .addToEnd(const SizedBox(width: 16.0)),
+                                            .divide(SizedBox(width: 12.0))
+                                            .addToStart(SizedBox(width: 16.0))
+                                            .addToEnd(SizedBox(width: 16.0)),
                                       ),
                                     );
                                   },
@@ -480,11 +588,11 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'explore',
                   ),
                 ),

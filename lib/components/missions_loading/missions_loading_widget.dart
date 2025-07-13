@@ -109,7 +109,7 @@ class _MissionsLoadingWidgetState extends State<MissionsLoadingWidget>
             borderRadius: BorderRadius.circular(14.0),
           ),
         ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation3']!),
-      ].divide(const SizedBox(height: 14.0)),
+      ].divide(SizedBox(height: 14.0)),
     );
   }
 }

@@ -12,11 +12,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'lessons_list_model.dart';
 export 'lessons_list_model.dart';
 
 class LessonsListWidget extends StatefulWidget {
   const LessonsListWidget({super.key});
+
+  static String routeName = 'LessonsList';
+  static String routePath = 'lessonsList';
 
   @override
   State<LessonsListWidget> createState() => _LessonsListWidgetState();
@@ -73,7 +77,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
           automaticallyImplyLeading: false,
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () {
                   print('Button pressed ...');
@@ -81,21 +85,31 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                 text: FFLocalizations.of(context).getText(
                   'uxl21lo9' /* Donate */,
                 ),
-                icon: const Icon(
+                icon: Icon(
                   Icons.favorite_border,
                   size: 20.0,
                 ),
                 options: FFButtonOptions(
                   height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                   iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Inter',
+                        font: GoogleFonts.inter(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        ),
                         color: Colors.white,
                         fontSize: 14.0,
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleSmall.fontStyle,
                       ),
                   elevation: 0.0,
                   borderRadius: BorderRadius.circular(24.0),
@@ -104,20 +118,28 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(26.0),
+            preferredSize: Size.fromHeight(26.0),
             child: Align(
-              alignment: const AlignmentDirectional(-1.0, 0.0),
+              alignment: AlignmentDirectional(-1.0, 0.0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'xkdtyirl' /* Essentials */,
                   ),
                   style: FlutterFlowTheme.of(context).headlineLarge.override(
-                        fontFamily: 'Inter',
+                        font: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontStyle,
+                        ),
                         fontSize: 30.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineLarge
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -136,7 +158,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
+                      padding: EdgeInsetsDirectional.fromSTEB(
                           16.0, 16.0, 16.0, 16.0),
                       child: Container(
                         height: 45.0,
@@ -144,14 +166,14 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                           color: FlutterFlowTheme.of(context).accent2,
                           borderRadius: BorderRadius.circular(12.0),
                           border: Border.all(
-                            color: const Color(0x00FFFFFF),
+                            color: Color(0x00FFFFFF),
                           ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 0.0, 0.0),
                               child: Icon(
                                 Icons.search,
@@ -166,7 +188,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                 focusNode: _model.searchFocusNode,
                                 onChanged: (_) => EasyDebounce.debounce(
                                   '_model.searchTextController',
-                                  const Duration(milliseconds: 1000),
+                                  Duration(milliseconds: 1000),
                                   () => safeSetState(() {}),
                                 ),
                                 autofocus: false,
@@ -178,7 +200,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                   hintText: FFLocalizations.of(context).getText(
                                     'qv2kn6qd' /* Search for something */,
                                   ),
-                                  enabledBorder: const OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00FFFFFF),
                                       width: 1.0,
@@ -190,7 +212,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                       topRight: Radius.circular(24.0),
                                     ),
                                   ),
-                                  focusedBorder: const OutlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00FFFFFF),
                                       width: 1.0,
@@ -207,7 +229,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
+                                    borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(0.0),
                                       bottomRight: Radius.circular(24.0),
                                       topLeft: Radius.circular(0.0),
@@ -219,7 +241,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                       color: FlutterFlowTheme.of(context).error,
                                       width: 1.0,
                                     ),
-                                    borderRadius: const BorderRadius.only(
+                                    borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(0.0),
                                       bottomRight: Radius.circular(24.0),
                                       topLeft: Radius.circular(0.0),
@@ -230,11 +252,24 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                       fontSize: 14.0,
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
                                     ),
                                 maxLines: null,
                                 maxLength: 50,
@@ -247,6 +282,17 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                     null,
                                 validator: _model.searchTextControllerValidator
                                     .asValidator(context),
+                                inputFormatters: [
+                                  if (!isAndroid && !isiOS)
+                                    TextInputFormatter.withFunction(
+                                        (oldValue, newValue) {
+                                      return TextEditingValue(
+                                        selection: newValue.selection,
+                                        text: newValue.text.toCapitalization(
+                                            TextCapitalization.none),
+                                      );
+                                    }),
+                                ],
                               ),
                             ),
                           ],
@@ -264,7 +310,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                         if (!snapshot.hasData) {
                           return Center(
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 16.0),
                               child: SizedBox(
                                 width: 20.0,
@@ -282,12 +328,12 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                             snapshot.data!;
 
                         return ListView.separated(
-                          padding: const EdgeInsets.symmetric(vertical: 14.0),
+                          padding: EdgeInsets.symmetric(vertical: 14.0),
                           primary: false,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemCount: listViewLessonsRowList.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: 14.0),
+                          separatorBuilder: (_, __) => SizedBox(height: 14.0),
                           itemBuilder: (context, listViewIndex) {
                             final listViewLessonsRow =
                                 listViewLessonsRowList[listViewIndex];
@@ -297,7 +343,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                       listViewLessonsRow.title!) ??
                                   true,
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -333,9 +379,9 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                 BorderRadius.circular(16.0),
                                             child: CachedNetworkImage(
                                               fadeInDuration:
-                                                  const Duration(milliseconds: 500),
+                                                  Duration(milliseconds: 500),
                                               fadeOutDuration:
-                                                  const Duration(milliseconds: 500),
+                                                  Duration(milliseconds: 500),
                                               imageUrl:
                                                   listViewLessonsRow.imageUrl!,
                                               width: 100.0,
@@ -345,7 +391,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       12.0, 12.0, 8.0, 12.0),
                                               child: Column(
@@ -358,7 +404,7 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                 children: [
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 4.0),
                                                     child: Text(
@@ -375,11 +421,25 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                               .of(context)
                                                           .headlineLarge
                                                           .override(
-                                                            fontFamily: 'Inter',
+                                                            font: GoogleFonts
+                                                                .inter(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineLarge
+                                                                  .fontStyle,
+                                                            ),
                                                             fontSize: 18.0,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLarge
+                                                                    .fontStyle,
                                                           ),
                                                     ),
                                                   ),
@@ -407,8 +467,17 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                                   .of(context)
                                                               .bodyLarge
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -418,11 +487,15 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       4.0,
                                                                       0.0,
@@ -441,8 +514,17 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                                     .of(context)
                                                                 .bodyLarge
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyLarge
+                                                                        .fontStyle,
+                                                                  ),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
@@ -453,6 +535,10 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                         ),
@@ -470,8 +556,17 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                                   .of(context)
                                                               .bodyLarge
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -481,6 +576,10 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ],
@@ -503,10 +602,10 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                                                         .tertiary,
                                                 shape: BoxShape.circle,
                                               ),
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         3.0, 0.0, 0.0, 0.0),
                                                 child: FaIcon(
@@ -545,11 +644,11 @@ class _LessonsListWidgetState extends State<LessonsListWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'explore',
                   ),
                 ),

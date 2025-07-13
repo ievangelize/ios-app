@@ -1,9 +1,12 @@
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'searchbar_dummy_model.dart';
 export 'searchbar_dummy_model.dart';
 
@@ -33,7 +36,7 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
     _model.searchFocusNode!.addListener(
       () async {
         context.pushNamed(
-          'SearchResults',
+          SearchResultsWidget.routeName,
           queryParameters: {
             'initialSearch': serializeParam(
               _model.searchTextController.text,
@@ -59,7 +62,7 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
           child: Container(
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).accent2,
@@ -69,7 +72,7 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                   child: Icon(
                     Icons.search,
                     color: FlutterFlowTheme.of(context).secondaryText,
@@ -82,7 +85,7 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
                     focusNode: _model.searchFocusNode,
                     onChanged: (_) => EasyDebounce.debounce(
                       '_model.searchTextController',
-                      const Duration(milliseconds: 1000),
+                      Duration(milliseconds: 1000),
                       () => safeSetState(() {}),
                     ),
                     autofocus: false,
@@ -98,18 +101,26 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
                       hintStyle: FlutterFlowTheme.of(context)
                           .bodyMedium
                           .override(
-                            fontFamily: 'Inter',
+                            font: GoogleFonts.inter(
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             color: FlutterFlowTheme.of(context).secondaryText,
                             fontSize: 18.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
                           ),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       errorBorder: InputBorder.none,
                       focusedErrorBorder: InputBorder.none,
                       contentPadding:
-                          const EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 8.0, 12.0),
+                          EdgeInsetsDirectional.fromSTEB(4.0, 12.0, 8.0, 12.0),
                       suffixIcon: _model.searchTextController!.text.isNotEmpty
                           ? InkWell(
                               onTap: () async {
@@ -126,15 +137,32 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
                           : null,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.normal,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
                           color: FlutterFlowTheme.of(context).secondaryText,
                           fontSize: 18.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.normal,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                     maxLines: null,
                     validator: _model.searchTextControllerValidator
                         .asValidator(context),
+                    inputFormatters: [
+                      if (!isAndroid && !isiOS)
+                        TextInputFormatter.withFunction((oldValue, newValue) {
+                          return TextEditingValue(
+                            selection: newValue.selection,
+                            text: newValue.text
+                                .toCapitalization(TextCapitalization.none),
+                          );
+                        }),
+                    ],
                   ),
                 ),
               ],
@@ -174,7 +202,7 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     context.pushNamed(
-                      'SearchResults',
+                      SearchResultsWidget.routeName,
                       queryParameters: {
                         'initialSearch': serializeParam(
                           _model.searchTextController.text,
@@ -186,7 +214,7 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
                         ),
                       }.withoutNulls,
                       extra: <String, dynamic>{
-                        kTransitionInfoKey: const TransitionInfo(
+                        kTransitionInfoKey: TransitionInfo(
                           hasTransition: true,
                           transitionType: PageTransitionType.fade,
                         ),
@@ -198,29 +226,37 @@ class _SearchbarDummyWidgetState extends State<SearchbarDummyWidget> {
                       color: FlutterFlowTheme.of(context).accent2,
                       borderRadius: BorderRadius.circular(18.0),
                     ),
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
+                          EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
                       child: Text(
                         valueOrDefault<String>(
                           rowFilterTagsRow.name,
                           'Tag name',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
                               color: FlutterFlowTheme.of(context).secondaryText,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                       ),
                     ),
                   ),
                 );
               })
-                  .divide(const SizedBox(width: 8.0))
-                  .addToStart(const SizedBox(width: 16.0))
-                  .addToEnd(const SizedBox(width: 16.0)),
+                  .divide(SizedBox(width: 8.0))
+                  .addToStart(SizedBox(width: 16.0))
+                  .addToEnd(SizedBox(width: 16.0)),
             );
           },
         ),

@@ -1,13 +1,14 @@
 import '/backend/supabase/supabase.dart';
-import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_audio_player.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'audio_player_model.dart';
 export 'audio_player_model.dart';
@@ -29,6 +30,9 @@ class AudioPlayerWidget extends StatefulWidget {
   final String? audioURL;
   final String? shareURL;
   final int? providerID;
+
+  static String routeName = 'AudioPlayer';
+  static String routePath = 'audioplayer';
 
   @override
   State<AudioPlayerWidget> createState() => _AudioPlayerWidgetState();
@@ -105,15 +109,28 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(1.0, 0.0),
+                            alignment: AlignmentDirectional(1.0, 0.0),
                             child: Builder(
                               builder: (context) => FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
@@ -140,7 +157,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                       ),
                       Flexible(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 32.0, 16.0, 0.0),
                           child: Container(
                             width: double.infinity,
@@ -151,8 +168,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(14.0),
                               child: CachedNetworkImage(
-                                fadeInDuration: const Duration(milliseconds: 300),
-                                fadeOutDuration: const Duration(milliseconds: 300),
+                                fadeInDuration: Duration(milliseconds: 300),
+                                fadeOutDuration: Duration(milliseconds: 300),
                                 imageUrl: valueOrDefault<String>(
                                   widget.thumbnailURL,
                                   'https://movecloser.org/wp-content/uploads/2019/12/gospel.jpg',
@@ -165,7 +182,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 32.0, 16.0, 0.0),
                         child: FutureBuilder<List<ResourceProvidersRow>>(
                           future: ResourceProvidersTable().querySingleRow(
@@ -211,12 +228,21 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .headlineLarge
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineLarge
+                                                  .fontStyle,
+                                        ),
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
-                                        fontSize: 24.0,
+                                        fontSize: 22.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineLarge
+                                            .fontStyle,
                                       ),
                                 ),
                                 Row(
@@ -225,7 +251,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 4.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -234,7 +260,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           context.pushNamed(
-                                            'ResourceCredit',
+                                            ResourceCreditWidget.routeName,
                                             queryParameters: {
                                               'provider': serializeParam(
                                                 columnResourceProvidersRow,
@@ -252,13 +278,24 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
                                                 fontSize: 16.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -270,7 +307,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         context.pushNamed(
-                                          'ResourceCredit',
+                                          ResourceCreditWidget.routeName,
                                           queryParameters: {
                                             'provider': serializeParam(
                                               columnResourceProvidersRow,
@@ -306,15 +343,49 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                                     titleTextStyle: FlutterFlowTheme.of(context)
                                         .titleLarge
                                         .override(
-                                          fontFamily: 'Inter',
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLarge
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleLarge
+                                                  .fontStyle,
                                         ),
                                     playbackDurationTextStyle:
                                         FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
                                             ),
                                     fillColor: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -333,16 +404,16 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 38.0, 16.0, 0.0),
                         child: Container(
                           width: double.infinity,
                           height: 200.0,
                           decoration: BoxDecoration(
-                            color: const Color(0x00FFFFFF),
+                            color: Color(0x00FFFFFF),
                             borderRadius: BorderRadius.circular(0.0),
                           ),
-                          child: SizedBox(
+                          child: Container(
                             width: double.infinity,
                             height: double.infinity,
                             child: custom_widgets.PlayerScreen(
@@ -351,8 +422,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                               musicUrl: widget.audioURL!,
                               progressBarColor:
                                   FlutterFlowTheme.of(context).secondary,
-                              baseBarColor: const Color(0x33BDBDBD),
-                              bufferedBarColor: const Color(0x33BDBDBD),
+                              baseBarColor: Color(0x33BDBDBD),
+                              bufferedBarColor: Color(0x33BDBDBD),
                               thumbColor:
                                   FlutterFlowTheme.of(context).secondary,
                               fontSize: 14.0,
@@ -366,16 +437,6 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.navBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
-                    selectedPage: 'explore',
                   ),
                 ),
               ),

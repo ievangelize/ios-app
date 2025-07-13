@@ -9,7 +9,7 @@ class FilterTagsTable extends SupabaseTable<FilterTagsRow> {
 }
 
 class FilterTagsRow extends SupabaseDataRow {
-  FilterTagsRow(super.data);
+  FilterTagsRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => FilterTagsTable();

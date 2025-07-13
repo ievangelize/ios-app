@@ -1,5 +1,6 @@
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'resource_credit_widget.dart' show ResourceCreditWidget;
 import 'package:flutter/material.dart';
 

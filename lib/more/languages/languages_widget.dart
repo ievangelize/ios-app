@@ -13,6 +13,9 @@ export 'languages_model.dart';
 class LanguagesWidget extends StatefulWidget {
   const LanguagesWidget({super.key});
 
+  static String routeName = 'Languages';
+  static String routePath = 'languages';
+
   @override
   State<LanguagesWidget> createState() => _LanguagesWidgetState();
 }
@@ -83,7 +86,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                   context.safePop();
                 },
               ),
-              actions: const [],
+              actions: [],
               elevation: 0.0,
             )
           ],
@@ -125,7 +128,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 0.0, 16.0),
                                       child: Text(
                                         FFLocalizations.of(context).getText(
@@ -134,14 +137,31 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .headlineLarge
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineLarge
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineLarge
+                                                        .fontStyle,
+                                              ),
                                               fontSize: 32.0,
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineLarge
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 16.0),
                                       child: Text(
                                         FFLocalizations.of(context).getText(
@@ -151,14 +171,31 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
+                                              ),
                                               fontSize: 16.0,
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 16.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -178,8 +215,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                                                     .accent1,
                                             dropdownIconColor: Colors.white,
                                             borderRadius: 8.0,
-                                            textStyle: GoogleFonts.getFont(
-                                              'Inter',
+                                            textStyle: GoogleFonts.inter(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
@@ -206,11 +242,11 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.0, 1.0),
+                            alignment: AlignmentDirectional(0.0, 1.0),
                             child: wrapWithModel(
                               model: _model.navBarModel,
                               updateCallback: () => safeSetState(() {}),
-                              child: const NavBarWidget(
+                              child: NavBarWidget(
                                 selectedPage: 'more',
                               ),
                             ),

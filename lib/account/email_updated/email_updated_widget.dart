@@ -2,7 +2,9 @@ import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'email_updated_model.dart';
 export 'email_updated_model.dart';
 
@@ -13,6 +15,9 @@ class EmailUpdatedWidget extends StatefulWidget {
   });
 
   final UsersRow? account;
+
+  static String routeName = 'EmailUpdated';
+  static String routePath = 'email-updated';
 
   @override
   State<EmailUpdatedWidget> createState() => _EmailUpdatedWidgetState();
@@ -57,25 +62,31 @@ class _EmailUpdatedWidgetState extends State<EmailUpdatedWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'fnvomgag' /* Email address changed! */,
                   ),
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).titleLarge.override(
-                        fontFamily: 'Inter',
+                        font: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                        ),
                         fontSize: 26.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
                       ),
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                   child: wrapWithModel(
                     model: _model.largeBtnModel,
                     updateCallback: () => safeSetState(() {}),
@@ -85,9 +96,9 @@ class _EmailUpdatedWidgetState extends State<EmailUpdatedWidget> {
                       textColor: FlutterFlowTheme.of(context).info,
                       action: () async {
                         context.goNamed(
-                          'home',
+                          HomeWidget.routeName,
                           extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
+                            kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
                               transitionType: PageTransitionType.fade,
                               duration: Duration(milliseconds: 0),

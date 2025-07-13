@@ -3,15 +3,20 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'quote1_model.dart';
 export 'quote1_model.dart';
 
 class Quote1Widget extends StatefulWidget {
   const Quote1Widget({super.key});
+
+  static String routeName = 'quote1';
+  static String routePath = 'quote1';
 
   @override
   State<Quote1Widget> createState() => _Quote1WidgetState();
@@ -34,9 +39,9 @@ class _Quote1WidgetState extends State<Quote1Widget> {
       if (FFAppState().completedOnboarding) {
         if (loggedIn) {
           context.goNamed(
-            'home',
+            HomeWidget.routeName,
             extra: <String, dynamic>{
-              kTransitionInfoKey: const TransitionInfo(
+              kTransitionInfoKey: TransitionInfo(
                 hasTransition: true,
                 transitionType: PageTransitionType.fade,
                 duration: Duration(milliseconds: 0),
@@ -44,16 +49,31 @@ class _Quote1WidgetState extends State<Quote1Widget> {
             },
           );
         } else {
-          context.goNamed(
-            'homeNoAuth',
-            extra: <String, dynamic>{
-              kTransitionInfoKey: const TransitionInfo(
-                hasTransition: true,
-                transitionType: PageTransitionType.fade,
-                duration: Duration(milliseconds: 0),
-              ),
-            },
-          );
+          _model.currentVersion = await actions.newVersion();
+          if (_model.currentVersion ==
+              getRemoteConfigString('deprecatedVersion')) {
+            context.goNamed(
+              UpdateVersionWidget.routeName,
+              extra: <String, dynamic>{
+                kTransitionInfoKey: TransitionInfo(
+                  hasTransition: true,
+                  transitionType: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 0),
+                ),
+              },
+            );
+          } else {
+            context.goNamed(
+              HomeNoAuthWidget.routeName,
+              extra: <String, dynamic>{
+                kTransitionInfoKey: TransitionInfo(
+                  hasTransition: true,
+                  transitionType: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 0),
+                ),
+              },
+            );
+          }
         }
       }
     });
@@ -85,9 +105,9 @@ class _Quote1WidgetState extends State<Quote1Widget> {
           highlightColor: Colors.transparent,
           onTap: () async {
             context.pushNamed(
-              'quote2',
+              Quote2Widget.routeName,
               extra: <String, dynamic>{
-                kTransitionInfoKey: const TransitionInfo(
+                kTransitionInfoKey: TransitionInfo(
                   hasTransition: true,
                   transitionType: PageTransitionType.fade,
                   duration: Duration(milliseconds: 0),
@@ -114,11 +134,11 @@ class _Quote1WidgetState extends State<Quote1Widget> {
             child: Stack(
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    child: SizedBox(
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: Container(
                       width: double.infinity,
                       height: 100.0,
                       child: custom_widgets.TypewriterAnimation(
@@ -133,20 +153,28 @@ class _Quote1WidgetState extends State<Quote1Widget> {
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 48.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 48.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         '1k2cp01u' /* TAP TO CONTINUE */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
+                            font: GoogleFonts.inter(
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             color: FlutterFlowTheme.of(context).info,
                             fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
                           ),
                     ),
                   ),

@@ -9,7 +9,7 @@ class ImpactTable extends SupabaseTable<ImpactRow> {
 }
 
 class ImpactRow extends SupabaseDataRow {
-  ImpactRow(super.data);
+  ImpactRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ImpactTable();

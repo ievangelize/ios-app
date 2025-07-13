@@ -1,5 +1,6 @@
 import '/components/app_bar_image/app_bar_image_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'login_widget.dart' show LoginWidget;
 import 'package:flutter/material.dart';
 

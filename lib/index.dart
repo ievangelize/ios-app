@@ -63,3 +63,10 @@ export '/tools/equipping_card/equipping_card_widget.dart'
     show EquippingCardWidget;
 export '/tools/equipping_card_info/equipping_card_info_widget.dart'
     show EquippingCardInfoWidget;
+export '/update_version/update_version_widget.dart' show UpdateVersionWidget;
+export '/evangelize/swippablestack/swippablestack_widget.dart'
+    show SwippablestackWidget;
+export '/evangelize/situation_copy/situation_copy_widget.dart'
+    show SituationCopyWidget;
+export '/aisim/aisim_widget.dart' show AisimWidget;
+export '/aisim_copy/aisim_copy_widget.dart' show AisimCopyWidget;

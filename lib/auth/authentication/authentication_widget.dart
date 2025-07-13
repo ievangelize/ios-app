@@ -2,14 +2,19 @@ import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'authentication_model.dart';
 export 'authentication_model.dart';
 
 class AuthenticationWidget extends StatefulWidget {
   const AuthenticationWidget({super.key});
+
+  static String routeName = 'authentication';
+  static String routePath = 'authentication';
 
   @override
   State<AuthenticationWidget> createState() => _AuthenticationWidgetState();
@@ -38,8 +43,8 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(0.0, 100.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 100.0),
+            end: Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -57,8 +62,8 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
             curve: Curves.easeInOut,
             delay: 100.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(0.0, 100.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 100.0),
+            end: Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -76,8 +81,8 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
             curve: Curves.easeInOut,
             delay: 200.0.ms,
             duration: 600.0.ms,
-            begin: const Offset(0.0, 100.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 100.0),
+            end: Offset(0.0, 0.0),
           ),
           FadeEffect(
             curve: Curves.easeInOut,
@@ -128,14 +133,14 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
             Container(
               width: double.infinity,
               height: double.infinity,
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
@@ -151,7 +156,7 @@ class _AuthenticationWidgetState extends State<AuthenticationWidget>
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 32.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 32.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'hungoqtb' /* Share your faith
@@ -161,17 +166,25 @@ confidently */
                       textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).headlineLarge.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
+                                ),
                                 fontSize: 32.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontStyle,
                               ),
                     ).animateOnPageLoad(
                         animationsMap['textOnPageLoadAnimation1']!),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'k123j0vs' /* Anywhere • Anytime */,
@@ -179,10 +192,18 @@ confidently */
                       textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).headlineLarge.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
+                                ),
                                 fontSize: 24.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontStyle,
                               ),
                     ).animateOnPageLoad(
                         animationsMap['textOnPageLoadAnimation2']!),
@@ -191,7 +212,7 @@ confidently */
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 24.0),
                         child: wrapWithModel(
                           model: _model.largeBtnModel1,
@@ -203,28 +224,28 @@ confidently */
                             action: () async {
                               HapticFeedback.mediumImpact();
 
-                              context.pushNamed('Signup');
+                              context.pushNamed(SignupWidget.routeName);
                             },
                           ),
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.0, 1.0),
+                        alignment: AlignmentDirectional(0.0, 1.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 0.0),
                           child: wrapWithModel(
                             model: _model.largeBtnModel2,
                             updateCallback: () => safeSetState(() {}),
                             child: LargeBtnWidget(
                               text: 'Login',
-                              color: const Color(0x00FFFFFF),
+                              color: Color(0x00FFFFFF),
                               textColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               action: () async {
                                 HapticFeedback.mediumImpact();
 
-                                context.pushNamed('Login');
+                                context.pushNamed(LoginWidget.routeName);
                               },
                             ),
                           ),
@@ -239,12 +260,12 @@ confidently */
               child: Container(
                 width: double.infinity,
                 height: 80.0,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: Color(0x00FFFFFF),
                 ),
-                alignment: const AlignmentDirectional(-1.0, 0.0),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,

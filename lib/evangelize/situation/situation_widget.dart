@@ -1,5 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
+import '/backend/ai_agents/ai_agent.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,9 @@ export 'situation_model.dart';
 
 class SituationWidget extends StatefulWidget {
   const SituationWidget({super.key});
+
+  static String routeName = 'situation';
+  static String routePath = 'situation';
 
   @override
   State<SituationWidget> createState() => _SituationWidgetState();
@@ -93,7 +97,7 @@ class _SituationWidgetState extends State<SituationWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        drawer: SizedBox(
+        drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.9,
           child: Drawer(
             elevation: 0.0,
@@ -112,7 +116,7 @@ class _SituationWidgetState extends State<SituationWidget>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -125,10 +129,18 @@ class _SituationWidgetState extends State<SituationWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .headlineLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineLarge
+                                            .fontStyle,
+                                      ),
                                       fontSize: 24.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineLarge
+                                          .fontStyle,
                                     ),
                               ),
                               FlutterFlowIconButton(
@@ -150,7 +162,7 @@ class _SituationWidgetState extends State<SituationWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 12.0, 16.0, 0.0),
                           child: Container(
                             decoration: BoxDecoration(
@@ -161,7 +173,7 @@ class _SituationWidgetState extends State<SituationWidget>
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 0.0, 0.0),
                                   child: Icon(
                                     Icons.search,
@@ -176,7 +188,7 @@ class _SituationWidgetState extends State<SituationWidget>
                                     focusNode: _model.searchFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.searchTextController',
-                                      const Duration(milliseconds: 500),
+                                      Duration(milliseconds: 500),
                                       () => safeSetState(() {}),
                                     ),
                                     autofocus: false,
@@ -195,7 +207,7 @@ class _SituationWidgetState extends State<SituationWidget>
                                       errorBorder: InputBorder.none,
                                       focusedErrorBorder: InputBorder.none,
                                       contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               4.0, 12.0, 8.0, 12.0),
                                       suffixIcon: _model.searchTextController!
                                               .text.isNotEmpty
@@ -218,12 +230,22 @@ class _SituationWidgetState extends State<SituationWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Inter',
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                     textAlign: TextAlign.start,
                                     maxLength: 50,
@@ -237,6 +259,18 @@ class _SituationWidgetState extends State<SituationWidget>
                                     validator: _model
                                         .searchTextControllerValidator
                                         .asValidator(context),
+                                    inputFormatters: [
+                                      if (!isAndroid && !isiOS)
+                                        TextInputFormatter.withFunction(
+                                            (oldValue, newValue) {
+                                          return TextEditingValue(
+                                            selection: newValue.selection,
+                                            text: newValue.text
+                                                .toCapitalization(
+                                                    TextCapitalization.none),
+                                          );
+                                        }),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -244,7 +278,7 @@ class _SituationWidgetState extends State<SituationWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 14.0, 0.0, 0.0),
                           child: FutureBuilder<List<SituationRow>>(
                             future: FFAppState().icebreakers(
@@ -262,7 +296,7 @@ class _SituationWidgetState extends State<SituationWidget>
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 16.0),
                                     child: SizedBox(
                                       width: 20.0,
@@ -286,7 +320,7 @@ class _SituationWidgetState extends State<SituationWidget>
                                 scrollDirection: Axis.vertical,
                                 itemCount: listViewSituationRowList.length,
                                 separatorBuilder: (_, __) =>
-                                    const SizedBox(height: 10.0),
+                                    SizedBox(height: 10.0),
                                 itemBuilder: (context, listViewIndex) {
                                   final listViewSituationRow =
                                       listViewSituationRowList[listViewIndex];
@@ -297,7 +331,7 @@ class _SituationWidgetState extends State<SituationWidget>
                                                 .situationInfo!) ??
                                         true,
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 8.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -306,7 +340,7 @@ class _SituationWidgetState extends State<SituationWidget>
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           context.pushNamed(
-                                            'selectedSituation',
+                                            SelectedSituationWidget.routeName,
                                             queryParameters: {
                                               'gptAnswer': serializeParam(
                                                 listViewSituationRow
@@ -352,13 +386,34 @@ class _SituationWidgetState extends State<SituationWidget>
                                                           context)
                                                       .headlineLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineLarge
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineLarge
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineLarge
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineLarge
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: Text(
@@ -377,16 +432,31 @@ class _SituationWidgetState extends State<SituationWidget>
                                                             context)
                                                         .headlineLarge
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLarge
+                                                                    .fontStyle,
+                                                          ),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineLarge
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 10.0, 0.0, 0.0),
                                                   child: Row(
@@ -403,7 +473,7 @@ class _SituationWidgetState extends State<SituationWidget>
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     6.0,
                                                                     0.0,
@@ -422,8 +492,17 @@ class _SituationWidgetState extends State<SituationWidget>
                                                                   .of(context)
                                                               .headlineLarge
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLarge
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -433,6 +512,10 @@ class _SituationWidgetState extends State<SituationWidget>
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLarge
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -483,7 +566,7 @@ class _SituationWidgetState extends State<SituationWidget>
           ),
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -491,9 +574,9 @@ class _SituationWidgetState extends State<SituationWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   context.pushNamed(
-                    'donate',
+                    DonateWidget.routeName,
                     extra: <String, dynamic>{
-                      kTransitionInfoKey: const TransitionInfo(
+                      kTransitionInfoKey: TransitionInfo(
                         hasTransition: true,
                         transitionType: PageTransitionType.bottomToTop,
                       ),
@@ -505,7 +588,7 @@ class _SituationWidgetState extends State<SituationWidget>
                   height: 40.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
                         blurRadius: 2.1,
                         color: Color(0x33000000),
@@ -521,7 +604,7 @@ class _SituationWidgetState extends State<SituationWidget>
                       color: FlutterFlowTheme.of(context).success,
                     ),
                   ),
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
                     child: Image.asset(
@@ -545,7 +628,7 @@ class _SituationWidgetState extends State<SituationWidget>
               if (!_model.btnClicked)
                 Container(
                   height: double.infinity,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                         0.0,
@@ -565,21 +648,28 @@ class _SituationWidgetState extends State<SituationWidget>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 32.0),
                           child: Text(
-                            FFLocalizations.of(context).getText(
-                              'p6ezxqqp' /* Who do you want to
-evangelize ... */
-                              ,
+                            valueOrDefault<String>(
+                              _model.agentResponse?.toString(),
+                              'answer here',
                             ),
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .headlineLarge
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineLarge
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -587,12 +677,12 @@ evangelize ... */
                           key: _model.formKey,
                           autovalidateMode: AutovalidateMode.disabled,
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: const Color(0x00FFFFFF),
+                                color: Color(0x00FFFFFF),
                                 borderRadius: BorderRadius.circular(50.0),
                                 border: Border.all(
                                   color: FlutterFlowTheme.of(context).accent1,
@@ -616,7 +706,7 @@ evangelize ... */
                                             FFLocalizations.of(context).getText(
                                           'pj6kqhso' /* Describe any situation or pers... */,
                                         ),
-                                        enabledBorder: const OutlineInputBorder(
+                                        enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00FFFFFF),
                                             width: 1.0,
@@ -628,7 +718,7 @@ evangelize ... */
                                             topRight: Radius.circular(0.0),
                                           ),
                                         ),
-                                        focusedBorder: const OutlineInputBorder(
+                                        focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Color(0x00FFFFFF),
                                             width: 1.0,
@@ -646,7 +736,7 @@ evangelize ... */
                                                 .error,
                                             width: 1.0,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(24.0),
                                             bottomRight: Radius.circular(0.0),
                                             topLeft: Radius.circular(24.0),
@@ -659,7 +749,7 @@ evangelize ... */
                                                 .error,
                                             width: 1.0,
                                           ),
-                                          borderRadius: const BorderRadius.only(
+                                          borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(24.0),
                                             bottomRight: Radius.circular(0.0),
                                             topLeft: Radius.circular(24.0),
@@ -670,8 +760,19 @@ evangelize ... */
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                       maxLines: null,
                                       maxLength: 350,
@@ -688,7 +789,7 @@ evangelize ... */
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 3.0, 0.0),
                                     child: FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
@@ -715,113 +816,25 @@ evangelize ... */
                                               }
                                               _model.btnClicked = true;
                                               safeSetState(() {});
-                                              _model.apiOutput =
-                                                  await OpenAIAPICall.call(
-                                                situation: _model
+                                              await callAiAgent(
+                                                context: context,
+                                                prompt: _model
                                                     .situationInfoTextController
                                                     .text,
-                                              );
+                                                threadId: 'tino_message',
+                                                agentCloudFunctionName:
+                                                    'conversationStarter',
+                                                provider: 'OPENAI',
+                                                agentJson: null,
+                                                responseType: 'JSON',
+                                              ).then((generatedText) {
+                                                safeSetState(() =>
+                                                    _model.agentResponse =
+                                                        generatedText);
+                                              });
 
-                                              if ((_model
-                                                      .apiOutput?.succeeded ??
-                                                  true)) {
-                                                if (getJsonField(
-                                                  (_model.apiOutput?.jsonBody ??
-                                                      ''),
-                                                  r'''$.success''',
-                                                )
-                                                    ? true
-                                                    : false) {
-                                                  _model.newSituation =
-                                                      await SituationTable()
-                                                          .insert({
-                                                    'situation_info': _model
-                                                        .situationInfoTextController
-                                                        .text,
-                                                    'created_by':
-                                                        currentUserUid,
-                                                    'gpt_output_json': (_model
-                                                            .apiOutput
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                  });
-                                                  _model.btnClicked = false;
-                                                  safeSetState(() {});
-                                                  FFAppState()
-                                                      .clearIcebreakersCache();
-
-                                                  context.pushNamed(
-                                                    'NewSituation',
-                                                    queryParameters: {
-                                                      'gptAnswer':
-                                                          serializeParam(
-                                                        (_model.apiOutput
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                        ParamType.JSON,
-                                                      ),
-                                                      'newSituation':
-                                                          serializeParam(
-                                                        _model.newSituation,
-                                                        ParamType.SupabaseRow,
-                                                      ),
-                                                    }.withoutNulls,
-                                                  );
-                                                } else {
-                                                  _model.btnClicked = false;
-                                                  safeSetState(() {});
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Please try another prompt!',
-                                                        style:
-                                                            GoogleFonts.getFont(
-                                                          'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                                      ),
-                                                      duration: const Duration(
-                                                          milliseconds: 4000),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                    ),
-                                                  );
-                                                }
-                                              } else {
-                                                _model.btnClicked = false;
-                                                safeSetState(() {});
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Please try again!',
-                                                      style:
-                                                          GoogleFonts.getFont(
-                                                        'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                    ),
-                                                    duration: const Duration(
-                                                        milliseconds: 4000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .error,
-                                                  ),
-                                                );
-                                              }
+                                              _model.btnClicked = false;
+                                              safeSetState(() {});
 
                                               safeSetState(() {});
                                             },
@@ -833,7 +846,7 @@ evangelize ... */
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
@@ -841,7 +854,7 @@ evangelize ... */
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 0.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -864,7 +877,7 @@ evangelize ... */
                                             BorderRadius.circular(18.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 12.0, 12.0, 12.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -883,11 +896,24 @@ evangelize ... */
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                             Text(
@@ -900,8 +926,29 @@ evangelize ... */
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                           ],
@@ -911,7 +958,7 @@ evangelize ... */
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -934,7 +981,7 @@ evangelize ... */
                                             BorderRadius.circular(18.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 12.0, 12.0, 12.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -953,11 +1000,24 @@ evangelize ... */
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                             Text(
@@ -970,8 +1030,29 @@ evangelize ... */
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                           ],
@@ -981,7 +1062,7 @@ evangelize ... */
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -1004,7 +1085,7 @@ evangelize ... */
                                             BorderRadius.circular(18.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 12.0, 12.0, 12.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1023,11 +1104,24 @@ evangelize ... */
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                             Text(
@@ -1040,8 +1134,29 @@ evangelize ... */
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                           ],
@@ -1060,21 +1175,21 @@ evangelize ... */
                   ),
                 ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'evangelize',
                   ),
                 ),
               ),
               if (_model.btnClicked)
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 100.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 100.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(0.0),
                       child: Image.asset(

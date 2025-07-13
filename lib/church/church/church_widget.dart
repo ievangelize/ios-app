@@ -4,9 +4,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'church_model.dart';
 export 'church_model.dart';
 
@@ -17,6 +19,9 @@ class ChurchWidget extends StatefulWidget {
   });
 
   final String? churchID;
+
+  static String routeName = 'Church';
+  static String routePath = 'church';
 
   @override
   State<ChurchWidget> createState() => _ChurchWidgetState();
@@ -69,7 +74,7 @@ class _ChurchWidgetState extends State<ChurchWidget> {
               size: 24.0,
             ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -108,20 +113,20 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
                       child: Container(
                         width: 200.0,
                         height: 200.0,
                         clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 300),
-                          fadeOutDuration: const Duration(milliseconds: 300),
+                          fadeInDuration: Duration(milliseconds: 300),
+                          fadeOutDuration: Duration(milliseconds: 300),
                           imageUrl: columnChurchesRow!.logoUrl!,
                           fit: BoxFit.cover,
                         ),
@@ -129,25 +134,33 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, -1.0),
+                    alignment: AlignmentDirectional(0.0, -1.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'rmtmtdli' /* You're part of: */,
                       ),
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
+                            font: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             fontSize: 22.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
                           ),
                     ),
                   ),
                   Expanded(
                     child: Align(
-                      alignment: const AlignmentDirectional(0.0, -1.0),
+                      alignment: AlignmentDirectional(0.0, -1.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 24.0, 16.0, 0.0),
                         child: Text(
                           valueOrDefault<String>(
@@ -157,10 +170,18 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     fontSize: 24.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                         ),
                       ),
@@ -168,7 +189,7 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (isiOS) {
@@ -196,9 +217,9 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                             );
 
                             context.pushNamed(
-                              'home',
+                              HomeWidget.routeName,
                               extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
+                                kTransitionInfoKey: TransitionInfo(
                                   hasTransition: true,
                                   transitionType:
                                       PageTransitionType.bottomToTop,
@@ -211,19 +232,19 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: const Text('Leave this church?'),
-                                    content: const Text(
+                                    title: Text('Leave this church?'),
+                                    content: Text(
                                         'If you leave this church, you can always join it again.'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, false),
-                                        child: const Text('Cancel'),
+                                        child: Text('Cancel'),
                                       ),
                                       TextButton(
                                         onPressed: () => Navigator.pop(
                                             alertDialogContext, true),
-                                        child: const Text('Leave'),
+                                        child: Text('Leave'),
                                       ),
                                     ],
                                   );
@@ -244,9 +265,9 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                             );
 
                             context.pushNamed(
-                              'home',
+                              HomeWidget.routeName,
                               extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
+                                kTransitionInfoKey: TransitionInfo(
                                   hasTransition: true,
                                   transitionType:
                                       PageTransitionType.bottomToTop,
@@ -264,16 +285,29 @@ class _ChurchWidgetState extends State<ChurchWidget> {
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 50.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).error,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
                                   color: Colors.white,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(24.0),

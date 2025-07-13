@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'starter_failed_model.dart';
 export 'starter_failed_model.dart';
 
@@ -51,8 +52,8 @@ class _StarterFailedWidgetState extends State<StarterFailedWidget>
             curve: Curves.elasticOut,
             delay: 300.0.ms,
             duration: 300.0.ms,
-            begin: const Offset(0.0, 0.0),
-            end: const Offset(1.0, 1.0),
+            begin: Offset(0.0, 0.0),
+            end: Offset(1.0, 1.0),
           ),
         ],
       ),
@@ -75,9 +76,9 @@ class _StarterFailedWidgetState extends State<StarterFailedWidget>
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: const AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -89,14 +90,14 @@ class _StarterFailedWidgetState extends State<StarterFailedWidget>
             ),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 16.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(1.0, -1.0),
+                  alignment: AlignmentDirectional(1.0, -1.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -119,10 +120,16 @@ class _StarterFailedWidgetState extends State<StarterFailedWidget>
                   ),
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
+                        font: GoogleFonts.inter(
+                          fontWeight: FontWeight.normal,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
                         fontSize: 16.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.normal,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                 ),
               ],

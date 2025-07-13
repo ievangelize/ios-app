@@ -12,6 +12,7 @@ Future initializeFirebaseRemoteConfig() async {
       'tinoURL': 'https://www.instagram.com/tino.chiwara/',
       'jad': false,
       'church': false,
+      'deprecatedVersion': '',
     });
     await FirebaseRemoteConfig.instance.fetchAndActivate();
   } catch (error) {

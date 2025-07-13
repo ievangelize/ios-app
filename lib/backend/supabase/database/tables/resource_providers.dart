@@ -10,7 +10,7 @@ class ResourceProvidersTable extends SupabaseTable<ResourceProvidersRow> {
 }
 
 class ResourceProvidersRow extends SupabaseDataRow {
-  ResourceProvidersRow(super.data);
+  ResourceProvidersRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ResourceProvidersTable();

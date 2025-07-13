@@ -109,7 +109,7 @@ class _HomeVideoLoadingWidgetState extends State<HomeVideoLoadingWidget>
             borderRadius: BorderRadius.circular(8.0),
           ),
         ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation3']!),
-      ].divide(const SizedBox(width: 16.0)),
+      ].divide(SizedBox(width: 16.0)),
     );
   }
 }

@@ -8,17 +8,22 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'follow_up_list_model.dart';
 export 'follow_up_list_model.dart';
 
 class FollowUpListWidget extends StatefulWidget {
   const FollowUpListWidget({super.key});
+
+  static String routeName = 'followUpList';
+  static String routePath = 'followUp';
 
   @override
   State<FollowUpListWidget> createState() => _FollowUpListWidgetState();
@@ -72,7 +77,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: NestedScrollView(
-          floatHeaderSlivers: true,
+          floatHeaderSlivers: false,
           headerSliverBuilder: (context, _) => [
             SliverAppBar(
               pinned: false,
@@ -81,7 +86,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
               automaticallyImplyLeading: false,
               actions: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -89,9 +94,9 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.pushNamed(
-                        'donate',
+                        DonateWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.bottomToTop,
                           ),
@@ -103,7 +108,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                       height: 34.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).alternate,
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
                             blurRadius: 2.1,
                             color: Color(0x33000000),
@@ -119,7 +124,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                           color: FlutterFlowTheme.of(context).success,
                         ),
                       ),
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(0.0),
                         child: Image.asset(
@@ -133,14 +138,14 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed('followUpAdd');
+                      context.pushNamed(FollowUpAddWidget.routeName);
                     },
                     child: Container(
                       width: 34.0,
@@ -149,7 +154,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                         color: FlutterFlowTheme.of(context).secondary,
                         shape: BoxShape.circle,
                       ),
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Icon(
                         Icons.add_rounded,
                         color: FlutterFlowTheme.of(context).info,
@@ -160,22 +165,30 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                 ),
               ],
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(48.0),
+                preferredSize: Size.fromHeight(48.0),
                 child: Align(
-                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'vwt9jge3' /* Follow Up */,
                       ),
                       style:
                           FlutterFlowTheme.of(context).headlineLarge.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
+                                ),
                                 fontSize: 30.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontStyle,
                               ),
                     ),
                   ),
@@ -232,7 +245,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 16.0, 16.0, 16.0),
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -245,7 +258,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   10.0, 0.0, 0.0, 0.0),
                                           child: Icon(
                                             Icons.search,
@@ -262,7 +275,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                             onChanged: (_) =>
                                                 EasyDebounce.debounce(
                                               '_model.searchTextController',
-                                              const Duration(milliseconds: 1000),
+                                              Duration(milliseconds: 1000),
                                               () => safeSetState(() {}),
                                             ),
                                             autofocus: false,
@@ -283,7 +296,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -292,6 +313,11 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                               enabledBorder: InputBorder.none,
                                               focusedBorder: InputBorder.none,
@@ -299,7 +325,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                               focusedErrorBorder:
                                                   InputBorder.none,
                                               contentPadding:
-                                                  const EdgeInsetsDirectional
+                                                  EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           4.0, 12.0, 8.0, 12.0),
                                               suffixIcon: _model
@@ -327,13 +353,26 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
                                                   fontSize: 18.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                             maxLines: null,
                                             maxLength: 50,
@@ -347,6 +386,20 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                             validator: _model
                                                 .searchTextControllerValidator
                                                 .asValidator(context),
+                                            inputFormatters: [
+                                              if (!isAndroid && !isiOS)
+                                                TextInputFormatter.withFunction(
+                                                    (oldValue, newValue) {
+                                                  return TextEditingValue(
+                                                    selection:
+                                                        newValue.selection,
+                                                    text: newValue.text
+                                                        .toCapitalization(
+                                                            TextCapitalization
+                                                                .none),
+                                                  );
+                                                }),
+                                            ],
                                           ),
                                         ),
                                       ],
@@ -360,7 +413,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                     children: [
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(-1.0, 0.0),
+                                            AlignmentDirectional(-1.0, 0.0),
                                         child: FlutterFlowChoiceChips(
                                           options: [
                                             ChipData(FFLocalizations.of(context)
@@ -425,20 +478,32 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                     context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .info,
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                             iconColor:
                                                 FlutterFlowTheme.of(context)
                                                     .info,
                                             iconSize: 16.0,
                                             labelPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 1.0, 8.0, 1.0),
                                             elevation: 0.0,
                                             borderRadius:
@@ -452,20 +517,33 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                     context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                             iconColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryText,
                                             iconSize: 16.0,
                                             labelPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 1.0, 8.0, 1.0),
                                             elevation: 0.0,
                                             borderRadius:
@@ -491,20 +569,20 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                         ),
                                       ),
                                     ]
-                                        .addToStart(const SizedBox(width: 16.0))
-                                        .addToEnd(const SizedBox(width: 16.0)),
+                                        .addToStart(SizedBox(width: 16.0))
+                                        .addToEnd(SizedBox(width: 16.0)),
                                   ),
                                 ),
                                 if (_model.all ?? true)
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
                                     child: Builder(
                                       builder: (context) {
                                         final containerVar =
                                             containerReachedRowList.toList();
                                         if (containerVar.isEmpty) {
-                                          return const ListEmptyWidget(
+                                          return ListEmptyWidget(
                                             message:
                                                 'You haven\'t added anyone to follow-up',
                                             secondLine:
@@ -530,7 +608,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                       containerVarItem.name!) ??
                                                   true,
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: InkWell(
@@ -544,7 +622,8 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {
                                                     context.pushNamed(
-                                                      'followUpUpdate',
+                                                      FollowUpUpdateWidget
+                                                          .routeName,
                                                       queryParameters: {
                                                         'selectedPerson':
                                                             serializeParam(
@@ -582,7 +661,8 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                             Colors.transparent,
                                                         onTap: () async {
                                                           context.pushNamed(
-                                                            'followUpUpdate',
+                                                            FollowUpUpdateWidget
+                                                                .routeName,
                                                             queryParameters: {
                                                               'selectedPerson':
                                                                   serializeParam(
@@ -615,8 +695,16 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                       .of(context)
                                                                   .headlineLarge
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLarge
+                                                                          .fontStyle,
+                                                                    ),
                                                                     fontSize:
                                                                         16.0,
                                                                     letterSpacing:
@@ -624,11 +712,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           6.0,
@@ -650,16 +742,31 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                         context)
                                                                     .bodyMedium
                                                                     .override(
-                                                                      fontFamily:
-                                                                          'Inter',
+                                                                      font: GoogleFonts
+                                                                          .inter(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
                                                                       letterSpacing:
                                                                           0.0,
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
                                                                     ),
                                                               ),
                                                             ),
                                                             Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           10.0,
@@ -690,7 +797,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                             18.0,
                                                                       ),
                                                                       Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             6.0,
                                                                             0.0,
                                                                             0.0,
@@ -709,11 +816,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .headlineLarge
                                                                               .override(
-                                                                                fontFamily: 'Inter',
+                                                                                font: GoogleFonts.inter(
+                                                                                  fontWeight: FontWeight.normal,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                ),
                                                                                 color: FlutterFlowTheme.of(context).secondaryText,
                                                                                 fontSize: 12.0,
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.normal,
+                                                                                fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                               ),
                                                                         ),
                                                                       ),
@@ -723,12 +834,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                     child:
                                                                         Align(
                                                                       alignment:
-                                                                          const AlignmentDirectional(
+                                                                          AlignmentDirectional(
                                                                               1.0,
                                                                               0.0),
                                                                       child:
                                                                           Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             10.0,
@@ -755,7 +866,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                       color: FlutterFlowTheme.of(context).primaryText,
                                                                                     ),
                                                                                   ),
-                                                                                  duration: const Duration(milliseconds: 4000),
+                                                                                  duration: Duration(milliseconds: 4000),
                                                                                   backgroundColor: FlutterFlowTheme.of(context).error,
                                                                                 ),
                                                                               );
@@ -779,17 +890,21 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 size: 17.0,
                                                                               ),
                                                                               Padding(
-                                                                                padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                                                                                 child: Text(
                                                                                   FFLocalizations.of(context).getText(
                                                                                     '8vwec44i' /* Call */,
                                                                                   ),
                                                                                   style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                        fontFamily: 'Inter',
+                                                                                        font: GoogleFonts.inter(
+                                                                                          fontWeight: FontWeight.normal,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                        ),
                                                                                         color: FlutterFlowTheme.of(context).secondaryText,
                                                                                         fontSize: 12.0,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.normal,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                       ),
                                                                                 ),
                                                                               ),
@@ -801,12 +916,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                   ),
                                                                   Align(
                                                                     alignment:
-                                                                        const AlignmentDirectional(
+                                                                        AlignmentDirectional(
                                                                             1.0,
                                                                             0.0),
                                                                     child:
                                                                         Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           10.0,
@@ -833,7 +948,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                     color: FlutterFlowTheme.of(context).primaryText,
                                                                                   ),
                                                                                 ),
-                                                                                duration: const Duration(milliseconds: 4000),
+                                                                                duration: Duration(milliseconds: 4000),
                                                                                 backgroundColor: FlutterFlowTheme.of(context).error,
                                                                               ),
                                                                             );
@@ -861,17 +976,21 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               size: 17.0,
                                                                             ),
                                                                             Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 FFLocalizations.of(context).getText(
                                                                                   'nh6acy1h' /* Text */,
                                                                                 ),
                                                                                 style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                      fontFamily: 'Inter',
+                                                                                      font: GoogleFonts.inter(
+                                                                                        fontWeight: FontWeight.normal,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                      ),
                                                                                       color: FlutterFlowTheme.of(context).secondaryText,
                                                                                       fontSize: 12.0,
                                                                                       letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -882,7 +1001,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                   ),
                                                                   Align(
                                                                     alignment:
-                                                                        const AlignmentDirectional(
+                                                                        AlignmentDirectional(
                                                                             1.0,
                                                                             0.0),
                                                                     child:
@@ -914,7 +1033,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                   color: FlutterFlowTheme.of(context).primaryText,
                                                                                 ),
                                                                               ),
-                                                                              duration: const Duration(milliseconds: 4000),
+                                                                              duration: Duration(milliseconds: 4000),
                                                                               backgroundColor: FlutterFlowTheme.of(context).error,
                                                                             ),
                                                                           );
@@ -943,7 +1062,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 17.0,
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 3.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -954,11 +1073,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 'xryivb8o' /* Email */,
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                    fontFamily: 'Inter',
+                                                                                    font: GoogleFonts.inter(
+                                                                                      fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                    ),
                                                                                     color: FlutterFlowTheme.of(context).secondaryText,
                                                                                     fontSize: 12.0,
                                                                                     letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.normal,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -990,7 +1113,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                   ),
                                 if (_model.saved ?? true)
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 0.0),
                                     child: Builder(
                                       builder: (context) {
@@ -1000,7 +1123,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                     (e) => e.status == 'Saved')
                                                 .toList();
                                         if (reachedSaved.isEmpty) {
-                                          return const ListEmptyWidget(
+                                          return ListEmptyWidget(
                                             message:
                                                 'You haven\'t added anyone to follow-up',
                                             secondLine:
@@ -1026,7 +1149,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                       reachedSavedItem.name!) ??
                                                   true,
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: InkWell(
@@ -1040,7 +1163,8 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {
                                                     context.pushNamed(
-                                                      'followUpUpdate',
+                                                      FollowUpUpdateWidget
+                                                          .routeName,
                                                       queryParameters: {
                                                         'selectedPerson':
                                                             serializeParam(
@@ -1088,8 +1212,17 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                     .of(context)
                                                                 .headlineLarge
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontStyle,
+                                                                  ),
                                                                   fontSize:
                                                                       16.0,
                                                                   letterSpacing:
@@ -1097,11 +1230,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLarge
+                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         6.0,
@@ -1123,16 +1260,33 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         10.0,
@@ -1164,7 +1318,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                           18.0,
                                                                     ),
                                                                     Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           6.0,
                                                                           0.0,
                                                                           0.0,
@@ -1181,11 +1335,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .headlineLarge
                                                                             .override(
-                                                                              fontFamily: 'Inter',
+                                                                              font: GoogleFonts.inter(
+                                                                                fontWeight: FontWeight.normal,
+                                                                                fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                              ),
                                                                               color: FlutterFlowTheme.of(context).secondaryText,
                                                                               fontSize: 12.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.normal,
+                                                                              fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                             ),
                                                                       ),
                                                                     ),
@@ -1194,12 +1352,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 Flexible(
                                                                   child: Align(
                                                                     alignment:
-                                                                        const AlignmentDirectional(
+                                                                        AlignmentDirectional(
                                                                             1.0,
                                                                             0.0),
                                                                     child:
                                                                         Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           10.0,
@@ -1226,7 +1384,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                     color: FlutterFlowTheme.of(context).primaryText,
                                                                                   ),
                                                                                 ),
-                                                                                duration: const Duration(milliseconds: 4000),
+                                                                                duration: Duration(milliseconds: 4000),
                                                                                 backgroundColor: FlutterFlowTheme.of(context).error,
                                                                               ),
                                                                             );
@@ -1250,17 +1408,21 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               size: 17.0,
                                                                             ),
                                                                             Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 FFLocalizations.of(context).getText(
                                                                                   'fsnmo2j7' /* Call */,
                                                                                 ),
                                                                                 style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                      fontFamily: 'Inter',
+                                                                                      font: GoogleFonts.inter(
+                                                                                        fontWeight: FontWeight.normal,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                      ),
                                                                                       color: FlutterFlowTheme.of(context).secondaryText,
                                                                                       fontSize: 12.0,
                                                                                       letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -1272,12 +1434,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 ),
                                                                 Align(
                                                                   alignment:
-                                                                      const AlignmentDirectional(
+                                                                      AlignmentDirectional(
                                                                           1.0,
                                                                           0.0),
                                                                   child:
                                                                       Padding(
-                                                                    padding: const EdgeInsetsDirectional
+                                                                    padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -1312,7 +1474,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                   color: FlutterFlowTheme.of(context).primaryText,
                                                                                 ),
                                                                               ),
-                                                                              duration: const Duration(milliseconds: 4000),
+                                                                              duration: Duration(milliseconds: 4000),
                                                                               backgroundColor: FlutterFlowTheme.of(context).error,
                                                                             ),
                                                                           );
@@ -1342,7 +1504,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 17.0,
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 3.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -1353,11 +1515,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 'thtfycx0' /* Text */,
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                    fontFamily: 'Inter',
+                                                                                    font: GoogleFonts.inter(
+                                                                                      fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                    ),
                                                                                     color: FlutterFlowTheme.of(context).secondaryText,
                                                                                     fontSize: 12.0,
                                                                                     letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.normal,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1368,7 +1534,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 ),
                                                                 Align(
                                                                   alignment:
-                                                                      const AlignmentDirectional(
+                                                                      AlignmentDirectional(
                                                                           1.0,
                                                                           0.0),
                                                                   child:
@@ -1402,7 +1568,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               ),
                                                                             ),
                                                                             duration:
-                                                                                const Duration(milliseconds: 4000),
+                                                                                Duration(milliseconds: 4000),
                                                                             backgroundColor:
                                                                                 FlutterFlowTheme.of(context).error,
                                                                           ),
@@ -1434,7 +1600,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               17.0,
                                                                         ),
                                                                         Padding(
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
                                                                               3.0,
                                                                               0.0,
                                                                               0.0,
@@ -1445,11 +1611,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               'cdrgq4vc' /* Email */,
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                  fontFamily: 'Inter',
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                  ),
                                                                                   color: FlutterFlowTheme.of(context).secondaryText,
                                                                                   fontSize: 12.0,
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.normal,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -1480,7 +1650,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                   ),
                                 if (_model.unsaved ?? true)
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 0.0),
                                     child: Builder(
                                       builder: (context) {
@@ -1490,7 +1660,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                     e.status == 'Unsaved')
                                                 .toList();
                                         if (reachedUnsaved.isEmpty) {
-                                          return const ListEmptyWidget(
+                                          return ListEmptyWidget(
                                             message:
                                                 'You haven\'t added anyone to follow-up',
                                             secondLine:
@@ -1518,7 +1688,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                           .name!) ??
                                                   true,
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: InkWell(
@@ -1532,7 +1702,8 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {
                                                     context.pushNamed(
-                                                      'followUpUpdate',
+                                                      FollowUpUpdateWidget
+                                                          .routeName,
                                                       queryParameters: {
                                                         'selectedPerson':
                                                             serializeParam(
@@ -1580,8 +1751,17 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                     .of(context)
                                                                 .headlineLarge
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontStyle,
+                                                                  ),
                                                                   fontSize:
                                                                       16.0,
                                                                   letterSpacing:
@@ -1589,11 +1769,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLarge
+                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         6.0,
@@ -1615,16 +1799,33 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         10.0,
@@ -1656,7 +1857,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                           18.0,
                                                                     ),
                                                                     Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           6.0,
                                                                           0.0,
                                                                           0.0,
@@ -1673,11 +1874,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .headlineLarge
                                                                             .override(
-                                                                              fontFamily: 'Inter',
+                                                                              font: GoogleFonts.inter(
+                                                                                fontWeight: FontWeight.normal,
+                                                                                fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                              ),
                                                                               color: FlutterFlowTheme.of(context).secondaryText,
                                                                               fontSize: 12.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.normal,
+                                                                              fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                             ),
                                                                       ),
                                                                     ),
@@ -1686,12 +1891,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 Flexible(
                                                                   child: Align(
                                                                     alignment:
-                                                                        const AlignmentDirectional(
+                                                                        AlignmentDirectional(
                                                                             1.0,
                                                                             0.0),
                                                                     child:
                                                                         Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           10.0,
@@ -1718,7 +1923,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                     color: FlutterFlowTheme.of(context).primaryText,
                                                                                   ),
                                                                                 ),
-                                                                                duration: const Duration(milliseconds: 4000),
+                                                                                duration: Duration(milliseconds: 4000),
                                                                                 backgroundColor: FlutterFlowTheme.of(context).error,
                                                                               ),
                                                                             );
@@ -1742,17 +1947,21 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               size: 17.0,
                                                                             ),
                                                                             Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 FFLocalizations.of(context).getText(
                                                                                   'yn2a3oea' /* Call */,
                                                                                 ),
                                                                                 style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                      fontFamily: 'Inter',
+                                                                                      font: GoogleFonts.inter(
+                                                                                        fontWeight: FontWeight.normal,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                      ),
                                                                                       color: FlutterFlowTheme.of(context).secondaryText,
                                                                                       fontSize: 12.0,
                                                                                       letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -1764,12 +1973,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 ),
                                                                 Align(
                                                                   alignment:
-                                                                      const AlignmentDirectional(
+                                                                      AlignmentDirectional(
                                                                           1.0,
                                                                           0.0),
                                                                   child:
                                                                       Padding(
-                                                                    padding: const EdgeInsetsDirectional
+                                                                    padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -1804,7 +2013,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                   color: FlutterFlowTheme.of(context).primaryText,
                                                                                 ),
                                                                               ),
-                                                                              duration: const Duration(milliseconds: 4000),
+                                                                              duration: Duration(milliseconds: 4000),
                                                                               backgroundColor: FlutterFlowTheme.of(context).error,
                                                                             ),
                                                                           );
@@ -1834,7 +2043,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 17.0,
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 3.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -1845,11 +2054,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 'zp2dme20' /* Text */,
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                    fontFamily: 'Inter',
+                                                                                    font: GoogleFonts.inter(
+                                                                                      fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                    ),
                                                                                     color: FlutterFlowTheme.of(context).secondaryText,
                                                                                     fontSize: 12.0,
                                                                                     letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.normal,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1860,7 +2073,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 ),
                                                                 Align(
                                                                   alignment:
-                                                                      const AlignmentDirectional(
+                                                                      AlignmentDirectional(
                                                                           1.0,
                                                                           0.0),
                                                                   child:
@@ -1894,7 +2107,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               ),
                                                                             ),
                                                                             duration:
-                                                                                const Duration(milliseconds: 4000),
+                                                                                Duration(milliseconds: 4000),
                                                                             backgroundColor:
                                                                                 FlutterFlowTheme.of(context).error,
                                                                           ),
@@ -1926,7 +2139,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               17.0,
                                                                         ),
                                                                         Padding(
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
                                                                               3.0,
                                                                               0.0,
                                                                               0.0,
@@ -1937,11 +2150,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               'tpr2j6fo' /* Email */,
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                  fontFamily: 'Inter',
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                  ),
                                                                                   color: FlutterFlowTheme.of(context).secondaryText,
                                                                                   fontSize: 12.0,
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.normal,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -1972,7 +2189,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                   ),
                                 if (_model.church ?? true)
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 0.0),
                                     child: Builder(
                                       builder: (context) {
@@ -1982,7 +2199,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                     (e) => e.pluggedIn == true)
                                                 .toList();
                                         if (reachedPlugged.isEmpty) {
-                                          return const ListEmptyWidget(
+                                          return ListEmptyWidget(
                                             message:
                                                 'You haven\'t added anyone to follow-up',
                                             secondLine:
@@ -2010,7 +2227,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                           .name!) ??
                                                   true,
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: InkWell(
@@ -2024,7 +2241,8 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {
                                                     context.pushNamed(
-                                                      'followUpUpdate',
+                                                      FollowUpUpdateWidget
+                                                          .routeName,
                                                       queryParameters: {
                                                         'selectedPerson':
                                                             serializeParam(
@@ -2072,8 +2290,17 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                     .of(context)
                                                                 .headlineLarge
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontStyle,
+                                                                  ),
                                                                   fontSize:
                                                                       16.0,
                                                                   letterSpacing:
@@ -2081,11 +2308,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLarge
+                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         6.0,
@@ -2107,16 +2338,33 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         10.0,
@@ -2148,7 +2396,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                           18.0,
                                                                     ),
                                                                     Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           6.0,
                                                                           0.0,
                                                                           0.0,
@@ -2165,11 +2413,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .headlineLarge
                                                                             .override(
-                                                                              fontFamily: 'Inter',
+                                                                              font: GoogleFonts.inter(
+                                                                                fontWeight: FontWeight.normal,
+                                                                                fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                              ),
                                                                               color: FlutterFlowTheme.of(context).secondaryText,
                                                                               fontSize: 12.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.normal,
+                                                                              fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                             ),
                                                                       ),
                                                                     ),
@@ -2178,12 +2430,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 Flexible(
                                                                   child: Align(
                                                                     alignment:
-                                                                        const AlignmentDirectional(
+                                                                        AlignmentDirectional(
                                                                             1.0,
                                                                             0.0),
                                                                     child:
                                                                         Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           10.0,
@@ -2210,7 +2462,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                     color: FlutterFlowTheme.of(context).primaryText,
                                                                                   ),
                                                                                 ),
-                                                                                duration: const Duration(milliseconds: 4000),
+                                                                                duration: Duration(milliseconds: 4000),
                                                                                 backgroundColor: FlutterFlowTheme.of(context).error,
                                                                               ),
                                                                             );
@@ -2234,17 +2486,21 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               size: 17.0,
                                                                             ),
                                                                             Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 FFLocalizations.of(context).getText(
                                                                                   '1naok383' /* Call */,
                                                                                 ),
                                                                                 style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                      fontFamily: 'Inter',
+                                                                                      font: GoogleFonts.inter(
+                                                                                        fontWeight: FontWeight.normal,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                      ),
                                                                                       color: FlutterFlowTheme.of(context).secondaryText,
                                                                                       fontSize: 12.0,
                                                                                       letterSpacing: 0.0,
                                                                                       fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -2256,12 +2512,12 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 ),
                                                                 Align(
                                                                   alignment:
-                                                                      const AlignmentDirectional(
+                                                                      AlignmentDirectional(
                                                                           1.0,
                                                                           0.0),
                                                                   child:
                                                                       Padding(
-                                                                    padding: const EdgeInsetsDirectional
+                                                                    padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -2296,7 +2552,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                   color: FlutterFlowTheme.of(context).primaryText,
                                                                                 ),
                                                                               ),
-                                                                              duration: const Duration(milliseconds: 4000),
+                                                                              duration: Duration(milliseconds: 4000),
                                                                               backgroundColor: FlutterFlowTheme.of(context).error,
                                                                             ),
                                                                           );
@@ -2326,7 +2582,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 17.0,
                                                                           ),
                                                                           Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 3.0,
                                                                                 0.0,
                                                                                 0.0,
@@ -2337,11 +2593,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                                 '0lzk17jk' /* Text */,
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                    fontFamily: 'Inter',
+                                                                                    font: GoogleFonts.inter(
+                                                                                      fontWeight: FontWeight.normal,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                    ),
                                                                                     color: FlutterFlowTheme.of(context).secondaryText,
                                                                                     fontSize: 12.0,
                                                                                     letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.normal,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -2352,7 +2612,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                 ),
                                                                 Align(
                                                                   alignment:
-                                                                      const AlignmentDirectional(
+                                                                      AlignmentDirectional(
                                                                           1.0,
                                                                           0.0),
                                                                   child:
@@ -2386,7 +2646,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               ),
                                                                             ),
                                                                             duration:
-                                                                                const Duration(milliseconds: 4000),
+                                                                                Duration(milliseconds: 4000),
                                                                             backgroundColor:
                                                                                 FlutterFlowTheme.of(context).error,
                                                                           ),
@@ -2418,7 +2678,7 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               17.0,
                                                                         ),
                                                                         Padding(
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
                                                                               3.0,
                                                                               0.0,
                                                                               0.0,
@@ -2429,11 +2689,15 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                                                                               'f3kf1xth' /* Email */,
                                                                             ),
                                                                             style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                  fontFamily: 'Inter',
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
+                                                                                  ),
                                                                                   color: FlutterFlowTheme.of(context).secondaryText,
                                                                                   fontSize: 12.0,
                                                                                   letterSpacing: 0.0,
                                                                                   fontWeight: FontWeight.normal,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).headlineLarge.fontStyle,
                                                                                 ),
                                                                           ),
                                                                         ),
@@ -2482,11 +2746,11 @@ class _FollowUpListWidgetState extends State<FollowUpListWidget> {
                       },
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 1.0),
+                      alignment: AlignmentDirectional(0.0, 1.0),
                       child: wrapWithModel(
                         model: _model.navBarModel,
                         updateCallback: () => safeSetState(() {}),
-                        child: const NavBarWidget(
+                        child: NavBarWidget(
                           selectedPage: 'followup',
                         ),
                       ),

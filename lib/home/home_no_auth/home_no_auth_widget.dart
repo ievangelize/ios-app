@@ -9,15 +9,21 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'home_no_auth_model.dart';
 export 'home_no_auth_model.dart';
 
 class HomeNoAuthWidget extends StatefulWidget {
   const HomeNoAuthWidget({super.key});
+
+  static String routeName = 'homeNoAuth';
+  static String routePath = 'homeNoAuth';
 
   @override
   State<HomeNoAuthWidget> createState() => _HomeNoAuthWidgetState();
@@ -37,6 +43,23 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
     _model = createModel(context, () => HomeNoAuthModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'homeNoAuth'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.currentVersion = await actions.newVersion();
+      if (_model.currentVersion == getRemoteConfigString('deprecatedVersion')) {
+        context.goNamed(
+          UpdateVersionWidget.routeName,
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
+      }
+    });
+
     animationsMap.addAll({
       'containerOnActionTriggerAnimation': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
@@ -81,7 +104,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           leading: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -93,13 +116,13 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    context.pushNamed('More');
+                    context.pushNamed(MoreWidget.routeName);
                   },
                   child: Container(
                     width: 38.0,
                     height: 38.0,
                     clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     child: Image.network(
@@ -109,7 +132,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -120,10 +143,18 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                           'dinhk37y' /* Welcome back, */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
                               color: FlutterFlowTheme.of(context).secondaryText,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                       ),
                       Text(
@@ -131,9 +162,17 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                           'emb05cca' /* the Harvest Is Ready */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                       ),
                     ],
@@ -144,7 +183,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
           ),
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -152,9 +191,9 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   context.pushNamed(
-                    'donate',
+                    DonateWidget.routeName,
                     extra: <String, dynamic>{
-                      kTransitionInfoKey: const TransitionInfo(
+                      kTransitionInfoKey: TransitionInfo(
                         hasTransition: true,
                         transitionType: PageTransitionType.bottomToTop,
                       ),
@@ -166,7 +205,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                   height: 40.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
                         blurRadius: 2.1,
                         color: Color(0x25000000),
@@ -182,7 +221,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                       color: FlutterFlowTheme.of(context).success,
                     ),
                   ),
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
                     child: Image.asset(
@@ -190,7 +229,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                       width: 24.0,
                       height: 24.0,
                       fit: BoxFit.contain,
-                      alignment: const Alignment(0.0, 0.0),
+                      alignment: Alignment(0.0, 0.0),
                     ),
                   ),
                 ),
@@ -210,7 +249,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -218,9 +257,9 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           context.pushNamed(
-                            'authentication',
+                            AuthenticationWidget.routeName,
                             extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
+                              kTransitionInfoKey: TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.bottomToTop,
                               ),
@@ -235,7 +274,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 8.0, 16.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -256,7 +295,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       14.0, 0.0, 0.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -271,13 +310,23 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .info,
                                               fontSize: 26.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                       Text(
@@ -287,13 +336,23 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ],
@@ -301,7 +360,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 ),
                                 Flexible(
                                   child: Align(
-                                    alignment: const AlignmentDirectional(1.0, 0.0),
+                                    alignment: AlignmentDirectional(1.0, 0.0),
                                     child: AutoSizeText(
                                       FFLocalizations.of(context).getText(
                                         'zw62d5ld' /* 0 */,
@@ -309,12 +368,22 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .info,
                                             fontSize: 40.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -327,7 +396,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                       child: FutureBuilder<List<StoriesRow>>(
                         future: FFAppState().story(
                           requestFn: () => StoriesTable().querySingleRow(
@@ -340,7 +409,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
-                            return const QuoteLoadingWidget();
+                            return QuoteLoadingWidget();
                           }
                           List<StoriesRow> stackStoriesRowList = snapshot.data!;
 
@@ -355,7 +424,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               context.pushNamed(
-                                'StoryViewer',
+                                StoryViewerWidget.routeName,
                                 queryParameters: {
                                   'story': serializeParam(
                                     stackStoriesRow,
@@ -363,7 +432,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                   ),
                                 }.withoutNulls,
                                 extra: <String, dynamic>{
-                                  kTransitionInfoKey: const TransitionInfo(
+                                  kTransitionInfoKey: TransitionInfo(
                                     hasTransition: true,
                                     transitionType: PageTransitionType.fade,
                                   ),
@@ -371,10 +440,10 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                               );
                             },
                             child: Stack(
-                              alignment: const AlignmentDirectional(0.0, 1.0),
+                              alignment: AlignmentDirectional(0.0, 1.0),
                               children: [
                                 Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Hero(
                                     tag: valueOrDefault<String>(
                                       stackStoriesRow?.thumbnailUrl,
@@ -385,9 +454,9 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                       borderRadius: BorderRadius.circular(14.0),
                                       child: CachedNetworkImage(
                                         fadeInDuration:
-                                            const Duration(milliseconds: 500),
+                                            Duration(milliseconds: 500),
                                         fadeOutDuration:
-                                            const Duration(milliseconds: 500),
+                                            Duration(milliseconds: 500),
                                         imageUrl: valueOrDefault<String>(
                                           stackStoriesRow?.thumbnailUrl,
                                           'https://api.ievangelize.app/storage/v1/object/public/stories/quote_4_thumb.png',
@@ -400,7 +469,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -414,20 +483,20 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                         onTap: () async {
                                           await actions.shareFile(
                                             context,
-                                            stackStoriesRow!.thumbnailUrl!,
+                                            stackStoriesRow!.sharableImgUrl!,
                                           );
                                         },
                                         child: Container(
                                           width: 35.0,
                                           height: 35.0,
                                           decoration: BoxDecoration(
-                                            color: const Color(0x52000000),
+                                            color: Color(0x52000000),
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 3.0),
                                             child: Icon(
                                               Icons.ios_share,
@@ -446,7 +515,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           context.pushNamed(
-                                            'StoryViewer',
+                                            StoryViewerWidget.routeName,
                                             queryParameters: {
                                               'story': serializeParam(
                                                 stackStoriesRow,
@@ -455,7 +524,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                             }.withoutNulls,
                                             extra: <String, dynamic>{
                                               kTransitionInfoKey:
-                                                  const TransitionInfo(
+                                                  TransitionInfo(
                                                 hasTransition: true,
                                                 transitionType:
                                                     PageTransitionType.fade,
@@ -467,7 +536,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                           width: 35.0,
                                           height: 35.0,
                                           decoration: BoxDecoration(
-                                            color: const Color(0x52000000),
+                                            color: Color(0x52000000),
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                           ),
@@ -480,8 +549,8 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                         ),
                                       ),
                                     ]
-                                        .divide(const SizedBox(width: 16.0))
-                                        .addToEnd(const SizedBox(width: 8.0)),
+                                        .divide(SizedBox(width: 16.0))
+                                        .addToEnd(SizedBox(width: 8.0)),
                                   ),
                                 ),
                               ],
@@ -492,23 +561,40 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              'aekhbkzl' /* Tools */,
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              await actions.newVersion();
+                            },
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                'aekhbkzl' /* Tools */,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    fontSize: 20.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  fontSize: 20.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
                           ),
                         ],
                       ),
@@ -516,7 +602,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                     if (getRemoteConfigBool('jad'))
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
@@ -530,10 +616,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('situationNoAuth');
+                                  context.pushNamed(
+                                      SituationNoAuthWidget.routeName);
                                 },
                                 child: Stack(
-                                  alignment: const AlignmentDirectional(1.0, 1.0),
+                                  alignment: AlignmentDirectional(1.0, 1.0),
                                   children: [
                                     Container(
                                       width: 330.0,
@@ -545,7 +632,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                             BorderRadius.circular(22.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             14.0, 16.0, 12.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -569,7 +656,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -581,7 +668,16 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .info,
@@ -589,6 +685,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
@@ -603,7 +704,15 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -612,14 +721,19 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
-                                          ].divide(const SizedBox(height: 8.0)),
+                                          ].divide(SizedBox(height: 8.0)),
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 8.0, 8.0),
                                       child: FlutterFlowIconButton(
                                         borderRadius: 100.0,
@@ -633,7 +747,8 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                           size: 24.0,
                                         ),
                                         onPressed: () async {
-                                          context.pushNamed('situationNoAuth');
+                                          context.pushNamed(
+                                              SituationNoAuthWidget.routeName);
                                         },
                                       ),
                                     ),
@@ -646,10 +761,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('EquippingCardInfo');
+                                  context.pushNamed(
+                                      EquippingCardInfoWidget.routeName);
                                 },
                                 child: Stack(
-                                  alignment: const AlignmentDirectional(1.0, 1.0),
+                                  alignment: AlignmentDirectional(1.0, 1.0),
                                   children: [
                                     Container(
                                       width: 330.0,
@@ -661,7 +777,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                             BorderRadius.circular(22.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             14.0, 16.0, 12.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -683,7 +799,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -695,7 +811,16 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .info,
@@ -703,6 +828,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
@@ -717,7 +847,15 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -726,14 +864,19 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
-                                          ].divide(const SizedBox(height: 8.0)),
+                                          ].divide(SizedBox(height: 8.0)),
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 8.0, 8.0),
                                       child: FlutterFlowIconButton(
                                         borderRadius: 100.0,
@@ -747,8 +890,9 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                           size: 24.0,
                                         ),
                                         onPressed: () async {
-                                          context
-                                              .pushNamed('EquippingCardInfo');
+                                          context.pushNamed(
+                                              EquippingCardInfoWidget
+                                                  .routeName);
                                         },
                                       ),
                                     ),
@@ -756,15 +900,15 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(width: 16.0))
-                                .addToStart(const SizedBox(width: 16.0))
-                                .addToEnd(const SizedBox(width: 16.0)),
+                                .divide(SizedBox(width: 16.0))
+                                .addToStart(SizedBox(width: 16.0))
+                                .addToEnd(SizedBox(width: 16.0)),
                           ),
                         ),
                       ),
                     if (!getRemoteConfigBool('jad'))
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 10.0, 16.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -777,10 +921,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('situationNoAuth');
+                                  context.pushNamed(
+                                      SituationNoAuthWidget.routeName);
                                 },
                                 child: Stack(
-                                  alignment: const AlignmentDirectional(1.0, 1.0),
+                                  alignment: AlignmentDirectional(1.0, 1.0),
                                   children: [
                                     Container(
                                       width: double.infinity,
@@ -792,7 +937,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                             BorderRadius.circular(22.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             14.0, 16.0, 12.0, 0.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -816,7 +961,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           8.0, 0.0, 0.0, 0.0),
                                                   child: Text(
@@ -828,7 +973,16 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .info,
@@ -836,6 +990,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
@@ -850,7 +1009,15 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -859,14 +1026,19 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
-                                          ].divide(const SizedBox(height: 8.0)),
+                                          ].divide(SizedBox(height: 8.0)),
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 8.0, 8.0),
                                       child: FlutterFlowIconButton(
                                         borderRadius: 100.0,
@@ -880,7 +1052,8 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                           size: 24.0,
                                         ),
                                         onPressed: () async {
-                                          context.pushNamed('situationNoAuth');
+                                          context.pushNamed(
+                                              SituationNoAuthWidget.routeName);
                                         },
                                       ),
                                     ),
@@ -893,7 +1066,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                       ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                       child: FutureBuilder<List<CategoriesRow>>(
                         future: FFAppState().homeCategories(
                           requestFn: () => CategoriesTable().querySingleRow(
@@ -908,7 +1081,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
-                            return const Padding(
+                            return Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 0.0, 0.0),
                               child: HomeVideoLoadingWidget(),
@@ -927,7 +1100,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -941,23 +1114,34 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             fontSize: 20.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                     Flexible(
                                       child: Align(
                                         alignment:
-                                            const AlignmentDirectional(1.0, 0.0),
+                                            AlignmentDirectional(1.0, 0.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context.pushNamed('Explore');
+                                            context.pushNamed(
+                                                ExploreWidget.routeName);
                                           },
                                           child: Text(
                                             FFLocalizations.of(context).getText(
@@ -966,10 +1150,22 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                           ),
                                         ),
@@ -979,7 +1175,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 0.0, 0.0),
                                 child: FutureBuilder<List<ResourcesRow>>(
                                   future: FFAppState().resources(
@@ -1000,7 +1196,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
-                                      return const HomeVideoLoadingWidget();
+                                      return HomeVideoLoadingWidget();
                                     }
                                     List<ResourcesRow> rowResourcesRowList =
                                         snapshot.data!;
@@ -1024,7 +1220,8 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                 if (rowResourcesRow
                                                     .isVertical!) {
                                                   context.pushNamed(
-                                                    'VerticalVideoPlayer',
+                                                    VerticalVideoPlayerWidget
+                                                        .routeName,
                                                     queryParameters: {
                                                       'videoURL':
                                                           serializeParam(
@@ -1052,7 +1249,8 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   );
                                                 } else {
                                                   context.pushNamed(
-                                                    'HorizontalVideoPlayer',
+                                                    HorizontalVideoPlayerWidget
+                                                        .routeName,
                                                     queryParameters: {
                                                       'title': serializeParam(
                                                         rowResourcesRow.title,
@@ -1099,7 +1297,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                 }
                                               } else {
                                                 context.pushNamed(
-                                                  'AudioPlayer',
+                                                  AudioPlayerWidget.routeName,
                                                   queryParameters: {
                                                     'title': serializeParam(
                                                       rowResourcesRow.title,
@@ -1137,11 +1335,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                SizedBox(
+                                                Container(
                                                   width: 149.0,
                                                   child: Stack(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             0.0, 1.0),
                                                     children: [
                                                       ClipRRect(
@@ -1151,11 +1349,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                         child:
                                                             CachedNetworkImage(
                                                           fadeInDuration:
-                                                              const Duration(
+                                                              Duration(
                                                                   milliseconds:
                                                                       300),
                                                           fadeOutDuration:
-                                                              const Duration(
+                                                              Duration(
                                                                   milliseconds:
                                                                       300),
                                                           imageUrl:
@@ -1172,11 +1370,11 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            const AlignmentDirectional(
+                                                            AlignmentDirectional(
                                                                 0.0, 1.0),
                                                         child: Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       12.0,
                                                                       0.0,
@@ -1197,7 +1395,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                                 width: 18.0,
                                                                 height: 18.0,
                                                                 decoration:
-                                                                    const BoxDecoration(
+                                                                    BoxDecoration(
                                                                   color: Color(
                                                                       0x9A000000),
                                                                   shape: BoxShape
@@ -1223,26 +1421,32 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                                     FFButtonOptions(
                                                                   width: 36.0,
                                                                   height: 18.0,
-                                                                  padding: const EdgeInsetsDirectional
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           1.0,
                                                                           0.0),
-                                                                  iconPadding: const EdgeInsetsDirectional
+                                                                  iconPadding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                                  color: const Color(
+                                                                  color: Color(
                                                                       0x9A000000),
                                                                   textStyle: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleSmall
                                                                       .override(
-                                                                        fontFamily:
-                                                                            'Inter',
+                                                                        font: GoogleFonts
+                                                                            .inter(
+                                                                          fontWeight:
+                                                                              FontWeight.w300,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .titleSmall
+                                                                              .fontStyle,
+                                                                        ),
                                                                         color: Colors
                                                                             .white,
                                                                         fontSize:
@@ -1251,6 +1455,9 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                                             0.0,
                                                                         fontWeight:
                                                                             FontWeight.w300,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .fontStyle,
                                                                       ),
                                                                   elevation:
                                                                       0.0,
@@ -1270,7 +1477,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: Text(
@@ -1284,17 +1491,39 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
                                                           fontSize: 12.0,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 2.0, 0.0, 0.0),
                                                   child: Text(
@@ -1308,31 +1537,46 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           );
-                                        }).divide(const SizedBox(width: 16.0)),
+                                        }).divide(SizedBox(width: 16.0)),
                                       ),
                                     );
                                   },
                                 ),
                               ),
-                            ].divide(const SizedBox(height: 12.0)),
+                            ].divide(SizedBox(height: 12.0)),
                           );
                         },
                       ),
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -1347,19 +1591,27 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
                                       fontSize: 20.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
                                     ),
                               ),
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: Container(
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: FutureBuilder<List<NoAuthMissionRow>>(
                                 future: FFAppState().noAuthMissions(
                                   requestFn: () =>
@@ -1370,7 +1622,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
-                                    return const MissionsLoadingWidget();
+                                    return MissionsLoadingWidget();
                                   }
                                   List<NoAuthMissionRow>
                                       listViewNoAuthMissionRowList =
@@ -1384,7 +1636,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                     itemCount:
                                         listViewNoAuthMissionRowList.length,
                                     separatorBuilder: (_, __) =>
-                                        const SizedBox(height: 14.0),
+                                        SizedBox(height: 14.0),
                                     itemBuilder: (context, listViewIndex) {
                                       final listViewNoAuthMissionRow =
                                           listViewNoAuthMissionRowList[
@@ -1405,10 +1657,10 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                           }
 
                                           context.pushNamed(
-                                            'authentication',
+                                            AuthenticationWidget.routeName,
                                             extra: <String, dynamic>{
                                               kTransitionInfoKey:
-                                                  const TransitionInfo(
+                                                  TransitionInfo(
                                                 hasTransition: true,
                                                 transitionType:
                                                     PageTransitionType
@@ -1419,7 +1671,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                         },
                                         child: Container(
                                           width: double.infinity,
-                                          constraints: const BoxConstraints(
+                                          constraints: BoxConstraints(
                                             minHeight: 60.0,
                                           ),
                                           decoration: BoxDecoration(
@@ -1443,7 +1695,7 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                               ),
                                               Flexible(
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 6.0, 0.0, 6.0),
                                                   child: Column(
@@ -1466,14 +1718,27 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                                 .of(context)
                                                             .bodyMedium
                                                             .override(
-                                                              fontFamily:
-                                                                  'Inter',
+                                                              font: GoogleFonts
+                                                                  .inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
                                                               fontSize: 15.0,
                                                               letterSpacing:
                                                                   0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                             ),
                                                       ),
                                                       RichText(
@@ -1495,8 +1760,17 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
@@ -1504,6 +1778,14 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                                         12.0,
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             )
                                                           ],
@@ -1511,22 +1793,40 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(height: 4.0)),
+                                                        SizedBox(height: 4.0)),
                                                   ),
                                                 ),
                                               ),
                                             ]
-                                                .divide(const SizedBox(width: 15.0))
+                                                .divide(SizedBox(width: 15.0))
                                                 .addToStart(
-                                                    const SizedBox(width: 16.0)),
+                                                    SizedBox(width: 16.0)),
                                           ),
                                         ),
                                       ).animateOnActionTrigger(
@@ -1542,15 +1842,15 @@ class _HomeNoAuthWidgetState extends State<HomeNoAuthWidget>
                         ],
                       ),
                     ),
-                  ].addToEnd(const SizedBox(height: 100.0)),
+                  ].addToEnd(SizedBox(height: 100.0)),
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'home',
                   ),
                 ),

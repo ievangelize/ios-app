@@ -26,7 +26,6 @@ void main() async {
   // Start initial custom actions code
   await actions.changeBarColors();
   await actions.appLinksUsage();
-  await actions.initAudioBackground();
   // End initial custom actions code
 
   await SupaFlow.initialize();
@@ -43,15 +42,17 @@ void main() async {
   }
   await initializeFirebaseRemoteConfig();
 
+  // Start final custom actions code
+  await actions.setFCMToken();
+  // End final custom actions code
+
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
-    child: const MyApp(),
+    child: MyApp(),
   ));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   State<MyApp> createState() => _MyAppState();
@@ -76,6 +77,10 @@ class _MyAppState extends State<MyApp> {
     return matchList.uri.toString();
   }
 
+  List<String> getRouteStack() =>
+      _router.routerDelegate.currentConfiguration.matches
+          .map((e) => getRoute(e))
+          .toList();
   late Stream<BaseAuthUser> userStream;
 
   @override
@@ -90,7 +95,7 @@ class _MyAppState extends State<MyApp> {
       });
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      const Duration(milliseconds: 1000),
+      Duration(milliseconds: 1000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
@@ -108,8 +113,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'iEvangelize',
-      localizationsDelegates: const [
+      localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -188,12 +194,12 @@ class _MyAppState extends State<MyApp> {
           interactive: false,
           thumbColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.dragged)) {
-              return const Color(0x00ffffff);
+              return Color(16777215);
             }
             if (states.contains(WidgetState.hovered)) {
-              return const Color(0x00ffffff);
+              return Color(16777215);
             }
-            return const Color(0x00ffffff);
+            return Color(16777215);
           }),
         ),
       ),
@@ -203,12 +209,12 @@ class _MyAppState extends State<MyApp> {
           interactive: false,
           thumbColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.dragged)) {
-              return const Color(0x00ffffff);
+              return Color(16777215);
             }
             if (states.contains(WidgetState.hovered)) {
-              return const Color(0x00ffffff);
+              return Color(16777215);
             }
-            return const Color(0x00ffffff);
+            return Color(16777215);
           }),
         ),
       ),

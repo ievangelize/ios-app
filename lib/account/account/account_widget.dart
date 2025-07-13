@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,6 +22,9 @@ class AccountWidget extends StatefulWidget {
   });
 
   final UsersRow? account;
+
+  static String routeName = 'Account';
+  static String routePath = 'account';
 
   @override
   State<AccountWidget> createState() => _AccountWidgetState();
@@ -92,7 +96,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   context.safePop();
                 },
               ),
-              actions: const [],
+              actions: [],
               elevation: 0.0,
             )
           ],
@@ -105,7 +109,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0,
@@ -127,7 +131,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 24.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -141,16 +145,33 @@ class _AccountWidgetState extends State<AccountWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineLarge
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineLarge
+                                                      .fontStyle,
+                                            ),
                                             fontSize: 32.0,
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineLarge
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 16.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -159,7 +180,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     context.pushNamed(
-                                      'EditProfile',
+                                      EditProfileWidget.routeName,
                                       queryParameters: {
                                         'account': serializeParam(
                                           widget.account,
@@ -174,7 +195,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -188,10 +209,23 @@ class _AccountWidgetState extends State<AccountWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyLarge
+                                                            .fontStyle,
+                                                  ),
                                                   fontSize: 18.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
                                                 ),
                                           ),
                                           FaIcon(
@@ -207,7 +241,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 16.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -216,7 +250,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     context.pushNamed(
-                                      'UpdateEmail',
+                                      UpdateEmailWidget.routeName,
                                       queryParameters: {
                                         'account': serializeParam(
                                           widget.account,
@@ -231,7 +265,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -245,10 +279,23 @@ class _AccountWidgetState extends State<AccountWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyLarge
+                                                            .fontStyle,
+                                                  ),
                                                   fontSize: 18.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
                                                 ),
                                           ),
                                           FaIcon(
@@ -264,7 +311,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -272,7 +319,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    Function() navigate = () {};
+                                    Function() _navigate = () {};
                                     if (isiOS) {
                                       _model.response = await actions
                                           .cupertinoConfirmationDialog(
@@ -305,7 +352,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  const Duration(milliseconds: 4000),
+                                                  Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .success,
@@ -317,23 +364,23 @@ class _AccountWidgetState extends State<AccountWidget> {
                                           GoRouter.of(context)
                                               .clearRedirectLocation();
 
-                                          navigate = () => context.goNamedAuth(
-                                              'quote1', context.mounted);
+                                          _navigate = () => context.goNamedAuth(
+                                              SituationWidget.routeName,
+                                              context.mounted);
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
                                                 'Failed to delete your account!',
-                                                style: GoogleFonts.getFont(
-                                                  'Inter',
+                                                style: GoogleFonts.inter(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .info,
                                                 ),
                                               ),
                                               duration:
-                                                  const Duration(milliseconds: 4000),
+                                                  Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .error,
@@ -347,9 +394,9 @@ class _AccountWidgetState extends State<AccountWidget> {
                                                 context: context,
                                                 builder: (alertDialogContext) {
                                                   return AlertDialog(
-                                                    title: const Text(
+                                                    title: Text(
                                                         'Permanently Delete Account?'),
-                                                    content: const Text(
+                                                    content: Text(
                                                         'Deleting your account is irreversible and will permanently remove all data related to your account.'),
                                                     actions: [
                                                       TextButton(
@@ -357,14 +404,14 @@ class _AccountWidgetState extends State<AccountWidget> {
                                                             Navigator.pop(
                                                                 alertDialogContext,
                                                                 false),
-                                                        child: const Text('Cancel'),
+                                                        child: Text('Cancel'),
                                                       ),
                                                       TextButton(
                                                         onPressed: () =>
                                                             Navigator.pop(
                                                                 alertDialogContext,
                                                                 true),
-                                                        child: const Text(
+                                                        child: Text(
                                                             'Delete Account'),
                                                       ),
                                                     ],
@@ -393,7 +440,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  const Duration(milliseconds: 4000),
+                                                  Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .success,
@@ -405,23 +452,23 @@ class _AccountWidgetState extends State<AccountWidget> {
                                           GoRouter.of(context)
                                               .clearRedirectLocation();
 
-                                          navigate = () => context.goNamedAuth(
-                                              'quote1', context.mounted);
+                                          _navigate = () => context.goNamedAuth(
+                                              SituationWidget.routeName,
+                                              context.mounted);
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
                                                 'Failed to delete your account!',
-                                                style: GoogleFonts.getFont(
-                                                  'Inter',
+                                                style: GoogleFonts.inter(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .info,
                                                 ),
                                               ),
                                               duration:
-                                                  const Duration(milliseconds: 4000),
+                                                  Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .error,
@@ -431,7 +478,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                       }
                                     }
 
-                                    navigate();
+                                    _navigate();
 
                                     safeSetState(() {});
                                   },
@@ -441,7 +488,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -455,10 +502,23 @@ class _AccountWidgetState extends State<AccountWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyLarge
+                                                            .fontStyle,
+                                                  ),
                                                   fontSize: 18.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
                                                 ),
                                           ),
                                           FaIcon(
@@ -479,11 +539,11 @@ class _AccountWidgetState extends State<AccountWidget> {
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 1.0),
+                      alignment: AlignmentDirectional(0.0, 1.0),
                       child: wrapWithModel(
                         model: _model.navBarModel,
                         updateCallback: () => safeSetState(() {}),
-                        child: const NavBarWidget(
+                        child: NavBarWidget(
                           selectedPage: 'more',
                         ),
                       ),

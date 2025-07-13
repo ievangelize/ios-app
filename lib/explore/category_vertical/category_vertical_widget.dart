@@ -3,9 +3,11 @@ import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'category_vertical_model.dart';
 export 'category_vertical_model.dart';
 
@@ -16,6 +18,9 @@ class CategoryVerticalWidget extends StatefulWidget {
   });
 
   final CategoriesRow? category;
+
+  static String routeName = 'CategoryVertical';
+  static String routePath = 'categoryVertical';
 
   @override
   State<CategoryVerticalWidget> createState() => _CategoryVerticalWidgetState();
@@ -69,7 +74,7 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
               size: 24.0,
             ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -91,8 +96,8 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(0.0),
                         child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 300),
-                          fadeOutDuration: const Duration(milliseconds: 300),
+                          fadeInDuration: Duration(milliseconds: 300),
+                          fadeOutDuration: Duration(milliseconds: 300),
                           imageUrl: valueOrDefault<String>(
                             widget.category?.posterUrl,
                             'https://movecloser.org/wp-content/uploads/2019/12/gospel.jpg',
@@ -104,7 +109,7 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,14 +122,22 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   fontSize: 24.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
@@ -134,16 +147,29 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 24.0, 0.0, 0.0),
                             child: FutureBuilder<List<ResourcesRow>>(
                               future: FFAppState().resources(
@@ -179,14 +205,14 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                     snapshot.data!;
 
                                 return GridView.builder(
-                                  padding: const EdgeInsets.fromLTRB(
+                                  padding: EdgeInsets.fromLTRB(
                                     0,
                                     0,
                                     0,
                                     230.0,
                                   ),
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 16.0,
                                     mainAxisSpacing: 8.0,
@@ -206,7 +232,7 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         context.pushNamed(
-                                          'VerticalVideoPlayer',
+                                          VerticalVideoPlayerWidget.routeName,
                                           queryParameters: {
                                             'videoURL': serializeParam(
                                               gridViewResourcesRow.mediaUrl,
@@ -226,7 +252,7 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                             ),
                                           }.withoutNulls,
                                           extra: <String, dynamic>{
-                                            kTransitionInfoKey: const TransitionInfo(
+                                            kTransitionInfoKey: TransitionInfo(
                                               hasTransition: true,
                                               transitionType: PageTransitionType
                                                   .bottomToTop,
@@ -243,15 +269,15 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                         children: [
                                           Stack(
                                             alignment:
-                                                const AlignmentDirectional(0.0, 1.0),
+                                                AlignmentDirectional(0.0, 1.0),
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 child: CachedNetworkImage(
-                                                  fadeInDuration: const Duration(
+                                                  fadeInDuration: Duration(
                                                       milliseconds: 300),
-                                                  fadeOutDuration: const Duration(
+                                                  fadeOutDuration: Duration(
                                                       milliseconds: 300),
                                                   imageUrl:
                                                       valueOrDefault<String>(
@@ -268,10 +294,10 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 1.0),
                                                 child: Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           12.0, 0.0, 12.0, 8.0),
                                                   child: Row(
@@ -288,7 +314,7 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                                         width: 20.0,
                                                         height: 20.0,
                                                         decoration:
-                                                            const BoxDecoration(
+                                                            BoxDecoration(
                                                           color:
                                                               Color(0x9A000000),
                                                           shape:
@@ -315,28 +341,36 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                                           width: 40.0,
                                                           height: 20.0,
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
                                                                       1.0,
                                                                       0.0),
                                                           iconPadding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
                                                                       0.0,
                                                                       0.0),
                                                           color:
-                                                              const Color(0x9A000000),
+                                                              Color(0x9A000000),
                                                           textStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .titleSmall
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .fontStyle,
+                                                                    ),
                                                                     color: Colors
                                                                         .white,
                                                                     fontSize:
@@ -346,6 +380,10 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w300,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .fontStyle,
                                                                   ),
                                                           elevation: 0.0,
                                                           borderRadius:
@@ -374,19 +412,33 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                                   gridViewResourcesRow.subTitle,
                                                   'iEvangelize',
                                                 ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .secondaryText,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
+                                                      fontSize: 12.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
                                               ),
                                               Text(
                                                 valueOrDefault<String>(
@@ -400,16 +452,30 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                               ),
                                             ],
                                           ),
-                                        ].divide(const SizedBox(height: 8.0)),
+                                        ].divide(SizedBox(height: 8.0)),
                                       ),
                                     );
                                   },
@@ -424,11 +490,11 @@ class _CategoryVerticalWidgetState extends State<CategoryVerticalWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'explore',
                   ),
                 ),

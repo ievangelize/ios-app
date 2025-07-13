@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'story_viewer_model.dart';
 export 'story_viewer_model.dart';
 
@@ -16,6 +17,9 @@ class StoryViewerWidget extends StatefulWidget {
   });
 
   final StoriesRow? story;
+
+  static String routeName = 'StoryViewer';
+  static String routePath = 'storyViewer';
 
   @override
   State<StoryViewerWidget> createState() => _StoryViewerWidgetState();
@@ -76,7 +80,7 @@ class _StoryViewerWidgetState extends State<StoryViewerWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    Container(
                       width: double.infinity,
                       height: double.infinity,
                       child: custom_widgets.CustomStoryView(
@@ -86,10 +90,10 @@ class _StoryViewerWidgetState extends State<StoryViewerWidget> {
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(-1.0, -1.0),
+                      alignment: AlignmentDirectional(-1.0, -1.0),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 8.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 8.0, 0.0),
                         child: FlutterFlowIconButton(
                           borderRadius: 8.0,
                           buttonSize: 40.0,
@@ -109,7 +113,7 @@ class _StoryViewerWidgetState extends State<StoryViewerWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     await actions.shareFile(
@@ -124,23 +128,30 @@ class _StoryViewerWidgetState extends State<StoryViewerWidget> {
                     width: double.infinity,
                     height: 42.0,
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: Colors.white,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontStyle,
+                          ),
                           color: Colors.black,
                           fontSize: 14.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
                         ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
               ),
-            ].divide(const SizedBox(height: 10.0)),
+            ].divide(SizedBox(height: 10.0)),
           ),
         ),
       ),

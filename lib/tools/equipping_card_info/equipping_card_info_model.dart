@@ -1,5 +1,6 @@
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'equipping_card_info_widget.dart' show EquippingCardInfoWidget;
 import 'package:flutter/material.dart';
 

@@ -17,7 +17,7 @@ class DeleteUserCall {
       apiUrl: 'https://api.ievangelize.app/functions/v1/delete-user',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${token}',
       },
       params: {},
       bodyType: BodyType.JSON,
@@ -37,7 +37,7 @@ class OpenAIAPICall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "situation": "<$situation>"
+  "situation": "<${situation}>"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'OpenAI API',
@@ -77,10 +77,10 @@ class SearchResourcesCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Search Resources',
       apiUrl:
-          'https://api.ievangelize.app/rest/v1/resources?search_metadata_tsv=plfts(english).$keyword',
+          'https://api.ievangelize.app/rest/v1/resources?search_metadata_tsv=plfts(english).${keyword}',
       callType: ApiCallType.GET,
       headers: {
-        'apikey': '$supabaseKey',
+        'apikey': '${supabaseKey}',
       },
       params: {},
       returnBody: true,

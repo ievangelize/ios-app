@@ -10,7 +10,7 @@ class ChallengeWeeksTable extends SupabaseTable<ChallengeWeeksRow> {
 }
 
 class ChallengeWeeksRow extends SupabaseDataRow {
-  ChallengeWeeksRow(super.data);
+  ChallengeWeeksRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => ChallengeWeeksTable();

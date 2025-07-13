@@ -5,15 +5,20 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'follow_up_no_auth_model.dart';
 export 'follow_up_no_auth_model.dart';
 
 class FollowUpNoAuthWidget extends StatefulWidget {
   const FollowUpNoAuthWidget({super.key});
+
+  static String routeName = 'followUpNoAuth';
+  static String routePath = 'followupNoAuth';
 
   @override
   State<FollowUpNoAuthWidget> createState() => _FollowUpNoAuthWidgetState();
@@ -71,7 +76,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
           automaticallyImplyLeading: false,
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -79,9 +84,9 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   context.pushNamed(
-                    'donate',
+                    DonateWidget.routeName,
                     extra: <String, dynamic>{
-                      kTransitionInfoKey: const TransitionInfo(
+                      kTransitionInfoKey: TransitionInfo(
                         hasTransition: true,
                         transitionType: PageTransitionType.bottomToTop,
                       ),
@@ -93,7 +98,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                   height: 34.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).alternate,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
                         blurRadius: 2.1,
                         color: Color(0x33000000),
@@ -109,7 +114,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                       color: FlutterFlowTheme.of(context).success,
                     ),
                   ),
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
                     child: Image.asset(
@@ -123,7 +128,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -131,9 +136,9 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   context.pushNamed(
-                    'authentication',
+                    AuthenticationWidget.routeName,
                     extra: <String, dynamic>{
-                      kTransitionInfoKey: const TransitionInfo(
+                      kTransitionInfoKey: TransitionInfo(
                         hasTransition: true,
                         transitionType: PageTransitionType.bottomToTop,
                       ),
@@ -147,7 +152,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                     color: FlutterFlowTheme.of(context).secondary,
                     shape: BoxShape.circle,
                   ),
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Icon(
                     Icons.add_rounded,
                     color: FlutterFlowTheme.of(context).info,
@@ -158,20 +163,28 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(48.0),
+            preferredSize: Size.fromHeight(48.0),
             child: Align(
-              alignment: const AlignmentDirectional(-1.0, 0.0),
+              alignment: AlignmentDirectional(-1.0, 0.0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'hvzjlw1h' /* Follow Up */,
                   ),
                   style: FlutterFlowTheme.of(context).headlineLarge.override(
-                        fontFamily: 'Inter',
+                        font: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontStyle,
+                        ),
                         fontSize: 30.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineLarge
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -196,7 +209,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 16.0, 16.0, 16.0),
                         child: Container(
                           decoration: BoxDecoration(
@@ -207,7 +220,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Icon(
                                   Icons.search,
@@ -222,7 +235,7 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                                   focusNode: _model.searchFocusNode,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.searchTextController',
-                                    const Duration(milliseconds: 1000),
+                                    Duration(milliseconds: 1000),
                                     () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
@@ -239,19 +252,29 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Inter',
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           fontSize: 18.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     errorBorder: InputBorder.none,
                                     focusedErrorBorder: InputBorder.none,
                                     contentPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
+                                        EdgeInsetsDirectional.fromSTEB(
                                             4.0, 12.0, 8.0, 12.0),
                                     suffixIcon: _model.searchTextController!
                                             .text.isNotEmpty
@@ -274,12 +297,21 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
                                         fontSize: 18.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                   maxLines: null,
                                   maxLength: 50,
@@ -293,6 +325,17 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                                   validator: _model
                                       .searchTextControllerValidator
                                       .asValidator(context),
+                                  inputFormatters: [
+                                    if (!isAndroid && !isiOS)
+                                      TextInputFormatter.withFunction(
+                                          (oldValue, newValue) {
+                                        return TextEditingValue(
+                                          selection: newValue.selection,
+                                          text: newValue.text.toCapitalization(
+                                              TextCapitalization.none),
+                                        );
+                                      }),
+                                  ],
                                 ),
                               ),
                             ],
@@ -300,9 +343,9 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(-1.0, 0.0),
+                        alignment: AlignmentDirectional(-1.0, 0.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 0.0, 0.0),
                           child: FlutterFlowChoiceChips(
                             options: [
@@ -324,15 +367,23 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context).info,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                               iconColor: FlutterFlowTheme.of(context).info,
                               iconSize: 16.0,
-                              labelPadding: const EdgeInsetsDirectional.fromSTEB(
+                              labelPadding: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 1.0, 8.0, 1.0),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(18.0),
@@ -343,17 +394,25 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                               iconColor:
                                   FlutterFlowTheme.of(context).secondaryText,
                               iconSize: 16.0,
-                              labelPadding: const EdgeInsetsDirectional.fromSTEB(
+                              labelPadding: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 1.0, 8.0, 1.0),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(18.0),
@@ -375,12 +434,12 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      Container(
                         height: 200.0,
                         child: wrapWithModel(
                           model: _model.listEmptyModel,
                           updateCallback: () => safeSetState(() {}),
-                          child: const ListEmptyWidget(
+                          child: ListEmptyWidget(
                             message: 'You haven\'t added anyone to follow-up',
                             secondLine: 'Click the \"+\" button',
                           ),
@@ -403,11 +462,11 @@ class _FollowUpNoAuthWidgetState extends State<FollowUpNoAuthWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'followup',
                   ),
                 ),

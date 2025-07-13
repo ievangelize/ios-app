@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
+  <dict>
     <key>com.apple.developer.applesignin</key>
     <array>
       <string>Default</string>
     </array>
+    <!-- Start of Associated Domains -->
     <key>com.apple.developer.associated-domains</key>
     <array>
       <string>applinks:link.ievangelize.app</string>
     </array>
+    <!-- End of Associated Domains -->
+    <!-- Start of APSEnvironment -->
     <key>aps-environment</key>
     <string>production</string>
-</dict>
+    <!-- End of APSEnvironment -->
+  </dict>
 </plist>

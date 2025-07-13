@@ -17,6 +17,9 @@ class UpdateEmailWidget extends StatefulWidget {
 
   final UsersRow? account;
 
+  static String routeName = 'UpdateEmail';
+  static String routePath = 'updateEmail';
+
   @override
   State<UpdateEmailWidget> createState() => _UpdateEmailWidgetState();
 }
@@ -77,7 +80,7 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
                   context.safePop();
                 },
               ),
-              actions: const [],
+              actions: [],
               elevation: 0.0,
             )
           ],
@@ -86,13 +89,13 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
               return SafeArea(
                 top: false,
                 child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 0.0, 16.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
@@ -101,14 +104,27 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
                           style: FlutterFlowTheme.of(context)
                               .headlineLarge
                               .override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
+                                ),
                                 fontSize: 32.0,
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontStyle,
                               ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 20.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
@@ -117,16 +133,29 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
                           textAlign: TextAlign.start,
                           style:
                               FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 0.0),
-                        child: SizedBox(
+                        child: Container(
                           width: double.infinity,
                           child: TextFormField(
                             controller: _model.emailTextController,
@@ -168,17 +197,25 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               filled: true,
-                              fillColor: const Color(0x00FFFFFF),
+                              fillColor: Color(0x00FFFFFF),
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyLarge
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
+                                  ),
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyLarge
+                                      .fontStyle,
                                 ),
                             validator: _model.emailTextControllerValidator
                                 .asValidator(context),
@@ -187,9 +224,9 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
                       ),
                       Expanded(
                         child: Align(
-                          alignment: const AlignmentDirectional(0.0, 1.0),
+                          alignment: AlignmentDirectional(0.0, 1.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 16.0),
                             child: wrapWithModel(
                               model: _model.largeBtnModel,
@@ -205,13 +242,12 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
                                       SnackBar(
                                         content: Text(
                                           'Change the email first',
-                                          style: GoogleFonts.getFont(
-                                            'Inter',
+                                          style: GoogleFonts.inter(
                                             color: FlutterFlowTheme.of(context)
                                                 .info,
                                           ),
                                         ),
-                                        duration: const Duration(milliseconds: 4000),
+                                        duration: Duration(milliseconds: 4000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context).error,
                                       ),
@@ -221,7 +257,7 @@ class _UpdateEmailWidgetState extends State<UpdateEmailWidget> {
                                         .emailTextController.text.isEmpty) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                           content: Text(
                                             'Email required!',
                                           ),

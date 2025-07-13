@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:video_player/video_player.dart';
-import 'package:appinio_video_player/appinio_video_player.dart';
+// import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:chewie/chewie.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import '/flutter_flow/flutter_flow_util.dart' show routeObserver;
@@ -40,7 +41,8 @@ class ChewieVideoPlayer extends StatefulWidget {
 class _ChewieVideoPlayerState extends State<ChewieVideoPlayer>
     with WidgetsBindingObserver, RouteAware {
   late VideoPlayerController _videoPlayerController;
-  late CustomVideoPlayerController _customVideoPlayerController;
+  late ChewieController? _chewieController;
+  // late CustomVideoPlayerController _customVideoPlayerController;
   late AudioPlayer _audioPlayer;
   // late RouteObserver<PageRoute> routeObserver;
   late Future<void> _initializeVideoPlayerFuture;
@@ -59,8 +61,7 @@ class _ChewieVideoPlayerState extends State<ChewieVideoPlayer>
         _videoPlayerController.play();
       }
     });
-    _customVideoPlayerController = CustomVideoPlayerController(
-      context: context,
+    _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
     );
     // Play in background
@@ -73,7 +74,7 @@ class _ChewieVideoPlayerState extends State<ChewieVideoPlayer>
     routeObserver.unsubscribe(this); // Unsubscribe from the route observer
     _videoPlayerController.pause(); // Explicitly pause before disposing
     _videoPlayerController.dispose();
-    _customVideoPlayerController.dispose();
+    _chewieController?.dispose();
     _audioPlayer.dispose();
     super.dispose();
   }
@@ -157,8 +158,7 @@ class _ChewieVideoPlayerState extends State<ChewieVideoPlayer>
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Container(
-            child: CustomVideoPlayer(
-                customVideoPlayerController: _customVideoPlayerController),
+            child: Chewie(controller: _chewieController!),
           );
         } else {
           return Center(

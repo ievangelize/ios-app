@@ -6,15 +6,23 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'explore_model.dart';
 export 'explore_model.dart';
 
 class ExploreWidget extends StatefulWidget {
   const ExploreWidget({super.key});
+
+  static String routeName = 'Explore';
+  static String routePath = 'explore';
 
   @override
   State<ExploreWidget> createState() => _ExploreWidgetState();
@@ -33,6 +41,15 @@ class _ExploreWidgetState extends State<ExploreWidget> {
     _model = createModel(context, () => ExploreModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Explore'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().firstExplore) {
+        await actions.requestReview();
+        FFAppState().firstExplore = false;
+        safeSetState(() {});
+      }
+    });
+
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
@@ -55,6 +72,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -64,7 +83,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: NestedScrollView(
-          floatHeaderSlivers: true,
+          floatHeaderSlivers: false,
           headerSliverBuilder: (context, _) => [
             SliverAppBar(
               pinned: false,
@@ -73,7 +92,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
               automaticallyImplyLeading: false,
               actions: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -81,9 +100,9 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.pushNamed(
-                        'donate',
+                        DonateWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.bottomToTop,
                           ),
@@ -95,7 +114,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                       height: 40.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
                             blurRadius: 2.1,
                             color: Color(0x33000000),
@@ -111,7 +130,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                           color: FlutterFlowTheme.of(context).success,
                         ),
                       ),
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(0.0),
                         child: Image.asset(
@@ -126,22 +145,30 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                 ),
               ],
               bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(48.0),
+                preferredSize: Size.fromHeight(48.0),
                 child: Align(
-                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         '5dsf646v' /* Explore */,
                       ),
                       style:
                           FlutterFlowTheme.of(context).headlineLarge.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
+                                ),
                                 fontSize: 30.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .fontStyle,
                               ),
                     ),
                   ),
@@ -175,9 +202,9 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 context.pushNamed(
-                                  'SearchResults',
+                                  SearchResultsWidget.routeName,
                                   extra: <String, dynamic>{
-                                    kTransitionInfoKey: const TransitionInfo(
+                                    kTransitionInfoKey: TransitionInfo(
                                       hasTransition: true,
                                       transitionType: PageTransitionType.fade,
                                     ),
@@ -187,7 +214,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                               child: wrapWithModel(
                                 model: _model.searchbarDummyModel,
                                 updateCallback: () => safeSetState(() {}),
-                                child: const Hero(
+                                child: Hero(
                                   tag: 'searchbar',
                                   transitionOnUserGestures: true,
                                   child: Material(
@@ -198,7 +225,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 24.0, 0.0, 0.0),
                               child: FutureBuilder<List<CategoriesRow>>(
                                 future: FFAppState().categories(
@@ -226,7 +253,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                       snapshot.data!;
 
                                   return ListView.separated(
-                                    padding: const EdgeInsets.fromLTRB(
+                                    padding: EdgeInsets.fromLTRB(
                                       0,
                                       0,
                                       0,
@@ -237,7 +264,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: allCategoriesRowList.length,
                                     separatorBuilder: (_, __) =>
-                                        const SizedBox(height: 38.0),
+                                        SizedBox(height: 38.0),
                                     itemBuilder: (context, allIndex) {
                                       final allCategoriesRow =
                                           allCategoriesRowList[allIndex];
@@ -256,7 +283,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                     MediaQuery.sizeOf(context)
                                                             .width *
                                                         0.6,
-                                                decoration: const BoxDecoration(),
+                                                decoration: BoxDecoration(),
                                                 child: Text(
                                                   valueOrDefault<String>(
                                                     allCategoriesRow.title,
@@ -266,21 +293,34 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 18.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.bold,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                               ),
                                               Flexible(
                                                 child: Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           1.0, 0.0),
                                                   child: Container(
-                                                    decoration: const BoxDecoration(),
+                                                    decoration: BoxDecoration(),
                                                     child: InkWell(
                                                       splashColor:
                                                           Colors.transparent,
@@ -294,7 +334,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                         if (allCategoriesRow
                                                             .isVertical!) {
                                                           context.pushNamed(
-                                                            'CategoryVertical',
+                                                            CategoryVerticalWidget
+                                                                .routeName,
                                                             queryParameters: {
                                                               'category':
                                                                   serializeParam(
@@ -306,7 +347,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                           );
                                                         } else {
                                                           context.pushNamed(
-                                                            'CategoryHorizontal',
+                                                            CategoryHorizontalWidget
+                                                                .routeName,
                                                             queryParameters: {
                                                               'category':
                                                                   serializeParam(
@@ -328,14 +370,27 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                 .of(context)
                                                             .bodyMedium
                                                             .override(
-                                                              fontFamily:
-                                                                  'Inter',
+                                                              font: GoogleFonts
+                                                                  .inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
                                                               fontSize: 14.0,
                                                               letterSpacing:
                                                                   0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                             ),
                                                       ),
                                                     ),
@@ -344,9 +399,9 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                               ),
                                             ]
                                                 .addToStart(
-                                                    const SizedBox(width: 16.0))
+                                                    SizedBox(width: 16.0))
                                                 .addToEnd(
-                                                    const SizedBox(width: 16.0)),
+                                                    SizedBox(width: 16.0)),
                                           ),
                                           FutureBuilder<List<ResourcesRow>>(
                                             future: FFAppState().resources(
@@ -407,7 +462,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                           if (rowResourcesRow
                                                               .isVertical!) {
                                                             context.pushNamed(
-                                                              'VerticalVideoPlayer',
+                                                              VerticalVideoPlayerWidget
+                                                                  .routeName,
                                                               queryParameters: {
                                                                 'videoURL':
                                                                     serializeParam(
@@ -441,7 +497,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                             );
                                                           } else {
                                                             context.pushNamed(
-                                                              'HorizontalVideoPlayer',
+                                                              HorizontalVideoPlayerWidget
+                                                                  .routeName,
                                                               queryParameters: {
                                                                 'title':
                                                                     serializeParam(
@@ -496,7 +553,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                           }
                                                         } else {
                                                           context.pushNamed(
-                                                            'AudioPlayer',
+                                                            AudioPlayerWidget
+                                                                .routeName,
                                                             queryParameters: {
                                                               'title':
                                                                   serializeParam(
@@ -550,7 +608,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          SizedBox(
+                                                          Container(
                                                             width:
                                                                 valueOrDefault<
                                                                     double>(
@@ -562,7 +620,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                             ),
                                                             child: Stack(
                                                               alignment:
-                                                                  const AlignmentDirectional(
+                                                                  AlignmentDirectional(
                                                                       0.0, 1.0),
                                                               children: [
                                                                 ClipRRect(
@@ -573,11 +631,11 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 300),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 300),
                                                                     imageUrl:
@@ -608,7 +666,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           0.0,
@@ -627,11 +685,11 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                     children: [
                                                                       Container(
                                                                         width:
-                                                                            18.0,
+                                                                            22.0,
                                                                         height:
-                                                                            18.0,
+                                                                            22.0,
                                                                         decoration:
-                                                                            const BoxDecoration(
+                                                                            BoxDecoration(
                                                                           color:
                                                                               Color(0x9A000000),
                                                                           shape:
@@ -644,7 +702,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                           color:
                                                                               FlutterFlowTheme.of(context).info,
                                                                           size:
-                                                                              11.0,
+                                                                              14.0,
                                                                         ),
                                                                       ),
                                                                       FFButtonWidget(
@@ -657,30 +715,32 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                             .duration!,
                                                                         options:
                                                                             FFButtonOptions(
-                                                                          width:
-                                                                              36.0,
                                                                           height:
                                                                               18.0,
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
                                                                               0.0,
                                                                               1.0,
                                                                               0.0),
-                                                                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
                                                                               0.0,
                                                                               0.0,
                                                                               0.0),
                                                                           color:
-                                                                              const Color(0x9A000000),
+                                                                              Color(0x9A000000),
                                                                           textStyle: FlutterFlowTheme.of(context)
                                                                               .titleSmall
                                                                               .override(
-                                                                                fontFamily: 'Inter',
+                                                                                font: GoogleFonts.inter(
+                                                                                  fontWeight: FontWeight.w300,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                ),
                                                                                 color: Colors.white,
                                                                                 fontSize: 1.0,
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w300,
+                                                                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                               ),
                                                                           elevation:
                                                                               0.0,
@@ -698,7 +758,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         8.0,
@@ -725,8 +785,17 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
@@ -734,6 +803,14 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                         12.0,
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
@@ -759,8 +836,17 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                     .of(context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   fontSize:
                                                                       14.0,
                                                                   letterSpacing:
@@ -768,6 +854,10 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                         ],
@@ -775,16 +865,16 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                                     );
                                                   })
                                                       .divide(
-                                                          const SizedBox(width: 16.0))
+                                                          SizedBox(width: 16.0))
                                                       .addToStart(
-                                                          const SizedBox(width: 16.0))
-                                                      .addToEnd(const SizedBox(
+                                                          SizedBox(width: 16.0))
+                                                      .addToEnd(SizedBox(
                                                           width: 16.0)),
                                                 ),
                                               );
                                             },
                                           ),
-                                        ].divide(const SizedBox(height: 12.0)),
+                                        ].divide(SizedBox(height: 12.0)),
                                       );
                                     },
                                   );
@@ -808,11 +898,11 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 1.0),
+                      alignment: AlignmentDirectional(0.0, 1.0),
                       child: wrapWithModel(
                         model: _model.navBarModel,
                         updateCallback: () => safeSetState(() {}),
-                        child: const NavBarWidget(
+                        child: NavBarWidget(
                           selectedPage: 'explore',
                         ),
                       ),

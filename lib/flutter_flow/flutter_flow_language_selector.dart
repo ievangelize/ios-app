@@ -28,7 +28,7 @@ import 'package:flutter/material.dart';
 
 class FlutterFlowLanguageSelector extends StatelessWidget {
   const FlutterFlowLanguageSelector({
-    super.key,
+    Key? key,
     required this.currentLanguage,
     required this.languages,
     required this.onChanged,
@@ -44,7 +44,7 @@ class FlutterFlowLanguageSelector extends StatelessWidget {
     this.dropdownColor,
     this.dropdownIconColor = const Color(0xFF14181B),
     this.dropdownIcon,
-  });
+  }) : super(key: key);
 
   final double? width;
   final double? height;
@@ -63,7 +63,7 @@ class FlutterFlowLanguageSelector extends StatelessWidget {
   final IconData? dropdownIcon;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
+  Widget build(BuildContext context) => Container(
         width: width,
         height: height,
         child: _LanguagePickerDropdown(
@@ -90,13 +90,14 @@ class FlutterFlowLanguageSelector extends StatelessWidget {
 
 class _LanguagePickerItem extends StatelessWidget {
   const _LanguagePickerItem({
+    Key? key,
     required this.language,
     required this.languages,
     this.textStyle,
     this.hideFlags = false,
     this.flagSize = 24.0,
     this.flagTextGap = 8.0,
-  });
+  }) : super(key: key);
 
   final String language;
   final List<String> languages;
@@ -128,7 +129,7 @@ class _LanguagePickerItem extends StatelessWidget {
     }
     flagWidget = Transform.scale(
       scale: flagSize / 24.0,
-      child: SizedBox(
+      child: Container(
         width: 24,
         child: flagWidget,
       ),
@@ -273,39 +274,39 @@ final List<Map<String, String>> _defaultLanguagesList = [
   {"isoCode": "ay", "name": "Aymar"},
   {"isoCode": "az", "name": "Azərbaycan"},
   {"isoCode": "bm", "name": "Bamanankan"},
-  {"isoCode": "ba", "name": "башҡорт теле"},
+  {"isoCode": "ba", "name": "Башҡорт теле"},
   {"isoCode": "eu", "name": "Euskara, Euskera"},
-  {"isoCode": "be", "name": "беларуская мова"},
+  {"isoCode": "be", "name": "Беларуская мова"},
   {"isoCode": "bn", "name": "বাংলা"},
   {"isoCode": "bh", "name": "भोजपुरी"},
   {"isoCode": "bi", "name": "Bislama"},
   {"isoCode": "nb", "name": "Norsk bokmål"},
   {"isoCode": "bs", "name": "Bosanski jezik"},
   {"isoCode": "br", "name": "Brezhoneg"},
-  {"isoCode": "bg", "name": "български език"},
+  {"isoCode": "bg", "name": "Български език"},
   {"isoCode": "my", "name": "ဗမာစာ"},
   {"isoCode": "ca", "name": "Català"},
   {"isoCode": "km", "name": "ភាសាខ្មែរ"},
   {"isoCode": "ch", "name": "Chamoru"},
-  {"isoCode": "ce", "name": "нохчийн мотт"},
+  {"isoCode": "ce", "name": "Нохчийн мотт"},
   {"isoCode": "ny", "name": "chiCheŵa"},
   {"isoCode": "zh_Hans", "name": "中文 (简体)"},
   {"isoCode": "zh_Hant", "name": "中文 (繁體)"},
   {"isoCode": "cv", "name": "чӑваш чӗлхи"},
   {"isoCode": "cr", "name": "ᓀᐦᐃᔭᐍᐏᐣ"},
-  {"isoCode": "hr", "name": "hrvatski jezik"},
-  {"isoCode": "cs", "name": "čeština"},
-  {"isoCode": "da", "name": "dansk"},
+  {"isoCode": "hr", "name": "Hrvatski jezik"},
+  {"isoCode": "cs", "name": "Čeština"},
+  {"isoCode": "da", "name": "Dansk"},
   {"isoCode": "dv", "name": "ދިވެހި"},
   {"isoCode": "nl", "name": "Nederlands"},
   {"isoCode": "dz", "name": "རྫོང་ཁ"},
   {"isoCode": "en", "name": "English"},
   {"isoCode": "eo", "name": "Esperanto"},
-  {"isoCode": "et", "name": "eesti"},
+  {"isoCode": "et", "name": "Eesti"},
   {"isoCode": "ee", "name": "Eʋegbe"},
-  {"isoCode": "fo", "name": "føroyskt"},
+  {"isoCode": "fo", "name": "Føroyskt"},
   {"isoCode": "fj", "name": "vosa Vakaviti"},
-  {"isoCode": "fi", "name": "suomi"},
+  {"isoCode": "fi", "name": "Suomi"},
   {"isoCode": "fr", "name": "Français"},
   {"isoCode": "ff", "name": "Fulfulde"},
   {"isoCode": "gd", "name": "Gàidhlig"},
@@ -350,14 +351,14 @@ final List<Map<String, String>> _defaultLanguagesList = [
   {"isoCode": "ku", "name": "Kurdî"},
   {"isoCode": "lo", "name": "ພາສາລາວ"},
   {"isoCode": "la", "name": "Latine"},
-  {"isoCode": "lv", "name": "latviešu valoda"},
+  {"isoCode": "lv", "name": "Latviešu valoda"},
   {"isoCode": "li", "name": "Limburgs"},
   {"isoCode": "ln", "name": "Lingála"},
-  {"isoCode": "lt", "name": "lietuvių kalba"},
+  {"isoCode": "lt", "name": "Lietuvių kalba"},
   {"isoCode": "lu", "name": "Tshiluba"},
   {"isoCode": "lb", "name": "Lëtzebuergesch"},
-  {"isoCode": "mk", "name": "македонски јазик"},
-  {"isoCode": "mg", "name": "fiteny malagasy"},
+  {"isoCode": "mk", "name": "Македонски јазик"},
+  {"isoCode": "mg", "name": "Fiteny Malagasy"},
   {"isoCode": "ms", "name": "Bahasa Melayu"},
   {"isoCode": "ml", "name": "മലയാളം"},
   {"isoCode": "mt", "name": "Malti"},
@@ -394,21 +395,21 @@ final List<Map<String, String>> _defaultLanguagesList = [
   {"isoCode": "sm", "name": "gagana fa'a Samoa"},
   {"isoCode": "sg", "name": "yângâ tî sängö"},
   {"isoCode": "sa", "name": "संस्कृतम्"},
-  {"isoCode": "sc", "name": "sardu"},
+  {"isoCode": "sc", "name": "Sardu"},
   {"isoCode": "sr", "name": "српски језик"},
   {"isoCode": "sn", "name": "chiShona"},
   {"isoCode": "ii", "name": "ꆈꌠ꒿ Nuosuhxop"},
   {"isoCode": "sd", "name": "सिन्धी"},
   {"isoCode": "si", "name": "සිංහල"},
-  {"isoCode": "sk", "name": "slovenský jazyk"},
-  {"isoCode": "sl", "name": "slovenščina"},
+  {"isoCode": "sk", "name": "Slovenský jazyk"},
+  {"isoCode": "sl", "name": "Slovenščina"},
   {"isoCode": "so", "name": "Soomaaliga"},
   {"isoCode": "st", "name": "Sesotho"},
   {"isoCode": "es", "name": "Español"},
   {"isoCode": "su", "name": "Basa Sunda"},
   {"isoCode": "sw", "name": "Kiswahili"},
   {"isoCode": "ss", "name": "SiSwati"},
-  {"isoCode": "sv", "name": "svenska"},
+  {"isoCode": "sv", "name": "Svenska"},
   {"isoCode": "tl", "name": "Tagalog"},
   {"isoCode": "ty", "name": "Reo Tahiti"},
   {"isoCode": "tg", "name": "тоҷикӣ"},
@@ -431,7 +432,7 @@ final List<Map<String, String>> _defaultLanguagesList = [
   {"isoCode": "ve", "name": "Tshivenḓa"},
   {"isoCode": "vi", "name": "Tiếng Việt"},
   {"isoCode": "vo", "name": "Volapük"},
-  {"isoCode": "wa", "name": "walon"},
+  {"isoCode": "wa", "name": "Walon"},
   {"isoCode": "cy", "name": "Cymraeg"},
   {"isoCode": "fy", "name": "Frysk"},
   {"isoCode": "wo", "name": "Wollof"},

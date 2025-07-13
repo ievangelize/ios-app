@@ -39,6 +39,9 @@ class FFAppState extends ChangeNotifier {
       _madeFirstImpact =
           prefs.getBool('ff_madeFirstImpact') ?? _madeFirstImpact;
     });
+    _safeInit(() {
+      _firstExplore = prefs.getBool('ff_firstExplore') ?? _firstExplore;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -83,7 +86,7 @@ class FFAppState extends ChangeNotifier {
     prefs.setString('ff_SupabaseKey', value);
   }
 
-  bool _firstSituaton = false;
+  bool _firstSituaton = true;
   bool get firstSituaton => _firstSituaton;
   set firstSituaton(bool value) {
     _firstSituaton = value;
@@ -101,6 +104,39 @@ class FFAppState extends ChangeNotifier {
   bool get joinedChurch => _joinedChurch;
   set joinedChurch(bool value) {
     _joinedChurch = value;
+  }
+
+  String _fcmToken = '';
+  String get fcmToken => _fcmToken;
+  set fcmToken(String value) {
+    _fcmToken = value;
+  }
+
+  /// first time opening explore page
+  bool _firstExplore = true;
+  bool get firstExplore => _firstExplore;
+  set firstExplore(bool value) {
+    _firstExplore = value;
+    prefs.setBool('ff_firstExplore', value);
+  }
+
+  String _speechToTextResponse = '';
+  String get speechToTextResponse => _speechToTextResponse;
+  set speechToTextResponse(String value) {
+    _speechToTextResponse = value;
+  }
+
+  String _sst = '';
+  String get sst => _sst;
+  set sst(String value) {
+    _sst = value;
+  }
+
+  String _audioApiKey =
+      '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';
+  String get audioApiKey => _audioApiKey;
+  set audioApiKey(String value) {
+    _audioApiKey = value;
   }
 
   final _profileManager = FutureRequestManager<List<UsersRow>>();

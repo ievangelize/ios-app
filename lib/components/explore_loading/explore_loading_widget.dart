@@ -213,7 +213,7 @@ class _ExploreLoadingWidgetState extends State<ExploreLoadingWidget>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -259,7 +259,7 @@ class _ExploreLoadingWidgetState extends State<ExploreLoadingWidget>
                     ),
                   ).animateOnPageLoad(
                       animationsMap['containerOnPageLoadAnimation4']!),
-                ].divide(const SizedBox(width: 16.0)),
+                ].divide(SizedBox(width: 16.0)),
               ),
             ),
             SingleChildScrollView(
@@ -294,7 +294,7 @@ class _ExploreLoadingWidgetState extends State<ExploreLoadingWidget>
                     ),
                   ).animateOnPageLoad(
                       animationsMap['containerOnPageLoadAnimation7']!),
-                ].divide(const SizedBox(width: 16.0)),
+                ].divide(SizedBox(width: 16.0)),
               ),
             ),
             SingleChildScrollView(
@@ -329,7 +329,7 @@ class _ExploreLoadingWidgetState extends State<ExploreLoadingWidget>
                     ),
                   ).animateOnPageLoad(
                       animationsMap['containerOnPageLoadAnimation10']!),
-                ].divide(const SizedBox(width: 16.0)),
+                ].divide(SizedBox(width: 16.0)),
               ),
             ),
             SingleChildScrollView(
@@ -364,10 +364,10 @@ class _ExploreLoadingWidgetState extends State<ExploreLoadingWidget>
                     ),
                   ).animateOnPageLoad(
                       animationsMap['containerOnPageLoadAnimation13']!),
-                ].divide(const SizedBox(width: 16.0)),
+                ].divide(SizedBox(width: 16.0)),
               ),
             ),
-          ].divide(const SizedBox(height: 30.0)),
+          ].divide(SizedBox(height: 30.0)),
         ),
       ),
     );

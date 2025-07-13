@@ -1,6 +1,7 @@
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/components/searchbar_dummy/searchbar_dummy_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'explore_widget.dart' show ExploreWidget;
 import 'package:flutter/material.dart';
 

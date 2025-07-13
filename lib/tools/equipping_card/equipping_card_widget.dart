@@ -3,11 +3,15 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'equipping_card_model.dart';
 export 'equipping_card_model.dart';
 
 class EquippingCardWidget extends StatefulWidget {
   const EquippingCardWidget({super.key});
+
+  static String routeName = 'EquippingCard';
+  static String routePath = 'equippingCard';
 
   @override
   State<EquippingCardWidget> createState() => _EquippingCardWidgetState();
@@ -45,7 +49,7 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(40.0),
+          preferredSize: Size.fromHeight(40.0),
           child: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             automaticallyImplyLeading: false,
@@ -63,7 +67,7 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
                 size: 24.0,
               ),
             ),
-            actions: const [],
+            actions: [],
             centerTitle: false,
             elevation: 0.0,
           ),
@@ -73,7 +77,7 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -85,15 +89,23 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
                           'hj2t2jzt' /* Tap card to flip */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
                               color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: 18.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: FlipCard(
                           fill: Fill.fillBack,
                           direction: FlipDirection.HORIZONTAL,
@@ -127,18 +139,18 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
                         ),
                       ),
                     ]
-                        .divide(const SizedBox(height: 25.0))
-                        .addToStart(const SizedBox(height: 8.0))
-                        .addToEnd(const SizedBox(height: 90.0)),
+                        .divide(SizedBox(height: 25.0))
+                        .addToStart(SizedBox(height: 8.0))
+                        .addToEnd(SizedBox(height: 90.0)),
                   ),
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'home',
                   ),
                 ),

@@ -10,7 +10,7 @@ class NoAuthMissionTable extends SupabaseTable<NoAuthMissionRow> {
 }
 
 class NoAuthMissionRow extends SupabaseDataRow {
-  NoAuthMissionRow(super.data);
+  NoAuthMissionRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => NoAuthMissionTable();

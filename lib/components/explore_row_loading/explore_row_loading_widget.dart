@@ -10,7 +10,7 @@ class ExploreRowLoadingWidget extends StatefulWidget {
   const ExploreRowLoadingWidget({
     super.key,
     bool? isVertical,
-  }) : isVertical = isVertical ?? false;
+  }) : this.isVertical = isVertical ?? false;
 
   final bool isVertical;
 
@@ -135,7 +135,7 @@ class _ExploreRowLoadingWidgetState extends State<ExploreRowLoadingWidget>
               borderRadius: BorderRadius.circular(8.0),
             ),
           ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation3']!),
-        ].divide(const SizedBox(width: 16.0)).addToStart(const SizedBox(width: 16.0)),
+        ].divide(SizedBox(width: 16.0)).addToStart(SizedBox(width: 16.0)),
       ),
     );
   }

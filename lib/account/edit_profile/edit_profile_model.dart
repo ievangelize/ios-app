@@ -1,5 +1,6 @@
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'edit_profile_widget.dart' show EditProfileWidget;
 import 'package:flutter/material.dart';
 
@@ -11,10 +12,10 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
+  bool isDataUploading_newProfile = false;
+  FFUploadedFile uploadedLocalFile_newProfile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
+  String uploadedFileUrl_newProfile = '';
 
   // State field(s) for fullName widget.
   FocusNode? fullNameFocusNode;

@@ -1,5 +1,6 @@
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'category_vertical_widget.dart' show CategoryVerticalWidget;
 import 'package:flutter/material.dart';
 

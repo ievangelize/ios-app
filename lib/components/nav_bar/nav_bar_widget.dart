@@ -2,8 +2,10 @@ import '/auth/base_auth_user_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'nav_bar_model.dart';
 export 'nav_bar_model.dart';
 
@@ -91,9 +93,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     onTap: () async {
                       if (loggedIn) {
                         context.goNamed(
-                          'home',
+                          HomeWidget.routeName,
                           extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
+                            kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
                               transitionType: PageTransitionType.fade,
                               duration: Duration(milliseconds: 0),
@@ -102,9 +104,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         );
                       } else {
                         context.goNamed(
-                          'homeNoAuth',
+                          HomeNoAuthWidget.routeName,
                           extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
+                            kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
                               transitionType: PageTransitionType.fade,
                               duration: Duration(milliseconds: 0),
@@ -114,11 +116,11 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       }
                     },
                     child: Container(
-                      decoration: const BoxDecoration(),
-                      alignment: const AlignmentDirectional(-1.0, 0.0),
+                      decoration: BoxDecoration(),
+                      alignment: AlignmentDirectional(-1.0, 0.0),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 0.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -153,7 +155,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 ),
                               ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 6.0, 0.0, 0.0),
                               child: Text(
                                 FFLocalizations.of(context).getText(
@@ -162,7 +164,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
                                       color: widget.selectedPage == 'home'
                                           ? FlutterFlowTheme.of(context)
                                               .primaryText
@@ -171,6 +178,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                       fontSize: 10.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
                                     ),
                               ),
                             ),
@@ -189,9 +199,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     onTap: () async {
                       if (loggedIn) {
                         context.goNamed(
-                          'situation',
+                          SituationWidget.routeName,
                           extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
+                            kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
                               transitionType: PageTransitionType.fade,
                               duration: Duration(milliseconds: 0),
@@ -200,9 +210,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         );
                       } else {
                         context.goNamed(
-                          'situationNoAuth',
+                          SituationWidget.routeName,
                           extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
+                            kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
                               transitionType: PageTransitionType.fade,
                               duration: Duration(milliseconds: 0),
@@ -212,8 +222,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       }
                     },
                     child: Container(
-                      decoration: const BoxDecoration(),
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      decoration: BoxDecoration(),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -246,7 +256,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               ),
                             ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 6.0, 0.0, 0.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
@@ -255,7 +265,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: widget.selectedPage == 'evangelize'
                                         ? FlutterFlowTheme.of(context)
                                             .primaryText
@@ -263,6 +278,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                     fontSize: 10.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                             ),
                           ),
@@ -279,9 +297,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.goNamed(
-                        'Explore',
+                        ExploreWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.fade,
                             duration: Duration(milliseconds: 0),
@@ -290,8 +308,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       );
                     },
                     child: Container(
-                      decoration: const BoxDecoration(),
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      decoration: BoxDecoration(),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -325,7 +343,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               ),
                             ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 6.0, 0.0, 0.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
@@ -334,7 +352,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: widget.selectedPage == 'explore'
                                         ? FlutterFlowTheme.of(context)
                                             .primaryText
@@ -342,6 +365,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                     fontSize: 10.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                             ),
                           ),
@@ -359,9 +385,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     onTap: () async {
                       if (loggedIn) {
                         context.goNamed(
-                          'followUpList',
+                          FollowUpListWidget.routeName,
                           extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
+                            kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
                               transitionType: PageTransitionType.fade,
                               duration: Duration(milliseconds: 0),
@@ -370,9 +396,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         );
                       } else {
                         context.goNamed(
-                          'followUpNoAuth',
+                          FollowUpNoAuthWidget.routeName,
                           extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
+                            kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
                               transitionType: PageTransitionType.fade,
                               duration: Duration(milliseconds: 0),
@@ -382,8 +408,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       }
                     },
                     child: Container(
-                      decoration: const BoxDecoration(),
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      decoration: BoxDecoration(),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -417,7 +443,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               ),
                             ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 6.0, 0.0, 0.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
@@ -426,7 +452,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: widget.selectedPage == 'followup'
                                         ? FlutterFlowTheme.of(context)
                                             .primaryText
@@ -434,6 +465,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                     fontSize: 10.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                             ),
                           ),
@@ -450,9 +484,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.goNamed(
-                        'More',
+                        MoreWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.fade,
                             duration: Duration(milliseconds: 0),
@@ -461,11 +495,11 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       );
                     },
                     child: Container(
-                      decoration: const BoxDecoration(),
-                      alignment: const AlignmentDirectional(1.0, 0.0),
+                      decoration: BoxDecoration(),
+                      alignment: AlignmentDirectional(1.0, 0.0),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -500,7 +534,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 ),
                               ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 6.0, 0.0, 0.0),
                               child: Text(
                                 FFLocalizations.of(context).getText(
@@ -509,7 +543,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
                                       color: widget.selectedPage == 'more'
                                           ? FlutterFlowTheme.of(context)
                                               .primaryText
@@ -518,6 +557,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                       fontSize: 10.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
                                     ),
                               ),
                             ),

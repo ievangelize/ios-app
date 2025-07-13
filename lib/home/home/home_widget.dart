@@ -10,15 +10,21 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'home_model.dart';
 export 'home_model.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
+
+  static String routeName = 'home';
+  static String routePath = 'home';
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
@@ -35,6 +41,22 @@ class _HomeWidgetState extends State<HomeWidget> {
     _model = createModel(context, () => HomeModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'home'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.currentVersion = await actions.newVersion();
+      if (_model.currentVersion == getRemoteConfigString('deprecatedVersion')) {
+        context.goNamed(
+          UpdateVersionWidget.routeName,
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
+      }
+    });
   }
 
   @override
@@ -89,7 +111,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
               automaticallyImplyLeading: false,
               leading: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,18 +122,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed('More');
+                        context.pushNamed(MoreWidget.routeName);
                       },
                       child: Container(
                         width: 38.0,
                         height: 38.0,
                         clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         child: CachedNetworkImage(
-                          fadeInDuration: const Duration(milliseconds: 500),
-                          fadeOutDuration: const Duration(milliseconds: 500),
+                          fadeInDuration: Duration(milliseconds: 500),
+                          fadeOutDuration: Duration(milliseconds: 500),
                           imageUrl: valueOrDefault<String>(
                             homeUsersRow?.profileAdded == true
                                 ? homeUsersRow?.profileUrl
@@ -124,7 +146,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -137,11 +159,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                           Text(
@@ -151,9 +181,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ],
@@ -164,7 +202,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -172,9 +210,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.pushNamed(
-                        'donate',
+                        DonateWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.bottomToTop,
                           ),
@@ -186,7 +224,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       height: 40.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
                             blurRadius: 2.1,
                             color: Color(0x25000000),
@@ -202,7 +240,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           color: FlutterFlowTheme.of(context).success,
                         ),
                       ),
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(0.0),
                         child: Image.asset(
@@ -210,7 +248,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           width: 24.0,
                           height: 24.0,
                           fit: BoxFit.contain,
-                          alignment: const Alignment(0.0, 0.0),
+                          alignment: Alignment(0.0, 0.0),
                         ),
                       ),
                     ),
@@ -229,7 +267,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 24.0, 16.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -238,7 +276,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               context.pushNamed(
-                                'Impact',
+                                ImpactWidget.routeName,
                                 queryParameters: {
                                   'shares': serializeParam(
                                     homeUsersRow?.impact,
@@ -256,7 +294,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 8.0, 16.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -278,7 +316,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           14.0, 0.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -294,13 +332,25 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .info,
                                                   fontSize: 26.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                           ),
                                           Text(
@@ -310,13 +360,25 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter',
+                                                  font: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
                                                 ),
                                           ),
                                         ],
@@ -325,7 +387,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     Flexible(
                                       child: Align(
                                         alignment:
-                                            const AlignmentDirectional(1.0, 0.0),
+                                            AlignmentDirectional(1.0, 0.0),
                                         child: AutoSizeText(
                                           valueOrDefault<String>(
                                             homeUsersRow?.impact?.toString(),
@@ -334,13 +396,24 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .info,
                                                 fontSize: 40.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -352,7 +425,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: FutureBuilder<List<StoriesRow>>(
                             future: FFAppState().story(
@@ -366,7 +439,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
-                                return const QuoteLoadingWidget();
+                                return QuoteLoadingWidget();
                               }
                               List<StoriesRow> stackStoriesRowList =
                                   snapshot.data!;
@@ -383,7 +456,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   context.pushNamed(
-                                    'StoryViewer',
+                                    StoryViewerWidget.routeName,
                                     queryParameters: {
                                       'story': serializeParam(
                                         stackStoriesRow,
@@ -391,7 +464,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
-                                      kTransitionInfoKey: const TransitionInfo(
+                                      kTransitionInfoKey: TransitionInfo(
                                         hasTransition: true,
                                         transitionType: PageTransitionType.fade,
                                       ),
@@ -399,10 +472,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   );
                                 },
                                 child: Stack(
-                                  alignment: const AlignmentDirectional(0.0, 1.0),
+                                  alignment: AlignmentDirectional(0.0, 1.0),
                                   children: [
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Hero(
                                         tag: valueOrDefault<String>(
                                           stackStoriesRow?.thumbnailUrl,
@@ -414,9 +487,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               BorderRadius.circular(14.0),
                                           child: CachedNetworkImage(
                                             fadeInDuration:
-                                                const Duration(milliseconds: 300),
+                                                Duration(milliseconds: 300),
                                             fadeOutDuration:
-                                                const Duration(milliseconds: 300),
+                                                Duration(milliseconds: 300),
                                             imageUrl: valueOrDefault<String>(
                                               stackStoriesRow?.thumbnailUrl,
                                               'https://api.ievangelize.app/storage/v1/object/public/stories/quote_4_thumb.png',
@@ -429,7 +502,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 8.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -444,19 +517,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             onTap: () async {
                                               await actions.shareFile(
                                                 context,
-                                                stackStoriesRow!.thumbnailUrl!,
+                                                stackStoriesRow!
+                                                    .sharableImgUrl!,
                                               );
                                             },
                                             child: Container(
                                               width: 35.0,
                                               height: 35.0,
                                               decoration: BoxDecoration(
-                                                color: const Color(0x52000000),
+                                                color: Color(0x52000000),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 3.0),
                                                 child: Icon(
@@ -476,7 +550,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               context.pushNamed(
-                                                'StoryViewer',
+                                                StoryViewerWidget.routeName,
                                                 queryParameters: {
                                                   'story': serializeParam(
                                                     stackStoriesRow,
@@ -485,7 +559,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 }.withoutNulls,
                                                 extra: <String, dynamic>{
                                                   kTransitionInfoKey:
-                                                      const TransitionInfo(
+                                                      TransitionInfo(
                                                     hasTransition: true,
                                                     transitionType:
                                                         PageTransitionType.fade,
@@ -497,7 +571,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               width: 35.0,
                                               height: 35.0,
                                               decoration: BoxDecoration(
-                                                color: const Color(0x52000000),
+                                                color: Color(0x52000000),
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),
@@ -511,8 +585,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             ),
                                           ),
                                         ]
-                                            .divide(const SizedBox(width: 16.0))
-                                            .addToEnd(const SizedBox(width: 8.0)),
+                                            .divide(SizedBox(width: 16.0))
+                                            .addToEnd(SizedBox(width: 8.0)),
                                       ),
                                     ),
                                   ],
@@ -522,7 +596,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 24.0, 16.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -535,10 +609,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
                                       fontSize: 20.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
                                     ),
                               ),
                             ],
@@ -546,7 +628,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                         if (getRemoteConfigBool('jad'))
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
@@ -561,10 +643,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('situation');
+                                      context
+                                          .pushNamed(SituationWidget.routeName);
                                     },
                                     child: Stack(
-                                      alignment: const AlignmentDirectional(1.0, 1.0),
+                                      alignment: AlignmentDirectional(1.0, 1.0),
                                       children: [
                                         Container(
                                           width: 330.0,
@@ -577,7 +660,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     14.0, 16.0, 12.0, 0.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -603,7 +686,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   0.0,
@@ -620,8 +703,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .info,
@@ -632,6 +724,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
@@ -646,7 +742,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -655,15 +759,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
-                                              ].divide(const SizedBox(height: 8.0)),
+                                              ].divide(SizedBox(height: 8.0)),
                                             ),
                                           ),
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 8.0, 8.0),
                                           child: FlutterFlowIconButton(
                                             borderRadius: 100.0,
@@ -679,7 +788,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               size: 24.0,
                                             ),
                                             onPressed: () async {
-                                              context.pushNamed('situation');
+                                              context.pushNamed(
+                                                  SituationWidget.routeName);
                                             },
                                           ),
                                         ),
@@ -692,10 +802,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('EquippingCardInfo');
+                                      context.pushNamed(
+                                          EquippingCardInfoWidget.routeName);
                                     },
                                     child: Stack(
-                                      alignment: const AlignmentDirectional(1.0, 1.0),
+                                      alignment: AlignmentDirectional(1.0, 1.0),
                                       children: [
                                         Container(
                                           width: 330.0,
@@ -708,7 +819,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     14.0, 16.0, 12.0, 0.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -732,7 +843,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   0.0,
@@ -749,8 +860,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .info,
@@ -761,6 +881,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
@@ -775,7 +899,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -784,15 +916,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
-                                              ].divide(const SizedBox(height: 8.0)),
+                                              ].divide(SizedBox(height: 8.0)),
                                             ),
                                           ),
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 8.0, 8.0),
                                           child: FlutterFlowIconButton(
                                             borderRadius: 100.0,
@@ -809,7 +946,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             ),
                                             onPressed: () async {
                                               context.pushNamed(
-                                                  'EquippingCardInfo');
+                                                  EquippingCardInfoWidget
+                                                      .routeName);
                                             },
                                           ),
                                         ),
@@ -817,15 +955,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ),
                                 ]
-                                    .divide(const SizedBox(width: 16.0))
-                                    .addToStart(const SizedBox(width: 16.0))
-                                    .addToEnd(const SizedBox(width: 16.0)),
+                                    .divide(SizedBox(width: 16.0))
+                                    .addToStart(SizedBox(width: 16.0))
+                                    .addToEnd(SizedBox(width: 16.0)),
                               ),
                             ),
                           ),
                         if (!getRemoteConfigBool('jad'))
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 10.0, 16.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -838,10 +976,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('situation');
+                                      context
+                                          .pushNamed(SituationWidget.routeName);
                                     },
                                     child: Stack(
-                                      alignment: const AlignmentDirectional(1.0, 1.0),
+                                      alignment: AlignmentDirectional(1.0, 1.0),
                                       children: [
                                         Container(
                                           width: double.infinity,
@@ -854,7 +993,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     14.0, 16.0, 12.0, 0.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -880,7 +1019,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8.0,
                                                                   0.0,
@@ -897,8 +1036,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .info,
@@ -909,6 +1057,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
@@ -923,7 +1075,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -932,15 +1092,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
-                                              ].divide(const SizedBox(height: 8.0)),
+                                              ].divide(SizedBox(height: 8.0)),
                                             ),
                                           ),
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 8.0, 8.0),
                                           child: FlutterFlowIconButton(
                                             borderRadius: 100.0,
@@ -956,7 +1121,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               size: 24.0,
                                             ),
                                             onPressed: () async {
-                                              context.pushNamed('situation');
+                                              context.pushNamed(
+                                                  SituationWidget.routeName);
                                             },
                                           ),
                                         ),
@@ -968,7 +1134,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             ),
                           ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 32.0, 0.0, 0.0),
                           child: FutureBuilder<List<CategoriesRow>>(
                             future: FFAppState().homeCategories(
@@ -984,7 +1150,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
-                                return const Padding(
+                                return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 0.0, 0.0),
                                   child: HomeVideoLoadingWidget(),
@@ -1003,7 +1169,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -1018,16 +1184,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 fontSize: 20.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                         Flexible(
                                           child: Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
+                                                AlignmentDirectional(1.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -1035,7 +1212,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               highlightColor:
                                                   Colors.transparent,
                                               onTap: () async {
-                                                context.pushNamed('Explore');
+                                                context.pushNamed(
+                                                    ExploreWidget.routeName);
                                               },
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -1046,11 +1224,25 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                               ),
                                             ),
@@ -1060,7 +1252,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 0.0, 0.0),
                                     child: FutureBuilder<List<ResourcesRow>>(
                                       future: FFAppState().resources(
@@ -1082,7 +1274,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
-                                          return const HomeVideoLoadingWidget();
+                                          return HomeVideoLoadingWidget();
                                         }
                                         List<ResourcesRow> rowResourcesRowList =
                                             snapshot.data!;
@@ -1108,7 +1300,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     if (rowResourcesRow
                                                         .isVertical!) {
                                                       context.pushNamed(
-                                                        'VerticalVideoPlayer',
+                                                        VerticalVideoPlayerWidget
+                                                            .routeName,
                                                         queryParameters: {
                                                           'videoURL':
                                                               serializeParam(
@@ -1138,7 +1331,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       );
                                                     } else {
                                                       context.pushNamed(
-                                                        'HorizontalVideoPlayer',
+                                                        HorizontalVideoPlayerWidget
+                                                            .routeName,
                                                         queryParameters: {
                                                           'title':
                                                               serializeParam(
@@ -1187,7 +1381,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     }
                                                   } else {
                                                     context.pushNamed(
-                                                      'AudioPlayer',
+                                                      AudioPlayerWidget
+                                                          .routeName,
                                                       queryParameters: {
                                                         'title': serializeParam(
                                                           rowResourcesRow.title,
@@ -1233,11 +1428,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    SizedBox(
+                                                    Container(
                                                       width: 149.0,
                                                       child: Stack(
                                                         alignment:
-                                                            const AlignmentDirectional(
+                                                            AlignmentDirectional(
                                                                 0.0, 1.0),
                                                         children: [
                                                           ClipRRect(
@@ -1248,11 +1443,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             child:
                                                                 CachedNetworkImage(
                                                               fadeInDuration:
-                                                                  const Duration(
+                                                                  Duration(
                                                                       milliseconds:
                                                                           300),
                                                               fadeOutDuration:
-                                                                  const Duration(
+                                                                  Duration(
                                                                       milliseconds:
                                                                           300),
                                                               imageUrl:
@@ -1269,11 +1464,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           ),
                                                           Align(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     0.0, 1.0),
                                                             child: Padding(
                                                               padding:
-                                                                  const EdgeInsetsDirectional
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           0.0,
@@ -1295,7 +1490,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     height:
                                                                         18.0,
                                                                     decoration:
-                                                                        const BoxDecoration(
+                                                                        BoxDecoration(
                                                                       color: Color(
                                                                           0x9A000000),
                                                                       shape: BoxShape
@@ -1325,24 +1520,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           36.0,
                                                                       height:
                                                                           18.0,
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           1.0,
                                                                           0.0),
-                                                                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      iconPadding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                                      color: const Color(
+                                                                      color: Color(
                                                                           0x9A000000),
                                                                       textStyle: FlutterFlowTheme.of(
                                                                               context)
                                                                           .titleSmall
                                                                           .override(
-                                                                            fontFamily:
-                                                                                'Inter',
+                                                                            font:
+                                                                                GoogleFonts.inter(
+                                                                              fontWeight: FontWeight.w300,
+                                                                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                            ),
                                                                             color:
                                                                                 Colors.white,
                                                                             fontSize:
@@ -1351,6 +1549,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                 0.0,
                                                                             fontWeight:
                                                                                 FontWeight.w300,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                           ),
                                                                       elevation:
                                                                           0.0,
@@ -1370,7 +1570,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   8.0,
@@ -1389,8 +1589,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
@@ -1398,12 +1608,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       12.0,
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   2.0,
@@ -1420,14 +1638,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                 .of(context)
                                                             .bodyMedium
                                                             .override(
-                                                              fontFamily:
-                                                                  'Inter',
+                                                              font: GoogleFonts
+                                                                  .inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
                                                               fontSize: 14.0,
                                                               letterSpacing:
                                                                   0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .normal,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                             ),
                                                       ),
                                                     ),
@@ -1435,22 +1666,22 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 ),
                                               );
                                             })
-                                                .divide(const SizedBox(width: 16.0))
+                                                .divide(SizedBox(width: 16.0))
                                                 .addToEnd(
-                                                    const SizedBox(width: 16.0)),
+                                                    SizedBox(width: 16.0)),
                                           ),
                                         );
                                       },
                                     ),
                                   ),
-                                ].divide(const SizedBox(height: 12.0)),
+                                ].divide(SizedBox(height: 12.0)),
                               );
                             },
                           ),
                         ),
                         if (!homeUsersRow!.joinedChurch!)
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 32.0, 16.0, 0.0),
                             child: FutureBuilder<List<ChallengeWeeksRow>>(
                               future: ChallengeWeeksTable().querySingleRow(
@@ -1467,7 +1698,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
-                                  return const MissionsLoadingWidget();
+                                  return MissionsLoadingWidget();
                                 }
                                 List<ChallengeWeeksRow>
                                     columnChallengeWeeksRowList =
@@ -1498,16 +1729,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 fontSize: 20.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ],
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 0.0),
                                       child:
                                           FutureBuilder<List<UserMissionsRow>>(
@@ -1520,14 +1762,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
-                                            return const MissionsLoadingWidget();
+                                            return MissionsLoadingWidget();
                                           }
                                           List<UserMissionsRow>
                                               containerUserMissionsRowList =
                                               snapshot.data!;
 
                                           return Container(
-                                            decoration: const BoxDecoration(),
+                                            decoration: BoxDecoration(),
                                             child: FutureBuilder<
                                                 List<MissionsRow>>(
                                               future: FFAppState().missions(
@@ -1546,7 +1788,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
                                                 if (!snapshot.hasData) {
-                                                  return const MissionsLoadingWidget();
+                                                  return MissionsLoadingWidget();
                                                 }
                                                 List<MissionsRow>
                                                     listViewMissionsRowList =
@@ -1562,7 +1804,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       listViewMissionsRowList
                                                           .length,
                                                   separatorBuilder: (_, __) =>
-                                                      const SizedBox(height: 14.0),
+                                                      SizedBox(height: 14.0),
                                                   itemBuilder:
                                                       (context, listViewIndex) {
                                                     final listViewMissionsRow =
@@ -1613,7 +1855,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         if (homeUsersRow.joinedChurch ?? true)
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 32.0, 16.0, 0.0),
                             child: FutureBuilder<List<ChallengeWeeksRow>>(
                               future: ChallengeWeeksTable().querySingleRow(
@@ -1634,7 +1876,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
-                                  return const MissionsLoadingWidget();
+                                  return MissionsLoadingWidget();
                                 }
                                 List<ChallengeWeeksRow>
                                     columnChurchChallengeWeeksRowList =
@@ -1667,16 +1909,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 fontSize: 20.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ],
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 0.0),
                                       child:
                                           FutureBuilder<List<UserMissionsRow>>(
@@ -1689,14 +1942,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
-                                            return const MissionsLoadingWidget();
+                                            return MissionsLoadingWidget();
                                           }
                                           List<UserMissionsRow>
                                               containerUserMissionsRowList =
                                               snapshot.data!;
 
                                           return Container(
-                                            decoration: const BoxDecoration(),
+                                            decoration: BoxDecoration(),
                                             child: FutureBuilder<
                                                 List<MissionsRow>>(
                                               future: FFAppState().missions(
@@ -1715,7 +1968,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
                                                 if (!snapshot.hasData) {
-                                                  return const MissionsLoadingWidget();
+                                                  return MissionsLoadingWidget();
                                                 }
                                                 List<MissionsRow>
                                                     listViewMissionsRowList =
@@ -1731,7 +1984,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       listViewMissionsRowList
                                                           .length,
                                                   separatorBuilder: (_, __) =>
-                                                      const SizedBox(height: 14.0),
+                                                      SizedBox(height: 14.0),
                                                   itemBuilder:
                                                       (context, listViewIndex) {
                                                     final listViewMissionsRow =
@@ -1780,15 +2033,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                               },
                             ),
                           ),
-                      ].addToEnd(const SizedBox(height: 100.0)),
+                      ].addToEnd(SizedBox(height: 100.0)),
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.0, 1.0),
                     child: wrapWithModel(
                       model: _model.navBarModel,
                       updateCallback: () => safeSetState(() {}),
-                      child: const NavBarWidget(
+                      child: NavBarWidget(
                         selectedPage: 'home',
                       ),
                     ),

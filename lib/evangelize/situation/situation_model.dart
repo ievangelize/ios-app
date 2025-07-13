@@ -1,7 +1,6 @@
-import '/backend/api_requests/api_calls.dart';
-import '/backend/supabase/supabase.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'situation_widget.dart' show SituationWidget;
 import 'package:flutter/material.dart';
 
@@ -28,10 +27,8 @@ class SituationModel extends FlutterFlowModel<SituationWidget> {
     return null;
   }
 
-  // Stores action output result for [Backend Call - API (OpenAI API)] action in IconButton widget.
-  ApiCallResponse? apiOutput;
-  // Stores action output result for [Backend Call - Insert Row] action in IconButton widget.
-  SituationRow? newSituation;
+  // Stores action output result for [AI Agent - Send Message to Conversation Starter] action in IconButton widget.
+  Map<String, dynamic>? agentResponse;
   // Model for NavBar component.
   late NavBarModel navBarModel;
   // State field(s) for Search widget.

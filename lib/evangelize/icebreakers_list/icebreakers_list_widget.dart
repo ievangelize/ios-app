@@ -8,16 +8,21 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'icebreakers_list_model.dart';
 export 'icebreakers_list_model.dart';
 
 class IcebreakersListWidget extends StatefulWidget {
   const IcebreakersListWidget({super.key});
+
+  static String routeName = 'IcebreakersList';
+  static String routePath = 'icebreakersList';
 
   @override
   State<IcebreakersListWidget> createState() => _IcebreakersListWidgetState();
@@ -75,14 +80,14 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
           automaticallyImplyLeading: false,
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed('situation');
+                  context.pushNamed(SituationWidget.routeName);
                 },
                 child: Container(
                   width: 30.0,
@@ -101,20 +106,28 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(30.0),
+            preferredSize: Size.fromHeight(30.0),
             child: Align(
-              alignment: const AlignmentDirectional(-1.0, 0.0),
+              alignment: AlignmentDirectional(-1.0, 0.0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 0.0, 0.0),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'vjr9wwil' /* History */,
                   ),
                   style: FlutterFlowTheme.of(context).headlineLarge.override(
-                        fontFamily: 'Inter',
+                        font: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontStyle,
+                        ),
                         fontSize: 30.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.bold,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineLarge
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -139,7 +152,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 16.0, 16.0, 16.0),
                         child: Container(
                           height: 45.0,
@@ -151,7 +164,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Icon(
                                   Icons.search,
@@ -166,7 +179,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                   focusNode: _model.searchFocusNode,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.searchTextController',
-                                    const Duration(milliseconds: 1000),
+                                    Duration(milliseconds: 1000),
                                     () => safeSetState(() {}),
                                   ),
                                   autofocus: false,
@@ -180,14 +193,14 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                       '3tody2ar' /* Search for previous conversati... */,
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Color(0x00FFFFFF),
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(0.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Color(0x00FFFFFF),
                                         width: 1.0,
                                       ),
@@ -213,12 +226,21 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                   maxLines: null,
                                   maxLength: 50,
@@ -232,6 +254,17 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                   validator: _model
                                       .searchTextControllerValidator
                                       .asValidator(context),
+                                  inputFormatters: [
+                                    if (!isAndroid && !isiOS)
+                                      TextInputFormatter.withFunction(
+                                          (oldValue, newValue) {
+                                        return TextEditingValue(
+                                          selection: newValue.selection,
+                                          text: newValue.text.toCapitalization(
+                                              TextCapitalization.none),
+                                        );
+                                      }),
+                                  ],
                                 ),
                               ),
                             ],
@@ -239,9 +272,9 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(-1.0, 0.0),
+                        alignment: AlignmentDirectional(-1.0, 0.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 0.0, 0.0),
                           child: FlutterFlowChoiceChips(
                             options: [
@@ -269,15 +302,23 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context).info,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                               iconColor: FlutterFlowTheme.of(context).info,
                               iconSize: 16.0,
-                              labelPadding: const EdgeInsetsDirectional.fromSTEB(
+                              labelPadding: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 1.0, 8.0, 1.0),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(14.0),
@@ -288,15 +329,28 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                               iconColor:
                                   FlutterFlowTheme.of(context).secondaryText,
                               iconSize: 16.0,
-                              labelPadding: const EdgeInsetsDirectional.fromSTEB(
+                              labelPadding: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 1.0, 8.0, 1.0),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(14.0),
@@ -320,7 +374,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                       ),
                       if (!_model.favor)
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
                           child: FutureBuilder<List<SituationRow>>(
                             future: FFAppState().icebreakers(
@@ -338,7 +392,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 16.0),
                                     child: SizedBox(
                                       width: 20.0,
@@ -356,7 +410,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                   snapshot.data!;
 
                               if (allListViewSituationRowList.isEmpty) {
-                                return const ListEmptyWidget(
+                                return ListEmptyWidget(
                                   message: 'No conversation starters',
                                   secondLine: 'Click the \"+\" button',
                                 );
@@ -379,7 +433,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                 .situationInfo!) ??
                                         true,
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -388,7 +442,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           context.pushNamed(
-                                            'selectedSituation',
+                                            SelectedSituationWidget.routeName,
                                             queryParameters: {
                                               'gptAnswer': serializeParam(
                                                 allListViewSituationRow
@@ -436,15 +490,28 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                           context)
                                                       .headlineLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineLarge
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineLarge
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: Text(
@@ -463,13 +530,35 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: Row(
@@ -486,7 +575,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     6.0,
                                                                     0.0,
@@ -505,8 +594,17 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                                   .of(context)
                                                               .headlineLarge
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLarge
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -516,6 +614,10 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLarge
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -542,7 +644,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                         ),
                       if (_model.favor)
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
                           child: FutureBuilder<List<SituationRow>>(
                             future: FFAppState().icebreakerFavorite(
@@ -564,7 +666,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 16.0),
                                     child: SizedBox(
                                       width: 20.0,
@@ -583,7 +685,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                   snapshot.data!;
 
                               if (favoriteListViewSituationRowList.isEmpty) {
-                                return const ListEmptyWidget(
+                                return ListEmptyWidget(
                                   message: 'No conversation starters',
                                   secondLine: 'Click the \"+\" button',
                                 );
@@ -607,7 +709,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                 .situationInfo!) ??
                                         true,
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
@@ -616,7 +718,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           context.pushNamed(
-                                            'selectedSituation',
+                                            SelectedSituationWidget.routeName,
                                             queryParameters: {
                                               'gptAnswer': serializeParam(
                                                 favoriteListViewSituationRow
@@ -664,15 +766,28 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                           context)
                                                       .headlineLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineLarge
+                                                                  .fontStyle,
+                                                        ),
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineLarge
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: Text(
@@ -691,13 +806,35 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 8.0, 0.0, 0.0),
                                                   child: Row(
@@ -714,7 +851,7 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     6.0,
                                                                     0.0,
@@ -733,8 +870,17 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                                   .of(context)
                                                               .headlineLarge
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineLarge
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -744,6 +890,10 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLarge
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -785,11 +935,11 @@ class _IcebreakersListWidgetState extends State<IcebreakersListWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.navBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const NavBarWidget(
+                  child: NavBarWidget(
                     selectedPage: 'evangelize',
                   ),
                 ),

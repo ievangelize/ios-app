@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'edit_profile_model.dart';
 export 'edit_profile_model.dart';
 
@@ -19,6 +21,9 @@ class EditProfileWidget extends StatefulWidget {
   });
 
   final UsersRow? account;
+
+  static String routeName = 'EditProfile';
+  static String routePath = 'editProfile';
 
   @override
   State<EditProfileWidget> createState() => _EditProfileWidgetState();
@@ -91,44 +96,49 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               'jdgtphfu' /* Edit profile */,
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Inter',
+                  font: GoogleFonts.inter(
+                    fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
                   fontSize: 18.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 15.0),
                   child: Container(
                     width: 200.0,
                     height: 200.0,
                     clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     child: CachedNetworkImage(
-                      fadeInDuration: const Duration(milliseconds: 500),
-                      fadeOutDuration: const Duration(milliseconds: 500),
+                      fadeInDuration: Duration(milliseconds: 500),
+                      fadeOutDuration: Duration(milliseconds: 500),
                       imageUrl: _model.profileUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       final selectedMedia =
@@ -142,7 +152,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       if (selectedMedia != null &&
                           selectedMedia.every((m) =>
                               validateFileFormat(m.storagePath, context))) {
-                        safeSetState(() => _model.isDataUploading = true);
+                        safeSetState(
+                            () => _model.isDataUploading_newProfile = true);
                         var selectedUploadedFiles = <FFUploadedFile>[];
 
                         var downloadUrls = <String>[];
@@ -162,15 +173,16 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             selectedFiles: selectedMedia,
                           );
                         } finally {
-                          _model.isDataUploading = false;
+                          _model.isDataUploading_newProfile = false;
                         }
                         if (selectedUploadedFiles.length ==
                                 selectedMedia.length &&
                             downloadUrls.length == selectedMedia.length) {
                           safeSetState(() {
-                            _model.uploadedLocalFile =
+                            _model.uploadedLocalFile_newProfile =
                                 selectedUploadedFiles.first;
-                            _model.uploadedFileUrl = downloadUrls.first;
+                            _model.uploadedFileUrl_newProfile =
+                                downloadUrls.first;
                           });
                         } else {
                           safeSetState(() {});
@@ -178,7 +190,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         }
                       }
 
-                      _model.profileUrl = _model.uploadedFileUrl;
+                      _model.profileUrl = _model.uploadedFileUrl_newProfile;
                       safeSetState(() {});
                     },
                     text: FFLocalizations.of(context).getText(
@@ -187,17 +199,25 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                     options: FFButtonOptions(
                       height: 30.0,
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                       iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).alternate,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 fontSize: 16.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
                               ),
                       elevation: 0.0,
                       borderRadius: BorderRadius.circular(24.0),
@@ -206,8 +226,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 16.0),
-                  child: SizedBox(
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 16.0),
+                  child: Container(
                     width: double.infinity,
                     child: TextFormField(
                       controller: _model.fullNameTextController,
@@ -249,14 +269,22 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         filled: true,
-                        fillColor: const Color(0x00FFFFFF),
+                        fillColor: Color(0x00FFFFFF),
                       ),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Inter',
+                            font: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .fontStyle,
+                            ),
                             color: FlutterFlowTheme.of(context).primaryText,
                             fontSize: 16.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .fontStyle,
                           ),
                       validator: _model.fullNameTextControllerValidator
                           .asValidator(context),
@@ -265,10 +293,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 ),
                 Flexible(
                   child: Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.0, 1.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 1.0, 16.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 1.0, 16.0),
                       child: wrapWithModel(
                         model: _model.largeBtnModel,
                         updateCallback: () => safeSetState(() {}),
@@ -280,7 +308,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             await UsersTable().update(
                               data: {
                                 'full_name': _model.fullNameTextController.text,
-                                'profile_url': _model.uploadedFileUrl,
+                                'profile_url':
+                                    _model.uploadedFileUrl_newProfile,
                                 'profile_added': true,
                               },
                               matchingRows: (rows) => rows.eqOrNull(
@@ -290,7 +319,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             );
                             FFAppState().clearProfileCache();
 
-                            context.goNamed('More');
+                            context.goNamed(MoreWidget.routeName);
                           },
                         ),
                       ),

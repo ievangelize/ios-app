@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'vertical_video_player_model.dart';
 export 'vertical_video_player_model.dart';
@@ -20,6 +21,9 @@ class VerticalVideoPlayerWidget extends StatefulWidget {
   final String? title;
   final String? description;
   final String? shareURL;
+
+  static String routeName = 'VerticalVideoPlayer';
+  static String routePath = 'verticalVideoPlayer';
 
   @override
   State<VerticalVideoPlayerWidget> createState() =>
@@ -67,7 +71,7 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                 Expanded(
                   child: Stack(
                     children: [
-                      SizedBox(
+                      Container(
                         width: double.infinity,
                         height: double.infinity,
                         child: custom_widgets.CustomVidPlayer(
@@ -77,9 +81,9 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.0, 1.0),
+                        alignment: AlignmentDirectional(0.0, 1.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 0.0, 16.0, 64.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -99,12 +103,22 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .info,
                                             fontSize: 16.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                     Text(
@@ -115,14 +129,24 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .info,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
-                                  ].divide(const SizedBox(height: 6.0)),
+                                  ].divide(SizedBox(height: 6.0)),
                                 ),
                               ),
                               Transform.scale(
@@ -135,7 +159,7 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                                     buttonSize: 44.0,
                                     fillColor:
                                         FlutterFlowTheme.of(context).info,
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.reply,
                                       color: Colors.black,
                                       size: 24.0,
@@ -156,10 +180,10 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                         child: SafeArea(
                           child: Container(
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(0.0),

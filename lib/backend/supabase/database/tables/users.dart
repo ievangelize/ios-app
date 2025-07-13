@@ -9,7 +9,7 @@ class UsersTable extends SupabaseTable<UsersRow> {
 }
 
 class UsersRow extends SupabaseDataRow {
-  UsersRow(super.data);
+  UsersRow(Map<String, dynamic> data) : super(data);
 
   @override
   SupabaseTable get table => UsersTable();
@@ -46,4 +46,7 @@ class UsersRow extends SupabaseDataRow {
 
   bool? get churchStaff => getField<bool>('church_staff');
   set churchStaff(bool? value) => setField<bool>('church_staff', value);
+
+  String? get fcmToken => getField<String>('fcm_token');
+  set fcmToken(String? value) => setField<String>('fcm_token', value);
 }

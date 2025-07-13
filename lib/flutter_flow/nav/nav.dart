@@ -7,9 +7,10 @@ import '/backend/supabase/supabase.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -77,39 +78,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const HomeWidget() : const Quote1Widget(),
+          appStateNotifier.loggedIn ? AisimCopyWidget() : SituationWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const HomeWidget() : const Quote1Widget(),
+              appStateNotifier.loggedIn ? AisimCopyWidget() : SituationWidget(),
           routes: [
             FFRoute(
-              name: 'situation',
-              path: 'situation',
+              name: SituationWidget.routeName,
+              path: SituationWidget.routePath,
+              builder: (context, params) => SituationWidget(),
+            ),
+            FFRoute(
+              name: SignupWidget.routeName,
+              path: SignupWidget.routePath,
+              builder: (context, params) => SignupWidget(),
+            ),
+            FFRoute(
+              name: LoginWidget.routeName,
+              path: LoginWidget.routePath,
+              builder: (context, params) => LoginWidget(),
+            ),
+            FFRoute(
+              name: FollowUpAddWidget.routeName,
+              path: FollowUpAddWidget.routePath,
               requireAuth: true,
-              builder: (context, params) => const SituationWidget(),
+              builder: (context, params) => FollowUpAddWidget(),
             ),
             FFRoute(
-              name: 'Signup',
-              path: 'signup',
-              builder: (context, params) => const SignupWidget(),
-            ),
-            FFRoute(
-              name: 'Login',
-              path: 'login',
-              builder: (context, params) => const LoginWidget(),
-            ),
-            FFRoute(
-              name: 'followUpAdd',
-              path: 'followUpAdd',
-              requireAuth: true,
-              builder: (context, params) => const FollowUpAddWidget(),
-            ),
-            FFRoute(
-              name: 'followUpUpdate',
-              path: 'followUpUpdate',
+              name: FollowUpUpdateWidget.routeName,
+              path: FollowUpUpdateWidget.routePath,
               requireAuth: true,
               builder: (context, params) => FollowUpUpdateWidget(
                 selectedPerson: params.getParam<ReachedRow>(
@@ -119,23 +119,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'IcebreakersList',
-              path: 'icebreakersList',
-              builder: (context, params) => const IcebreakersListWidget(),
+              name: IcebreakersListWidget.routeName,
+              path: IcebreakersListWidget.routePath,
+              builder: (context, params) => IcebreakersListWidget(),
             ),
             FFRoute(
-              name: 'LessonsList',
-              path: 'lessonsList',
-              builder: (context, params) => const LessonsListWidget(),
+              name: LessonsListWidget.routeName,
+              path: LessonsListWidget.routePath,
+              builder: (context, params) => LessonsListWidget(),
             ),
             FFRoute(
-              name: 'More',
-              path: 'more',
-              builder: (context, params) => const MoreWidget(),
+              name: MoreWidget.routeName,
+              path: MoreWidget.routePath,
+              builder: (context, params) => MoreWidget(),
             ),
             FFRoute(
-              name: 'Account',
-              path: 'account',
+              name: AccountWidget.routeName,
+              path: AccountWidget.routePath,
               requireAuth: true,
               builder: (context, params) => AccountWidget(
                 account: params.getParam<UsersRow>(
@@ -145,13 +145,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'Languages',
-              path: 'languages',
-              builder: (context, params) => const LanguagesWidget(),
+              name: LanguagesWidget.routeName,
+              path: LanguagesWidget.routePath,
+              builder: (context, params) => LanguagesWidget(),
             ),
             FFRoute(
-              name: 'EditProfile',
-              path: 'editProfile',
+              name: EditProfileWidget.routeName,
+              path: EditProfileWidget.routePath,
               requireAuth: true,
               builder: (context, params) => EditProfileWidget(
                 account: params.getParam<UsersRow>(
@@ -161,8 +161,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'UpdateEmail',
-              path: 'updateEmail',
+              name: UpdateEmailWidget.routeName,
+              path: UpdateEmailWidget.routePath,
               requireAuth: true,
               builder: (context, params) => UpdateEmailWidget(
                 account: params.getParam<UsersRow>(
@@ -172,13 +172,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'authentication',
-              path: 'authentication',
-              builder: (context, params) => const AuthenticationWidget(),
+              name: AuthenticationWidget.routeName,
+              path: AuthenticationWidget.routePath,
+              builder: (context, params) => AuthenticationWidget(),
             ),
             FFRoute(
-              name: 'EmailUpdated',
-              path: 'email-updated',
+              name: EmailUpdatedWidget.routeName,
+              path: EmailUpdatedWidget.routePath,
               builder: (context, params) => EmailUpdatedWidget(
                 account: params.getParam<UsersRow>(
                   'account',
@@ -187,13 +187,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'About',
-              path: 'about',
-              builder: (context, params) => const AboutWidget(),
+              name: AboutWidget.routeName,
+              path: AboutWidget.routePath,
+              builder: (context, params) => AboutWidget(),
             ),
             FFRoute(
-              name: 'AudioPlayer',
-              path: 'audioplayer',
+              name: AudioPlayerWidget.routeName,
+              path: AudioPlayerWidget.routePath,
               builder: (context, params) => AudioPlayerWidget(
                 title: params.getParam(
                   'title',
@@ -222,13 +222,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'emailSent',
-              path: 'emailSent',
-              builder: (context, params) => const EmailSentWidget(),
+              name: EmailSentWidget.routeName,
+              path: EmailSentWidget.routePath,
+              builder: (context, params) => EmailSentWidget(),
             ),
             FFRoute(
-              name: 'NewSituation',
-              path: 'newui',
+              name: NewSituationWidget.routeName,
+              path: NewSituationWidget.routePath,
               builder: (context, params) => NewSituationWidget(
                 gptAnswer: params.getParam(
                   'gptAnswer',
@@ -241,13 +241,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'followUpList',
-              path: 'followUp',
-              builder: (context, params) => const FollowUpListWidget(),
+              name: FollowUpListWidget.routeName,
+              path: FollowUpListWidget.routePath,
+              builder: (context, params) => FollowUpListWidget(),
             ),
             FFRoute(
-              name: 'selectedSituation',
-              path: 'newui2',
+              name: SelectedSituationWidget.routeName,
+              path: SelectedSituationWidget.routePath,
               builder: (context, params) => SelectedSituationWidget(
                 gptAnswer: params.getParam(
                   'gptAnswer',
@@ -260,24 +260,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'home',
-              path: 'home',
+              name: HomeWidget.routeName,
+              path: HomeWidget.routePath,
               requireAuth: true,
-              builder: (context, params) => const HomeWidget(),
+              builder: (context, params) => HomeWidget(),
             ),
             FFRoute(
-              name: 'donate',
-              path: 'donate',
-              builder: (context, params) => const DonateWidget(),
+              name: DonateWidget.routeName,
+              path: DonateWidget.routePath,
+              builder: (context, params) => DonateWidget(),
             ),
             FFRoute(
-              name: 'Explore',
-              path: 'explore',
-              builder: (context, params) => const ExploreWidget(),
+              name: ExploreWidget.routeName,
+              path: ExploreWidget.routePath,
+              builder: (context, params) => ExploreWidget(),
             ),
             FFRoute(
-              name: 'VerticalVideoPlayer',
-              path: 'verticalVideoPlayer',
+              name: VerticalVideoPlayerWidget.routeName,
+              path: VerticalVideoPlayerWidget.routePath,
               builder: (context, params) => VerticalVideoPlayerWidget(
                 videoURL: params.getParam(
                   'videoURL',
@@ -298,8 +298,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'CategoryHorizontal',
-              path: 'categoryHorizontal',
+              name: CategoryHorizontalWidget.routeName,
+              path: CategoryHorizontalWidget.routePath,
               builder: (context, params) => CategoryHorizontalWidget(
                 category: params.getParam<CategoriesRow>(
                   'category',
@@ -308,8 +308,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'CategoryVertical',
-              path: 'categoryVertical',
+              name: CategoryVerticalWidget.routeName,
+              path: CategoryVerticalWidget.routePath,
               builder: (context, params) => CategoryVerticalWidget(
                 category: params.getParam<CategoriesRow>(
                   'category',
@@ -318,8 +318,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'StoryViewer',
-              path: 'storyViewer',
+              name: StoryViewerWidget.routeName,
+              path: StoryViewerWidget.routePath,
               builder: (context, params) => StoryViewerWidget(
                 story: params.getParam<StoriesRow>(
                   'story',
@@ -328,8 +328,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'AddImpact',
-              path: 'addImpact',
+              name: AddImpactWidget.routeName,
+              path: AddImpactWidget.routePath,
               builder: (context, params) => AddImpactWidget(
                 gospelShares: params.getParam(
                   'gospelShares',
@@ -338,13 +338,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'RecordInfoChoice',
-              path: 'recordInfoChoice',
-              builder: (context, params) => const RecordInfoChoiceWidget(),
+              name: RecordInfoChoiceWidget.routeName,
+              path: RecordInfoChoiceWidget.routePath,
+              builder: (context, params) => RecordInfoChoiceWidget(),
             ),
             FFRoute(
-              name: 'HorizontalVideoPlayer',
-              path: 'horizontalVideoPlayer',
+              name: HorizontalVideoPlayerWidget.routeName,
+              path: HorizontalVideoPlayerWidget.routePath,
               builder: (context, params) => HorizontalVideoPlayerWidget(
                 title: params.getParam(
                   'title',
@@ -377,8 +377,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'ResourceCredit',
-              path: 'resourceCredit',
+              name: ResourceCreditWidget.routeName,
+              path: ResourceCreditWidget.routePath,
               builder: (context, params) => ResourceCreditWidget(
                 provider: params.getParam<ResourceProvidersRow>(
                   'provider',
@@ -387,8 +387,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'SearchResults',
-              path: 'search-results',
+              name: SearchResultsWidget.routeName,
+              path: SearchResultsWidget.routePath,
               builder: (context, params) => SearchResultsWidget(
                 initialSearch: params.getParam(
                   'initialSearch',
@@ -401,28 +401,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'getStarted',
-              path: 'getStarted',
-              builder: (context, params) => const GetStartedWidget(),
+              name: GetStartedWidget.routeName,
+              path: GetStartedWidget.routePath,
+              builder: (context, params) => GetStartedWidget(),
             ),
             FFRoute(
-              name: 'quote1',
-              path: 'quote1',
-              builder: (context, params) => const Quote1Widget(),
+              name: Quote1Widget.routeName,
+              path: Quote1Widget.routePath,
+              builder: (context, params) => Quote1Widget(),
             ),
             FFRoute(
-              name: 'quote2',
-              path: 'quote2',
-              builder: (context, params) => const Quote2Widget(),
+              name: Quote2Widget.routeName,
+              path: Quote2Widget.routePath,
+              builder: (context, params) => Quote2Widget(),
             ),
             FFRoute(
-              name: 'quote3',
-              path: 'quote3',
-              builder: (context, params) => const Quote3Widget(),
+              name: Quote3Widget.routeName,
+              path: Quote3Widget.routePath,
+              builder: (context, params) => Quote3Widget(),
             ),
             FFRoute(
-              name: 'Impact',
-              path: 'impact',
+              name: ImpactWidget.routeName,
+              path: ImpactWidget.routePath,
               builder: (context, params) => ImpactWidget(
                 shares: params.getParam(
                   'shares',
@@ -431,28 +431,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'homeNoAuth',
-              path: 'homeNoAuth',
-              builder: (context, params) => const HomeNoAuthWidget(),
+              name: HomeNoAuthWidget.routeName,
+              path: HomeNoAuthWidget.routePath,
+              builder: (context, params) => HomeNoAuthWidget(),
             ),
             FFRoute(
-              name: 'situationNoAuth',
-              path: 'situationnoauth',
-              builder: (context, params) => const SituationNoAuthWidget(),
+              name: SituationNoAuthWidget.routeName,
+              path: SituationNoAuthWidget.routePath,
+              builder: (context, params) => SituationNoAuthWidget(),
             ),
             FFRoute(
-              name: 'followUpNoAuth',
-              path: 'followupNoAuth',
-              builder: (context, params) => const FollowUpNoAuthWidget(),
+              name: FollowUpNoAuthWidget.routeName,
+              path: FollowUpNoAuthWidget.routePath,
+              builder: (context, params) => FollowUpNoAuthWidget(),
             ),
             FFRoute(
-              name: 'JoinChurc',
-              path: 'joinChurc',
-              builder: (context, params) => const JoinChurcWidget(),
+              name: JoinChurcWidget.routeName,
+              path: JoinChurcWidget.routePath,
+              builder: (context, params) => JoinChurcWidget(),
             ),
             FFRoute(
-              name: 'Church',
-              path: 'church',
+              name: ChurchWidget.routeName,
+              path: ChurchWidget.routePath,
               builder: (context, params) => ChurchWidget(
                 churchID: params.getParam(
                   'churchID',
@@ -461,19 +461,49 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'Tools',
-              path: 'tools',
-              builder: (context, params) => const ToolsWidget(),
+              name: ToolsWidget.routeName,
+              path: ToolsWidget.routePath,
+              builder: (context, params) => ToolsWidget(),
             ),
             FFRoute(
-              name: 'EquippingCard',
-              path: 'equippingCard',
-              builder: (context, params) => const EquippingCardWidget(),
+              name: EquippingCardWidget.routeName,
+              path: EquippingCardWidget.routePath,
+              builder: (context, params) => EquippingCardWidget(),
             ),
             FFRoute(
-              name: 'EquippingCardInfo',
-              path: 'equippingCardInfo',
-              builder: (context, params) => const EquippingCardInfoWidget(),
+              name: EquippingCardInfoWidget.routeName,
+              path: EquippingCardInfoWidget.routePath,
+              builder: (context, params) => EquippingCardInfoWidget(),
+            ),
+            FFRoute(
+              name: UpdateVersionWidget.routeName,
+              path: UpdateVersionWidget.routePath,
+              builder: (context, params) => UpdateVersionWidget(),
+            ),
+            FFRoute(
+              name: SwippablestackWidget.routeName,
+              path: SwippablestackWidget.routePath,
+              builder: (context, params) => SwippablestackWidget(
+                gptAnswer: params.getParam(
+                  'gptAnswer',
+                  ParamType.JSON,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: SituationCopyWidget.routeName,
+              path: SituationCopyWidget.routePath,
+              builder: (context, params) => SituationCopyWidget(),
+            ),
+            FFRoute(
+              name: AisimWidget.routeName,
+              path: AisimWidget.routePath,
+              builder: (context, params) => AisimWidget(),
+            ),
+            FFRoute(
+              name: AisimCopyWidget.routeName,
+              path: AisimCopyWidget.routePath,
+              builder: (context, params) => AisimCopyWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -645,7 +675,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/quote1';
+            return '/situation';
           }
           return null;
         },
@@ -712,7 +742,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {
