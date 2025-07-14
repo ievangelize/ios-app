@@ -14,6 +14,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
 
 // MyByteSource class (can go here)
 class MyByteSource extends StreamAudioSource {
@@ -34,16 +35,11 @@ class MyByteSource extends StreamAudioSource {
   }
 }
 
-Future<int> fetchSpeechAndPlay(
-  String promptText,
-  String? apiKey,
-) async {
-  // Ensure the API key is provided
+Future<int> fetchSpeechAndPlay(String promptText, String? apiKey) async {
   if (apiKey == null || apiKey.isEmpty) {
     throw Exception('API key is required.');
   }
 
-  // ---------- 1. Call OpenAI TTS ----------
   final response = await http.post(
     Uri.parse('https://api.openai.com/v1/audio/speech'),
     headers: {
@@ -58,27 +54,26 @@ Future<int> fetchSpeechAndPlay(
     }),
   );
 
-  // Handle the response
   if (response.statusCode == 200) {
     Uint8List audioBytes = response.bodyBytes;
 
-    // ---------- 2. Play the bytes ----------
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.speech());
+
     final player = AudioPlayer();
+
+    player.playerStateStream.listen((state) {
+      print('Player state: $state');
+    });
+
     await player.setAudioSource(MyByteSource(audioBytes));
-
-    // Capture duration after it loads
-    Duration? dur = await player.durationStream.firstWhere((d) => d != null);
-
+    await player.load();
     await player.play();
 
-    // Optional: wait for playback to finish
-    // await player.playerStateStream
-    //     .firstWhere((s) => s.processingState == ProcessingState.completed);
+    await Future.delayed(await player.duration ?? Duration(seconds: 2));
 
-    return dur?.inMilliseconds ?? 0;
+    return (await player.duration)?.inMilliseconds ?? 0;
   } else {
-    // If the server did not return a "200 OK response",
-    // throw an exception
     throw Exception(
         'Failed to generate speech. Status code: ${response.statusCode}');
   }

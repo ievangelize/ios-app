@@ -177,8 +177,7 @@ class _AisimCopyWidgetState extends State<AisimCopyWidget> {
                                                       .primaryText,
                                             ),
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 1000),
+                                          duration: Duration(milliseconds: 500),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
@@ -187,6 +186,23 @@ class _AisimCopyWidgetState extends State<AisimCopyWidget> {
                                       await actions.fetchSpeechAndPlay(
                                         _model.agentResponse!,
                                         FFAppState().audioApiKey,
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Spoke',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration: Duration(milliseconds: 500),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
                                       );
                                     },
                                   );
