@@ -22,15 +22,18 @@ class FocusBlocker {
 
   func blockApps() {
     DispatchQueue.main.async {
-      // Defensive: don't try to block if nothing selected
       guard !self.selection.applicationTokens.isEmpty else { return }
       self.store.shield.applications = self.selection.applicationTokens
+      UserDefaults.standard.set(true, forKey: "PrayerLockActive")
     }
   }
+
 
   func unblockApps() {
     DispatchQueue.main.async {
       self.store.shield.applications = nil
+      UserDefaults.standard.set(false, forKey: "PrayerLockActive")
     }
   }
+
 }
