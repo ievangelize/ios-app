@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '/backend/schema/structs/index.dart';
+
 import '/backend/supabase/supabase.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -78,17 +79,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? AisimCopyWidget() : SituationWidget(),
+          appStateNotifier.loggedIn ? HomeWidget() : WelcomeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? AisimCopyWidget() : SituationWidget(),
+              appStateNotifier.loggedIn ? HomeWidget() : WelcomeWidget(),
           routes: [
             FFRoute(
               name: SituationWidget.routeName,
               path: SituationWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => SituationWidget(),
             ),
             FFRoute(
@@ -102,86 +104,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => LoginWidget(),
             ),
             FFRoute(
-              name: FollowUpAddWidget.routeName,
-              path: FollowUpAddWidget.routePath,
+              name: ProfileEditWidget.routeName,
+              path: ProfileEditWidget.routePath,
               requireAuth: true,
-              builder: (context, params) => FollowUpAddWidget(),
-            ),
-            FFRoute(
-              name: FollowUpUpdateWidget.routeName,
-              path: FollowUpUpdateWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => FollowUpUpdateWidget(
-                selectedPerson: params.getParam<ReachedRow>(
-                  'selectedPerson',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: IcebreakersListWidget.routeName,
-              path: IcebreakersListWidget.routePath,
-              builder: (context, params) => IcebreakersListWidget(),
-            ),
-            FFRoute(
-              name: LessonsListWidget.routeName,
-              path: LessonsListWidget.routePath,
-              builder: (context, params) => LessonsListWidget(),
-            ),
-            FFRoute(
-              name: MoreWidget.routeName,
-              path: MoreWidget.routePath,
-              builder: (context, params) => MoreWidget(),
-            ),
-            FFRoute(
-              name: AccountWidget.routeName,
-              path: AccountWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => AccountWidget(
-                account: params.getParam<UsersRow>(
-                  'account',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: LanguagesWidget.routeName,
-              path: LanguagesWidget.routePath,
-              builder: (context, params) => LanguagesWidget(),
-            ),
-            FFRoute(
-              name: EditProfileWidget.routeName,
-              path: EditProfileWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => EditProfileWidget(
-                account: params.getParam<UsersRow>(
-                  'account',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: UpdateEmailWidget.routeName,
-              path: UpdateEmailWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => UpdateEmailWidget(
-                account: params.getParam<UsersRow>(
-                  'account',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: AuthenticationWidget.routeName,
-              path: AuthenticationWidget.routePath,
-              builder: (context, params) => AuthenticationWidget(),
-            ),
-            FFRoute(
-              name: EmailUpdatedWidget.routeName,
-              path: EmailUpdatedWidget.routePath,
-              builder: (context, params) => EmailUpdatedWidget(
-                account: params.getParam<UsersRow>(
-                  'account',
+              builder: (context, params) => ProfileEditWidget(
+                profile: params.getParam<UsersRow>(
+                  'profile',
                   ParamType.SupabaseRow,
                 ),
               ),
@@ -189,11 +117,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: AboutWidget.routeName,
               path: AboutWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => AboutWidget(),
             ),
             FFRoute(
               name: AudioPlayerWidget.routeName,
               path: AudioPlayerWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => AudioPlayerWidget(
                 title: params.getParam(
                   'title',
@@ -222,33 +152,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: EmailSentWidget.routeName,
-              path: EmailSentWidget.routePath,
-              builder: (context, params) => EmailSentWidget(),
+              name: EncountersListWidget.routeName,
+              path: EncountersListWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => EncountersListWidget(),
             ),
             FFRoute(
-              name: NewSituationWidget.routeName,
-              path: NewSituationWidget.routePath,
-              builder: (context, params) => NewSituationWidget(
-                gptAnswer: params.getParam(
-                  'gptAnswer',
-                  ParamType.JSON,
-                ),
-                newSituation: params.getParam<SituationRow>(
-                  'newSituation',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: FollowUpListWidget.routeName,
-              path: FollowUpListWidget.routePath,
-              builder: (context, params) => FollowUpListWidget(),
-            ),
-            FFRoute(
-              name: SelectedSituationWidget.routeName,
-              path: SelectedSituationWidget.routePath,
-              builder: (context, params) => SelectedSituationWidget(
+              name: SelectedStarterWidget.routeName,
+              path: SelectedStarterWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => SelectedStarterWidget(
                 gptAnswer: params.getParam(
                   'gptAnswer',
                   ParamType.JSON,
@@ -268,117 +181,70 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: DonateWidget.routeName,
               path: DonateWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => DonateWidget(),
-            ),
-            FFRoute(
-              name: ExploreWidget.routeName,
-              path: ExploreWidget.routePath,
-              builder: (context, params) => ExploreWidget(),
             ),
             FFRoute(
               name: VerticalVideoPlayerWidget.routeName,
               path: VerticalVideoPlayerWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => VerticalVideoPlayerWidget(
-                videoURL: params.getParam(
-                  'videoURL',
+                lesson: params.getParam<CourseLessonsRow>(
+                  'lesson',
+                  ParamType.SupabaseRow,
+                ),
+                courseName: params.getParam(
+                  'courseName',
                   ParamType.String,
                 ),
-                title: params.getParam(
-                  'title',
-                  ParamType.String,
+                course: params.getParam<CoursesRow>(
+                  'course',
+                  ParamType.SupabaseRow,
                 ),
-                description: params.getParam(
-                  'description',
-                  ParamType.String,
-                ),
-                shareURL: params.getParam(
-                  'shareURL',
-                  ParamType.String,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: CategoryHorizontalWidget.routeName,
-              path: CategoryHorizontalWidget.routePath,
-              builder: (context, params) => CategoryHorizontalWidget(
-                category: params.getParam<CategoriesRow>(
-                  'category',
+                resource: params.getParam<ResourcesRow>(
+                  'resource',
                   ParamType.SupabaseRow,
                 ),
               ),
             ),
             FFRoute(
-              name: CategoryVerticalWidget.routeName,
-              path: CategoryVerticalWidget.routePath,
-              builder: (context, params) => CategoryVerticalWidget(
-                category: params.getParam<CategoriesRow>(
-                  'category',
+              name: DailyQuoteWidget.routeName,
+              path: DailyQuoteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => DailyQuoteWidget(
+                quote: params.getParam<QuotesRow>(
+                  'quote',
                   ParamType.SupabaseRow,
                 ),
               ),
-            ),
-            FFRoute(
-              name: StoryViewerWidget.routeName,
-              path: StoryViewerWidget.routePath,
-              builder: (context, params) => StoryViewerWidget(
-                story: params.getParam<StoriesRow>(
-                  'story',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: AddImpactWidget.routeName,
-              path: AddImpactWidget.routePath,
-              builder: (context, params) => AddImpactWidget(
-                gospelShares: params.getParam(
-                  'gospelShares',
-                  ParamType.int,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: RecordInfoChoiceWidget.routeName,
-              path: RecordInfoChoiceWidget.routePath,
-              builder: (context, params) => RecordInfoChoiceWidget(),
             ),
             FFRoute(
               name: HorizontalVideoPlayerWidget.routeName,
               path: HorizontalVideoPlayerWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => HorizontalVideoPlayerWidget(
-                title: params.getParam(
-                  'title',
+                lesson: params.getParam<CourseLessonsRow>(
+                  'lesson',
+                  ParamType.SupabaseRow,
+                ),
+                courseName: params.getParam(
+                  'courseName',
                   ParamType.String,
                 ),
-                description: params.getParam(
-                  'description',
-                  ParamType.String,
+                course: params.getParam<CoursesRow>(
+                  'course',
+                  ParamType.SupabaseRow,
                 ),
-                videoURL: params.getParam(
-                  'videoURL',
-                  ParamType.String,
-                ),
-                providerID: params.getParam(
-                  'providerID',
-                  ParamType.int,
-                ),
-                shareURL: params.getParam(
-                  'shareURL',
-                  ParamType.String,
-                ),
-                categoryTitle: params.getParam(
-                  'categoryTitle',
-                  ParamType.String,
-                ),
-                categoryThumbnail: params.getParam(
-                  'categoryThumbnail',
-                  ParamType.String,
+                resource: params.getParam<ResourcesRow>(
+                  'resource',
+                  ParamType.SupabaseRow,
                 ),
               ),
             ),
             FFRoute(
               name: ResourceCreditWidget.routeName,
               path: ResourceCreditWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => ResourceCreditWidget(
                 provider: params.getParam<ResourceProvidersRow>(
                   'provider',
@@ -387,75 +253,58 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: SearchResultsWidget.routeName,
-              path: SearchResultsWidget.routePath,
-              builder: (context, params) => SearchResultsWidget(
-                initialSearch: params.getParam(
-                  'initialSearch',
-                  ParamType.String,
-                ),
-                initialChoiceChip: params.getParam(
-                  'initialChoiceChip',
-                  ParamType.String,
-                ),
-              ),
+              name: EquippingCardWidget.routeName,
+              path: EquippingCardWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => EquippingCardWidget(),
             ),
             FFRoute(
-              name: GetStartedWidget.routeName,
-              path: GetStartedWidget.routePath,
-              builder: (context, params) => GetStartedWidget(),
+              name: EquippingCardInfoWidget.routeName,
+              path: EquippingCardInfoWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => EquippingCardInfoWidget(),
             ),
             FFRoute(
-              name: Quote1Widget.routeName,
-              path: Quote1Widget.routePath,
-              builder: (context, params) => Quote1Widget(),
-            ),
-            FFRoute(
-              name: Quote2Widget.routeName,
-              path: Quote2Widget.routePath,
-              builder: (context, params) => Quote2Widget(),
-            ),
-            FFRoute(
-              name: Quote3Widget.routeName,
-              path: Quote3Widget.routePath,
-              builder: (context, params) => Quote3Widget(),
-            ),
-            FFRoute(
-              name: ImpactWidget.routeName,
-              path: ImpactWidget.routePath,
-              builder: (context, params) => ImpactWidget(
-                shares: params.getParam(
-                  'shares',
-                  ParamType.int,
+              name: ConversationStartersWidget.routeName,
+              path: ConversationStartersWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => ConversationStartersWidget(
+                gptAnswer: params.getParam(
+                  'gptAnswer',
+                  ParamType.JSON,
                 ),
               ),
             ),
             FFRoute(
-              name: HomeNoAuthWidget.routeName,
-              path: HomeNoAuthWidget.routePath,
-              builder: (context, params) => HomeNoAuthWidget(),
+              name: SimulatorWidget.routeName,
+              path: SimulatorWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => SimulatorWidget(
+                persona: params.getParam<SimulatorPersonasRow>(
+                  'persona',
+                  ParamType.SupabaseRow,
+                ),
+              ),
             ),
             FFRoute(
-              name: SituationNoAuthWidget.routeName,
-              path: SituationNoAuthWidget.routePath,
-              builder: (context, params) => SituationNoAuthWidget(),
+              name: NewEncounterWidget.routeName,
+              path: NewEncounterWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => NewEncounterWidget(),
             ),
             FFRoute(
-              name: FollowUpNoAuthWidget.routeName,
-              path: FollowUpNoAuthWidget.routePath,
-              builder: (context, params) => FollowUpNoAuthWidget(),
+              name: PickPersonaWidget.routeName,
+              path: PickPersonaWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => PickPersonaWidget(),
             ),
             FFRoute(
-              name: JoinChurcWidget.routeName,
-              path: JoinChurcWidget.routePath,
-              builder: (context, params) => JoinChurcWidget(),
-            ),
-            FFRoute(
-              name: ChurchWidget.routeName,
-              path: ChurchWidget.routePath,
-              builder: (context, params) => ChurchWidget(
-                churchID: params.getParam(
-                  'churchID',
+              name: FeedbackWidget.routeName,
+              path: FeedbackWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => FeedbackWidget(
+                chatFeedback: params.getParam(
+                  'chatFeedback',
                   ParamType.String,
                 ),
               ),
@@ -466,14 +315,308 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ToolsWidget(),
             ),
             FFRoute(
-              name: EquippingCardWidget.routeName,
-              path: EquippingCardWidget.routePath,
-              builder: (context, params) => EquippingCardWidget(),
+              name: SimulatorAnalysisWidget.routeName,
+              path: SimulatorAnalysisWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => SimulatorAnalysisWidget(
+                persona: params.getParam<SimulatorPersonasRow>(
+                  'persona',
+                  ParamType.SupabaseRow,
+                ),
+                duration: params.getParam(
+                  'duration',
+                  ParamType.String,
+                ),
+              ),
             ),
             FFRoute(
-              name: EquippingCardInfoWidget.routeName,
-              path: EquippingCardInfoWidget.routePath,
-              builder: (context, params) => EquippingCardInfoWidget(),
+              name: MissionsWidget.routeName,
+              path: MissionsWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => MissionsWidget(),
+            ),
+            FFRoute(
+              name: OnboardingFlowWidget.routeName,
+              path: OnboardingFlowWidget.routePath,
+              builder: (context, params) => OnboardingFlowWidget(),
+            ),
+            FFRoute(
+              name: CommitmentWidget.routeName,
+              path: CommitmentWidget.routePath,
+              builder: (context, params) => CommitmentWidget(),
+            ),
+            FFRoute(
+              name: OnboardingAnalyzingWidget.routeName,
+              path: OnboardingAnalyzingWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => OnboardingAnalyzingWidget(),
+            ),
+            FFRoute(
+              name: AuthOnboardWidget.routeName,
+              path: AuthOnboardWidget.routePath,
+              builder: (context, params) => AuthOnboardWidget(),
+            ),
+            FFRoute(
+              name: OnboardingQuoteWidget.routeName,
+              path: OnboardingQuoteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => OnboardingQuoteWidget(),
+            ),
+            FFRoute(
+              name: FirstMissionWidget.routeName,
+              path: FirstMissionWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => FirstMissionWidget(),
+            ),
+            FFRoute(
+              name: CourseWidget.routeName,
+              path: CourseWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => CourseWidget(
+                course: params.getParam<CoursesRow>(
+                  'course',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: LessonWidget.routeName,
+              path: LessonWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => LessonWidget(
+                lesson: params.getParam<CourseLessonsRow>(
+                  'lesson',
+                  ParamType.SupabaseRow,
+                ),
+                courseName: params.getParam(
+                  'courseName',
+                  ParamType.String,
+                ),
+                noPages: params.getParam(
+                  'noPages',
+                  ParamType.int,
+                ),
+                course: params.getParam<CoursesRow>(
+                  'course',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: LessonCompleteWidget.routeName,
+              path: LessonCompleteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => LessonCompleteWidget(
+                lessonXp: params.getParam(
+                  'lessonXp',
+                  ParamType.int,
+                ),
+                course: params.getParam<CoursesRow>(
+                  'course',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: GrowWidget.routeName,
+              path: GrowWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => GrowWidget(),
+            ),
+            FFRoute(
+              name: NewMissionWidget.routeName,
+              path: NewMissionWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => NewMissionWidget(
+                mission: params.getParam<MissionsCatalogRow>(
+                  'mission',
+                  ParamType.SupabaseRow,
+                ),
+                lessonXp: params.getParam(
+                  'lessonXp',
+                  ParamType.int,
+                ),
+                target: params.getParam(
+                  'target',
+                  ParamType.String,
+                ),
+                course: params.getParam<CoursesRow>(
+                  'course',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: EncounterCompleteWidget.routeName,
+              path: EncounterCompleteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => EncounterCompleteWidget(
+                encounterXp: params.getParam(
+                  'encounterXp',
+                  ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: EncounterUpdateWidget.routeName,
+              path: EncounterUpdateWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => EncounterUpdateWidget(
+                seletedEncounter: params.getParam<ReachedRow>(
+                  'seletedEncounter',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: CourseCompleteWidget.routeName,
+              path: CourseCompleteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => CourseCompleteWidget(
+                lessonXp: params.getParam(
+                  'lessonXp',
+                  ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: MissionCompleteWidget.routeName,
+              path: MissionCompleteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => MissionCompleteWidget(
+                missionXp: params.getParam(
+                  'missionXp',
+                  ParamType.int,
+                ),
+                missionTitle: params.getParam(
+                  'missionTitle',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: WelcomeWidget.routeName,
+              path: WelcomeWidget.routePath,
+              builder: (context, params) => WelcomeWidget(),
+            ),
+            FFRoute(
+              name: ConversationAnalysisWidget.routeName,
+              path: ConversationAnalysisWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => ConversationAnalysisWidget(
+                situation: params.getParam(
+                  'situation',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: ConfirmOTPWidget.routeName,
+              path: ConfirmOTPWidget.routePath,
+              builder: (context, params) => ConfirmOTPWidget(
+                email: params.getParam(
+                  'email',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: EnterEmailWidget.routeName,
+              path: EnterEmailWidget.routePath,
+              builder: (context, params) => EnterEmailWidget(),
+            ),
+            FFRoute(
+              name: ProfileWidget.routeName,
+              path: ProfileWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => ProfileWidget(),
+            ),
+            FFRoute(
+              name: SettingsWidget.routeName,
+              path: SettingsWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => SettingsWidget(
+                pushAllowed: params.getParam(
+                  'pushAllowed',
+                  ParamType.bool,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: VerticalVideoPlayerXpWidget.routeName,
+              path: VerticalVideoPlayerXpWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => VerticalVideoPlayerXpWidget(
+                video: params.getParam<ExperienceVideosRow>(
+                  'video',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: EnterEmailAuthWidget.routeName,
+              path: EnterEmailAuthWidget.routePath,
+              builder: (context, params) => EnterEmailAuthWidget(),
+            ),
+            FFRoute(
+              name: ConfirmOTPAuthWidget.routeName,
+              path: ConfirmOTPAuthWidget.routePath,
+              builder: (context, params) => ConfirmOTPAuthWidget(
+                email: params.getParam(
+                  'email',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: SelectedFeedbackWidget.routeName,
+              path: SelectedFeedbackWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => SelectedFeedbackWidget(
+                feedback: params.getParam<SimulatorFeedbackRow>(
+                  'feedback',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: MicPermissionWidget.routeName,
+              path: MicPermissionWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => MicPermissionWidget(),
+            ),
+            FFRoute(
+              name: PediaChatWidget.routeName,
+              path: PediaChatWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => PediaChatWidget(
+                oldConversation: params.getParam(
+                  'oldConversation',
+                  ParamType.bool,
+                ),
+                conversation: params.getParam<ConversationsRow>(
+                  'conversation',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: ChatHistoryWidget.routeName,
+              path: ChatHistoryWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => ChatHistoryWidget(),
+            ),
+            FFRoute(
+              name: SimulatorHistoryWidget.routeName,
+              path: SimulatorHistoryWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => SimulatorHistoryWidget(),
+            ),
+            FFRoute(
+              name: ConversationHistoryWidget.routeName,
+              path: ConversationHistoryWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => ConversationHistoryWidget(),
             ),
             FFRoute(
               name: UpdateVersionWidget.routeName,
@@ -481,29 +624,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => UpdateVersionWidget(),
             ),
             FFRoute(
-              name: SwippablestackWidget.routeName,
-              path: SwippablestackWidget.routePath,
-              builder: (context, params) => SwippablestackWidget(
-                gptAnswer: params.getParam(
-                  'gptAnswer',
-                  ParamType.JSON,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: SituationCopyWidget.routeName,
-              path: SituationCopyWidget.routePath,
-              builder: (context, params) => SituationCopyWidget(),
-            ),
-            FFRoute(
-              name: AisimWidget.routeName,
-              path: AisimWidget.routePath,
-              builder: (context, params) => AisimWidget(),
-            ),
-            FFRoute(
-              name: AisimCopyWidget.routeName,
-              path: AisimCopyWidget.routePath,
-              builder: (context, params) => AisimCopyWidget(),
+              name: PrayScreenWidget.routeName,
+              path: PrayScreenWidget.routePath,
+              builder: (context, params) => PrayScreenWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -625,6 +748,7 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -642,6 +766,7 @@ class FFParameters {
       param,
       type,
       isList,
+      structBuilder: structBuilder,
     );
   }
 }
@@ -675,7 +800,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/situation';
+            return '/welcome';
           }
           return null;
         },
@@ -690,14 +815,10 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: FlutterFlowTheme.of(context).secondary,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/App_Splash_Icon.png',
-                      width: 288.0,
-                      height: 288.0,
-                      fit: BoxFit.contain,
-                    ),
+                  color: Color(0xFF864AF9),
+                  child: Image.asset(
+                    'assets/images/splash_new_2.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

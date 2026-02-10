@@ -1,9 +1,9 @@
-import '/auth/base_auth_user_provider.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'nav_bar_model.dart';
@@ -91,29 +91,18 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      if (loggedIn) {
-                        context.goNamed(
-                          HomeWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      } else {
-                        context.goNamed(
-                          HomeNoAuthWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      }
+                      HapticFeedback.mediumImpact();
+
+                      context.goNamed(
+                        HomeWidget.routeName,
+                        extra: <String, dynamic>{
+                          '__transition_info__': TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(),
@@ -158,9 +147,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 6.0, 0.0, 0.0),
                               child: Text(
-                                FFLocalizations.of(context).getText(
-                                  '3gg5imcp' /* Home */,
-                                ),
+                                'Home',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -197,94 +184,87 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      if (loggedIn) {
-                        context.goNamed(
-                          SituationWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      } else {
-                        context.goNamed(
-                          SituationWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      }
+                      HapticFeedback.mediumImpact();
+
+                      context.goNamed(
+                        ToolsWidget.routeName,
+                        extra: <String, dynamic>{
+                          '__transition_info__': TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(),
                       alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (valueOrDefault<bool>(
-                            widget.selectedPage == 'evangelize' ? false : true,
-                            true,
-                          ))
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/bolt.png',
-                                width: 23.0,
-                                height: 23.0,
-                                fit: BoxFit.contain,
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (valueOrDefault<bool>(
+                              widget.selectedPage == 'tools' ? false : true,
+                              true,
+                            ))
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/fire_(5).png',
+                                  width: 25.0,
+                                  height: 25.0,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ),
-                          if (valueOrDefault<bool>(
-                            widget.selectedPage == 'evangelize' ? true : false,
-                            false,
-                          ))
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? 'assets/images/bolt_light.png'
-                                    : 'assets/images/bolt_(1).png',
-                                width: 23.0,
-                                height: 23.0,
-                                fit: BoxFit.contain,
+                            if (valueOrDefault<bool>(
+                              widget.selectedPage == 'tools' ? true : false,
+                              false,
+                            ))
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? 'assets/images/fire_(7).png'
+                                      : 'assets/images/fire_(6).png',
+                                  width: 26.0,
+                                  height: 26.0,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 6.0, 0.0, 0.0),
-                            child: Text(
-                              FFLocalizations.of(context).getText(
-                                'jxq04hsp' /* Evangelize */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.inter(
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 6.0, 0.0, 0.0),
+                              child: Text(
+                                'Tools',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      color: widget.selectedPage == 'tools'
+                                          ? FlutterFlowTheme.of(context)
+                                              .primaryText
+                                          : FlutterFlowTheme.of(context)
+                                              .navIcons,
+                                      fontSize: 10.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: widget.selectedPage == 'evangelize'
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context).navIcons,
-                                    fontSize: 10.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -296,10 +276,105 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      HapticFeedback.mediumImpact();
+
                       context.goNamed(
-                        ExploreWidget.routeName,
+                        GrowWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: TransitionInfo(
+                          '__transition_info__': TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            if (valueOrDefault<bool>(
+                              widget.selectedPage == 'grow' ? false : true,
+                              true,
+                            ))
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/application.png',
+                                  width: 23.0,
+                                  height: 23.0,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            if (valueOrDefault<bool>(
+                              widget.selectedPage == 'grow' ? true : false,
+                              false,
+                            ))
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? 'assets/images/application_(2).png'
+                                      : 'assets/images/application_(1).png',
+                                  width: 23.0,
+                                  height: 23.0,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 6.0, 0.0, 0.0),
+                              child: Text(
+                                'Grow',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      color: widget.selectedPage == 'grow'
+                                          ? FlutterFlowTheme.of(context)
+                                              .primaryText
+                                          : FlutterFlowTheme.of(context)
+                                              .navIcons,
+                                      fontSize: 10.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      HapticFeedback.mediumImpact();
+
+                      context.goNamed(
+                        EncountersListWidget.routeName,
+                        extra: <String, dynamic>{
+                          '__transition_info__': TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.fade,
                             duration: Duration(milliseconds: 0),
@@ -315,107 +390,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           if (valueOrDefault<bool>(
-                            widget.selectedPage == 'explore' ? false : true,
-                            true,
-                          ))
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/clapper_(1).png',
-                                width: 23.0,
-                                height: 23.0,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          if (valueOrDefault<bool>(
-                            widget.selectedPage == 'explore' ? true : false,
-                            false,
-                          ))
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? 'assets/images/clapper_(3).png'
-                                    : 'assets/images/clapper_(2).png',
-                                width: 23.0,
-                                height: 23.0,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 6.0, 0.0, 0.0),
-                            child: Text(
-                              FFLocalizations.of(context).getText(
-                                'dd9gxzvk' /* Explore */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    color: widget.selectedPage == 'explore'
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context).navIcons,
-                                    fontSize: 10.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      if (loggedIn) {
-                        context.goNamed(
-                          FollowUpListWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      } else {
-                        context.goNamed(
-                          FollowUpNoAuthWidget.routeName,
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (valueOrDefault<bool>(
-                            widget.selectedPage == 'followup' ? false : true,
+                            widget.selectedPage == 'encounters' ? false : true,
                             true,
                           ))
                             ClipRRect(
@@ -428,7 +403,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               ),
                             ),
                           if (valueOrDefault<bool>(
-                            widget.selectedPage == 'followup' ? true : false,
+                            widget.selectedPage == 'encounters' ? true : false,
                             false,
                           ))
                             ClipRRect(
@@ -446,9 +421,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 6.0, 0.0, 0.0),
                             child: Text(
-                              FFLocalizations.of(context).getText(
-                                'jtqvto1t' /* Follow Up */,
-                              ),
+                              'Encounters',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -458,7 +431,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: widget.selectedPage == 'followup'
+                                    color: widget.selectedPage == 'encounters'
                                         ? FlutterFlowTheme.of(context)
                                             .primaryText
                                         : FlutterFlowTheme.of(context).navIcons,
@@ -483,10 +456,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
+                      HapticFeedback.mediumImpact();
+
                       context.goNamed(
-                        MoreWidget.routeName,
+                        MissionsWidget.routeName,
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: TransitionInfo(
+                          '__transition_info__': TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.fade,
                             duration: Duration(milliseconds: 0),
@@ -499,26 +474,26 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       alignment: AlignmentDirectional(1.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             if (valueOrDefault<bool>(
-                              widget.selectedPage == 'more' ? false : true,
+                              widget.selectedPage == 'missions' ? false : true,
                               true,
                             ))
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(0.0),
                                 child: Image.asset(
-                                  'assets/images/menu-burger.png',
+                                  'assets/images/target_(5).png',
                                   width: 23.0,
                                   height: 23.0,
                                   fit: BoxFit.contain,
                                 ),
                               ),
                             if (valueOrDefault<bool>(
-                              widget.selectedPage == 'more' ? true : false,
+                              widget.selectedPage == 'missions' ? true : false,
                               false,
                             ))
                               ClipRRect(
@@ -526,8 +501,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 child: Image.asset(
                                   Theme.of(context).brightness ==
                                           Brightness.dark
-                                      ? 'assets/images/menu_light_(2).png'
-                                      : 'assets/images/menu_dark_(2).png',
+                                      ? 'assets/images/target_(7).png'
+                                      : 'assets/images/target_(6).png',
                                   width: 23.0,
                                   height: 23.0,
                                   fit: BoxFit.contain,
@@ -537,9 +512,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 6.0, 0.0, 0.0),
                               child: Text(
-                                FFLocalizations.of(context).getText(
-                                  'ircq75se' /* More */,
-                                ),
+                                'Missions',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -549,7 +522,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: widget.selectedPage == 'more'
+                                      color: widget.selectedPage == 'missions'
                                           ? FlutterFlowTheme.of(context)
                                               .primaryText
                                           : FlutterFlowTheme.of(context)

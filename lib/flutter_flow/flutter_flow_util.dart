@@ -38,58 +38,6 @@ T valueOrDefault<T>(T? value, T defaultValue) =>
 void _setTimeagoLocales() {
   timeago.setLocaleMessages('en', timeago.EnMessages());
   timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
-  timeago.setLocaleMessages('ja', timeago.JaMessages());
-  timeago.setLocaleMessages('zh_Hans', timeago.ZhCnMessages());
-  timeago.setLocaleMessages('hi', timeago.HiMessages());
-  timeago.setLocaleMessages('hi_short', timeago.HiShortMessages());
-  timeago.setLocaleMessages('ru', timeago.RuMessages());
-  timeago.setLocaleMessages('ru_short', timeago.RuShortMessages());
-  timeago.setLocaleMessages('ko', timeago.KoMessages());
-  timeago.setLocaleMessages('de', timeago.DeMessages());
-  timeago.setLocaleMessages('de_short', timeago.DeShortMessages());
-  timeago.setLocaleMessages('es', timeago.EsMessages());
-  timeago.setLocaleMessages('es_short', timeago.EsShortMessages());
-  timeago.setLocaleMessages('pt', timeago.PtBrMessages());
-  timeago.setLocaleMessages('pt_short', timeago.PtBrShortMessages());
-  timeago.setLocaleMessages('id', timeago.IdMessages());
-  timeago.setLocaleMessages('fr', timeago.FrMessages());
-  timeago.setLocaleMessages('fr_short', timeago.FrShortMessages());
-  timeago.setLocaleMessages('it', timeago.ItMessages());
-  timeago.setLocaleMessages('it_short', timeago.ItShortMessages());
-  timeago.setLocaleMessages('ar', timeago.ArMessages());
-  timeago.setLocaleMessages('ar_short', timeago.ArShortMessages());
-  timeago.setLocaleMessages('uk', timeago.UkMessages());
-  timeago.setLocaleMessages('uk_short', timeago.UkShortMessages());
-  timeago.setLocaleMessages('pl', timeago.PlMessages());
-  timeago.setLocaleMessages('tr', timeago.TrMessages());
-  timeago.setLocaleMessages('sv', timeago.SvMessages());
-  timeago.setLocaleMessages('sv_short', timeago.SvShortMessages());
-  timeago.setLocaleMessages('ms', timeago.MsMyMessages());
-  timeago.setLocaleMessages('ms_short', timeago.MsMyShortMessages());
-  timeago.setLocaleMessages('ro', timeago.RoMessages());
-  timeago.setLocaleMessages('ro_short', timeago.RoShortMessages());
-  timeago.setLocaleMessages('cs', timeago.CsMessages());
-  timeago.setLocaleMessages('cs_short', timeago.CsShortMessages());
-  timeago.setLocaleMessages('da', timeago.DaMessages());
-  timeago.setLocaleMessages('da_short', timeago.DaShortMessages());
-  timeago.setLocaleMessages('fi', timeago.FiMessages());
-  timeago.setLocaleMessages('fi_short', timeago.FiShortMessages());
-  timeago.setLocaleMessages('ta', timeago.TaMessages());
-  timeago.setLocaleMessages('et', timeago.EtMessages());
-  timeago.setLocaleMessages('et_short', timeago.EtShortMessages());
-  timeago.setLocaleMessages('hu', timeago.HuMessages());
-  timeago.setLocaleMessages('hu_short', timeago.HuShortMessages());
-  timeago.setLocaleMessages('mn', timeago.MnMessages());
-  timeago.setLocaleMessages('mn_short', timeago.MnShortMessages());
-  timeago.setLocaleMessages('no', timeago.NnNoMessages());
-  timeago.setLocaleMessages('no_short', timeago.NnNoShortMessages());
-  timeago.setLocaleMessages('fa', timeago.FaMessages());
-  timeago.setLocaleMessages('ur', timeago.UrMessages());
-  timeago.setLocaleMessages('vi', timeago.ViMessages());
-  timeago.setLocaleMessages('vi_short', timeago.ViShortMessages());
-  timeago.setLocaleMessages('ca', timeago.CaMessages());
-  timeago.setLocaleMessages('ca_short', timeago.CaShortMessages());
-  timeago.setLocaleMessages('zh_Hant', timeago.ZhMessages());
 }
 
 String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
@@ -101,6 +49,151 @@ String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
     return timeago.format(dateTime, locale: locale, allowFromNow: true);
   }
   return DateFormat(format, locale).format(dateTime);
+}
+
+Theme wrapInMaterialDatePickerTheme(
+  BuildContext context,
+  Widget child, {
+  required Color headerBackgroundColor,
+  required Color headerForegroundColor,
+  required TextStyle headerTextStyle,
+  required Color pickerBackgroundColor,
+  required Color pickerForegroundColor,
+  required Color selectedDateTimeBackgroundColor,
+  required Color selectedDateTimeForegroundColor,
+  required Color actionButtonForegroundColor,
+  required double iconSize,
+}) {
+  final baseTheme = Theme.of(context);
+  final dateTimeMaterialStateForegroundColor =
+      WidgetStateProperty.resolveWith((states) {
+    if (states.contains(WidgetState.disabled)) {
+      return pickerForegroundColor.applyAlpha(0.60);
+    }
+    if (states.contains(WidgetState.selected)) {
+      return selectedDateTimeForegroundColor;
+    }
+    if (states.isEmpty) {
+      return pickerForegroundColor;
+    }
+    return null;
+  });
+
+  final dateTimeMaterialStateBackgroundColor =
+      WidgetStateProperty.resolveWith((states) {
+    if (states.contains(WidgetState.selected)) {
+      return selectedDateTimeBackgroundColor;
+    }
+    return null;
+  });
+
+  return Theme(
+    data: baseTheme.copyWith(
+      colorScheme: baseTheme.colorScheme.copyWith(
+        onSurface: pickerForegroundColor,
+      ),
+      disabledColor: pickerForegroundColor.applyAlpha(0.3),
+      textTheme: baseTheme.textTheme.copyWith(
+        headlineSmall: headerTextStyle,
+        headlineMedium: headerTextStyle,
+      ),
+      iconTheme: baseTheme.iconTheme.copyWith(
+        size: iconSize,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll(
+              actionButtonForegroundColor,
+            ),
+            overlayColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
+                return actionButtonForegroundColor.applyAlpha(0.04);
+              }
+              if (states.contains(WidgetState.focused) ||
+                  states.contains(WidgetState.pressed)) {
+                return actionButtonForegroundColor.applyAlpha(0.12);
+              }
+              return null;
+            })),
+      ),
+      datePickerTheme: DatePickerThemeData(
+        backgroundColor: pickerBackgroundColor,
+        headerBackgroundColor: headerBackgroundColor,
+        headerForegroundColor: headerForegroundColor,
+        weekdayStyle: baseTheme.textTheme.labelMedium!.copyWith(
+          color: pickerForegroundColor,
+        ),
+        dayBackgroundColor: dateTimeMaterialStateBackgroundColor,
+        todayBackgroundColor: dateTimeMaterialStateBackgroundColor,
+        yearBackgroundColor: dateTimeMaterialStateBackgroundColor,
+        dayForegroundColor: dateTimeMaterialStateForegroundColor,
+        todayForegroundColor: dateTimeMaterialStateForegroundColor,
+        yearForegroundColor: dateTimeMaterialStateForegroundColor,
+      ),
+    ),
+    child: child,
+  );
+}
+
+Theme wrapInMaterialTimePickerTheme(
+  BuildContext context,
+  Widget child, {
+  required Color headerBackgroundColor,
+  required Color headerForegroundColor,
+  required TextStyle headerTextStyle,
+  required Color pickerBackgroundColor,
+  required Color pickerForegroundColor,
+  required Color selectedDateTimeBackgroundColor,
+  required Color selectedDateTimeForegroundColor,
+  required Color actionButtonForegroundColor,
+  required double iconSize,
+}) {
+  final baseTheme = Theme.of(context);
+  return Theme(
+    data: baseTheme.copyWith(
+      iconTheme: baseTheme.iconTheme.copyWith(
+        size: iconSize,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll(
+              actionButtonForegroundColor,
+            ),
+            overlayColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.hovered)) {
+                return actionButtonForegroundColor.applyAlpha(0.04);
+              }
+              if (states.contains(WidgetState.focused) ||
+                  states.contains(WidgetState.pressed)) {
+                return actionButtonForegroundColor.applyAlpha(0.12);
+              }
+              return null;
+            })),
+      ),
+      timePickerTheme: baseTheme.timePickerTheme.copyWith(
+        backgroundColor: pickerBackgroundColor,
+        hourMinuteTextColor: pickerForegroundColor,
+        dialHandColor: selectedDateTimeBackgroundColor,
+        dialTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? selectedDateTimeForegroundColor
+                : pickerForegroundColor),
+        dayPeriodBorderSide: BorderSide(
+          color: pickerForegroundColor,
+        ),
+        dayPeriodTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? selectedDateTimeForegroundColor
+                : pickerForegroundColor),
+        dayPeriodColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? selectedDateTimeBackgroundColor
+                : Colors.transparent),
+        entryModeIconColor: pickerForegroundColor,
+      ),
+    ),
+    child: child,
+  );
 }
 
 Future launchURL(String url) async {
@@ -334,6 +427,13 @@ void setAppLanguage(BuildContext context, String language) =>
 
 void setDarkModeSetting(BuildContext context, ThemeMode themeMode) =>
     MyApp.of(context).setThemeMode(themeMode);
+
+void setTextScaleFactorSetting(BuildContext context, double textScaleFactor) =>
+    MyApp.of(context).setTextScaleFactor(textScaleFactor);
+
+void incrementTextScaleFactorSetting(
+        BuildContext context, double incrementValue) =>
+    MyApp.of(context).incrementTextScaleFactor(incrementValue);
 
 void showSnackbar(
   BuildContext context,

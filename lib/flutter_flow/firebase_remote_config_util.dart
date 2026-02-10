@@ -9,10 +9,11 @@ Future initializeFirebaseRemoteConfig() async {
     await FirebaseRemoteConfig.instance.setDefaults(const {
       'appReview': false,
       'reviewPass': 'Testing123',
-      'tinoURL': 'https://www.instagram.com/tino.chiwara/',
-      'jad': false,
-      'church': false,
       'deprecatedVersion': '',
+      'onboardingTrustedBy': '3K+ iEvangelize Users',
+      'onboardingRatings': '#1 App for Evangelism',
+      'donateImpactMessage': 'Currently equipping 3K+ Christians',
+      'globalImpact': '7,000 evangelism actions',
     });
     await FirebaseRemoteConfig.instance.fetchAndActivate();
   } catch (error) {

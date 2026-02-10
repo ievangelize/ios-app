@@ -70,6 +70,32 @@ class _MissionsLoadingWidgetState extends State<MissionsLoadingWidget>
           ),
         ],
       ),
+      'containerOnPageLoadAnimation4': AnimationInfo(
+        loop: true,
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ShimmerEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            color: FlutterFlowTheme.of(context).shimmer,
+            angle: 0.524,
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation5': AnimationInfo(
+        loop: true,
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ShimmerEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            color: FlutterFlowTheme.of(context).shimmer,
+            angle: 0.524,
+          ),
+        ],
+      ),
     });
   }
 
@@ -90,7 +116,7 @@ class _MissionsLoadingWidgetState extends State<MissionsLoadingWidget>
           height: 60.0,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).alternate,
-            borderRadius: BorderRadius.circular(14.0),
+            borderRadius: BorderRadius.circular(12.0),
           ),
         ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation1']!),
         Container(
@@ -98,7 +124,7 @@ class _MissionsLoadingWidgetState extends State<MissionsLoadingWidget>
           height: 60.0,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).alternate,
-            borderRadius: BorderRadius.circular(14.0),
+            borderRadius: BorderRadius.circular(12.0),
           ),
         ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation2']!),
         Container(
@@ -106,10 +132,26 @@ class _MissionsLoadingWidgetState extends State<MissionsLoadingWidget>
           height: 60.0,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).alternate,
-            borderRadius: BorderRadius.circular(14.0),
+            borderRadius: BorderRadius.circular(12.0),
           ),
         ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation3']!),
-      ].divide(SizedBox(height: 14.0)),
+        Container(
+          width: double.infinity,
+          height: 60.0,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).alternate,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation4']!),
+        Container(
+          width: double.infinity,
+          height: 60.0,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).alternate,
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+        ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation5']!),
+      ].divide(SizedBox(height: 12.0)),
     );
   }
 }

@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'large_btn_model.dart';
 export 'large_btn_model.dart';
@@ -51,6 +52,7 @@ class _LargeBtnWidgetState extends State<LargeBtnWidget> {
   Widget build(BuildContext context) {
     return FFButtonWidget(
       onPressed: () async {
+        HapticFeedback.lightImpact();
         await widget.action?.call();
       },
       text: widget.text!,
@@ -66,7 +68,7 @@ class _LargeBtnWidgetState extends State<LargeBtnWidget> {
                 fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
               ),
               color: widget.textColor,
-              fontSize: 20.0,
+              fontSize: 16.0,
               letterSpacing: 0.0,
               fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
               fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,

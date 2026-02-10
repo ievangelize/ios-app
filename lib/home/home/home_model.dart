@@ -1,4 +1,5 @@
-import '/components/mission/mission_widget.dart';
+import '/backend/supabase/supabase.dart';
+import '/components/appbar_home/appbar_home_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -6,28 +7,33 @@ import 'home_widget.dart' show HomeWidget;
 import 'package:flutter/material.dart';
 
 class HomeModel extends FlutterFlowModel<HomeWidget> {
+  ///  Local state fields for this page.
+
+  bool quoteExpanded = false;
+
+  double? quoteHeight;
+
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Custom Action - newVersion] action in home widget.
-  String? currentVersion;
-  // Models for mission dynamic component.
-  late FlutterFlowDynamicModels<MissionModel> missionModels1;
-  // Models for mission dynamic component.
-  late FlutterFlowDynamicModels<MissionModel> missionModels2;
+  Stream<List<UsersRow>>? homeSupabaseStream;
+  // Model for appbarHome component.
+  late AppbarHomeModel appbarHomeModel;
+  // Stores action output result for [Backend Call - Query Rows] action in Button widget.
+  List<UserLessonProgressRow>? ulps;
+  // Stores action output result for [Backend Call - Query Rows] action in Button widget.
+  List<CourseLessonsRow>? lessons;
   // Model for NavBar component.
   late NavBarModel navBarModel;
 
   @override
   void initState(BuildContext context) {
-    missionModels1 = FlutterFlowDynamicModels(() => MissionModel());
-    missionModels2 = FlutterFlowDynamicModels(() => MissionModel());
+    appbarHomeModel = createModel(context, () => AppbarHomeModel());
     navBarModel = createModel(context, () => NavBarModel());
   }
 
   @override
   void dispose() {
-    missionModels1.dispose();
-    missionModels2.dispose();
+    appbarHomeModel.dispose();
     navBarModel.dispose();
   }
 }

@@ -26,6 +26,10 @@ abstract class FlutterFlowTheme {
       ? _prefs?.remove(kThemeModeKey)
       : _prefs?.setBool(kThemeModeKey, mode == ThemeMode.dark);
 
+  static const double minTextScaleFactor = 1.07;
+  static const double maxTextScaleFactor = 1.07;
+  static const double defaultTextScaleFactor = 1.0;
+
   static FlutterFlowTheme of(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark
         ? DarkModeTheme()
@@ -66,6 +70,9 @@ abstract class FlutterFlowTheme {
   late Color shimmer;
   late Color blackAlternate;
   late Color mainDarkDark;
+  late Color textGradient;
+  late Color dfdfdf;
+  late Color streak;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -154,14 +161,14 @@ class LightModeTheme extends FlutterFlowTheme {
   Color get tertiaryColor => tertiary;
 
   late Color primary = const Color(0xFF000000);
-  late Color secondary = const Color(0xFF6A55EA);
-  late Color tertiary = const Color(0xFF6A55EA);
-  late Color alternate = const Color(0xFFF6F5F5);
+  late Color secondary = const Color(0xFF864AF9);
+  late Color tertiary = const Color(0xFF864AF9);
+  late Color alternate = const Color(0xFFF7F6FB);
   late Color primaryText = const Color(0xFF000000);
   late Color secondaryText = const Color(0xFF57636C);
   late Color primaryBackground = const Color(0xFFFFFFFF);
   late Color secondaryBackground = const Color(0xFFFFFFFF);
-  late Color accent1 = const Color(0xB3D9D9D9);
+  late Color accent1 = const Color(0xB3C0C0C0);
   late Color accent2 = const Color(0xFFF1F4F8);
   late Color accent3 = const Color(0x4DEE8B60);
   late Color accent4 = const Color(0xCCFFFFFF);
@@ -180,6 +187,9 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color shimmer = const Color(0x80FFFFFF);
   late Color blackAlternate = const Color(0xFF000000);
   late Color mainDarkDark = const Color(0xFF181818);
+  late Color textGradient = const Color(0xFFD3A701);
+  late Color dfdfdf = const Color(0xFFDFDFDF);
+  late Color streak = const Color(0x1A6A55EA);
 }
 
 abstract class Typography {
@@ -353,12 +363,12 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color primary = const Color(0xFF6A55EA);
   late Color secondary = const Color(0xFF6A55EA);
   late Color tertiary = const Color(0xFFFEC800);
-  late Color alternate = const Color(0xFF181818);
+  late Color alternate = const Color(0xFF272D32);
   late Color primaryText = const Color(0xFFFFFFFF);
   late Color secondaryText = const Color(0xFF95A1AC);
   late Color primaryBackground = const Color(0xFF000000);
   late Color secondaryBackground = const Color(0xFF14181B);
-  late Color accent1 = const Color(0xB3D9D9D9);
+  late Color accent1 = const Color(0xB3686868);
   late Color accent2 = const Color(0xFF262D34);
   late Color accent3 = const Color(0x4DEE8B60);
   late Color accent4 = const Color(0xB2262D34);
@@ -377,6 +387,9 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color shimmer = const Color(0x8029292D);
   late Color blackAlternate = const Color(0xFF1A1A1D);
   late Color mainDarkDark = const Color(0xFF14181B);
+  late Color textGradient = const Color(0xCA9B90F7);
+  late Color dfdfdf = const Color(0xFF14181B);
+  late Color streak = const Color(0x497C69E9);
 }
 
 extension TextStyleHelper on TextStyle {

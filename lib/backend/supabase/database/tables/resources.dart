@@ -73,4 +73,7 @@ class ResourcesRow extends SupabaseDataRow {
 
   int? get order => getField<int>('order');
   set order(int? value) => setField<int>('order', value);
+
+  bool? get isNew => getField<bool>('is_new');
+  set isNew(bool? value) => setField<bool>('is_new', value);
 }

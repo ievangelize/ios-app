@@ -49,4 +49,26 @@ class UsersRow extends SupabaseDataRow {
 
   String? get fcmToken => getField<String>('fcm_token');
   set fcmToken(String? value) => setField<String>('fcm_token', value);
+
+  dynamic get onboardingSnapshot => getField<dynamic>('onboarding_snapshot');
+  set onboardingSnapshot(dynamic value) =>
+      setField<dynamic>('onboarding_snapshot', value);
+
+  String? get onboardingLevel => getField<String>('onboarding_level');
+  set onboardingLevel(String? value) =>
+      setField<String>('onboarding_level', value);
+
+  bool? get onboardingComplete => getField<bool>('onboarding_complete');
+  set onboardingComplete(bool? value) =>
+      setField<bool>('onboarding_complete', value);
+
+  int? get cumulativeXp => getField<int>('cumulative_xp');
+  set cumulativeXp(int? value) => setField<int>('cumulative_xp', value);
+
+  String? get currentLevelId => getField<String>('current_level_id');
+  set currentLevelId(String? value) =>
+      setField<String>('current_level_id', value);
+
+  int? get streak => getField<int>('streak');
+  set streak(int? value) => setField<int>('streak', value);
 }

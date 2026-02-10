@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
+
+import '/backend/schema/structs/index.dart';
 
 import '/backend/supabase/supabase.dart';
 
@@ -70,6 +71,9 @@ String? serializeParam(
         data = uploadedFileToString(param as FFUploadedFile);
       case ParamType.JSON:
         data = json.encode(param);
+
+      case ParamType.DataStruct:
+        data = param is BaseStruct ? param.serialize() : null;
 
       case ParamType.SupabaseRow:
         return json.encode((param as SupabaseDataRow).data);
@@ -150,14 +154,19 @@ enum ParamType {
   FFUploadedFile,
   JSON,
 
+  DataStruct,
   SupabaseRow,
+
+  CustomClass,
+  CustomEnum,
 }
 
 dynamic deserializeParam<T>(
   String? param,
   ParamType paramType,
-  bool isList,
-) {
+  bool isList, {
+  StructBuilder<T>? structBuilder,
+}) {
   try {
     if (param == null) {
       return null;
@@ -170,7 +179,12 @@ dynamic deserializeParam<T>(
       return paramValues
           .where((p) => p is String)
           .map((p) => p as String)
-          .map((p) => deserializeParam<T>(p, paramType, false))
+          .map((p) => deserializeParam<T>(
+                p,
+                paramType,
+                false,
+                structBuilder: structBuilder,
+              ))
           .where((p) => p != null)
           .map((p) => p! as T)
           .toList();
@@ -205,41 +219,81 @@ dynamic deserializeParam<T>(
       case ParamType.SupabaseRow:
         final data = json.decode(param) as Map<String, dynamic>;
         switch (T) {
+          case QuotesRow:
+            return QuotesRow(data);
+          case TiersRow:
+            return TiersRow(data);
+          case MissionsCatalogRow:
+            return MissionsCatalogRow(data);
           case ResourcesRow:
             return ResourcesRow(data);
           case NoAuthMissionRow:
             return NoAuthMissionRow(data);
           case ImpactRow:
             return ImpactRow(data);
+          case CoursesRow:
+            return CoursesRow(data);
           case UserMissionsRow:
             return UserMissionsRow(data);
+          case CourseLessonsRow:
+            return CourseLessonsRow(data);
+          case ConversationsRow:
+            return ConversationsRow(data);
+          case ExperienceVideosRow:
+            return ExperienceVideosRow(data);
+          case SimulatorPersonasRow:
+            return SimulatorPersonasRow(data);
           case StoriesRow:
             return StoriesRow(data);
+          case XpEventsRow:
+            return XpEventsRow(data);
           case ResourceProvidersRow:
             return ResourceProvidersRow(data);
+          case QuizzesRow:
+            return QuizzesRow(data);
           case ChallengeWeeksRow:
             return ChallengeWeeksRow(data);
           case LessonsRow:
             return LessonsRow(data);
+          case ConversationMessagesRow:
+            return ConversationMessagesRow(data);
           case ChurchesRow:
             return ChurchesRow(data);
+          case LessonPagesRow:
+            return LessonPagesRow(data);
           case MissionsRow:
             return MissionsRow(data);
           case FilterTagsRow:
             return FilterTagsRow(data);
+          case UserAssignedMissionsRow:
+            return UserAssignedMissionsRow(data);
+          case UserCourseProgressRow:
+            return UserCourseProgressRow(data);
           case UsersRow:
             return UsersRow(data);
           case SituationRow:
             return SituationRow(data);
           case CategoriesRow:
             return CategoriesRow(data);
-          case ChurchStaffRow:
-            return ChurchStaffRow(data);
+          case UserLessonProgressRow:
+            return UserLessonProgressRow(data);
+          case QuizOptionsRow:
+            return QuizOptionsRow(data);
           case ReachedRow:
             return ReachedRow(data);
+          case SimulatorFeedbackRow:
+            return SimulatorFeedbackRow(data);
+          case LevelsRow:
+            return LevelsRow(data);
+          case ScheduledNotificationsRow:
+            return ScheduledNotificationsRow(data);
           default:
             return null;
         }
+
+      case ParamType.DataStruct:
+        final data = json.decode(param) as Map<String, dynamic>? ?? {};
+        return structBuilder != null ? structBuilder(data) : null;
 
       default:
         return null;

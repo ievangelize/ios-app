@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "243229685241",
-    "project_id": "ievangelize-firebase-56350",
-    "storage_bucket": "ievangelize-firebase-56350.firebasestorage.app"
+    "project_number": "563043638760",
+    "project_id": "ievangelize-firebase-2",
+    "storage_bucket": "ievangelize-firebase-2.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:243229685241:android:168de423895456b44b3928",
+        "mobilesdk_app_id": "1:563043638760:android:06583c689e898e65f4d85d",
         "android_client_info": {
           "package_name": "com.tinochiwara.ievangelize"
         }
@@ -15,26 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB7R_ktItuYdnHMm0THrrIhmvyZ7KTmYwQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:243229685241:android:de9428fc806732f44b3928",
-        "android_client_info": {
-          "package_name": "com.tinochiwara.ievangelizeapp"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB7R_ktItuYdnHMm0THrrIhmvyZ7KTmYwQ"
+          "current_key": "AIzaSyCxt6esmtX6mj-kWBmklw1FGbNirvdVEig"
         }
       ],
       "services": {

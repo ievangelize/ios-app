@@ -1,4 +1,5 @@
 // Automatic FlutterFlow imports
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -18,11 +19,13 @@ class CustomVidPlayer extends StatefulWidget {
     this.width,
     this.height,
     required this.videoPath,
+    required this.videoComplete,
   });
 
   final double? width;
   final double? height;
   final String videoPath;
+  final Future Function() videoComplete;
 
   @override
   State<CustomVidPlayer> createState() => _CustomVidPlayerState();
@@ -54,6 +57,10 @@ class _CustomVidPlayerState extends State<CustomVidPlayer> {
     _videoPlayerController.seekTo(newPosition);
   }
 
+  void onVideoComplete() {
+    widget.videoComplete();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,6 +72,17 @@ class _CustomVidPlayerState extends State<CustomVidPlayer> {
       if (mounted) {
         _startProgressTimer(); // Start progress updates
         _videoPlayerController.play(); // AutoPlay
+
+        // 👇 Add listener here
+        _videoPlayerController.addListener(() {
+          final isFinished = _videoPlayerController.value.position >=
+              _videoPlayerController.value.duration;
+
+          if (isFinished && !_videoPlayerController.value.isPlaying) {
+            // ✅ Video has completed
+            onVideoComplete();
+          }
+        });
       }
     });
   }

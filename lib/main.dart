@@ -24,15 +24,13 @@ void main() async {
   await initFirebase();
 
   // Start initial custom actions code
-  await actions.changeBarColors();
   await actions.appLinksUsage();
+  await actions.changeBarColors();
   // End initial custom actions code
 
   await SupaFlow.initialize();
 
   await FlutterFlowTheme.initialize();
-
-  await FFLocalizations.initialize();
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -41,10 +39,6 @@ void main() async {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   }
   await initializeFirebaseRemoteConfig();
-
-  // Start final custom actions code
-  await actions.setFCMToken();
-  // End final custom actions code
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
@@ -62,9 +56,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale = FFLocalizations.getStoredLocale();
+  Locale? _locale;
 
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+  double _textScaleFactor = 1.0;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
@@ -102,13 +97,33 @@ class _MyAppState extends State<MyApp> {
 
   void setLocale(String language) {
     safeSetState(() => _locale = createLocale(language));
-    FFLocalizations.storeLocale(language);
   }
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
         FlutterFlowTheme.saveThemeMode(mode);
       });
+
+  void setTextScaleFactor(double updatedFactor) {
+    if (updatedFactor < FlutterFlowTheme.minTextScaleFactor ||
+        updatedFactor > FlutterFlowTheme.maxTextScaleFactor) {
+      return;
+    }
+    safeSetState(() {
+      _textScaleFactor = updatedFactor;
+    });
+  }
+
+  void incrementTextScaleFactor(double incrementValue) {
+    final updatedFactor = _textScaleFactor + incrementValue;
+    if (updatedFactor < FlutterFlowTheme.minTextScaleFactor ||
+        updatedFactor > FlutterFlowTheme.maxTextScaleFactor) {
+      return;
+    }
+    safeSetState(() {
+      _textScaleFactor = updatedFactor;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,67 +141,6 @@ class _MyAppState extends State<MyApp> {
       locale: _locale,
       supportedLocales: const [
         Locale('en'),
-        Locale('ja'),
-        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-        Locale('hi'),
-        Locale('ml'),
-        Locale('ru'),
-        Locale('ko'),
-        Locale('de'),
-        Locale('es'),
-        Locale('pt'),
-        Locale('id'),
-        Locale('fr'),
-        Locale('it'),
-        Locale('ar'),
-        Locale('uk'),
-        Locale('nl'),
-        Locale('pl'),
-        Locale('bg'),
-        Locale('tr'),
-        Locale('sv'),
-        Locale('ms'),
-        Locale('ro'),
-        Locale('el'),
-        Locale('cs'),
-        Locale('da'),
-        Locale('fi'),
-        Locale('hr'),
-        Locale('sk'),
-        Locale('ta'),
-        Locale('be'),
-        Locale('et'),
-        Locale('ka'),
-        Locale('hu'),
-        Locale('mn'),
-        Locale('my'),
-        Locale('no'),
-        Locale('fa'),
-        Locale('sr'),
-        Locale('sd'),
-        Locale('sl'),
-        Locale('ur'),
-        Locale('uz'),
-        Locale('vi'),
-        Locale('bn'),
-        Locale('sq'),
-        Locale('hy'),
-        Locale('am'),
-        Locale('eu'),
-        Locale('bs'),
-        Locale('ca'),
-        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-        Locale('gl'),
-        Locale('gu'),
-        Locale('kn'),
-        Locale('lv'),
-        Locale('lt'),
-        Locale('mk'),
-        Locale('mr'),
-        Locale('ne'),
-        Locale('or'),
-        Locale('pa'),
-        Locale('si'),
       ],
       theme: ThemeData(
         brightness: Brightness.light,
@@ -220,6 +174,21 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: _themeMode,
       routerConfig: _router,
+      builder: (_, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaler:
+              _textScaleFactor == FlutterFlowTheme.defaultTextScaleFactor
+                  ? MediaQuery.of(context).textScaler.clamp(
+                        minScaleFactor: FlutterFlowTheme.minTextScaleFactor,
+                        maxScaleFactor: FlutterFlowTheme.maxTextScaleFactor,
+                      )
+                  : TextScaler.linear(_textScaleFactor).clamp(
+                      minScaleFactor: FlutterFlowTheme.minTextScaleFactor,
+                      maxScaleFactor: FlutterFlowTheme.maxTextScaleFactor,
+                    ),
+        ),
+        child: child!,
+      ),
     );
   }
 }

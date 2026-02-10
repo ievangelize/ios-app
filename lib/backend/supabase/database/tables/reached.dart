@@ -60,4 +60,13 @@ class ReachedRow extends SupabaseDataRow {
   String? get followUpMethod => getField<String>('follow_up_method');
   set followUpMethod(String? value) =>
       setField<String>('follow_up_method', value);
+
+  bool? get prayReminder => getField<bool>('pray_reminder');
+  set prayReminder(bool? value) => setField<bool>('pray_reminder', value);
+
+  int? get xpReward => getField<int>('xp_reward');
+  set xpReward(int? value) => setField<int>('xp_reward', value);
+
+  int? get peopleReached => getField<int>('people_reached');
+  set peopleReached(int? value) => setField<int>('people_reached', value);
 }

@@ -1,7 +1,0 @@
-NSCameraUsageDescription = "iEvangelize usess your device's camera to do things like help you take photos and your profile picture";
-NSPhotoLibraryUsageDescription = "iEvangelize uses your device's photo library to do things like help you select photos and pick your profile picture";
-PermissionGroupNotification = "We'd love to keep you up-to-date from time to time.";
-NSMicrophoneUsageDescription = "We'd like to sue your mic";
-NSUserTrackingUsageDescription = "iEvangelize uses your Personal information to provide you with relevant advertisements or communications we believe may be of interest to you.";
-NSLocationWhenInUseUsageDescription = "iEvangelize uses your device location to provide you with relevant resources we believe may be of interest to you.";
-NSSpeechRecognitionUsageDescription = "We use speech recognition to let you speak instead of typing.";
