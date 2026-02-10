@@ -29,6 +29,13 @@ import SwiftUI
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
 
+    if UserDefaults.standard.bool(forKey: "PrayerLockActive") {
+      FocusBlocker.shared.blockApps()
+    }
+  
+    return true
+  }
+      
     // --- AUDIO SESSION SETUP ---
     do {
       let session = AVAudioSession.sharedInstance()
