@@ -1,7 +1,6 @@
 import Foundation
 import FamilyControls
 import ManagedSettings
-import DeviceActivity
 
 class FocusBlocker {
 
@@ -22,10 +21,16 @@ class FocusBlocker {
   }
 
   func blockApps() {
-    store.shield.applications = selection.applicationTokens
+    DispatchQueue.main.async {
+      // Defensive: don't try to block if nothing selected
+      guard !self.selection.applicationTokens.isEmpty else { return }
+      self.store.shield.applications = self.selection.applicationTokens
+    }
   }
 
   func unblockApps() {
-    store.shield.applications = nil
+    DispatchQueue.main.async {
+      self.store.shield.applications = nil
+    }
   }
 }
