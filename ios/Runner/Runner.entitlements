@@ -19,8 +19,6 @@
     <!-- Start of Screen Time Entitlements -->
     <key>com.apple.developer.family-controls</key>
     <true/>
-    <key>com.apple.developer.device-activity</key>
-    <true/>
     <!-- End of Screen Time Entitlements -->
   </dict>
 </plist>
