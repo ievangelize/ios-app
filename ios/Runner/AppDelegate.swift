@@ -6,12 +6,49 @@ import ManagedSettings
 import DeviceActivity
 import SwiftUI
 
+// ================================
+// FocusBlocker Class (defined here in same file)
+// ================================
+class FocusBlocker {
+  static let shared = FocusBlocker()
+  let store = ManagedSettingsStore()
+  var selection = FamilyActivitySelection()
+  
+  private init() {}
+  
+  func requestPermission(completion: @escaping (Bool) -> Void) {
+    Task {
+      do {
+        try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
+        completion(true)
+      } catch {
+        completion(false)
+      }
+    }
+  }
+  
+  func blockApps() {
+    DispatchQueue.main.async {
+      guard !self.selection.applicationTokens.isEmpty else { return }
+      self.store.shield.applications = self.selection.applicationTokens
+      UserDefaults.standard.set(true, forKey: "PrayerLockActive")
+    }
+  }
+  
+  func unblockApps() {
+    DispatchQueue.main.async {
+      self.store.shield.applications = nil
+      UserDefaults.standard.set(false, forKey: "PrayerLockActive")
+    }
+  }
+}
+
+// ================================
+// AppDelegate
+// ================================
 @main
 @objc class AppDelegate: FlutterAppDelegate {
   
-  // ================================
-  // App Picker (required by Apple)
-  // ================================
   func presentAppPicker() {
     let picker = FamilyActivityPicker(
       selection: Binding(
@@ -28,12 +65,10 @@ import SwiftUI
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     
-    // Check if prayer lock is active
     if UserDefaults.standard.bool(forKey: "PrayerLockActive") {
       FocusBlocker.shared.blockApps()
     }
     
-    // --- AUDIO SESSION SETUP ---
     do {
       let session = AVAudioSession.sharedInstance()
       try session.setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetooth])
@@ -43,12 +78,8 @@ import SwiftUI
       print("⚠️ AVAudioSession setup failed: \(error)")
     }
     
-    // --- Flutter plugins ---
     GeneratedPluginRegistrant.register(with: self)
     
-    // ================================
-    // 🔒 SCREEN TIME METHOD CHANNEL
-    // ================================
     guard let controller = window?.rootViewController as? FlutterViewController else {
       fatalError("RootViewController is not FlutterViewController")
     }
@@ -86,7 +117,6 @@ import SwiftUI
       }
     }
     
-    // ================================
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
