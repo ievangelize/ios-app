@@ -4,10 +4,11 @@ import ManagedSettings
 
 class FocusBlocker {
 
-  static let shared = FocusBlocker()
-
-  let store = ManagedSettingsStore()
-  var selection = FamilyActivitySelection()
+  public static let shared = FocusBlocker()
+  public let store = ManagedSettingsStore()
+  public var selection = FamilyActivitySelection()
+  
+  public init() {}
 
   func requestPermission(completion: @escaping (Bool) -> Void) {
     Task {
