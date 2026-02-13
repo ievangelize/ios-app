@@ -163,18 +163,58 @@ class FocusBlocker {
 @main
 @objc class AppDelegate: FlutterAppDelegate {
   
-  // MARK: - App Picker
-  @available(iOS 15.0, *)
-  func presentAppPicker() {
-    let picker = FamilyActivityPicker(
-      selection: Binding(
-        get: { FocusBlocker.shared.selection },
-        set: { FocusBlocker.shared.selection = $0 }
-      )
+// MARK: - App Picker
+@available(iOS 15.0, *)
+func presentAppPicker() {
+  let picker = FamilyActivityPicker(
+    selection: Binding(
+      get: { FocusBlocker.shared.selection },
+      set: { 
+        FocusBlocker.shared.selection = $0
+        print("📱 Selection updated: \($0.applicationTokens.count) apps selected")
+      }
     )
-    let controller = UIHostingController(rootView: picker)
-    window?.rootViewController?.present(controller, animated: true)
+  )
+  
+  let hostingController = UIHostingController(rootView: picker)
+  
+  // Wrap in navigation controller
+  let navigationController = UINavigationController(rootViewController: hostingController)
+  
+  // Set title
+  hostingController.title = "Choose Activities"
+  
+  // Add Cancel button (left side)
+  hostingController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+    barButtonSystemItem: .cancel,
+    target: self,
+    action: #selector(cancelPicker)
+  )
+  
+  // Add Done button (right side)
+  hostingController.navigationItem.rightBarButtonItem = UIBarButtonItem(
+    barButtonSystemItem: .done,
+    target: self,
+    action: #selector(dismissPicker)
+  )
+  
+  window?.rootViewController?.present(navigationController, animated: true)
+}
+
+@objc func cancelPicker() {
+  // Dismiss without saving changes (selection reverts)
+  window?.rootViewController?.dismiss(animated: true) {
+    print("❌ App picker cancelled")
   }
+}
+
+@objc func dismissPicker() {
+  // Dismiss and keep selection
+  window?.rootViewController?.dismiss(animated: true) {
+    print("✅ App picker dismissed")
+    print("📊 Total apps selected: \(FocusBlocker.shared.selection.applicationTokens.count)")
+  }
+}
   
   // MARK: - App Launch
   override func application(
