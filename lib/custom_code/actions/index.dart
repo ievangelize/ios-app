@@ -19,3 +19,8 @@ export 'is_version_deprecated.dart' show isVersionDeprecated;
 export 'open_app_store.dart' show openAppStore;
 export 'start_focus_block.dart' show startFocusBlock;
 export 'stop_focus_block.dart' show stopFocusBlock;
+export 'setup_blocked_apps.dart' show setupBlockedApps;
+export 'request_screen_time_permission.dart' show requestScreenTimePermission;
+export 'show_app_picker.dart' show showAppPicker;
+export 'lock_apps.dart' show lockApps;
+export 'unlock_apps_after_prayer.dart' show unlockAppsAfterPrayer;

@@ -1,5 +1,6 @@
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'pray_screen_widget.dart' show PrayScreenWidget;
 import 'package:flutter/material.dart';
 

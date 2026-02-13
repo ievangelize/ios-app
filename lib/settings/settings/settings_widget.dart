@@ -178,90 +178,265 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).alternate,
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  'Enable Notifications',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        font: GoogleFonts.inter(
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                        child: Container(
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    'Enable Notifications',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
                                           fontStyle:
                                               FlutterFlowTheme.of(context)
                                                   .bodyLarge
                                                   .fontStyle,
                                         ),
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
+                                  ),
                                 ),
-                              ),
-                              Switch.adaptive(
-                                value: _model.switchPushValue!,
-                                onChanged: (newValue) async {
-                                  safeSetState(
-                                      () => _model.switchPushValue = newValue);
-                                  if (newValue) {
-                                    HapticFeedback.lightImpact();
-                                    await actions.setFCMToken();
-                                    _model.pushAllowed2 =
-                                        await actions.checkPushPermission();
-                                    if (_model.pushAllowed2!) {
+                                Switch.adaptive(
+                                  value: _model.switchPushValue!,
+                                  onChanged: (newValue) async {
+                                    safeSetState(() =>
+                                        _model.switchPushValue = newValue);
+                                    if (newValue) {
+                                      HapticFeedback.lightImpact();
+                                      await actions.setFCMToken();
+                                      _model.pushAllowed2 =
+                                          await actions.checkPushPermission();
+                                      if (_model.pushAllowed2!) {
+                                        await UsersTable().update(
+                                          data: {
+                                            'fcm_token': FFAppState().fcmToken,
+                                          },
+                                          matchingRows: (rows) => rows.eqOrNull(
+                                            'id',
+                                            currentUserUid,
+                                          ),
+                                        );
+                                      } else {
+                                        safeSetState(() {
+                                          _model.switchPushValue = false;
+                                        });
+                                      }
+
+                                      safeSetState(() {});
+                                    } else {
+                                      HapticFeedback.lightImpact();
+                                      FFAppState().fcmToken = '';
+                                      safeSetState(() {});
                                       await UsersTable().update(
                                         data: {
-                                          'fcm_token': FFAppState().fcmToken,
+                                          'fcm_token': '',
                                         },
                                         matchingRows: (rows) => rows.eqOrNull(
                                           'id',
                                           currentUserUid,
                                         ),
                                       );
-                                    } else {
-                                      safeSetState(() {
-                                        _model.switchPushValue = false;
-                                      });
                                     }
+                                  },
+                                  activeColor:
+                                      FlutterFlowTheme.of(context).info,
+                                  activeTrackColor: Color(0xFF5C9342),
+                                  inactiveTrackColor: Colors.black,
+                                  inactiveThumbColor:
+                                      FlutterFlowTheme.of(context).info,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            _model.screenTime =
+                                await actions.requestScreenTimePermission();
+                            if (_model.screenTime!) {
+                              await actions.showAppPicker();
+                              await Future.delayed(
+                                Duration(
+                                  milliseconds: 2000,
+                                ),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Apps selected! Click \'Activate Lock\'',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).success,
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Apps selected! Click \'Activate Lock\'',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).error,
+                                ),
+                              );
+                            }
 
-                                    safeSetState(() {});
-                                  } else {
-                                    HapticFeedback.lightImpact();
-                                    FFAppState().fcmToken = '';
-                                    safeSetState(() {});
-                                    await UsersTable().update(
-                                      data: {
-                                        'fcm_token': '',
-                                      },
-                                      matchingRows: (rows) => rows.eqOrNull(
-                                        'id',
-                                        currentUserUid,
-                                      ),
-                                    );
-                                  }
-                                },
-                                activeColor: FlutterFlowTheme.of(context).info,
-                                activeTrackColor: Color(0xFF5C9342),
-                                inactiveTrackColor: Colors.black,
-                                inactiveThumbColor:
-                                    FlutterFlowTheme.of(context).info,
+                            safeSetState(() {});
+                          },
+                          child: Container(
+                            height: 50.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      'Enable Prayer Lock',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .fontStyle,
+                                            ),
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                  FaIcon(
+                                    FontAwesomeIcons.angleRight,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 24.0,
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await actions.lockApps();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Apps locked',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    'Activate Lock',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
+                                FaIcon(
+                                  FontAwesomeIcons.angleRight,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 24.0,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

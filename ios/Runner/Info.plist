@@ -113,10 +113,6 @@
           <string>ievangelize</string>
         </array>
       </dict>
-      <dict>
-        <key>NSFamilyControlsUsageDescription</key>
-        <string>This app helps you voluntarily limit app usage during focus and prayer sessions.</string>
-      </dict>
     </array>
     <key>FlutterDeepLinkingEnabled</key>
     <true/>
@@ -165,5 +161,10 @@
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <!-- Add this NEW section for Background Tasks -->
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+      <string>com.tinochiwara.ievangelize.relock</string>
+    </array>
   </dict>
 </plist>

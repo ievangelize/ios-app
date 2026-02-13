@@ -15,6 +15,8 @@ class SettingsModel extends FlutterFlowModel<SettingsWidget> {
   bool? switchPushValue;
   // Stores action output result for [Custom Action - checkPushPermission] action in SwitchPush widget.
   bool? pushAllowed2;
+  // Stores action output result for [Custom Action - requestScreenTimePermission] action in Container widget.
+  bool? screenTime;
   // Model for largeBtn component.
   late LargeBtnModel largeBtnModel1;
   // Stores action output result for [Custom Action - cupertinoConfirmationDialog] action in largeBtn widget.
