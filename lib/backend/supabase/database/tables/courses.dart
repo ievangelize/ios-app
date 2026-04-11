@@ -43,4 +43,10 @@ class CoursesRow extends SupabaseDataRow {
 
   String? get type => getField<String>('type');
   set type(String? value) => setField<String>('type', value);
+
+  String? get colorCode => getField<String>('color_code');
+  set colorCode(String? value) => setField<String>('color_code', value);
+
+  int? get globalSortOrder => getField<int>('global_sort_order');
+  set globalSortOrder(int? value) => setField<int>('global_sort_order', value);
 }

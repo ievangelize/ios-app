@@ -1836,6 +1836,7 @@ class _EncounterUpdateWidgetState extends State<EncounterUpdateWidget> {
                             !_model.formKey2.currentState!.validate()) {
                           return;
                         }
+                        await actions.hideKeyboard();
                         if (widget.seletedEncounter?.peopleReached == 1
                             ? true
                             : false) {
@@ -1878,6 +1879,7 @@ class _EncounterUpdateWidgetState extends State<EncounterUpdateWidget> {
                       } else if (_model.pageViewCurrentIndex == 3
                           ? true
                           : false) {
+                        await actions.hideKeyboard();
                         if (widget.seletedEncounter?.prayReminder == true
                             ? true
                             : false) {
@@ -1916,6 +1918,7 @@ class _EncounterUpdateWidgetState extends State<EncounterUpdateWidget> {
                       } else if (_model.pageViewCurrentIndex == 4
                           ? true
                           : false) {
+                        await actions.hideKeyboard();
                         if (_model.radioButtonPrayValue == 'No'
                             ? true
                             : false) {

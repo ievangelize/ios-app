@@ -70,7 +70,7 @@ class _SimulatorHistoryWidgetState extends State<SimulatorHistoryWidget> {
               size: 25.0,
             ),
             onPressed: () async {
-              context.safePop();
+              context.goNamed(PickPersonaWidget.routeName);
             },
           ),
           title: Text(

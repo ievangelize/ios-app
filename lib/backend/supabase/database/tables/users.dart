@@ -71,4 +71,13 @@ class UsersRow extends SupabaseDataRow {
 
   int? get streak => getField<int>('streak');
   set streak(int? value) => setField<int>('streak', value);
+
+  String? get userCode => getField<String>('user_code');
+  set userCode(String? value) => setField<String>('user_code', value);
+
+  int? get friendsCount => getField<int>('friends_count');
+  set friendsCount(int? value) => setField<int>('friends_count', value);
+
+  bool? get joinedGroup => getField<bool>('joined_group');
+  set joinedGroup(bool? value) => setField<bool>('joined_group', value);
 }

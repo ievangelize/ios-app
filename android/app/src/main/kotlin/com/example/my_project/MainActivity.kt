@@ -1,4 +1,4 @@
-package com.tinochiwara.ievangelize
+package com.tinochiwara.ievangelizeapp
 
 import io.flutter.embedding.android.FlutterActivity
 

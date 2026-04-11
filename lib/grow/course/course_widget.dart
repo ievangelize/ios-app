@@ -198,103 +198,111 @@ class _CourseWidgetState extends State<CourseWidget> {
                           ),
                         ),
                       ),
-                      SafeArea(
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 8.0, 0.0),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.safePop();
-                                    },
-                                    child: Container(
-                                      width: 34.0,
-                                      height: 34.0,
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.08),
+                        child: SafeArea(
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 8.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.safePop();
+                                      },
+                                      child: Container(
+                                        width: 34.0,
+                                        height: 34.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0x7F000000),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(
+                                          Icons.arrow_back,
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  if (widget.course?.type == 'video')
+                                    Container(
+                                      height: 28.0,
                                       decoration: BoxDecoration(
                                         color: Color(0x7F000000),
-                                        shape: BoxShape.circle,
+                                        borderRadius:
+                                            BorderRadius.circular(24.0),
+                                        shape: BoxShape.rectangle,
                                       ),
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
-                                        size: 24.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                if (widget.course?.type == 'video')
-                                  Container(
-                                    height: 28.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x7F000000),
-                                      borderRadius: BorderRadius.circular(24.0),
-                                      shape: BoxShape.rectangle,
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          6.0, 0.0, 6.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Icon(
-                                            Icons.info_outline,
-                                            color: FlutterFlowTheme.of(context)
-                                                .info,
-                                            size: 16.0,
-                                          ),
-                                          Text(
-                                            'Video Course',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.inter(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            6.0, 0.0, 6.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.info_outline,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .info,
-                                                  fontSize: 10.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ].divide(SizedBox(width: 2.0)),
+                                              size: 16.0,
+                                            ),
+                                            Text(
+                                              'Video Course',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .info,
+                                                        fontSize: 10.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                            ),
+                                          ].divide(SizedBox(width: 2.0)),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

@@ -192,8 +192,6 @@ class _DonateWidgetState extends State<DonateWidget> {
                                       borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(10.0),
                                         bottomRight: Radius.circular(10.0),
-                                        topLeft: Radius.circular(0.0),
-                                        topRight: Radius.circular(0.0),
                                       ),
                                     ),
                                   ),

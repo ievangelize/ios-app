@@ -1,6 +1,7 @@
 import '/backend/ai_agents/ai_agent.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
+import '/components/mic_btn_simulator/mic_btn_simulator_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -144,12 +145,40 @@ class _SimulatorWidgetState extends State<SimulatorWidget> {
                           ),
                         ),
                       ),
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          child: Text(
+                            'You can always ask for a different question ',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  color: Color(0xFFC2C2C2),
+                                  fontSize: 14.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                  lineHeight: 1.6,
+                                ),
+                          ),
+                        ),
+                      ),
                       Container(
                         width: double.infinity,
-                        height: 100.0,
+                        height: 300.0,
                         child: custom_widgets.DeepgramSTT(
                           width: double.infinity,
-                          height: 100.0,
+                          height: 300.0,
                           deepgramApiKey: FFAppState().deepgramApiKey,
                           apiKey: FFAppState().openaiApiKey,
                           fontSize: 16.0,
@@ -185,34 +214,7 @@ class _SimulatorWidgetState extends State<SimulatorWidget> {
 
                             safeSetState(() {});
                           },
-                        ),
-                      ),
-                      Flexible(
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 40.0, 16.0, 0.0),
-                          child: Text(
-                            'You can always ask for a different question ',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  color: Color(0xFFC2C2C2),
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                  lineHeight: 1.6,
-                                ),
-                          ),
+                          buttonWidget: () => MicBtnSimulatorWidget(),
                         ),
                       ),
                     ].divide(SizedBox(height: 24.0)),

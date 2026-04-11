@@ -326,7 +326,7 @@ class _CourseCompleteWidgetState extends State<CourseCompleteWidget> {
                                   action: () async {
                                     FFAppState().clearHomeCourseCache();
 
-                                    context.goNamed(GrowWidget.routeName);
+                                    context.goNamed(PathwayWidget.routeName);
                                   },
                                 ),
                               ),

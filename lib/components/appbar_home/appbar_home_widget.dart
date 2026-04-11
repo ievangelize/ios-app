@@ -128,9 +128,11 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           dateTimeFormat(

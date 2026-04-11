@@ -6,3 +6,6 @@ export 'x_p_indicator.dart' show XPIndicator;
 export 'quoteto_image.dart' show QuotetoImage;
 export 'stream_markdown.dart' show StreamMarkdown;
 export 'custom_markdown.dart' show CustomMarkdown;
+export 'scrollable_widget.dart' show ScrollableWidget;
+export 'scroll_target_widget.dart' show ScrollTargetWidget;
+export 'streaming_markdown_text.dart' show StreamingMarkdownText;

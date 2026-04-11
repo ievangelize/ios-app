@@ -544,12 +544,7 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.transparent,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(0.0),
-                                    bottomRight: Radius.circular(0.0),
-                                    topLeft: Radius.circular(0.0),
-                                    topRight: Radius.circular(0.0),
-                                  ),
+                                  borderRadius: BorderRadius.only(),
                                 ),
                                 child: FlutterFlowIconButton(
                                   borderRadius: 8.0,

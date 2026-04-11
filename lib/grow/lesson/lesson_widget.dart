@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -365,8 +366,6 @@ class _LessonWidgetState extends State<LessonWidget> {
                             color:
                                 FlutterFlowTheme.of(context).primaryBackground,
                             borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(0.0),
-                              bottomRight: Radius.circular(0.0),
                               topLeft: Radius.circular(24.0),
                               topRight: Radius.circular(24.0),
                             ),
@@ -481,10 +480,6 @@ class _LessonWidgetState extends State<LessonWidget> {
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(0.0),
-                                                    bottomRight:
-                                                        Radius.circular(0.0),
                                                     topLeft:
                                                         Radius.circular(24.0),
                                                     topRight:
@@ -568,10 +563,9 @@ class _LessonWidgetState extends State<LessonWidget> {
                                                                   font:
                                                                       GoogleFonts
                                                                           .inter(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
                                                                     fontStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -579,19 +573,20 @@ class _LessonWidgetState extends State<LessonWidget> {
                                                                   ),
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .secondaryText,
+                                                                      .primaryText,
                                                                   fontSize:
-                                                                      14.0,
+                                                                      16.0,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
                                                                   fontStyle: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
+                                                                  lineHeight:
+                                                                      1.2,
                                                                 ),
                                                           ),
                                                         ),
@@ -1052,6 +1047,15 @@ class _LessonWidgetState extends State<LessonWidget> {
                                             'idempotency_key':
                                                 widget.course?.id,
                                           });
+                                        }(),
+                                      );
+                                      unawaited(
+                                        () async {
+                                          await action_blocks
+                                              .sendFriendNotification(
+                                            context,
+                                            eventType: 'course complete',
+                                          );
                                         }(),
                                       );
                                       _model.xpEvents2 =

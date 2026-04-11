@@ -34,43 +34,16 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'commitment'});
     animationsMap.addAll({
-      'containerOnActionTriggerAnimation1': AnimationInfo(
+      'containerOnActionTriggerAnimation': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
         applyInitialState: true,
         effectsBuilder: () => [
           ScaleEffect(
-            curve: Curves.linear,
+            curve: Curves.easeIn,
             delay: 0.0.ms,
-            duration: 800.0.ms,
+            duration: 2000.0.ms,
             begin: Offset(1.0, 1.0),
-            end: Offset(3.0, 3.0),
-          ),
-          FadeEffect(
-            curve: Curves.linear,
-            delay: 200.0.ms,
-            duration: 600.0.ms,
-            begin: 1.0,
-            end: 0.0,
-          ),
-        ],
-      ),
-      'containerOnActionTriggerAnimation2': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          ScaleEffect(
-            curve: Curves.linear,
-            delay: 300.0.ms,
-            duration: 800.0.ms,
-            begin: Offset(1.0, 1.0),
-            end: Offset(3.0, 3.0),
-          ),
-          FadeEffect(
-            curve: Curves.linear,
-            delay: 200.0.ms,
-            duration: 600.0.ms,
-            begin: 1.0,
-            end: 0.0,
+            end: Offset(5.0, 5.0),
           ),
         ],
       ),
@@ -100,47 +73,95 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).info,
-        body: SafeArea(
-          top: true,
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(22.0, 24.0, 22.0, 16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+        body: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(22.0, 24.0, 22.0, 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: Text(
+                  'Lastly, make a commitment',
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        font: GoogleFonts.inter(
+                          fontWeight: FontWeight.bold,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                        color: Colors.black,
+                        fontSize: 25.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        lineHeight: 1.2,
+                      ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: Text(
-                    'No More Standing on \nthe Sidelines',
+                    'Every believer has a role in the \nGreat Commission, and that \nincludes you!',
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
                             fontStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .fontStyle,
                           ),
                           color: Colors.black,
-                          fontSize: 25.0,
+                          fontSize: 16.0,
                           letterSpacing: 0.0,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
                           fontStyle:
                               FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                           lineHeight: 1.2,
                         ),
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
-                    child: Text(
-                      'Every believer has a role in the Great \nCommission. Now it’s time to make \na commitment to yourself',
-                      textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF7F6FB),
+                    borderRadius: BorderRadius.circular(23.0),
+                    border: Border.all(
+                      color: Color(0xFFDFDFDF),
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          10.0, 16.0, 10.0, 16.0),
+                      child: Text(
+                        'I commit myself to being a \nwitness for Christ. I understand \nthat true growth comes \nwhen I step out of my comfort \nzone, not in my own strength, \nbut by relying on the Holy Spirit, \nand I am ready to take the \nsteps toward becoming effective in sharing the Gospel.',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              color: Colors.black,
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
@@ -148,196 +169,109 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
                                   .bodyMedium
                                   .fontStyle,
                             ),
-                            color: Colors.black,
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                            lineHeight: 1.2,
-                          ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF7F6FB),
-                      borderRadius: BorderRadius.circular(23.0),
-                      border: Border.all(
-                        color: Color(0xFFDFDFDF),
-                        width: 1.0,
-                      ),
-                    ),
-                    child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            10.0, 16.0, 10.0, 16.0),
-                        child: Text(
-                          'I commit myself to being a \nwitness for Christ. I understand \nthat true growth comes \nwhen I step out of my comfort \nzone, not in my own strength, \nbut by relying on the Holy Spirit, \nand I am ready to take the first \nsteps toward becoming effective in sharing the Gospel.',
-                          textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    color: Colors.black,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                        ),
                       ),
                     ),
                   ),
                 ),
-                Flexible(
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
-                          child: Container(
-                            width: 82.0,
-                            height: 82.0,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).secondary,
-                                width: 1.0,
-                              ),
-                            ),
-                          ).animateOnActionTrigger(
-                            animationsMap[
-                                'containerOnActionTriggerAnimation1']!,
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 0.0, 0.0),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 1.0),
+                      child: Container(
+                        width: 82.0,
+                        height: 82.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondary,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).secondary,
+                            width: 1.0,
                           ),
                         ),
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
-                          child: Container(
-                            width: 82.0,
-                            height: 82.0,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).secondary,
-                                width: 1.0,
+                      ).animateOnActionTrigger(
+                        animationsMap['containerOnActionTriggerAnimation']!,
+                      ),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 1.0),
+                      child: GestureDetector(
+                        onLongPressStart: (details) async {
+                          if (animationsMap[
+                                  'containerOnActionTriggerAnimation'] !=
+                              null) {
+                            animationsMap['containerOnActionTriggerAnimation']!
+                                .controller
+                                .forward(from: 0.0);
+                          }
+                          for (int loop1Index = 0;
+                              loop1Index < _model.haptics.length;
+                              loop1Index++) {
+                            final currentLoop1Item = _model.haptics[loop1Index];
+                            HapticFeedback.heavyImpact();
+                            await Future.delayed(
+                              Duration(
+                                milliseconds: currentLoop1Item,
                               ),
+                            );
+                          }
+                          await Future.delayed(
+                            Duration(
+                              milliseconds: 200,
                             ),
-                          ).animateOnActionTrigger(
-                            animationsMap[
-                                'containerOnActionTriggerAnimation2']!,
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
-                          child: GestureDetector(
-                            onLongPressStart: (details) async {
-                              if (animationsMap[
-                                      'containerOnActionTriggerAnimation1'] !=
-                                  null) {
-                                animationsMap[
-                                        'containerOnActionTriggerAnimation1']!
-                                    .controller
-                                  ..reset()
-                                  ..repeat();
-                              }
-                              if (animationsMap[
-                                      'containerOnActionTriggerAnimation2'] !=
-                                  null) {
-                                animationsMap[
-                                        'containerOnActionTriggerAnimation2']!
-                                    .controller
-                                  ..reset()
-                                  ..repeat();
-                              }
-                              for (int loop1Index = 0;
-                                  loop1Index < _model.haptics.length;
-                                  loop1Index++) {
-                                final currentLoop1Item =
-                                    _model.haptics[loop1Index];
-                                HapticFeedback.heavyImpact();
-                                await Future.delayed(
-                                  Duration(
-                                    milliseconds: currentLoop1Item,
-                                  ),
-                                );
-                              }
-                              await Future.delayed(
-                                Duration(
-                                  milliseconds: 200,
-                                ),
-                              );
-                              HapticFeedback.heavyImpact();
+                          );
+                          HapticFeedback.vibrate();
 
-                              context.goNamed(AuthOnboardWidget.routeName);
-                            },
-                            child: Container(
-                              width: 82.0,
-                              height: 82.0,
-                              decoration: BoxDecoration(
-                                color: Color(0x2F6A55EA),
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  width: 1.0,
-                                ),
+                          context.goNamed(
+                            HomeWidget.routeName,
+                            extra: <String, dynamic>{
+                              '__transition_info__': TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.bottomToTop,
                               ),
-                              child: Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    'assets/images/fingerprint.png',
-                                    width: 50.0,
-                                    height: 50.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                            },
+                          );
+                        },
+                        child: Container(
+                          width: 82.0,
+                          height: 82.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).secondary,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).secondary,
+                              width: 1.0,
+                            ),
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.asset(
+                                'assets/images/Fav_Icon.png',
+                                width: 60.0,
+                                height: 60.0,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                    child: Text(
-                      'Hold to commit',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            color: Colors.black,
-                            letterSpacing: 0.0,
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 14.0, 0.0, 0.0),
+                  child: Text(
+                    'Tap and hold to commit',
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
@@ -345,11 +279,19 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
                                 .bodyMedium
                                 .fontStyle,
                           ),
-                    ),
+                          color: Colors.black,
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

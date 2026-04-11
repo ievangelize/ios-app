@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' hide Provider;
 export 'database/database.dart';
 export 'storage/storage.dart';
 
-String _kSupabaseUrl = 'https://api.ievangelize.app';
+String _kSupabaseUrl = 'https://bvofzkpbxjtjofhpdcuu.supabase.co';
 String _kSupabaseAnonKey =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2b2Z6a3BieGp0am9maHBkY3V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTI4Nzk4OTUsImV4cCI6MjAyODQ1NTg5NX0.p7VWByVny8KrEJF_SXuTPVTtctCyMou7Bwxr2X4CszU';
 

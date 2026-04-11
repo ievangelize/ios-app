@@ -31,4 +31,7 @@ class TiersRow extends SupabaseDataRow {
 
   int? get minXp => getField<int>('min_xp');
   set minXp(int? value) => setField<int>('min_xp', value);
+
+  String? get colorCode => getField<String>('color_code');
+  set colorCode(String? value) => setField<String>('color_code', value);
 }

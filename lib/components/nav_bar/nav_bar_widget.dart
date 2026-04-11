@@ -279,7 +279,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       HapticFeedback.mediumImpact();
 
                       context.goNamed(
-                        GrowWidget.routeName,
+                        PathwayWidget.routeName,
                         extra: <String, dynamic>{
                           '__transition_info__': TransitionInfo(
                             hasTransition: true,
@@ -300,7 +300,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             if (valueOrDefault<bool>(
-                              widget.selectedPage == 'grow' ? false : true,
+                              widget.selectedPage == 'pathway' ? false : true,
                               true,
                             ))
                               ClipRRect(
@@ -313,7 +313,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 ),
                               ),
                             if (valueOrDefault<bool>(
-                              widget.selectedPage == 'grow' ? true : false,
+                              widget.selectedPage == 'pathway' ? true : false,
                               false,
                             ))
                               ClipRRect(
@@ -342,7 +342,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: widget.selectedPage == 'grow'
+                                      color: widget.selectedPage == 'pathway'
                                           ? FlutterFlowTheme.of(context)
                                               .primaryText
                                           : FlutterFlowTheme.of(context)

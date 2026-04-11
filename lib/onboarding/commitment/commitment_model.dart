@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class CommitmentModel extends FlutterFlowModel<CommitmentWidget> {
   ///  Local state fields for this page.
 
-  List<int> haptics = [0, 500, 400, 300, 300, 250, 200, 200, 100];
+  List<int> haptics = [0, 500, 400, 300, 300, 200, 200, 100];
   void addToHaptics(int item) => haptics.add(item);
   void removeFromHaptics(int item) => haptics.remove(item);
   void removeAtIndexFromHaptics(int index) => haptics.removeAt(index);

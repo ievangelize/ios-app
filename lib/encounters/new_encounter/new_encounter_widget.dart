@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -1743,6 +1744,7 @@ class _NewEncounterWidgetState extends State<NewEncounterWidget> {
                               !_model.formKey1.currentState!.validate()) {
                             return;
                           }
+                          await actions.hideKeyboard();
                           await _model.pageViewController?.nextPage(
                             duration: Duration(milliseconds: 300),
                             curve: Curves.ease,
@@ -1754,6 +1756,7 @@ class _NewEncounterWidgetState extends State<NewEncounterWidget> {
                               !_model.formKey3.currentState!.validate()) {
                             return;
                           }
+                          await actions.hideKeyboard();
                           if (_model.encounterNumberTextController.text != '1'
                               ? true
                               : false) {
@@ -1771,6 +1774,7 @@ class _NewEncounterWidgetState extends State<NewEncounterWidget> {
                         } else if (_model.pageViewCurrentIndex == 5
                             ? true
                             : false) {
+                          await actions.hideKeyboard();
                           if (_model.radioButtonPrayValue == 'No'
                               ? true
                               : false) {
@@ -1797,6 +1801,14 @@ class _NewEncounterWidgetState extends State<NewEncounterWidget> {
                                   'reason': 'new encounter',
                                   'idempotency_key': _model.newReached?.id,
                                 });
+                              }(),
+                            );
+                            unawaited(
+                              () async {
+                                await action_blocks.sendFriendNotification(
+                                  context,
+                                  eventType: 'new encounter',
+                                );
                               }(),
                             );
                             _model.xpEvents1 = await XpEventsTable().queryRows(
@@ -1925,6 +1937,7 @@ class _NewEncounterWidgetState extends State<NewEncounterWidget> {
                             }
                           }
                         } else {
+                          await actions.hideKeyboard();
                           if (_model.pageViewCurrentIndex == 6 ? true : false) {
                             if (_model.radioButtonPrayValue == 'Yes'
                                 ? true
@@ -1994,6 +2007,14 @@ class _NewEncounterWidgetState extends State<NewEncounterWidget> {
                                     'reason': 'new encounter',
                                     'idempotency_key': _model.newReached2?.id,
                                   });
+                                }(),
+                              );
+                              unawaited(
+                                () async {
+                                  await action_blocks.sendFriendNotification(
+                                    context,
+                                    eventType: 'new encounter',
+                                  );
                                 }(),
                               );
                             } else {

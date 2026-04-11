@@ -6,8 +6,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,7 +56,6 @@ class _ConfirmOTPAuthWidgetState extends State<ConfirmOTPAuthWidget>
       });
     }
 
-    _model.otpTextController ??= TextEditingController();
     _model.otpFocusNode ??= FocusNode();
 
     animationsMap.addAll({
@@ -187,83 +187,71 @@ class _ConfirmOTPAuthWidgetState extends State<ConfirmOTPAuthWidget>
                             Form(
                               key: _model.formKey,
                               autovalidateMode: AutovalidateMode.disabled,
-                              child: Container(
-                                width: 300.0,
-                                child: TextFormField(
-                                  controller: _model.otpTextController,
-                                  focusNode: _model.otpFocusNode,
-                                  autofocus: true,
-                                  textInputAction: TextInputAction.done,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    isDense: false,
-                                    alignLabelWithHint: true,
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.black,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(0.0),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.black,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(0.0),
-                                    ),
-                                    errorBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(0.0),
-                                    ),
-                                    focusedErrorBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(0.0),
-                                    ),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: Colors.black,
-                                        fontSize: 26.0,
-                                        letterSpacing: 5.0,
-                                        fontWeight: FontWeight.w600,
+                              child: PinCodeTextField(
+                                autoDisposeControllers: false,
+                                appContext: context,
+                                length: 6,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
                                         fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
+                                            .bodyLarge
                                             .fontStyle,
                                       ),
-                                  textAlign: TextAlign.center,
-                                  maxLength: 6,
-                                  maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                  buildCounter: (context,
-                                          {required currentLength,
-                                          required isFocused,
-                                          maxLength}) =>
-                                      null,
-                                  keyboardType: TextInputType.number,
-                                  validator: _model.otpTextControllerValidator
-                                      .asValidator(context),
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]'))
-                                  ],
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                enableActiveFill: false,
+                                autoFocus: false,
+                                focusNode: _model.otpFocusNode,
+                                enablePinAutofill: false,
+                                errorTextSpace: 16.0,
+                                showCursor: false,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                obscureText: false,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                pinTheme: PinTheme(
+                                  fieldHeight: 50.0,
+                                  fieldWidth: 44.0,
+                                  borderWidth: 2.0,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(12.0),
+                                    bottomRight: Radius.circular(12.0),
+                                    topLeft: Radius.circular(12.0),
+                                    topRight: Radius.circular(12.0),
+                                  ),
+                                  shape: PinCodeFieldShape.box,
+                                  activeColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  inactiveColor:
+                                      FlutterFlowTheme.of(context).accent1,
+                                  selectedColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                  activeFillColor:
+                                      FlutterFlowTheme.of(context).accent1,
+                                  inactiveFillColor:
+                                      FlutterFlowTheme.of(context).accent1,
                                 ),
+                                controller: _model.otp,
+                                onChanged: (_) {},
+                                autovalidateMode: AutovalidateMode.disabled,
+                                validator:
+                                    _model.otpValidator.asValidator(context),
                               ),
                             ),
                             Padding(
@@ -316,7 +304,7 @@ class _ConfirmOTPAuthWidgetState extends State<ConfirmOTPAuthWidget>
                                 }
                                 await actions.verifyOTP(
                                   widget.email!,
-                                  _model.otpTextController.text,
+                                  _model.otp!.text,
                                 );
                                 FFAppState().onboardingStarted = true;
 

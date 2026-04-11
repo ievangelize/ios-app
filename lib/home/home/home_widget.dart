@@ -4,7 +4,6 @@ import '/components/appbar_home/appbar_home_widget.dart';
 import '/components/home_course_loading/home_course_loading_widget.dart';
 import '/components/home_video_loading/home_video_loading_widget.dart';
 import '/components/nav_bar/nav_bar_widget.dart';
-import '/components/teams_coming_soon/teams_coming_soon_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -541,18 +540,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   .lightImpact();
 
                                                               context.pushNamed(
-                                                                CourseWidget
-                                                                    .routeName,
-                                                                queryParameters:
-                                                                    {
-                                                                  'course':
-                                                                      serializeParam(
-                                                                    stackCoursesRow,
-                                                                    ParamType
-                                                                        .SupabaseRow,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                              );
+                                                                  PathwayWidget
+                                                                      .routeName);
                                                             },
                                                             text:
                                                                 'View All Lessons',
@@ -817,25 +806,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     HapticFeedback.lightImpact();
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            FocusScope.of(context).unfocus();
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                          },
-                                          child: Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child: TeamsComingSoonWidget(),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => safeSetState(() {}));
+
+                                    context
+                                        .pushNamed(GroupsListWidget.routeName);
                                   },
                                   child: AnimatedContainer(
                                     duration: Duration(milliseconds: 500),
@@ -882,7 +855,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 0.0, 0.0, 0.0),
                                             child: Text(
-                                              'Teams',
+                                              'Groups',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
@@ -976,7 +949,99 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     12.0, 0.0, 0.0, 0.0),
                                             child: Text(
-                                              'Pray',
+                                              'Prayer Hit List',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font: GoogleFonts.inter(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 12.0, 16.0, 0.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    HapticFeedback.lightImpact();
+
+                                    context.pushNamed(FriendsWidget.routeName);
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeIn,
+                                    width: double.infinity,
+                                    height: 59.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x19000000),
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(14.0),
+                                      border: Border.all(
+                                        color:
+                                            FlutterFlowTheme.of(context).dfdfdf,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 0.0, 16.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          FaIcon(
+                                            FontAwesomeIcons.userFriends,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 22.0,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 0.0, 0.0, 0.0),
+                                            child: Text(
+                                              'Friends',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium

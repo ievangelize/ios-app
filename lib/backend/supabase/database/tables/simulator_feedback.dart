@@ -33,9 +33,6 @@ class SimulatorFeedbackRow extends SupabaseDataRow {
   String? get duration => getField<String>('duration');
   set duration(String? value) => setField<String>('duration', value);
 
-  String? get logs => getField<String>('logs');
-  set logs(String? value) => setField<String>('logs', value);
-
   String? get feedbackTitle => getField<String>('feedback_title');
   set feedbackTitle(String? value) => setField<String>('feedback_title', value);
 }

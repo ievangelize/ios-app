@@ -225,30 +225,44 @@ dynamic deserializeParam<T>(
             return TiersRow(data);
           case MissionsCatalogRow:
             return MissionsCatalogRow(data);
+          case EncounterFieldValuesRow:
+            return EncounterFieldValuesRow(data);
+          case FormsRow:
+            return FormsRow(data);
           case ResourcesRow:
             return ResourcesRow(data);
           case NoAuthMissionRow:
             return NoAuthMissionRow(data);
           case ImpactRow:
             return ImpactRow(data);
+          case UserGroupsRow:
+            return UserGroupsRow(data);
           case CoursesRow:
             return CoursesRow(data);
           case UserMissionsRow:
             return UserMissionsRow(data);
+          case EncounterFieldValueOptionsRow:
+            return EncounterFieldValueOptionsRow(data);
           case CourseLessonsRow:
             return CourseLessonsRow(data);
+          case UserCampaignsRow:
+            return UserCampaignsRow(data);
           case ConversationsRow:
             return ConversationsRow(data);
           case ExperienceVideosRow:
             return ExperienceVideosRow(data);
           case SimulatorPersonasRow:
             return SimulatorPersonasRow(data);
+          case FieldOptionsRow:
+            return FieldOptionsRow(data);
           case StoriesRow:
             return StoriesRow(data);
           case XpEventsRow:
             return XpEventsRow(data);
           case ResourceProvidersRow:
             return ResourceProvidersRow(data);
+          case GroupsRow:
+            return GroupsRow(data);
           case QuizzesRow:
             return QuizzesRow(data);
           case ChallengeWeeksRow:
@@ -277,12 +291,20 @@ dynamic deserializeParam<T>(
             return CategoriesRow(data);
           case UserLessonProgressRow:
             return UserLessonProgressRow(data);
+          case ActivityReactionsRow:
+            return ActivityReactionsRow(data);
+          case CampaignsRow:
+            return CampaignsRow(data);
           case QuizOptionsRow:
             return QuizOptionsRow(data);
+          case FormFieldsRow:
+            return FormFieldsRow(data);
           case ReachedRow:
             return ReachedRow(data);
           case SimulatorFeedbackRow:
             return SimulatorFeedbackRow(data);
+          case FriendsRow:
+            return FriendsRow(data);
           case LevelsRow:
             return LevelsRow(data);
           case ScheduledNotificationsRow:

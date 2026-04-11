@@ -1071,12 +1071,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget> {
                                         child: Transform.rotate(
                                           angle: 340.0 * (math.pi / 180),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(0.0),
-                                              bottomRight: Radius.circular(0.0),
-                                              topLeft: Radius.circular(0.0),
-                                              topRight: Radius.circular(0.0),
-                                            ),
+                                            borderRadius: BorderRadius.only(),
                                             child: Image.asset(
                                               'assets/images/right_(4).png',
                                               width: 62.5,
@@ -1224,12 +1219,7 @@ class _OnboardingFlowWidgetState extends State<OnboardingFlowWidget> {
                                       Transform.rotate(
                                         angle: 340.0 * (math.pi / 180),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(0.0),
-                                            bottomRight: Radius.circular(0.0),
-                                            topLeft: Radius.circular(0.0),
-                                            topRight: Radius.circular(0.0),
-                                          ),
+                                          borderRadius: BorderRadius.only(),
                                           child: Image.asset(
                                             'assets/images/right_(4).png',
                                             width: 62.5,

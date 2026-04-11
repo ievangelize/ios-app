@@ -1,10 +1,10 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/ai_agents/ai_agent.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -46,55 +46,63 @@ class _SimulatorAnalysisWidgetState extends State<SimulatorAnalysisWidget> {
         parameters: {'screen_name': 'simulatorAnalysis'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await callAiAgent(
-        context: context,
-        prompt:
+      _model.apiResultj08 = await SimulatorAnalyzerCall.call(
+        token: FFAppState().openaiApiKey,
+        conversation:
             '{\"persona\":\" ${widget.persona?.personaInstructions}\"},${functions.convertListtoString(FFAppState().simulatorHistory.toList())}',
-        threadId: random_data.randomString(
-          16,
-          16,
-          true,
-          true,
-          true,
-        ),
-        agentCloudFunctionName: 'simulatorAnalyzer',
-        provider: 'OPENAI',
-        agentJson: null,
-        responseType: 'JSON',
-      ).then((generatedText) {
-        safeSetState(() => _model.agentReponse = generatedText);
-      });
-
-      await SimulatorFeedbackTable().insert({
-        'user_id': currentUserUid,
-        'persona_id': widget.persona?.id,
-        'feedback_text': getJsonField(
-          _model.agentReponse,
-          r'''$.response''',
-        ).toString(),
-        'duration': widget.duration,
-        'feedback_title': getJsonField(
-          _model.agentReponse,
-          r'''$.feedback_title''',
-        ).toString(),
-      });
-      FFAppState().simulatorHistory = [];
-      FFAppState().agentResponse = '';
-      safeSetState(() {});
-      FFAppState().clearSimulatorFeedbackCache();
-
-      context.goNamed(
-        FeedbackWidget.routeName,
-        queryParameters: {
-          'chatFeedback': serializeParam(
-            getJsonField(
-              _model.agentReponse,
-              r'''$.response''',
-            ).toString(),
-            ParamType.String,
-          ),
-        }.withoutNulls,
       );
+
+      if ((_model.apiResultj08?.succeeded ?? true)) {
+        _model.feedbackResponse = await actions.parseSimulatorFeedback(
+          SimulatorAnalyzerCall.arguments(
+            (_model.apiResultj08?.jsonBody ?? ''),
+          )!,
+        );
+        await SimulatorFeedbackTable().insert({
+          'user_id': currentUserUid,
+          'persona_id': widget.persona?.id,
+          'feedback_text': getJsonField(
+            _model.feedbackResponse,
+            r'''$.response''',
+          ).toString(),
+          'duration': widget.duration,
+          'feedback_title': getJsonField(
+            _model.feedbackResponse,
+            r'''$.feedback_title''',
+          ).toString(),
+        });
+        FFAppState().simulatorHistory = [];
+        safeSetState(() {});
+        FFAppState().clearSimulatorFeedbackCache();
+
+        context.goNamed(
+          FeedbackWidget.routeName,
+          queryParameters: {
+            'chatFeedback': serializeParam(
+              getJsonField(
+                _model.feedbackResponse,
+                r'''$.response''',
+              ).toString(),
+              ParamType.String,
+            ),
+          }.withoutNulls,
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Something wrong happened!',
+              style: GoogleFonts.inter(
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).error,
+          ),
+        );
+        context.safePop();
+      }
     });
   }
 

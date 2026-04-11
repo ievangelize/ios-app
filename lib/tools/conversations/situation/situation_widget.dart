@@ -220,10 +220,8 @@ class _SituationWidgetState extends State<SituationWidget>
                                           width: 1.0,
                                         ),
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(24.0),
-                                          bottomRight: Radius.circular(0.0),
                                           topLeft: Radius.circular(24.0),
-                                          topRight: Radius.circular(0.0),
+                                          bottomLeft: Radius.circular(24.0),
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
@@ -232,10 +230,8 @@ class _SituationWidgetState extends State<SituationWidget>
                                           width: 1.0,
                                         ),
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(24.0),
-                                          bottomRight: Radius.circular(0.0),
                                           topLeft: Radius.circular(24.0),
-                                          topRight: Radius.circular(0.0),
+                                          bottomLeft: Radius.circular(24.0),
                                         ),
                                       ),
                                       errorBorder: OutlineInputBorder(
@@ -245,10 +241,8 @@ class _SituationWidgetState extends State<SituationWidget>
                                           width: 1.0,
                                         ),
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(24.0),
-                                          bottomRight: Radius.circular(0.0),
                                           topLeft: Radius.circular(24.0),
-                                          topRight: Radius.circular(0.0),
+                                          bottomLeft: Radius.circular(24.0),
                                         ),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
@@ -258,10 +252,8 @@ class _SituationWidgetState extends State<SituationWidget>
                                           width: 1.0,
                                         ),
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(24.0),
-                                          bottomRight: Radius.circular(0.0),
                                           topLeft: Radius.circular(24.0),
-                                          topRight: Radius.circular(0.0),
+                                          bottomLeft: Radius.circular(24.0),
                                         ),
                                       ),
                                     ),

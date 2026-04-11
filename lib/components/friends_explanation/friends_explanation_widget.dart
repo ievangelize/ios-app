@@ -1,21 +1,21 @@
-import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'teams_coming_soon_model.dart';
-export 'teams_coming_soon_model.dart';
+import 'friends_explanation_model.dart';
+export 'friends_explanation_model.dart';
 
-class TeamsComingSoonWidget extends StatefulWidget {
-  const TeamsComingSoonWidget({super.key});
+class FriendsExplanationWidget extends StatefulWidget {
+  const FriendsExplanationWidget({super.key});
 
   @override
-  State<TeamsComingSoonWidget> createState() => _TeamsComingSoonWidgetState();
+  State<FriendsExplanationWidget> createState() =>
+      _FriendsExplanationWidgetState();
 }
 
-class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
-  late TeamsComingSoonModel _model;
+class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
+  late FriendsExplanationModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -26,7 +26,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TeamsComingSoonModel());
+    _model = createModel(context, () => FriendsExplanationModel());
   }
 
   @override
@@ -43,8 +43,6 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(16.0),
           topRight: Radius.circular(16.0),
         ),
@@ -62,30 +60,15 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
               endIndent: 150.0,
               color: FlutterFlowTheme.of(context).accent1,
             ),
-            Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    'assets/images/coming-soon_(2).png',
-                    width: 80.0,
-                    height: 80.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Text(
-                      'What are Teams?',
+                      'What are Encounters?',
                       textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
@@ -108,13 +91,13 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Teams help you share the Gospel together, complete missions with friends, track outreach progress, and grow through collective evangelism efforts.',
+                    'Encounters help you remember every person and moment—so you can follow up, record testimonies, and turn conversations into lasting discipleship.',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
                             fontWeight: FlutterFlowTheme.of(context)
@@ -141,7 +124,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.handsHelping,
+                          FontAwesomeIcons.trophy,
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -151,7 +134,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Collaborative Evangelism',
+                                'Make disciples, not converts',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -170,7 +153,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                                     ),
                               ),
                               Text(
-                                'Do outreach together with friends or church groups and strengthen one another in real-world Gospel conversations.',
+                                'Each encounter is a step in someone’s journey—follow up intentionally and nurture spiritual growth over time.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -204,8 +187,8 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.data_exploration,
+                        FaIcon(
+                          FontAwesomeIcons.solidStar,
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -215,7 +198,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Shared Progress Tracking',
+                                'Remember your impact',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -234,7 +217,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                                     ),
                               ),
                               Text(
-                                'Monitor collective evangelism data, encounter reports, and mission results for powerful  insights.',
+                                'Reflect on testimonies and experiences to see how God is working through your conversations.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -279,7 +262,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Grow with Friends',
+                                'Prayer reminders',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -298,7 +281,7 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
                                     ),
                               ),
                               Text(
-                                'Form teams, encourage each other, and strengthen confidence through shared evangelism challenges.',
+                                'Keep track of people you’ve met and pray for them regularly.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -330,16 +313,55 @@ class _TeamsComingSoonWidgetState extends State<TeamsComingSoonWidget> {
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
-              child: wrapWithModel(
-                model: _model.largeBtnModel,
-                updateCallback: () => safeSetState(() {}),
-                child: LargeBtnWidget(
-                  text: 'I\'ll be waiting',
-                  color: FlutterFlowTheme.of(context).secondary,
-                  textColor: FlutterFlowTheme.of(context).info,
-                  action: () async {
-                    Navigator.pop(context);
-                  },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).alternate,
+                  borderRadius: BorderRadius.circular(14.0),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Getting Started',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 16.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                      ),
+                      Text(
+                        'After sharing or connecting with someone, open Encounters, add their details and notes, so you can revisit them later.',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                      ),
+                    ].divide(SizedBox(height: 8.0)),
+                  ),
                 ),
               ),
             ),

@@ -92,6 +92,10 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _firstSimulator = prefs.getBool('ff_firstSimulator') ?? _firstSimulator;
     });
+    _safeInit(() {
+      _activityReactions =
+          prefs.getStringList('ff_activityReactions') ?? _activityReactions;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -276,21 +280,39 @@ class FFAppState extends ChangeNotifier {
 
   List<dynamic> _onboardingQuestions = [
     jsonDecode(
+        '{\"key\":\"age_range\",\"question\":\"How old are you?\",\"answers\":[{\"id\":\"13_17\",\"label\":\"13 to 17\"},{\"id\":\"18_24\",\"label\":\"18 to 24\"},{\"id\":\"25_34\",\"label\":\"25 to 34\"},{\"id\":\"35_44\",\"label\":\"35 to 44\"},{\"id\":\"44_54\",\"label\":\"44 to 54\"},{\"id\":\"55_plus\",\"label\":\"55 or above\"}]}'),
+    jsonDecode(
         '{\"key\":\"gender\",\"question\":\"What’s your gender?\",\"answers\":[{\"id\":\"male\",\"label\":\"Male\"},{\"id\":\"female\",\"label\":\"Female\"}]}'),
     jsonDecode(
         '{\"key\":\"experience\",\"question\":\"How would you describe your evangelism experience?\",\"answers\":[{\"id\":\"never_shared\",\"label\":\"🐣  I’ve never shared before\"},{\"id\":\"tried_once_twice\",\"label\":\"🌱  I’ve only tried once or twice\"},{\"id\":\"share_sometimes\",\"label\":\"🔥  I share from time to time\"},{\"id\":\"share_regularly\",\"label\":\"💪  I share regularly\"}]}'),
     jsonDecode(
-        '{\"key\":\"age_range\",\"question\":\"How old are you?\",\"answers\":[{\"id\":\"13_17\",\"label\":\"13 to 17\"},{\"id\":\"18_24\",\"label\":\"18 to 24\"},{\"id\":\"25_34\",\"label\":\"25 to 34\"},{\"id\":\"35_44\",\"label\":\"35 to 44\"},{\"id\":\"44_54\",\"label\":\"44 to 54\"},{\"id\":\"55_plus\",\"label\":\"55 or above\"}]}'),
+        '{\"key\":\"last_shared\",\"question\":\"When was the last time you shared the Gospel?\",\"answers\":[{\"id\":\"last_7_days\",\"label\":\"🎯  Within the last 7 days\"},{\"id\":\"last_30_days\",\"label\":\"📅  Within the last 30 days\"},{\"id\":\"over_month\",\"label\":\"⏳  Over a month ago\"},{\"id\":\"never\",\"label\":\"🐣   I’ve never shared\"}]}'),
     jsonDecode(
-        '{\"key\":\"last_shared\",\"question\":\"When was the last time you shared the Gospel?\",\"answers\":[{\"id\":\"within_30d\",\"label\":\"📅   Within the last 30 days\"},{\"id\":\"dont_remember\",\"label\":\"🤔   I don’t remember\"},{\"id\":\"over_1_month\",\"label\":\"⏳   Over a month ago\"},{\"id\":\"never_shared\",\"label\":\"🐣   I’ve never shared before\"}]}'),
+        '{\"key\":\"shared_last_3_months\",\"question\":\"In the past 3 months, how many people have you personally shared the Gospel with?\",\"answers\":[{\"id\":\"0\",\"label\":\"😬  0\"},{\"id\":\"1_5\",\"label\":\"👍  1 – 5\"},{\"id\":\"6_10\",\"label\":\"💪  6 - 10\"},{\"id\":\"10_plus\",\"label\":\"🎉  10+\"}]}'),
+    jsonDecode(
+        '{\"key\":\"led_to_christ_lifetime\",\"question\":\"In your life, how many people have you led to Christ in a face-to-face conversation?\",\"answers\":[{\"id\":\"0\",\"label\":\"None\"},{\"id\":\"1_10\",\"label\":\"1 - 10\"},{\"id\":\"11_30\",\"label\":\"11 - 30\"},{\"id\":\"31_69\",\"label\":\"31 - 69\"},{\"id\":\"70_99\",\"label\":\"70 - 99\"},{\"id\":\"100_plus\",\"label\":\"100+\"}]}'),
+    jsonDecode(
+        '{\"key\":\"unsaved_circle\",\"question\":\"Do you have close friends or family who don’t follow Jesus?\",\"answers\":[{\"id\":\"many\",\"label\":\"👨‍👩‍👧‍👦  Yes, many\"},{\"id\":\"few\",\"label\":\"👥  Yes, a few\"},{\"id\":\"one_two\",\"label\":\"🤏  Maybe 1–2\"},{\"id\":\"none\",\"label\":\"👍  Not really\"}]}'),
+    jsonDecode(
+        '{\"key\":\"shared_with_them\",\"question\":\"Have you shared the Gospel with them?\",\"answers\":[{\"id\":\"yes_clearly\",\"label\":\"✅  Yes, both verbally and by the way I live\"},{\"id\":\"hinted\",\"label\":\"🤔   I’ve hinted at it\"},{\"id\":\"thought_about\",\"label\":\"🤷   I’ve thought about it\"},{\"id\":\"no\",\"label\":\"❌  No\"}]}'),
     jsonDecode(
         '{\"key\":\"prompted_but_silent\",\"question\":\"Have you ever felt prompted to evangelize, but stayed quiet?\",\"answers\":[{\"id\":\"yes\",\"label\":\"Yes\"},{\"id\":\"no\",\"label\":\"No\"}]}'),
     jsonDecode(
-        '{\"key\":\"confidence_level\",\"question\":\"Do you feel confident answering questions about your faith?\",\"answers\":[{\"id\":\"not_confident\",\"label\":\"🤐   Not at all confident\"},{\"id\":\"little_confident\",\"label\":\"😬   A little confident, but nervous\"},{\"id\":\"somewhat_confident\",\"label\":\"🙂   Somewhat confident\"},{\"id\":\"very_confident\",\"label\":\"🔥   Very confident\"}]}'),
+        '{\"key\":\"regret_not_sharing\",\"question\":\"Have you ever regretted not sharing the Gospel?\",\"answers\":[{\"id\":\"never\",\"label\":\"❌  No\"},{\"id\":\"once_twice\",\"label\":\"🤔  Once or twice\"},{\"id\":\"several\",\"label\":\"😞  Several times\"},{\"id\":\"many\",\"label\":\"💔  Many times\"}]}'),
     jsonDecode(
-        '{\"key\":\"regret_frequency\",\"question\":\"Have you ever regretted missing an opportunity to share Jesus?\",\"answers\":[{\"id\":\"never\",\"label\":\"❌   No, never\"},{\"id\":\"once_twice\",\"label\":\"🤔   Yes, once or twice\"},{\"id\":\"several\",\"label\":\"😞   Yes, several times\"},{\"id\":\"many\",\"label\":\"💔   Yes, more than I can count\"}]}'),
+        '{\"key\":\"confidence_explaining\",\"question\":\"How confident are you explaining the Gospel clearly?\",\"answers\":[{\"id\":\"not_confident\",\"label\":\"❌   Not at all\"},{\"id\":\"little_confident\",\"label\":\"🤷   A little\"},{\"id\":\"somewhat_confident\",\"label\":\"🙂  Somewhat\"},{\"id\":\"very_confident\",\"label\":\"🔥  Very confident\"}]}'),
     jsonDecode(
-        '{\"key\":\"urgency_view\",\"question\":\"Do you believe people around you urgently need to hear the Gospel?\",\"answers\":[{\"id\":\"yes_can_wait\",\"label\":\"😐   Yes, but they can wait\"},{\"id\":\"urgent\",\"label\":\"🔥   Absolutely, it’s urgent\"},{\"id\":\"not_sure\",\"label\":\"🤔   I’m not sure\"}]}')
+        '{\"key\":\"handle_objections\",\"question\":\"If someone challenged your faith, how would you respond?\",\"answers\":[{\"id\":\"dont_know\",\"label\":\"🏃  I wouldn’t know what to say\"},{\"id\":\"unsure\",\"label\":\"👀  I’d try but feel unsure\"},{\"id\":\"somewhat\",\"label\":\"🤔  I could respond somewhat\"},{\"id\":\"equipped\",\"label\":\"✅  I feel equipped\"}]}'),
+    jsonDecode(
+        '{\"key\":\"practice_sharing\",\"question\":\"Have you ever practiced sharing the Gospel?\",\"answers\":[{\"id\":\"yes\",\"label\":\"Yes\"},{\"id\":\"no\",\"label\":\"No\"}]}'),
+    jsonDecode(
+        '{\"key\":\"urgency_belief\",\"question\":\"Do you believe people around you urgently need the Gospel?\",\"answers\":[{\"id\":\"not_really\",\"label\":\"😐  Not really\"},{\"id\":\"not_sure\",\"label\":\"🤷  Honestly, I’m not sure\"},{\"id\":\"yes\",\"label\":\"💯  Yes\"}]}'),
+    jsonDecode(
+        '{\"key\":\"eternity_thought\",\"question\":\"How often do you think about the eternal destiny of people around you?\",\"answers\":[{\"id\":\"never\",\"label\":\"Never\"},{\"id\":\"rarely\",\"label\":\"Rarely\"},{\"id\":\"sometimes\",\"label\":\"Sometimes\"},{\"id\":\"often\",\"label\":\"Often\"}]}'),
+    jsonDecode(
+        '{\"key\":\"future_feeling\",\"question\":\"If nothing changed, how would you feel a year from now about your evangelism?\",\"answers\":[{\"id\":\"fine\",\"label\":\"Fine\"},{\"id\":\"concerned\",\"label\":\"A little concerned\"},{\"id\":\"regretful\",\"label\":\"Regretful\"},{\"id\":\"deeply_convicted\",\"label\":\"Deeply convicted\"}]}'),
+    jsonDecode(
+        '{\"key\":\"barriers\",\"question\":\"What usually stops you from sharing?\",\"answers\":[{\"id\":\"fear_rejection\",\"label\":\"❌  Fear of rejection\"},{\"id\":\"not_knowing_what_to_say\",\"label\":\"🤷  Not knowing what to say\"},{\"id\":\"dont_want_to_offend\",\"label\":\"🏃  Don’t want to offend\"},{\"id\":\"waiting_right_moment\",\"label\":\"⏱️  Waiting for the “right moment”\"},{\"id\":\"dont_think_about_it\",\"label\":\"🧠  I don’t think about it\"},{\"id\":\"feel_unqualified\",\"label\":\"🙁  I feel unqualified\"},{\"id\":\"none\",\"label\":\"🔐  None of the above\"}]}')
   ];
   List<dynamic> get onboardingQuestions => _onboardingQuestions;
   set onboardingQuestions(List<dynamic> value) {
@@ -571,6 +593,78 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_firstSimulator', value);
   }
 
+  List<String> _nudgedFriends = [];
+  List<String> get nudgedFriends => _nudgedFriends;
+  set nudgedFriends(List<String> value) {
+    _nudgedFriends = value;
+  }
+
+  void addToNudgedFriends(String value) {
+    nudgedFriends.add(value);
+  }
+
+  void removeFromNudgedFriends(String value) {
+    nudgedFriends.remove(value);
+  }
+
+  void removeAtIndexFromNudgedFriends(int index) {
+    nudgedFriends.removeAt(index);
+  }
+
+  void updateNudgedFriendsAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    nudgedFriends[index] = updateFn(_nudgedFriends[index]);
+  }
+
+  void insertAtIndexInNudgedFriends(int index, String value) {
+    nudgedFriends.insert(index, value);
+  }
+
+  /// An int for the number of selected answers for multiple choice question for
+  /// onboarding.
+  int _selectedMultiAnswers = 0;
+  int get selectedMultiAnswers => _selectedMultiAnswers;
+  set selectedMultiAnswers(int value) {
+    _selectedMultiAnswers = value;
+  }
+
+  List<String> _activityReactions = [];
+  List<String> get activityReactions => _activityReactions;
+  set activityReactions(List<String> value) {
+    _activityReactions = value;
+    prefs.setStringList('ff_activityReactions', value);
+  }
+
+  void addToActivityReactions(String value) {
+    activityReactions.add(value);
+    prefs.setStringList('ff_activityReactions', _activityReactions);
+  }
+
+  void removeFromActivityReactions(String value) {
+    activityReactions.remove(value);
+    prefs.setStringList('ff_activityReactions', _activityReactions);
+  }
+
+  void removeAtIndexFromActivityReactions(int index) {
+    activityReactions.removeAt(index);
+    prefs.setStringList('ff_activityReactions', _activityReactions);
+  }
+
+  void updateActivityReactionsAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    activityReactions[index] = updateFn(_activityReactions[index]);
+    prefs.setStringList('ff_activityReactions', _activityReactions);
+  }
+
+  void insertAtIndexInActivityReactions(int index, String value) {
+    activityReactions.insert(index, value);
+    prefs.setStringList('ff_activityReactions', _activityReactions);
+  }
+
   final _homeCourseManager = FutureRequestManager<List<CoursesRow>>();
   Future<List<CoursesRow>> homeCourse({
     String? uniqueQueryKey,
@@ -739,6 +833,36 @@ class FFAppState extends ChangeNotifier {
   void clearPersonasCache() => _personasManager.clear();
   void clearPersonasCacheKey(String? uniqueKey) =>
       _personasManager.clearRequest(uniqueKey);
+
+  final _ulpsManager = FutureRequestManager<List<UserLessonProgressRow>>();
+  Future<List<UserLessonProgressRow>> ulps({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<List<UserLessonProgressRow>> Function() requestFn,
+  }) =>
+      _ulpsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearUlpsCache() => _ulpsManager.clear();
+  void clearUlpsCacheKey(String? uniqueKey) =>
+      _ulpsManager.clearRequest(uniqueKey);
+
+  final _lessonsManager = FutureRequestManager<List<CourseLessonsRow>>();
+  Future<List<CourseLessonsRow>> lessons({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<List<CourseLessonsRow>> Function() requestFn,
+  }) =>
+      _lessonsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearLessonsCache() => _lessonsManager.clear();
+  void clearLessonsCacheKey(String? uniqueKey) =>
+      _lessonsManager.clearRequest(uniqueKey);
 }
 
 void _safeInit(Function() initializeField) {

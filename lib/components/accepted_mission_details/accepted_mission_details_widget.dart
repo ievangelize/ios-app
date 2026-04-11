@@ -6,9 +6,11 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -60,8 +62,6 @@ class _AcceptedMissionDetailsWidgetState
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(16.0),
           topRight: Radius.circular(16.0),
         ),
@@ -163,6 +163,7 @@ class _AcceptedMissionDetailsWidgetState
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
+                  HapticFeedback.lightImpact();
                   await UserAssignedMissionsTable().update(
                     data: {
                       'status': 'archived',
@@ -249,6 +250,14 @@ class _AcceptedMissionDetailsWidgetState
                             'reason': 'mission complete',
                             'idempotency_key': widget.mission?.id,
                           });
+                        }(),
+                      );
+                      unawaited(
+                        () async {
+                          await action_blocks.sendFriendNotification(
+                            context,
+                            eventType: 'mission complete',
+                          );
                         }(),
                       );
                       FFAppState().clearUserAssignedMissionsCache();

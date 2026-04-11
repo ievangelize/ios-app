@@ -221,7 +221,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                             onPressed: () async {
                               HapticFeedback.lightImpact();
 
-                              context.pushNamed(OnboardingFlowWidget.routeName);
+                              context.pushNamed(QuizWidget.routeName);
                             },
                             text: 'Get Started',
                             options: FFButtonOptions(
@@ -271,7 +271,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                             if (FFAppState().onboardingComplete) {
                               context.pushNamed(LoginWidget.routeName);
                             } else {
-                              context.pushNamed(OnboardingFlowWidget.routeName);
+                              context.pushNamed(QuizWidget.routeName);
                             }
                           },
                           child: Text(

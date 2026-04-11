@@ -109,7 +109,9 @@ class _OnboardingAsnwerWidgetState extends State<OnboardingAsnwerWidget> {
               },
               child: Container(
                 width: double.infinity,
-                height: 52.0,
+                constraints: BoxConstraints(
+                  minHeight: 52.0,
+                ),
                 decoration: BoxDecoration(
                   color: valueOrDefault<Color>(
                     getJsonField(
@@ -138,36 +140,39 @@ class _OnboardingAsnwerWidgetState extends State<OnboardingAsnwerWidget> {
                 ),
                 alignment: AlignmentDirectional(-1.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 8.0, 8.0, 8.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text(
-                        getJsonField(
-                          answerListItem,
-                          r'''$.label''',
-                        ).toString(),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              color: getJsonField(
-                                        answerListItem,
-                                        r'''$''',
-                                      ) ==
-                                      _model.selectedId
-                                  ? FlutterFlowTheme.of(context).info
-                                  : Colors.black,
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
+                      Flexible(
+                        child: Text(
+                          getJsonField(
+                            answerListItem,
+                            r'''$.label''',
+                          ).toString(),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: getJsonField(
+                                              answerListItem,
+                                              r'''$''',
+                                            ) ==
+                                            _model.selectedId
+                                        ? FlutterFlowTheme.of(context).info
+                                        : Colors.black,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                        ),
                       ),
                     ],
                   ),

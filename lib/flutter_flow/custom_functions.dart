@@ -91,3 +91,57 @@ dynamic convertTextToJSON(String text) {
     return null;
   }
 }
+
+bool isIntEven(int number) {
+  if (number == 0) {
+    return false; // 0 is negligible per your requirement
+  }
+
+  return number % 2 == 0;
+}
+
+List<dynamic> buildCumulativeEncounterTrend(
+  DateTime startDate,
+  List<DateTime> encounterDates,
+  List<int> reachedCounts,
+) {
+  DateTime today = DateTime.now();
+
+  // Normalize start and today to remove time portion
+  DateTime start = DateTime(startDate.year, startDate.month, startDate.day);
+  DateTime end = DateTime(today.year, today.month, today.day);
+
+  int totalDays = end.difference(start).inDays + 1;
+
+  List<double> xValues = [];
+  List<double> yValues = [];
+
+  double cumulativeTotal = 0;
+
+  for (int i = 0; i < totalDays; i++) {
+    DateTime currentDay = start.add(Duration(days: i));
+
+    // Sum all encounters for this day
+    for (int j = 0; j < encounterDates.length; j++) {
+      DateTime encounterDay = DateTime(
+        encounterDates[j].year,
+        encounterDates[j].month,
+        encounterDates[j].day,
+      );
+
+      if (encounterDay == currentDay) {
+        cumulativeTotal += reachedCounts[j].toDouble();
+      }
+    }
+
+    xValues.add(i.toDouble()); // Day index
+    yValues.add(cumulativeTotal); // Running total
+  }
+
+  return [xValues, yValues];
+}
+
+int friendsLeft(int friendsCount) {
+  if (friendsCount == 12) return 0;
+  return 12 - friendsCount;
+}

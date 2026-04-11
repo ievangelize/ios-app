@@ -69,4 +69,10 @@ class ReachedRow extends SupabaseDataRow {
 
   int? get peopleReached => getField<int>('people_reached');
   set peopleReached(int? value) => setField<int>('people_reached', value);
+
+  String? get campaignId => getField<String>('campaign_id');
+  set campaignId(String? value) => setField<String>('campaign_id', value);
+
+  String? get groupId => getField<String>('group_id');
+  set groupId(String? value) => setField<String>('group_id', value);
 }

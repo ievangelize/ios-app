@@ -612,7 +612,7 @@ class _PickPersonaWidgetState extends State<PickPersonaWidget> {
                                           if (await getPermissionStatus(
                                               microphonePermission)) {
                                             context.pushNamed(
-                                              SimulatorWidget.routeName,
+                                              NewSimulatorWidget.routeName,
                                               queryParameters: {
                                                 'persona': serializeParam(
                                                   pageViewSimulatorPersonasRow,

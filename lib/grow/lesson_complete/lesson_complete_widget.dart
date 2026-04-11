@@ -335,11 +335,11 @@ class _LessonCompleteWidgetState extends State<LessonCompleteWidget> {
                                     FFAppState().clearHomeCourseCache();
 
                                     context.goNamed(
-                                      CourseWidget.routeName,
+                                      PathwayWidget.routeName,
                                       queryParameters: {
-                                        'course': serializeParam(
-                                          widget.course,
-                                          ParamType.SupabaseRow,
+                                        'scrollToCourseId': serializeParam(
+                                          widget.course?.id,
+                                          ParamType.String,
                                         ),
                                       }.withoutNulls,
                                     );

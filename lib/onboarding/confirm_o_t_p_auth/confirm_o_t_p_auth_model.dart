@@ -9,21 +9,22 @@ class ConfirmOTPAuthModel extends FlutterFlowModel<ConfirmOTPAuthWidget> {
 
   final formKey = GlobalKey<FormState>();
   // State field(s) for OTP widget.
+  TextEditingController? otp;
   FocusNode? otpFocusNode;
-  TextEditingController? otpTextController;
-  String? Function(BuildContext, String?)? otpTextControllerValidator;
+  String? Function(BuildContext, String?)? otpValidator;
   // Model for largeBtn component.
   late LargeBtnModel largeBtnModel;
 
   @override
   void initState(BuildContext context) {
+    otp = TextEditingController();
     largeBtnModel = createModel(context, () => LargeBtnModel());
   }
 
   @override
   void dispose() {
     otpFocusNode?.dispose();
-    otpTextController?.dispose();
+    otp?.dispose();
 
     largeBtnModel.dispose();
   }

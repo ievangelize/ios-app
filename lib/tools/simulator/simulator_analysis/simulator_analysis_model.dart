@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'simulator_analysis_widget.dart' show SimulatorAnalysisWidget;
@@ -12,8 +13,10 @@ class SimulatorAnalysisModel extends FlutterFlowModel<SimulatorAnalysisWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [AI Agent - Send Message to Simulator Analyzer] action in simulatorAnalysis widget.
-  Map<String, dynamic>? agentReponse;
+  // Stores action output result for [Backend Call - API (Simulator Analyzer)] action in simulatorAnalysis widget.
+  ApiCallResponse? apiResultj08;
+  // Stores action output result for [Custom Action - parseSimulatorFeedback] action in simulatorAnalysis widget.
+  dynamic feedbackResponse;
 
   @override
   void initState(BuildContext context) {}

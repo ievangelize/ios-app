@@ -291,6 +291,247 @@ class EvangelismpediaNextMessageCall {
       ));
 }
 
+class SendPushNotificationCall {
+  static Future<ApiCallResponse> call({
+    String? supabaseToken = '',
+    List<String>? userIdsList,
+    String? title = '',
+    String? body = '',
+  }) async {
+    final userIds = _serializeList(userIdsList);
+
+    final ffApiRequestBody = '''
+{
+  "user_ids": ${userIds},
+  "title": "${escapeStringForJson(title)}",
+  "body": "${escapeStringForJson(body)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Send Push Notification',
+      apiUrl: 'https://api.ievangelize.app/functions/v1/send-push',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${supabaseToken}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class SimulatorAnalyzerCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+    String? conversation = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "prompt": {
+    "id": "pmpt_69376bbfe8108197a06cc8aece4db8a107ce2a98a848e0a8"
+  },
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "${escapeStringForJson(conversation)}"
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "name": "generate_evangelism_feedback",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "feedback_title",
+          "response"
+        ],
+        "properties": {
+          "feedback_title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A short descriptive title about the conversation."
+          },
+          "response": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A single markdown block containing the feedback with exact required sections and bullet rules."
+          }
+        }
+      },
+      "strict": true
+    }
+  ],
+  "tool_choice": {
+    "type": "function",
+    "name": "generate_evangelism_feedback"
+  },
+  "store": true
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Simulator Analyzer',
+      apiUrl: 'https://api.openai.com/v1/responses',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${token}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? arguments(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.output[:].arguments''',
+      ));
+}
+
+class PersonaAIFirstCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+    String? userWords = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "prompt": {
+    "id": "pmpt_692b7d42f2e48197a03e9b138f8134be0557a15cffba815b"
+  },
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "${escapeStringForJson(userWords)}"
+        }
+      ]
+    }
+  ],
+  "text": {
+    "format": {
+      "type": "text"
+    }
+  },
+  "store": true
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Persona AI First',
+      apiUrl: 'https://api.openai.com/v1/responses',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${token}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? response(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.output[:].content[:].text''',
+      ));
+  static String? responseID(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.id''',
+      ));
+}
+
+class PersonaAINextCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+    String? userWords = '',
+    String? previousResponseId = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "prompt": {
+    "id": "pmpt_692b7d42f2e48197a03e9b138f8134be0557a15cffba815b"
+  },
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "${escapeStringForJson(userWords)}"
+        }
+      ]
+    }
+  ],
+  "text": {
+    "format": {
+      "type": "text"
+    }
+  },
+  "previous_response_id": "${escapeStringForJson(previousResponseId)}",
+  "store": true
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Persona AI Next',
+      apiUrl: 'https://api.openai.com/v1/responses',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${token}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? response(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.output[:].content[:].text''',
+      ));
+  static String? responseID(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.id''',
+      ));
+  static String? previousResponseID(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.previous_response_id''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

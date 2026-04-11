@@ -36,4 +36,11 @@ class XpEventsRow extends SupabaseDataRow {
   bool? get qualifiedForStreak => getField<bool>('qualified_for_streak');
   set qualifiedForStreak(bool? value) =>
       setField<bool>('qualified_for_streak', value);
+
+  bool? get shareWithFriends => getField<bool>('share_with_friends');
+  set shareWithFriends(bool? value) =>
+      setField<bool>('share_with_friends', value);
+
+  int? get reactionCount => getField<int>('reaction_count');
+  set reactionCount(int? value) => setField<int>('reaction_count', value);
 }
