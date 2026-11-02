@@ -14,8 +14,8 @@ class ReachedRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => ReachedTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get name => getField<String>('Name');
   set name(String? value) => setField<String>('Name', value);
@@ -32,8 +32,8 @@ class ReachedRow extends SupabaseDataRow {
   String? get note => getField<String>('Note');
   set note(String? value) => setField<String>('Note', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get createdBy => getField<String>('created_by');
   set createdBy(String? value) => setField<String>('created_by', value);
@@ -75,4 +75,8 @@ class ReachedRow extends SupabaseDataRow {
 
   String? get groupId => getField<String>('group_id');
   set groupId(String? value) => setField<String>('group_id', value);
+
+  bool? get followupReminder => getField<bool>('followup_reminder');
+  set followupReminder(bool? value) =>
+      setField<bool>('followup_reminder', value);
 }

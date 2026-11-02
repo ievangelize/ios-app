@@ -150,7 +150,7 @@ class _SelectCampaignWidgetState extends State<SelectCampaignWidget> {
                                     queryFn: (q) => q
                                         .eqOrNull(
                                           'id',
-                                          listViewUserCampaignsRow.id,
+                                          listViewUserCampaignsRow.campaignId,
                                         )
                                         .eqOrNull(
                                           'is_active',
@@ -213,9 +213,13 @@ class _SelectCampaignWidgetState extends State<SelectCampaignWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 child: Image.network(
-                                                  'https://picsum.photos/seed/312/600',
-                                                  width: 80.0,
-                                                  height: 50.0,
+                                                  valueOrDefault<String>(
+                                                    containerCampaignsRow
+                                                        ?.thumbnailUrl,
+                                                    'https://picsum.photos/seed/312/600',
+                                                  ),
+                                                  width: 90.0,
+                                                  height: 60.0,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -233,7 +237,7 @@ class _SelectCampaignWidgetState extends State<SelectCampaignWidget> {
                                                       valueOrDefault<String>(
                                                         containerCampaignsRow
                                                             ?.description,
-                                                        'Campaign title',
+                                                        '10 days of evangelism',
                                                       ),
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -260,94 +264,6 @@ class _SelectCampaignWidgetState extends State<SelectCampaignWidget> {
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                           ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            'Started ${containerCampaignsRow?.startDate?.toString()}',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                          ),
-                                                          Flexible(
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Text(
-                                                                  'Ending on  ${containerCampaignsRow?.endDate?.toString()}',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        font: GoogleFonts
-                                                                            .inter(
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                          fontStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontStyle,
-                                                                        ),
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                        fontSize:
-                                                                            12.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ].divide(SizedBox(
-                                                            width: 8.0)),
-                                                      ),
                                                     ),
                                                   ],
                                                 ),

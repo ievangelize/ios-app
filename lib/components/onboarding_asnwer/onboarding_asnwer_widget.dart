@@ -1,7 +1,10 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'onboarding_asnwer_model.dart';
@@ -21,8 +24,11 @@ class OnboardingAsnwerWidget extends StatefulWidget {
   State<OnboardingAsnwerWidget> createState() => _OnboardingAsnwerWidgetState();
 }
 
-class _OnboardingAsnwerWidgetState extends State<OnboardingAsnwerWidget> {
+class _OnboardingAsnwerWidgetState extends State<OnboardingAsnwerWidget>
+    with TickerProviderStateMixin {
   late OnboardingAsnwerModel _model;
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -34,6 +40,29 @@ class _OnboardingAsnwerWidgetState extends State<OnboardingAsnwerWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => OnboardingAsnwerModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (animationsMap['containerOnActionTriggerAnimation'] != null) {
+        await animationsMap['containerOnActionTriggerAnimation']!
+            .controller
+            .forward(from: 0.0);
+      }
+    });
+
+    animationsMap.addAll({
+      'containerOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: null,
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -119,7 +148,7 @@ class _OnboardingAsnwerWidgetState extends State<OnboardingAsnwerWidget> {
                               r'''$''',
                             ) ==
                             _model.selectedId
-                        ? FlutterFlowTheme.of(context).secondary
+                        ? Color(0xFF864AF9)
                         : Color(0xFFF8F7FC),
                     Color(0xFFF8F7FC),
                   ),
@@ -178,6 +207,17 @@ class _OnboardingAsnwerWidgetState extends State<OnboardingAsnwerWidget> {
                   ),
                 ),
               ),
+            ).animateOnActionTrigger(
+              animationsMap['containerOnActionTriggerAnimation']!,
+              effects: [
+                FadeEffect(
+                  curve: Curves.easeIn,
+                  delay: (answerListIndex * 120).ms,
+                  duration: 100.0.ms,
+                  begin: 0.0,
+                  end: 1.0,
+                ),
+              ],
             );
           }).divide(SizedBox(height: 12.0)),
         );

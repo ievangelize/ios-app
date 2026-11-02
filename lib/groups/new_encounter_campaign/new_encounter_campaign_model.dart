@@ -54,10 +54,6 @@ class NewEncounterCampaignModel
   EncounterFieldValuesRow? newEncounter3;
   // Stores action output result for [Backend Call - Insert Row] action in largeBtn widget.
   EncounterFieldValuesRow? newEncounter1;
-  // Stores action output result for [Backend Call - Query Rows] action in largeBtn widget.
-  List<XpEventsRow>? xpEvents;
-  // Stores action output result for [Custom Action - calculateStreak] action in largeBtn widget.
-  List<dynamic>? streak;
 
   @override
   void initState(BuildContext context) {

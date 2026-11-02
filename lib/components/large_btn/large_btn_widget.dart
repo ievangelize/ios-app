@@ -51,10 +51,16 @@ class _LargeBtnWidgetState extends State<LargeBtnWidget> {
   @override
   Widget build(BuildContext context) {
     return FFButtonWidget(
-      onPressed: () async {
-        HapticFeedback.lightImpact();
-        await widget.action?.call();
-      },
+      onPressed: _model.btnDisabled
+          ? null
+          : () async {
+              HapticFeedback.lightImpact();
+              _model.btnDisabled = true;
+              safeSetState(() {});
+              await widget.action?.call();
+              _model.btnDisabled = false;
+              safeSetState(() {});
+            },
       text: widget.text!,
       options: FFButtonOptions(
         width: double.infinity,

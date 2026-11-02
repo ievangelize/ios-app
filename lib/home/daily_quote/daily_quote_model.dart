@@ -1,4 +1,3 @@
-import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'daily_quote_widget.dart' show DailyQuoteWidget;
@@ -7,10 +6,6 @@ import 'package:flutter/material.dart';
 class DailyQuoteModel extends FlutterFlowModel<DailyQuoteWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - Query Rows] action in IconButton widget.
-  List<XpEventsRow>? xpEvents;
-  // Stores action output result for [Custom Action - calculateStreak] action in IconButton widget.
-  List<dynamic>? streak;
   // Model for largeBtn component.
   late LargeBtnModel largeBtnModel;
 

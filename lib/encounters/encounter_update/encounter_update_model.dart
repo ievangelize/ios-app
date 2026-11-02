@@ -10,15 +10,30 @@ class EncounterUpdateModel extends FlutterFlowModel<EncounterUpdateWidget> {
 
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
-  // State field(s) for PageView widget.
-  PageController? pageViewController;
+  // State field(s) for encounterFormPage widget.
+  PageController? encounterFormPageController;
 
-  int get pageViewCurrentIndex => pageViewController != null &&
-          pageViewController!.hasClients &&
-          pageViewController!.page != null
-      ? pageViewController!.page!.round()
-      : 0;
-  // State field(s) for Name widget.
+  int get encounterFormPageCurrentIndex =>
+      encounterFormPageController != null &&
+              encounterFormPageController!.hasClients &&
+              encounterFormPageController!.page != null
+          ? encounterFormPageController!.page!.round()
+          : 0;
+  // State field(s) for EncounterNumber widget.
+  FocusNode? encounterNumberFocusNode;
+  TextEditingController? encounterNumberTextController;
+  String? Function(BuildContext, String?)?
+      encounterNumberTextControllerValidator;
+  String? _encounterNumberTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
+  // State field(s) for name widget.
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
@@ -30,19 +45,19 @@ class EncounterUpdateModel extends FlutterFlowModel<EncounterUpdateWidget> {
     return null;
   }
 
-  // State field(s) for Phone widget.
+  // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
   TextEditingController? phoneTextController;
   String? Function(BuildContext, String?)? phoneTextControllerValidator;
-  // State field(s) for Email widget.
+  // State field(s) for email widget.
   FocusNode? emailFocusNode;
   TextEditingController? emailTextController;
   String? Function(BuildContext, String?)? emailTextControllerValidator;
-  // State field(s) for Address widget.
+  // State field(s) for address widget.
   FocusNode? addressFocusNode;
   TextEditingController? addressTextController;
   String? Function(BuildContext, String?)? addressTextControllerValidator;
-  // State field(s) for Note widget.
+  // State field(s) for note widget.
   FocusNode? noteFocusNode;
   TextEditingController? noteTextController;
   String? Function(BuildContext, String?)? noteTextControllerValidator;
@@ -54,11 +69,11 @@ class EncounterUpdateModel extends FlutterFlowModel<EncounterUpdateWidget> {
     return null;
   }
 
-  // State field(s) for RadioButtonBornAgain widget.
-  FormFieldController<String>? radioButtonBornAgainValueController;
-  // State field(s) for RadioButtonPray widget.
-  FormFieldController<String>? radioButtonPrayValueController;
-  // Stores action output result for [Custom Action - checkPushPermission] action in RadioButtonPray widget.
+  // State field(s) for savedSwitch widget.
+  bool? savedSwitchValue;
+  // State field(s) for RadioButtonFollowUp widget.
+  FormFieldController<String>? radioButtonFollowUpValueController;
+  // Stores action output result for [Custom Action - checkPushPermission] action in RadioButtonFollowUp widget.
   bool? pushAllowed;
   // State field(s) for ChoiceChipsDay widget.
   FormFieldController<List<String>>? choiceChipsDayValueController;
@@ -69,6 +84,8 @@ class EncounterUpdateModel extends FlutterFlowModel<EncounterUpdateWidget> {
   DateTime? datePicked;
   // Model for largeBtn component.
   late LargeBtnModel largeBtnModel;
+  // Stores action output result for [Custom Action - checkPushPermission] action in largeBtn widget.
+  bool? pushAllowedm;
   // Stores action output result for [Custom Action - getTimeZone] action in largeBtn widget.
   String? deviceTimeZoneUpdate;
   // Stores action output result for [Custom Action - cupertinoConfirmationDialog] action in Icon widget.
@@ -76,6 +93,8 @@ class EncounterUpdateModel extends FlutterFlowModel<EncounterUpdateWidget> {
 
   @override
   void initState(BuildContext context) {
+    encounterNumberTextControllerValidator =
+        _encounterNumberTextControllerValidator;
     nameTextControllerValidator = _nameTextControllerValidator;
     noteTextControllerValidator = _noteTextControllerValidator;
     largeBtnModel = createModel(context, () => LargeBtnModel());
@@ -83,6 +102,9 @@ class EncounterUpdateModel extends FlutterFlowModel<EncounterUpdateWidget> {
 
   @override
   void dispose() {
+    encounterNumberFocusNode?.dispose();
+    encounterNumberTextController?.dispose();
+
     nameFocusNode?.dispose();
     nameTextController?.dispose();
 
@@ -102,7 +124,6 @@ class EncounterUpdateModel extends FlutterFlowModel<EncounterUpdateWidget> {
   }
 
   /// Additional helper methods.
-  String? get radioButtonBornAgainValue =>
-      radioButtonBornAgainValueController?.value;
-  String? get radioButtonPrayValue => radioButtonPrayValueController?.value;
+  String? get radioButtonFollowUpValue =>
+      radioButtonFollowUpValueController?.value;
 }

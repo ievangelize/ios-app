@@ -3,16 +3,14 @@ import '/components/onboarding_asnwer_multi/onboarding_asnwer_multi_widget.dart'
 import '/components/onboaring_btn/onboaring_btn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'quiz_model.dart';
@@ -32,8 +30,6 @@ class _QuizWidgetState extends State<QuizWidget> {
   late QuizModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late StreamSubscription<bool> _keyboardVisibilitySubscription;
-  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -46,15 +42,6 @@ class _QuizWidgetState extends State<QuizWidget> {
       await actions.appTrackingDialog();
     });
 
-    if (!isWeb) {
-      _keyboardVisibilitySubscription =
-          KeyboardVisibilityController().onChange.listen((bool visible) {
-        safeSetState(() {
-          _isKeyboardVisible = visible;
-        });
-      });
-    }
-
     _model.nameTextController ??= TextEditingController();
     _model.nameFocusNode ??= FocusNode();
   }
@@ -63,9 +50,6 @@ class _QuizWidgetState extends State<QuizWidget> {
   void dispose() {
     _model.dispose();
 
-    if (!isWeb) {
-      _keyboardVisibilitySubscription.cancel();
-    }
     super.dispose();
   }
 
@@ -80,7 +64,7 @@ class _QuizWidgetState extends State<QuizWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).info,
+        backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
           child: Column(
@@ -107,14 +91,11 @@ class _QuizWidgetState extends State<QuizWidget> {
                           }
 
                           context.goNamed(WelcomeWidget.routeName);
-                        } else if (_model.pageViewCurrentIndex == 21) {
-                          while (FFAppState().selectedMultiAnswers > 0) {
-                            FFAppState().removeAtIndexFromOnboardingSnapshot(
-                                FFAppState().onboardingSnapshot.length);
-                            FFAppState().selectedMultiAnswers =
-                                FFAppState().selectedMultiAnswers + -1;
-                            safeSetState(() {});
-                          }
+                        } else if (_model.pageViewCurrentIndex == 23) {
+                          await _model.pageViewController?.previousPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          );
                         } else if (_model.pagesNumbers
                             .contains(_model.pageViewCurrentIndex)) {
                           if (FFAppState().onboardingSnapshot.length ==
@@ -136,6 +117,9 @@ class _QuizWidgetState extends State<QuizWidget> {
                             curve: Curves.ease,
                           );
                         }
+
+                        FFAppState().onboardingBtn = true;
+                        safeSetState(() {});
                       },
                       child: Icon(
                         Icons.arrow_back,
@@ -146,11 +130,11 @@ class _QuizWidgetState extends State<QuizWidget> {
                     Expanded(
                       child: LinearPercentIndicator(
                         percent: functions.doubleDivision(
-                            _model.pageViewCurrentIndex, 22),
+                            _model.pageViewCurrentIndex, 25),
                         lineHeight: 5.0,
                         animation: true,
                         animateFromLastPercent: true,
-                        progressColor: FlutterFlowTheme.of(context).secondary,
+                        progressColor: Color(0xFF864AF9),
                         backgroundColor: Color(0xFFD4D4D4),
                         barRadius: Radius.circular(10.0),
                         padding: EdgeInsets.zero,
@@ -419,19 +403,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: 200.0,
-                                        height: 200.0,
+                                        width: 250.0,
+                                        height: 250.0,
                                         clipBehavior: Clip.antiAlias,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
-                                        child: CachedNetworkImage(
-                                          fadeInDuration:
-                                              Duration(milliseconds: 100),
-                                          fadeOutDuration:
-                                              Duration(milliseconds: 100),
-                                          imageUrl:
-                                              'https://api.ievangelize.app/storage/v1/object/public/misc/carl-henry-2.png',
+                                        child: Image.asset(
+                                          'assets/images/tim-keller_(1).png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -448,9 +427,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                              color: Colors.black,
                                               fontSize: 22.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
@@ -473,9 +450,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.italic,
                                                 ),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: Colors.black,
                                                 fontSize: 17.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
@@ -576,6 +551,61 @@ class _QuizWidgetState extends State<QuizWidget> {
                                         .onboardingQuestions
                                         .elementAtOrNull(3),
                                     questionIndex: 4,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 24.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'iEvangelize will help you share the Gospel more \noften & effectively',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.black,
+                                    fontSize: 25.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                    lineHeight: 1.2,
+                                  ),
+                            ),
+                            Flexible(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 40.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Lottie.asset(
+                                        'assets/jsons/graph_1.json',
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                1.0,
+                                        height: 353.0,
+                                        fit: BoxFit.contain,
+                                        repeat: false,
+                                        animate: true,
+                                      ),
+                                    ].divide(SizedBox(height: 12.0)),
                                   ),
                                 ),
                               ),
@@ -693,19 +723,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: 200.0,
-                                        height: 200.0,
+                                        width: 250.0,
+                                        height: 250.0,
                                         clipBehavior: Clip.antiAlias,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
-                                        child: CachedNetworkImage(
-                                          fadeInDuration:
-                                              Duration(milliseconds: 100),
-                                          fadeOutDuration:
-                                              Duration(milliseconds: 100),
-                                          imageUrl:
-                                              'https://api.ievangelize.app/storage/v1/object/public/misc/dl-moody.png',
+                                        child: Image.asset(
+                                          'assets/images/dl-moody.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -722,9 +747,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                              color: Colors.black,
                                               fontSize: 22.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
@@ -747,9 +770,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.italic,
                                                 ),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: Colors.black,
                                                 fontSize: 17.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
@@ -875,19 +896,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: 200.0,
-                                        height: 200.0,
+                                        width: 250.0,
+                                        height: 250.0,
                                         clipBehavior: Clip.antiAlias,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
-                                        child: CachedNetworkImage(
-                                          fadeInDuration:
-                                              Duration(milliseconds: 100),
-                                          fadeOutDuration:
-                                              Duration(milliseconds: 100),
-                                          imageUrl:
-                                              'https://api.ievangelize.app/storage/v1/object/public/misc/wayne-gretzky.png',
+                                        child: Image.asset(
+                                          'assets/images/wayne-gretzky.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -904,9 +920,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                              color: Colors.black,
                                               fontSize: 22.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
@@ -929,9 +943,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.italic,
                                                 ),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: Colors.black,
                                                 fontSize: 17.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
@@ -1047,7 +1059,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'How confident are you explaining the Gospel clearly?',
+                              'How confident are you in explaining the Gospel clearly?',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -1078,6 +1090,61 @@ class _QuizWidgetState extends State<QuizWidget> {
                                         .onboardingQuestions
                                         .elementAtOrNull(10),
                                     questionIndex: 11,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 24.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Be ready for any question',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.black,
+                                    fontSize: 25.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                    lineHeight: 1.2,
+                                  ),
+                            ),
+                            Flexible(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 40.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Lottie.asset(
+                                        'assets/jsons/graph_2.json',
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                1.0,
+                                        height: 353.0,
+                                        fit: BoxFit.contain,
+                                        repeat: false,
+                                        animate: true,
+                                      ),
+                                    ].divide(SizedBox(height: 12.0)),
                                   ),
                                 ),
                               ),
@@ -1184,6 +1251,61 @@ class _QuizWidgetState extends State<QuizWidget> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              'Just 10 minutes a day can change everything',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.black,
+                                    fontSize: 25.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                    lineHeight: 1.2,
+                                  ),
+                            ),
+                            Flexible(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 40.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Lottie.asset(
+                                        'assets/jsons/graph_3.json',
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                1.0,
+                                        height: 353.0,
+                                        fit: BoxFit.contain,
+                                        repeat: false,
+                                        animate: true,
+                                      ),
+                                    ].divide(SizedBox(height: 12.0)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 24.0, 16.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Flexible(
                               child: Align(
                                 alignment: AlignmentDirectional(0.0, 0.0),
@@ -1195,19 +1317,14 @@ class _QuizWidgetState extends State<QuizWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: 200.0,
-                                        height: 200.0,
+                                        width: 250.0,
+                                        height: 250.0,
                                         clipBehavior: Clip.antiAlias,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
-                                        child: CachedNetworkImage(
-                                          fadeInDuration:
-                                              Duration(milliseconds: 100),
-                                          fadeOutDuration:
-                                              Duration(milliseconds: 100),
-                                          imageUrl:
-                                              'https://api.ievangelize.app/storage/v1/object/public/misc/carl-henry.png',
+                                        child: Image.asset(
+                                          'assets/images/carl-henry.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -1224,9 +1341,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                              color: Colors.black,
                                               fontSize: 22.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
@@ -1249,9 +1364,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.italic,
                                                 ),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: Colors.black,
                                                 fontSize: 17.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
@@ -1455,92 +1568,94 @@ class _QuizWidgetState extends State<QuizWidget> {
                   ),
                 ),
               ),
-              if (!(isWeb
-                  ? MediaQuery.viewInsetsOf(context).bottom > 0
-                  : _isKeyboardVisible))
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 12.0),
-                  child: wrapWithModel(
-                    model: _model.onboaringBtnModel,
-                    updateCallback: () => safeSetState(() {}),
-                    child: OnboaringBtnWidget(
-                      text: 'Continue',
-                      color: FlutterFlowTheme.of(context).secondary,
-                      textColor: FlutterFlowTheme.of(context).info,
-                      disableBtn: FFAppState().onboardingBtn,
-                      action: () async {
-                        if (_model.pageViewCurrentIndex == 1) {
-                          if (_model.formKey.currentState == null ||
-                              !_model.formKey.currentState!.validate()) {
-                            return;
-                          }
-                          if (FFAppState()
-                              .onboardingKv
-                              .containsMap(getJsonField(
-                                <String, String>{
-                                  'name': 'name',
-                                },
-                                r'''$.name''',
-                              ))) {
-                            FFAppState().updateOnboardingSnapshotAtIndex(
-                              1,
-                              (_) => <String, String>{
-                                'name': _model.nameTextController.text,
-                              },
-                            );
-                            safeSetState(() {});
-                            await _model.pageViewController?.nextPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                            );
-                          } else {
-                            FFAppState().addToOnboardingKv(getJsonField(
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 12.0),
+                child: wrapWithModel(
+                  model: _model.onboaringBtnModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: OnboaringBtnWidget(
+                    text: 'Continue',
+                    color: Color(0xFF864AF9),
+                    textColor: Colors.white,
+                    disableBtn: FFAppState().onboardingBtn,
+                    action: () async {
+                      if (_model.pageViewCurrentIndex == 1) {
+                        if (_model.formKey.currentState == null ||
+                            !_model.formKey.currentState!.validate()) {
+                          return;
+                        }
+                        if (FFAppState().onboardingKv.containsMap(getJsonField(
                               <String, String>{
                                 'name': 'name',
                               },
                               r'''$.name''',
-                            ));
-                            FFAppState()
-                                .addToOnboardingSnapshot(<String, String>{
+                            ))) {
+                          FFAppState().updateOnboardingSnapshotAtIndex(
+                            1,
+                            (_) => <String, String>{
                               'name': _model.nameTextController.text,
-                            });
-                            safeSetState(() {});
-                            await _model.pageViewController?.nextPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                            );
-                          }
-                        } else if (_model.pageViewCurrentIndex == 21) {
-                          FFAppState().onboardingBtn = true;
+                            },
+                          );
                           safeSetState(() {});
-
-                          context.goNamed(AuthOnboardWidget.routeName);
+                          await actions.hideKeyboard();
+                          await _model.pageViewController?.nextPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          );
                         } else {
-                          if ((_model.pageViewCurrentIndex == 0) ||
-                              (_model.pageViewCurrentIndex == 2) ||
-                              (_model.pageViewCurrentIndex == 7) ||
-                              (_model.pageViewCurrentIndex == 10) ||
-                              (_model.pageViewCurrentIndex == 16)) {
-                            FFAppState().onboardingBtn = true;
-                            safeSetState(() {});
-                            await _model.pageViewController?.nextPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                            );
-                          } else {
-                            FFAppState().onboardingBtn = false;
-                            safeSetState(() {});
-                            await _model.pageViewController?.nextPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                            );
-                          }
+                          FFAppState().addToOnboardingKv(getJsonField(
+                            <String, String>{
+                              'name': 'name',
+                            },
+                            r'''$.name''',
+                          ));
+                          FFAppState().addToOnboardingSnapshot(<String, String>{
+                            'name': _model.nameTextController.text,
+                          });
+                          safeSetState(() {});
+                          await actions.hideKeyboard();
+                          await _model.pageViewController?.nextPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                          );
                         }
-                      },
-                    ),
+                      } else if (_model.pageViewCurrentIndex == 24) {
+                        FFAppState().onboardingBtn = true;
+                        safeSetState(() {});
+
+                        context.goNamed(AuthOnboardWidget.routeName);
+                      } else if ((_model.pageViewCurrentIndex == 2) ||
+                          (_model.pageViewCurrentIndex == 8) ||
+                          (_model.pageViewCurrentIndex == 11) ||
+                          (_model.pageViewCurrentIndex == 19)) {
+                        FFAppState().onboardingBtn = true;
+                        safeSetState(() {});
+                        await _model.pageViewController?.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      } else if ((_model.pageViewCurrentIndex == 0) ||
+                          (_model.pageViewCurrentIndex == 5) ||
+                          (_model.pageViewCurrentIndex == 15) ||
+                          (_model.pageViewCurrentIndex == 18)) {
+                        FFAppState().onboardingBtn = true;
+                        safeSetState(() {});
+                        await _model.pageViewController?.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      } else {
+                        FFAppState().onboardingBtn = false;
+                        safeSetState(() {});
+                        await _model.pageViewController?.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      }
+                    },
                   ),
                 ),
+              ),
             ],
           ),
         ),

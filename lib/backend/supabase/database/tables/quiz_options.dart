@@ -14,8 +14,8 @@ class QuizOptionsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => QuizOptionsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get quizId => getField<String>('quiz_id');
   set quizId(String? value) => setField<String>('quiz_id', value);
@@ -29,6 +29,6 @@ class QuizOptionsRow extends SupabaseDataRow {
   int? get sortOrder => getField<int>('sort_order');
   set sortOrder(int? value) => setField<int>('sort_order', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

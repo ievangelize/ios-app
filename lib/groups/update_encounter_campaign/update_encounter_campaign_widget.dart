@@ -176,7 +176,13 @@ class _UpdateEncounterCampaignWidgetState
                           FFAppState().clearEncountersCache();
 
                           context.goNamed(
-                            EncountersListWidget.routeName,
+                            MainHomeWidget.routeName,
+                            queryParameters: {
+                              'tabIndex': serializeParam(
+                                3,
+                                ParamType.int,
+                              ),
+                            }.withoutNulls,
                             extra: <String, dynamic>{
                               '__transition_info__': TransitionInfo(
                                 hasTransition: true,
@@ -218,7 +224,13 @@ class _UpdateEncounterCampaignWidgetState
                           FFAppState().clearEncountersCache();
 
                           context.goNamed(
-                            EncountersListWidget.routeName,
+                            MainHomeWidget.routeName,
+                            queryParameters: {
+                              'tabIndex': serializeParam(
+                                3,
+                                ParamType.int,
+                              ),
+                            }.withoutNulls,
                             extra: <String, dynamic>{
                               '__transition_info__': TransitionInfo(
                                 hasTransition: true,
@@ -232,7 +244,9 @@ class _UpdateEncounterCampaignWidgetState
                       safeSetState(() {});
                     },
                     child: FaIcon(
-                      FontAwesomeIcons.trashAlt,
+                      FaIconData(const IconData(/* trashAlt */ 0xf2ed,
+                          fontFamily: 'FontAwesomeRegular',
+                          fontPackage: 'font_awesome_flutter')),
                       color: FlutterFlowTheme.of(context).primaryText,
                       size: 25.0,
                     ),
@@ -321,7 +335,8 @@ class _UpdateEncounterCampaignWidgetState
                                                         model: _model
                                                             .formItemUpdateModels
                                                             .getModel(
-                                                          formFieldItemsItem.id,
+                                                          formFieldItemsItem
+                                                              .id!,
                                                           formFieldItemsIndex,
                                                         ),
                                                         updateCallback: () =>
@@ -329,7 +344,7 @@ class _UpdateEncounterCampaignWidgetState
                                                         child:
                                                             FormItemUpdateWidget(
                                                           key: Key(
-                                                            'Keyvl4_${formFieldItemsItem.id}',
+                                                            'Keyvl4_${formFieldItemsItem.id!}',
                                                           ),
                                                           formField:
                                                               formFieldItemsItem,
@@ -345,7 +360,7 @@ class _UpdateEncounterCampaignWidgetState
                                                       model: _model
                                                           .formItemOptionsModels
                                                           .getModel(
-                                                        formFieldItemsItem.id,
+                                                        formFieldItemsItem.id!,
                                                         formFieldItemsIndex,
                                                       ),
                                                       updateCallback: () =>
@@ -353,7 +368,7 @@ class _UpdateEncounterCampaignWidgetState
                                                       child:
                                                           FormItemOptionsWidget(
                                                         key: Key(
-                                                          'Keyx2u_${formFieldItemsItem.id}',
+                                                          'Keyx2u_${formFieldItemsItem.id!}',
                                                         ),
                                                         formField:
                                                             formFieldItemsItem,
@@ -382,7 +397,7 @@ class _UpdateEncounterCampaignWidgetState
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Would you like to be reminded to pray for this person?',
+                                          'Would you like to be reminded to follow-up for this person?',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -1340,7 +1355,7 @@ class _UpdateEncounterCampaignWidgetState
                                         if (currentLoop1Item.isRequired! &&
                                             (_model.formItemUpdateModels
                                                         .getValueForKey(
-                                                      currentLoop1Item.id,
+                                                      currentLoop1Item.id!,
                                                       (m) => m
                                                           .shortAnswerTextController
                                                           .text,
@@ -1348,7 +1363,7 @@ class _UpdateEncounterCampaignWidgetState
                                                     null ||
                                                 _model.formItemUpdateModels
                                                         .getValueForKey(
-                                                      currentLoop1Item.id,
+                                                      currentLoop1Item.id!,
                                                       (m) => m
                                                           .shortAnswerTextController
                                                           .text,
@@ -1381,7 +1396,7 @@ class _UpdateEncounterCampaignWidgetState
                                         if (currentLoop1Item.isRequired! &&
                                             (_model.formItemUpdateModels
                                                         .getValueForKey(
-                                                      currentLoop1Item.id,
+                                                      currentLoop1Item.id!,
                                                       (m) => m
                                                           .paragraphTextController
                                                           .text,
@@ -1389,7 +1404,7 @@ class _UpdateEncounterCampaignWidgetState
                                                     null ||
                                                 _model.formItemUpdateModels
                                                         .getValueForKey(
-                                                      currentLoop1Item.id,
+                                                      currentLoop1Item.id!,
                                                       (m) => m
                                                           .paragraphTextController
                                                           .text,
@@ -1548,7 +1563,7 @@ class _UpdateEncounterCampaignWidgetState
                                           'value_text': _model
                                               .formItemUpdateModels
                                               .getValueForKey(
-                                            currentLoop2Item.id,
+                                            currentLoop2Item.id!,
                                             (m) => m
                                                 .shortAnswerTextController.text,
                                           ),
@@ -1564,7 +1579,7 @@ class _UpdateEncounterCampaignWidgetState
                                             ),
                                       );
                                       _shouldSetState = true;
-                                      if (currentLoop2Item.isPrimaryDisplay) {
+                                      if (currentLoop2Item.isPrimaryDisplay!) {
                                         await ReachedTable().update(
                                           data: {
                                             'Name': _model.updatedEncounter1
@@ -1583,7 +1598,7 @@ class _UpdateEncounterCampaignWidgetState
                                           'value_text': _model
                                               .formItemUpdateModels
                                               .getValueForKey(
-                                            currentLoop2Item.id,
+                                            currentLoop2Item.id!,
                                             (m) =>
                                                 m.paragraphTextController.text,
                                           ),
@@ -1599,7 +1614,7 @@ class _UpdateEncounterCampaignWidgetState
                                             ),
                                       );
                                       _shouldSetState = true;
-                                      if (currentLoop2Item.isPrimaryDisplay) {
+                                      if (currentLoop2Item.isPrimaryDisplay!) {
                                         await ReachedTable().update(
                                           data: {
                                             'Name': _model.updatedEncounter2
@@ -1639,7 +1654,7 @@ class _UpdateEncounterCampaignWidgetState
                                           loop3Index <
                                               _model.formItemOptionsModels
                                                   .getValueForKey(
-                                                    currentLoop2Item.id,
+                                                    currentLoop2Item.id!,
                                                     (m) => m.dropDownValue,
                                                   )!
                                                   .length;
@@ -1647,7 +1662,7 @@ class _UpdateEncounterCampaignWidgetState
                                         final currentLoop3Item = _model
                                             .formItemOptionsModels
                                             .getValueForKey(
-                                          currentLoop2Item.id,
+                                          currentLoop2Item.id!,
                                           (m) => m.dropDownValue,
                                         )![loop3Index];
                                         await EncounterFieldValueOptionsTable()
@@ -1663,7 +1678,7 @@ class _UpdateEncounterCampaignWidgetState
                                           'value_boolean': _model
                                               .formItemUpdateModels
                                               .getValueForKey(
-                                            currentLoop2Item.id,
+                                            currentLoop2Item.id!,
                                             (m) => m.switchValue,
                                           ),
                                         },
@@ -1690,8 +1705,15 @@ class _UpdateEncounterCampaignWidgetState
                                     ),
                                   );
 
-                                  context
-                                      .goNamed(EncountersListWidget.routeName);
+                                  context.goNamed(
+                                    MainHomeWidget.routeName,
+                                    queryParameters: {
+                                      'tabIndex': serializeParam(
+                                        3,
+                                        ParamType.int,
+                                      ),
+                                    }.withoutNulls,
+                                  );
 
                                   if (_shouldSetState) safeSetState(() {});
                                 },

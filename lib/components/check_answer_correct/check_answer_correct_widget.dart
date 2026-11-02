@@ -72,7 +72,9 @@ class _CheckAnswerCorrectWidgetState extends State<CheckAnswerCorrectWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 FaIcon(
-                  FontAwesomeIcons.solidCheckCircle,
+                  FaIconData(const IconData(/* solidCheckCircle */ 0xf058,
+                      fontFamily: 'FontAwesomeSolid',
+                      fontPackage: 'font_awesome_flutter')),
                   color: Color(0xFF5C9342),
                   size: 20.0,
                 ),

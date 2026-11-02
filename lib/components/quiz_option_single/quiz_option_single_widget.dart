@@ -91,7 +91,7 @@ class _QuizOptionSingleWidgetState extends State<QuizOptionSingleWidget> {
                         minHeight: 52.0,
                       ),
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).accent2,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(
                           color: valueOrDefault<Color>(
@@ -155,7 +155,10 @@ class _QuizOptionSingleWidgetState extends State<QuizOptionSingleWidget> {
                                     _model.correctOptionId) &&
                                 (_model.checkedAnswer == true))
                               FaIcon(
-                                FontAwesomeIcons.solidCheckCircle,
+                                FaIconData(const IconData(
+                                    /* solidCheckCircle */ 0xf058,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: valueOrDefault<Color>(
                                   (optionsListItem.id ==
                                               _model.correctOptionId) &&

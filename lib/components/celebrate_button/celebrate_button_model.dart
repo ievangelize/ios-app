@@ -11,9 +11,9 @@ class CelebrateButtonModel extends FlutterFlowModel<CelebrateButtonWidget> {
 
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Backend Call - Insert Row] action in Container widget.
+  // Stores action output result for [Backend Call - Insert Row] action in ContainerCelebrate widget.
   ActivityReactionsRow? newActivity;
-  // Stores action output result for [Backend Call - API (Send Push Notification)] action in Container widget.
+  // Stores action output result for [Backend Call - API (Send Push Notification)] action in ContainerCelebrate widget.
   ApiCallResponse? apiResultfsm;
 
   @override

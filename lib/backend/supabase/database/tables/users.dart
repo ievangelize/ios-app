@@ -17,8 +17,8 @@ class UsersRow extends SupabaseDataRow {
   String get id => getField<String>('id')!;
   set id(String value) => setField<String>('id', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get fullName => getField<String>('full_name');
   set fullName(String? value) => setField<String>('full_name', value);
@@ -80,4 +80,17 @@ class UsersRow extends SupabaseDataRow {
 
   bool? get joinedGroup => getField<bool>('joined_group');
   set joinedGroup(bool? value) => setField<bool>('joined_group', value);
+
+  int? get currentQueuePosition => getField<int>('current_queue_position');
+  set currentQueuePosition(int? value) =>
+      setField<int>('current_queue_position', value);
+
+  String? get timezone => getField<String>('timezone');
+  set timezone(String? value) => setField<String>('timezone', value);
+
+  bool? get ministryAdmin => getField<bool>('ministry_admin');
+  set ministryAdmin(bool? value) => setField<bool>('ministry_admin', value);
+
+  String? get ministryName => getField<String>('ministry_name');
+  set ministryName(String? value) => setField<String>('ministry_name', value);
 }

@@ -162,7 +162,9 @@ class _SelectedStarterWidgetState extends State<SelectedStarterWidget> {
                   safeSetState(() {});
                 },
                 child: FaIcon(
-                  FontAwesomeIcons.trashAlt,
+                  FaIconData(const IconData(/* trashAlt */ 0xf2ed,
+                      fontFamily: 'FontAwesomeRegular',
+                      fontPackage: 'font_awesome_flutter')),
                   color: FlutterFlowTheme.of(context).primaryText,
                   size: 25.0,
                 ),
@@ -214,7 +216,27 @@ class _SelectedStarterWidgetState extends State<SelectedStarterWidget> {
                                 ],
                                 borderRadius: BorderRadius.circular(24.0),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).accent1,
+                                  color: valueOrDefault<Color>(
+                                    () {
+                                      if ('${getJsonField(
+                                            startersItem,
+                                            r'''$.type''',
+                                          ).toString()}' ==
+                                          'generic') {
+                                        return Color(0x7322C55E);
+                                      } else if ('${getJsonField(
+                                            startersItem,
+                                            r'''$.type''',
+                                          ).toString()}' ==
+                                          'tailored') {
+                                        return Color(0x73F97316);
+                                      } else {
+                                        return Color(0x72864AF9);
+                                      }
+                                    }(),
+                                    FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                  width: 4.0,
                                 ),
                               ),
                               child: Stack(
@@ -268,11 +290,16 @@ class _SelectedStarterWidgetState extends State<SelectedStarterWidget> {
                                         ),
                                       ),
                                     ),
-                                  if ('${getJsonField(
-                                            startersItem,
-                                            r'''$.type''',
-                                          ).toString()}' ==
-                                          'starter'
+                                  if (('${getJsonField(
+                                                startersItem,
+                                                r'''$.type''',
+                                              ).toString()}' ==
+                                              'generic') ||
+                                          ('${getJsonField(
+                                                startersItem,
+                                                r'''$.type''',
+                                              ).toString()}' ==
+                                              'tailored')
                                       ? true
                                       : false)
                                     Align(
@@ -320,18 +347,48 @@ class _SelectedStarterWidgetState extends State<SelectedStarterWidget> {
                                 width: 175.0,
                                 height: 38.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).secondary,
+                                  color: valueOrDefault<Color>(
+                                    () {
+                                      if ('${getJsonField(
+                                            startersItem,
+                                            r'''$.type''',
+                                          ).toString()}' ==
+                                          'generic') {
+                                        return Color(0xFF22C55E);
+                                      } else if ('${getJsonField(
+                                            startersItem,
+                                            r'''$.type''',
+                                          ).toString()}' ==
+                                          'tailored') {
+                                        return Color(0xFFF97316);
+                                      } else {
+                                        return FlutterFlowTheme.of(context)
+                                            .secondary;
+                                      }
+                                    }(),
+                                    FlutterFlowTheme.of(context).secondary,
+                                  ),
                                   borderRadius: BorderRadius.circular(37.0),
                                 ),
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Text(
-                                  '${getJsonField(
-                                            startersItem,
-                                            r'''$.type''',
-                                          ).toString()}' ==
-                                          'starter'
-                                      ? 'Conversation starter'
-                                      : 'Here\'s a tip',
+                                  () {
+                                    if ('${getJsonField(
+                                          startersItem,
+                                          r'''$.type''',
+                                        ).toString()}' ==
+                                        'generic') {
+                                      return 'General';
+                                    } else if ('${getJsonField(
+                                          startersItem,
+                                          r'''$.type''',
+                                        ).toString()}' ==
+                                        'tailored') {
+                                      return 'Tailored';
+                                    } else {
+                                      return 'Tip';
+                                    }
+                                  }(),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

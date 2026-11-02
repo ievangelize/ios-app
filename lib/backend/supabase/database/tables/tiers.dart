@@ -14,8 +14,8 @@ class TiersRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => TiersTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get name => getField<String>('name');
   set name(String? value) => setField<String>('name', value);
@@ -26,8 +26,8 @@ class TiersRow extends SupabaseDataRow {
   int? get sortOrder => getField<int>('sort_order');
   set sortOrder(int? value) => setField<int>('sort_order', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   int? get minXp => getField<int>('min_xp');
   set minXp(int? value) => setField<int>('min_xp', value);

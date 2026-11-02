@@ -14,8 +14,8 @@ class CampaignsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => CampaignsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get groupId => getField<String>('group_id');
   set groupId(String? value) => setField<String>('group_id', value);

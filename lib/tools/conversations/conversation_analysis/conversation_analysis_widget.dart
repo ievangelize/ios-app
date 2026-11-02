@@ -1,14 +1,14 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/ai_agents/ai_agent.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'conversation_analysis_model.dart';
 export 'conversation_analysis_model.dart';
 
@@ -43,65 +43,60 @@ class _ConversationAnalysisWidgetState
         parameters: {'screen_name': 'conversationAnalysis'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await callAiAgent(
-        context: context,
-        prompt: valueOrDefault<String>(
-          widget.situation,
-          'situation',
-        ),
-        threadId: random_data.randomInteger(0, 10).toString(),
-        agentCloudFunctionName: 'conversationStarter',
-        provider: 'OPENAI',
-        agentJson: null,
-        responseType: 'JSON',
-      ).then((generatedText) {
-        safeSetState(() => _model.agentResponse = generatedText);
-      });
+      _model.apiResultib2 = await ConversationStartersCall.call(
+        token: FFAppState().SupabaseKey,
+        userText: widget.situation,
+      );
 
-      if (getJsonField(
-        _model.agentResponse,
-        r'''$.success''',
-      )
-          ? true
-          : false) {
-        _model.newSituation = await SituationTable().insert({
-          'situation_info': widget.situation,
-          'created_by': currentUserUid,
-          'gpt_output_json': _model.agentResponse,
-        });
-        await XpEventsTable().insert({
-          'user_id': currentUserUid,
-          'delta': 0,
-          'reason': 'ai conversation stater',
-          'idempotency_key': _model.newSituation?.id,
-          'qualified_for_streak': true,
-        });
-        FFAppState().clearConversationHistoryCache();
-
-        context.goNamed(
-          ConversationStartersWidget.routeName,
-          queryParameters: {
-            'gptAnswer': serializeParam(
-              _model.agentResponse,
-              ParamType.JSON,
+      if ((_model.apiResultib2?.succeeded ?? true)) {
+        if (ConversationStartersCall.responsSuccess(
+          (_model.apiResultib2?.jsonBody ?? ''),
+        )!
+            ? true
+            : false) {
+          _model.newSituation = await SituationTable().insert({
+            'situation_info': widget.situation,
+            'created_by': currentUserUid,
+            'gpt_output_json': ConversationStartersCall.response(
+              (_model.apiResultib2?.jsonBody ?? ''),
             ),
-          }.withoutNulls,
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Please try another prompt!',
-              style: GoogleFonts.inter(
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontWeight: FontWeight.normal,
+          });
+          await XpEventsTable().insert({
+            'user_id': currentUserUid,
+            'delta': 0,
+            'reason': 'ai conversation stater',
+            'idempotency_key': _model.newSituation?.id,
+            'qualified_for_streak': true,
+          });
+          FFAppState().clearConversationHistoryCache();
+
+          context.goNamed(
+            ConversationStartersWidget.routeName,
+            queryParameters: {
+              'gptAnswer': serializeParam(
+                ConversationStartersCall.response(
+                  (_model.apiResultib2?.jsonBody ?? ''),
+                ),
+                ParamType.JSON,
               ),
+            }.withoutNulls,
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Please try another prompt!',
+                style: GoogleFonts.inter(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              duration: Duration(milliseconds: 4000),
+              backgroundColor: FlutterFlowTheme.of(context).error,
             ),
-            duration: Duration(milliseconds: 4000),
-            backgroundColor: FlutterFlowTheme.of(context).error,
-          ),
-        );
-        context.safePop();
+          );
+          context.safePop();
+        }
       }
     });
   }
@@ -115,6 +110,8 @@ class _ConversationAnalysisWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -132,7 +129,7 @@ class _ConversationAnalysisWidgetState
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.goNamed(SituationWidget.routeName);
+              context.safePop();
             },
             child: Icon(
               Icons.close,
@@ -172,10 +169,10 @@ class _ConversationAnalysisWidgetState
                                 .fontStyle,
                           ),
                     ),
-                    Lottie.asset(
-                      'assets/jsons/Sphere_Splitter.json',
+                    Lottie.network(
+                      'https://lottie.host/ba67d75b-3de7-4c15-bcc9-7cfe363574c7/izxKPcxvQn.json',
                       width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 400.0,
+                      height: 200.0,
                       fit: BoxFit.contain,
                       animate: true,
                     ),

@@ -14,8 +14,8 @@ class FormFieldsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => FormFieldsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get formId => getField<String>('form_id');
   set formId(String? value) => setField<String>('form_id', value);
@@ -35,10 +35,10 @@ class FormFieldsRow extends SupabaseDataRow {
   int? get sortOrder => getField<int>('sort_order');
   set sortOrder(int? value) => setField<int>('sort_order', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
-  bool get isPrimaryDisplay => getField<bool>('is_primary_display')!;
-  set isPrimaryDisplay(bool value) =>
+  bool? get isPrimaryDisplay => getField<bool>('is_primary_display');
+  set isPrimaryDisplay(bool? value) =>
       setField<bool>('is_primary_display', value);
 }

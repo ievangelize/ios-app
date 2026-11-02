@@ -14,8 +14,8 @@ class GroupsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => GroupsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
@@ -32,8 +32,8 @@ class GroupsRow extends SupabaseDataRow {
   bool? get isActive => getField<bool>('is_active');
   set isActive(bool? value) => setField<bool>('is_active', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get groupProfileUrl => getField<String>('group_profile_url');
   set groupProfileUrl(String? value) =>

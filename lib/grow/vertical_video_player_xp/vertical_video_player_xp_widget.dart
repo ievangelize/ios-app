@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'vertical_video_player_xp_model.dart';
@@ -164,8 +165,9 @@ class _VerticalVideoPlayerXpWidgetState
                                       size: 24.0,
                                     ),
                                     onPressed: () async {
+                                      HapticFeedback.lightImpact();
                                       await Share.share(
-                                        widget.video!.shareUrl!,
+                                        'Check this video about an evangelism experience ${widget.video?.shareUrl}',
                                         sharePositionOrigin:
                                             getWidgetBoundingBox(context),
                                       );

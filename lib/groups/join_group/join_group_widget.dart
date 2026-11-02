@@ -1,6 +1,5 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/create_group/create_group_widget.dart';
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -207,54 +206,6 @@ class _JoinGroupWidgetState extends State<JoinGroupWidget> {
                               .asValidator(context),
                         ),
                       ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          HapticFeedback.lightImpact();
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                },
-                                child: Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: CreateGroupWidget(),
-                                ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() {}));
-                        },
-                        child: Text(
-                          'Create a group',
-                          style: FlutterFlowTheme.of(context)
-                              .headlineLarge
-                              .override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .headlineLarge
-                                      .fontStyle,
-                                ),
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                fontSize: 14.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .headlineLarge
-                                    .fontStyle,
-                                decoration: TextDecoration.underline,
-                              ),
-                        ),
-                      ),
                     ].divide(SizedBox(height: 100.0)),
                   ),
                 ),
@@ -297,6 +248,7 @@ class _JoinGroupWidgetState extends State<JoinGroupWidget> {
                               'group_id': _model.group?.firstOrNull?.id,
                               'role': 'member',
                             });
+                            FFAppState().clearUserGroupsCache();
                             await UsersTable().update(
                               data: {
                                 'joined_group': true,
@@ -307,7 +259,7 @@ class _JoinGroupWidgetState extends State<JoinGroupWidget> {
                               ),
                             );
 
-                            context.pushNamed(
+                            context.goNamed(
                               GroupDetailWidget.routeName,
                               queryParameters: {
                                 'group': serializeParam(

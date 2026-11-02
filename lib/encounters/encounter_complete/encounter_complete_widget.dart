@@ -13,6 +13,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'encounter_complete_model.dart';
 export 'encounter_complete_model.dart';
 
@@ -49,7 +50,11 @@ class _EncounterCompleteWidgetState extends State<EncounterCompleteWidget>
         parameters: {'screen_name': 'encounterComplete'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.requestReview();
+      if (FFAppState().firstEncounter) {
+        await actions.requestReview();
+        FFAppState().firstEncounter = false;
+        safeSetState(() {});
+      }
     });
 
     animationsMap.addAll({
@@ -84,6 +89,8 @@ class _EncounterCompleteWidgetState extends State<EncounterCompleteWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<List<UsersRow>>(
       stream: _model.encounterCompleteSupabaseStream ??= SupaFlow.client
           .from("users")
@@ -351,7 +358,14 @@ class _EncounterCompleteWidgetState extends State<EncounterCompleteWidget>
                                   textColor: FlutterFlowTheme.of(context).info,
                                   action: () async {
                                     context.goNamed(
-                                        EncountersListWidget.routeName);
+                                      MainHomeWidget.routeName,
+                                      queryParameters: {
+                                        'tabIndex': serializeParam(
+                                          3,
+                                          ParamType.int,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   },
                                 ),
                               ).animateOnPageLoad(animationsMap[

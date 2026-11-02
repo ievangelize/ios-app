@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/backend/schema/structs/index.dart';
-
 import '/backend/supabase/supabase.dart';
 
 import '/auth/base_auth_user_provider.dart';
@@ -79,13 +77,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomeWidget() : WelcomeWidget(),
+          appStateNotifier.loggedIn ? MainHomeWidget() : WelcomeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomeWidget() : WelcomeWidget(),
+              appStateNotifier.loggedIn ? MainHomeWidget() : WelcomeWidget(),
           routes: [
             FFRoute(
               name: SignupWidget.routeName,
@@ -144,12 +142,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.int,
                 ),
               ),
-            ),
-            FFRoute(
-              name: EncountersListWidget.routeName,
-              path: EncountersListWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => EncountersListWidget(),
             ),
             FFRoute(
               name: SelectedStarterWidget.routeName,
@@ -264,17 +256,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: SimulatorWidget.routeName,
-              path: SimulatorWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => SimulatorWidget(
-                persona: params.getParam<SimulatorPersonasRow>(
-                  'persona',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
               name: NewEncounterWidget.routeName,
               path: NewEncounterWidget.routePath,
               requireAuth: true,
@@ -298,11 +279,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: ToolsWidget.routeName,
-              path: ToolsWidget.routePath,
-              builder: (context, params) => ToolsWidget(),
-            ),
-            FFRoute(
               name: SimulatorAnalysisWidget.routeName,
               path: SimulatorAnalysisWidget.routePath,
               requireAuth: true,
@@ -316,17 +292,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   ParamType.String,
                 ),
               ),
-            ),
-            FFRoute(
-              name: MissionsWidget.routeName,
-              path: MissionsWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => MissionsWidget(),
-            ),
-            FFRoute(
-              name: OnboardingFlowWidget.routeName,
-              path: OnboardingFlowWidget.routePath,
-              builder: (context, params) => OnboardingFlowWidget(),
             ),
             FFRoute(
               name: CommitmentWidget.routeName,
@@ -343,18 +308,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: AuthOnboardWidget.routeName,
               path: AuthOnboardWidget.routePath,
               builder: (context, params) => AuthOnboardWidget(),
-            ),
-            FFRoute(
-              name: OnboardingQuoteWidget.routeName,
-              path: OnboardingQuoteWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => OnboardingQuoteWidget(),
-            ),
-            FFRoute(
-              name: FirstMissionWidget.routeName,
-              path: FirstMissionWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => FirstMissionWidget(),
             ),
             FFRoute(
               name: CourseWidget.routeName,
@@ -514,12 +467,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => EnterEmailWidget(),
             ),
             FFRoute(
-              name: ProfileWidget.routeName,
-              path: ProfileWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => ProfileWidget(),
-            ),
-            FFRoute(
               name: VerticalVideoPlayerXpWidget.routeName,
               path: VerticalVideoPlayerXpWidget.routePath,
               requireAuth: true,
@@ -563,27 +510,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => MicPermissionWidget(),
             ),
             FFRoute(
-              name: PediaChatWidget.routeName,
-              path: PediaChatWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => PediaChatWidget(
-                oldConversation: params.getParam(
-                  'oldConversation',
-                  ParamType.bool,
-                ),
-                conversation: params.getParam<ConversationsRow>(
-                  'conversation',
-                  ParamType.SupabaseRow,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: ChatHistoryWidget.routeName,
-              path: ChatHistoryWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => ChatHistoryWidget(),
-            ),
-            FFRoute(
               name: SimulatorHistoryWidget.routeName,
               path: SimulatorHistoryWidget.routePath,
               requireAuth: true,
@@ -599,12 +525,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: SituationWidget.routePath,
               requireAuth: true,
               builder: (context, params) => SituationWidget(),
-            ),
-            FFRoute(
-              name: HomeWidget.routeName,
-              path: HomeWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => HomeWidget(),
             ),
             FFRoute(
               name: SettingsWidget.routeName,
@@ -624,18 +544,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ConversationHistoryWidget(),
             ),
             FFRoute(
-              name: PrayScreenWidget.routeName,
-              path: PrayScreenWidget.routePath,
-              builder: (context, params) => PrayScreenWidget(),
-            ),
-            FFRoute(
-              name: GroupsListWidget.routeName,
-              path: GroupsListWidget.routePath,
-              builder: (context, params) => GroupsListWidget(),
-            ),
-            FFRoute(
               name: CampaignDetailWidget.routeName,
               path: CampaignDetailWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => CampaignDetailWidget(
                 campaign: params.getParam<CampaignsRow>(
                   'campaign',
@@ -646,6 +557,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: GroupDetailWidget.routeName,
               path: GroupDetailWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => GroupDetailWidget(
                 group: params.getParam<GroupsRow>(
                   'group',
@@ -656,22 +568,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: JoinGroupWidget.routeName,
               path: JoinGroupWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => JoinGroupWidget(),
             ),
             FFRoute(
               name: JoinCampaignWidget.routeName,
               path: JoinCampaignWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => JoinCampaignWidget(),
-            ),
-            FFRoute(
-              name: PathwayWidget.routeName,
-              path: PathwayWidget.routePath,
-              builder: (context, params) => PathwayWidget(
-                scrollToCourseId: params.getParam(
-                  'scrollToCourseId',
-                  ParamType.String,
-                ),
-              ),
             ),
             FFRoute(
               name: NewEncounterCampaignWidget.routeName,
@@ -700,14 +604,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: FriendsWidget.routeName,
-              path: FriendsWidget.routePath,
-              builder: (context, params) => FriendsWidget(),
-            ),
-            FFRoute(
               name: AddFriendWidget.routeName,
               path: AddFriendWidget.routePath,
-              builder: (context, params) => AddFriendWidget(),
+              requireAuth: true,
+              builder: (context, params) => AddFriendWidget(
+                user: params.getParam<UsersRow>(
+                  'user',
+                  ParamType.SupabaseRow,
+                ),
+              ),
             ),
             FFRoute(
               name: NewFriendCongratsWidget.routeName,
@@ -726,33 +631,32 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ReviewsWidget(),
             ),
             FFRoute(
-              name: FriendsOnboardWidget.routeName,
-              path: FriendsOnboardWidget.routePath,
-              builder: (context, params) => FriendsOnboardWidget(),
+              name: FriendsAddWidget.routeName,
+              path: FriendsAddWidget.routePath,
+              builder: (context, params) => FriendsAddWidget(),
             ),
             FFRoute(
               name: SimulatorFeatureWidget.routeName,
               path: SimulatorFeatureWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => SimulatorFeatureWidget(),
             ),
             FFRoute(
               name: EncountersFeatureWidget.routeName,
               path: EncountersFeatureWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => EncountersFeatureWidget(),
-            ),
-            FFRoute(
-              name: ChangeEverythingWidget.routeName,
-              path: ChangeEverythingWidget.routePath,
-              builder: (context, params) => ChangeEverythingWidget(),
             ),
             FFRoute(
               name: MissionsFeatureWidget.routeName,
               path: MissionsFeatureWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => MissionsFeatureWidget(),
             ),
             FFRoute(
               name: IcebreakerFeatureWidget.routeName,
               path: IcebreakerFeatureWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => IcebreakerFeatureWidget(),
             ),
             FFRoute(
@@ -763,6 +667,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: SelectCampaignWidget.routeName,
               path: SelectCampaignWidget.routePath,
+              requireAuth: true,
               builder: (context, params) => SelectCampaignWidget(),
             ),
             FFRoute(
@@ -777,43 +682,182 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: PrayerListWidget.routeName,
-              path: PrayerListWidget.routePath,
-              requireAuth: true,
-              builder: (context, params) => PrayerListWidget(),
-            ),
-            FFRoute(
               name: NewPrayerItemWidget.routeName,
               path: NewPrayerItemWidget.routePath,
               requireAuth: true,
               builder: (context, params) => NewPrayerItemWidget(),
             ),
             FFRoute(
-              name: PrayerItemWidget.routeName,
-              path: PrayerItemWidget.routePath,
+              name: TargetInfoWidget.routeName,
+              path: TargetInfoWidget.routePath,
               requireAuth: true,
-              builder: (context, params) => PrayerItemWidget(),
+              builder: (context, params) => TargetInfoWidget(
+                target: params.getParam<PrayerTargetsRow>(
+                  'target',
+                  ParamType.SupabaseRow,
+                ),
+                viewing: params.getParam(
+                  'viewing',
+                  ParamType.bool,
+                ),
+              ),
             ),
             FFRoute(
               name: UpdatePrayerItemWidget.routeName,
               path: UpdatePrayerItemWidget.routePath,
               requireAuth: true,
-              builder: (context, params) => UpdatePrayerItemWidget(),
+              builder: (context, params) => UpdatePrayerItemWidget(
+                target: params.getParam<PrayerTargetsRow>(
+                  'target',
+                  ParamType.SupabaseRow,
+                ),
+              ),
             ),
             FFRoute(
               name: PrayerWidget.routeName,
               path: PrayerWidget.routePath,
-              builder: (context, params) => PrayerWidget(),
+              builder: (context, params) => PrayerWidget(
+                target: params.getParam<PrayerTargetsRow>(
+                  'target',
+                  ParamType.SupabaseRow,
+                ),
+                user: params.getParam<UsersRow>(
+                  'user',
+                  ParamType.SupabaseRow,
+                ),
+              ),
             ),
             FFRoute(
-              name: PrayerPersonWidget.routeName,
-              path: PrayerPersonWidget.routePath,
-              builder: (context, params) => PrayerPersonWidget(),
+              name: PrePrayerWidget.routeName,
+              path: PrePrayerWidget.routePath,
+              builder: (context, params) => PrePrayerWidget(),
+            ),
+            FFRoute(
+              name: PrayerCompleteWidget.routeName,
+              path: PrayerCompleteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => PrayerCompleteWidget(
+                encounterXp: params.getParam(
+                  'encounterXp',
+                  ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: PrayerIntroWidget.routeName,
+              path: PrayerIntroWidget.routePath,
+              builder: (context, params) => PrayerIntroWidget(),
+            ),
+            FFRoute(
+              name: PrayerNewTargetOnboardingWidget.routeName,
+              path: PrayerNewTargetOnboardingWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => PrayerNewTargetOnboardingWidget(),
+            ),
+            FFRoute(
+              name: PrayerQuoteWidget.routeName,
+              path: PrayerQuoteWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => PrayerQuoteWidget(
+                target: params.getParam<PrayerTargetsRow>(
+                  'target',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: PrayerHowItWorksWidget.routeName,
+              path: PrayerHowItWorksWidget.routePath,
+              builder: (context, params) => PrayerHowItWorksWidget(
+                target: params.getParam<PrayerTargetsRow>(
+                  'target',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: FriendsIntroWidget.routeName,
+              path: FriendsIntroWidget.routePath,
+              builder: (context, params) => FriendsIntroWidget(),
+            ),
+            FFRoute(
+              name: AdminQuestionWidget.routeName,
+              path: AdminQuestionWidget.routePath,
+              builder: (context, params) => AdminQuestionWidget(),
+            ),
+            FFRoute(
+              name: AdminNameWidget.routeName,
+              path: AdminNameWidget.routePath,
+              builder: (context, params) => AdminNameWidget(),
+            ),
+            FFRoute(
+              name: AdminGroupsInfoWidget.routeName,
+              path: AdminGroupsInfoWidget.routePath,
+              builder: (context, params) => AdminGroupsInfoWidget(),
+            ),
+            FFRoute(
+              name: AdminTeamContactWidget.routeName,
+              path: AdminTeamContactWidget.routePath,
+              builder: (context, params) => AdminTeamContactWidget(),
+            ),
+            FFRoute(
+              name: MainHomeWidget.routeName,
+              path: MainHomeWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => MainHomeWidget(
+                tabIndex: params.getParam(
+                  'tabIndex',
+                  ParamType.int,
+                ),
+                scrollToCourseId: params.getParam(
+                  'scrollToCourseId',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: PathwayFeatureWidget.routeName,
+              path: PathwayFeatureWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => PathwayFeatureWidget(),
+            ),
+            FFRoute(
+              name: TargetSavedWidget.routeName,
+              path: TargetSavedWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => TargetSavedWidget(
+                lessonXp: params.getParam(
+                  'lessonXp',
+                  ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: FriendPrayerListWidget.routeName,
+              path: FriendPrayerListWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => FriendPrayerListWidget(
+                friend: params.getParam<UsersRow>(
+                  'friend',
+                  ParamType.SupabaseRow,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: EncounterInfoWidget.routeName,
+              path: EncounterInfoWidget.routePath,
+              requireAuth: true,
+              builder: (context, params) => EncounterInfoWidget(
+                encounter: params.getParam<ReachedRow>(
+                  'encounter',
+                  ParamType.SupabaseRow,
+                ),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      observers: [routeObserver],
+      observers: ffNavigatorObservers,
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -930,7 +974,6 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
-    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -948,7 +991,6 @@ class FFParameters {
       param,
       type,
       isList,
-      structBuilder: structBuilder,
     );
   }
 }
@@ -997,9 +1039,9 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: Color(0xFF864AF9),
+                  color: Colors.white,
                   child: Image.asset(
-                    'assets/images/splash_new_2.png',
+                    'assets/images/white_splash.png',
                     fit: BoxFit.cover,
                   ),
                 )
@@ -1019,6 +1061,10 @@ class FFRoute {
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
                     alignment: transitionInfo.alignment,
+                    curve: transitionInfo.transitionType ==
+                            PageTransitionType.scale
+                        ? const Interval(0.0, 0.5)
+                        : Curves.linear,
                     child: child,
                   ).buildTransitions(
                     context,

@@ -18,17 +18,10 @@ class PickPersonaModel extends FlutterFlowModel<PickPersonaWidget> {
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
-  // State field(s) for Search widget.
-  FocusNode? searchFocusNode;
-  TextEditingController? searchTextController;
-  String? Function(BuildContext, String?)? searchTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    searchFocusNode?.dispose();
-    searchTextController?.dispose();
-  }
+  void dispose() {}
 }

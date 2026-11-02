@@ -15,8 +15,8 @@ class ExperienceVideosRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => ExperienceVideosTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   int? get sortOrder => getField<int>('sort_order');
   set sortOrder(int? value) => setField<int>('sort_order', value);
@@ -42,8 +42,8 @@ class ExperienceVideosRow extends SupabaseDataRow {
   String? get shareUrl => getField<String>('share_url');
   set shareUrl(String? value) => setField<String>('share_url', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   bool? get isNew => getField<bool>('is_new');
   set isNew(bool? value) => setField<bool>('is_new', value);

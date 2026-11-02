@@ -276,8 +276,10 @@ class _FormItemWidgetState extends State<FormItemWidget> {
                   return FlutterFlowDropDown<String>(
                     multiSelectController: _model.dropDownValueController ??=
                         FormListFieldController<String>(null),
-                    options: List<String>.from(
-                        dropDownFieldOptionsRowList.map((e) => e.id).toList()),
+                    options: List<String>.from(dropDownFieldOptionsRowList
+                        .map((e) => e.id)
+                        .withoutNulls
+                        .toList()),
                     optionLabels: dropDownFieldOptionsRowList
                         .map((e) => e.label)
                         .withoutNulls

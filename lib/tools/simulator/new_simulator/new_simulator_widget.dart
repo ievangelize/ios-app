@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
@@ -60,7 +61,7 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
       _model.showStatus = true;
       safeSetState(() {});
       _model.apiResultj08 = await PersonaAIFirstCall.call(
-        token: FFAppState().openaiApiKey,
+        token: FFAppState().SupabaseKey,
         userWords:
             '{\"persona\":\" ${widget.persona?.name}\"},Ask me a question',
       );
@@ -172,6 +173,7 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
             onPressed: () async {
               HapticFeedback.lightImpact();
               await actions.disposeSTTAction();
+              await action_blocks.calculateStreak(context);
               context.safePop();
             },
           ),
@@ -207,25 +209,27 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (!_model.showStatus)
-                            custom_widgets.StreamingMarkdownText(
-                              width: double.infinity,
-                              height: 50.0,
-                              text: _model.simulatorResponse!,
-                              fontSize: 20.0,
-                              textColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              markdownFontSize: 20.0,
-                              markdownColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              backgroundColor: Colors.transparent,
-                            ),
-                        ].addToEnd(SizedBox(height: 10.0)),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            if (!_model.showStatus)
+                              custom_widgets.StreamingMarkdownText(
+                                width: double.infinity,
+                                height: 50.0,
+                                text: _model.simulatorResponse!,
+                                fontSize: 24.0,
+                                textColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                markdownFontSize: 24.0,
+                                markdownColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                backgroundColor: Colors.transparent,
+                              ),
+                          ].addToEnd(SizedBox(height: 12.0)),
+                        ),
                       ),
                     ),
                     if (_model.showStatus)
@@ -338,206 +342,258 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         if (_model.status == 'Listening...')
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              _model.transcript =
-                                  await actions.stopRecordingAction();
-                              _model.status = 'Thinking...';
-                              _model.showStatus = true;
-                              safeSetState(() {});
-                              if (animationsMap[
-                                      'containerOnActionTriggerAnimation1'] !=
-                                  null) {
-                                animationsMap[
-                                        'containerOnActionTriggerAnimation1']!
-                                    .controller
-                                    .forward(from: 0.0);
-                              }
-                              HapticFeedback.mediumImpact();
-                              _model.apiResultg3a =
-                                  await PersonaAINextCall.call(
-                                token: FFAppState().openaiApiKey,
-                                userWords: _model.transcript,
-                                previousResponseId: _model.responseID,
-                              );
-
-                              if ((_model.apiResultg3a?.succeeded ?? true)) {
-                                _model.showStatus = false;
-                                _model.status = 'Idle';
-                                _model.simulatorResponse =
-                                    PersonaAINextCall.response(
-                                  (_model.apiResultg3a?.jsonBody ?? ''),
-                                );
-                                _model.responseID =
-                                    PersonaAINextCall.previousResponseID(
-                                  (_model.apiResultg3a?.jsonBody ?? ''),
-                                );
-                                safeSetState(() {});
-                                // Add AI response to history
-                                FFAppState().addToSimulatorHistory(
-                                    'persona_words:  ${PersonaAINextCall.response(
-                                  (_model.apiResultg3a?.jsonBody ?? ''),
-                                )}');
-                                safeSetState(() {});
-                                // Add user words to history
-                                FFAppState().addToSimulatorHistory(
-                                    'user_words:  ${_model.transcript}');
-                                safeSetState(() {});
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Something wrong happened!',
-                                      style: GoogleFonts.inter(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                    duration: Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).error,
-                                  ),
-                                );
-                                context.safePop();
-                              }
-
-                              safeSetState(() {});
-                            },
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
-                                  child: Container(
-                                    width: 70.0,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                  ).animateOnActionTrigger(
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  HapticFeedback.lightImpact();
+                                  _model.transcript =
+                                      await actions.stopRecordingAction();
+                                  _model.status = 'Thinking...';
+                                  _model.showStatus = true;
+                                  safeSetState(() {});
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation1'] !=
+                                      null) {
                                     animationsMap[
-                                        'containerOnActionTriggerAnimation1']!,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Container(
-                                    width: 70.0,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        width: 1.0,
+                                            'containerOnActionTriggerAnimation1']!
+                                        .controller
+                                        .forward(from: 0.0);
+                                  }
+                                  HapticFeedback.mediumImpact();
+                                  _model.apiResultg3a =
+                                      await PersonaAINextCall.call(
+                                    token: FFAppState().SupabaseKey,
+                                    userWords: _model.transcript,
+                                    previousResponseId: _model.responseID,
+                                  );
+
+                                  if ((_model.apiResultg3a?.succeeded ??
+                                      true)) {
+                                    _model.showStatus = false;
+                                    _model.status = 'Idle';
+                                    _model.simulatorResponse =
+                                        PersonaAINextCall.response(
+                                      (_model.apiResultg3a?.jsonBody ?? ''),
+                                    );
+                                    _model.responseID =
+                                        PersonaAINextCall.previousResponseID(
+                                      (_model.apiResultg3a?.jsonBody ?? ''),
+                                    );
+                                    safeSetState(() {});
+                                    // Add AI response to history
+                                    FFAppState().addToSimulatorHistory(
+                                        'persona_words:  ${PersonaAINextCall.response(
+                                      (_model.apiResultg3a?.jsonBody ?? ''),
+                                    )}');
+                                    safeSetState(() {});
+                                    // Add user words to history
+                                    FFAppState().addToSimulatorHistory(
+                                        'user_words:  ${_model.transcript}');
+                                    safeSetState(() {});
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Something wrong happened!',
+                                          style: GoogleFonts.inter(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
+                                    );
+                                    context.safePop();
+                                  }
+
+                                  safeSetState(() {});
+                                },
+                                child: Stack(
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 1.0),
+                                      child: Container(
+                                        width: 70.0,
+                                        height: 70.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                      ).animateOnActionTrigger(
+                                        animationsMap[
+                                            'containerOnActionTriggerAnimation1']!,
                                       ),
                                     ),
-                                    child: Align(
+                                    Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: Image.asset(
-                                          'assets/images/stop.png',
-                                          width: 35.0,
-                                          height: 35.0,
-                                          fit: BoxFit.cover,
+                                      child: Container(
+                                        width: 70.0,
+                                        height: 70.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                            child: Image.asset(
+                                              'assets/images/rounded-black-square-shape.png',
+                                              width: 25.0,
+                                              height: 25.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                'Tap to stop',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ].divide(SizedBox(height: 8.0)),
                           ),
                         if (_model.status == 'Idle')
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              await actions.startRecordingAction();
-                              _model.status = 'Listening...';
-                              _model.showStatus = true;
-                              safeSetState(() {});
-                              if (animationsMap[
-                                      'containerOnActionTriggerAnimation2'] !=
-                                  null) {
-                                animationsMap[
-                                        'containerOnActionTriggerAnimation2']!
-                                    .controller
-                                    .forward(from: 0.0);
-                              }
-                              HapticFeedback.mediumImpact();
-                            },
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 1.0),
-                                  child: Container(
-                                    width: 70.0,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                  ).animateOnActionTrigger(
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  HapticFeedback.lightImpact();
+                                  await actions.startRecordingAction();
+                                  _model.status = 'Listening...';
+                                  _model.showStatus = true;
+                                  safeSetState(() {});
+                                  if (animationsMap[
+                                          'containerOnActionTriggerAnimation2'] !=
+                                      null) {
                                     animationsMap[
-                                        'containerOnActionTriggerAnimation2']!,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Container(
-                                    width: 70.0,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        width: 1.0,
+                                            'containerOnActionTriggerAnimation2']!
+                                        .controller
+                                        .forward(from: 0.0);
+                                  }
+                                  HapticFeedback.mediumImpact();
+                                },
+                                child: Stack(
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 1.0),
+                                      child: Container(
+                                        width: 70.0,
+                                        height: 70.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                      ).animateOnActionTrigger(
+                                        animationsMap[
+                                            'containerOnActionTriggerAnimation2']!,
                                       ),
                                     ),
-                                    child: Align(
+                                    Align(
                                       alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: Image.asset(
-                                          'assets/images/mic_(1).png',
-                                          width: 35.0,
-                                          height: 35.0,
-                                          fit: BoxFit.cover,
+                                      child: Container(
+                                        width: 70.0,
+                                        height: 70.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                            child: Image.asset(
+                                              'assets/images/mic_(1).png',
+                                              width: 35.0,
+                                              height: 35.0,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                'Tap to speak',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ].divide(SizedBox(height: 8.0)),
                           ),
                         if (_model.status == 'Thinking...')
                           Align(
@@ -565,7 +621,7 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
                               ),
                             ),
                           ),
-                      ].divide(SizedBox(height: 12.0)),
+                      ],
                     ),
                     InkWell(
                       splashColor: Colors.transparent,
@@ -579,7 +635,7 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
                               await actions.cupertinoConfirmationDialog(
                             context,
                             'End Conversation?',
-                            'To get feedback, this conversation will end.',
+                            'To get overall feedback, this conversation will end.',
                             'Cancel',
                             'Proceed',
                             FlutterFlowTheme.of(context).success,
@@ -609,7 +665,7 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
                                   return AlertDialog(
                                     title: Text('End Conversation?'),
                                     content: Text(
-                                        'To get feedback, this conversation will end.'),
+                                        'To get overall feedback, this conversation will end.'),
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(
@@ -668,7 +724,9 @@ class _NewSimulatorWidgetState extends State<NewSimulatorWidget>
                         child: Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: FaIcon(
-                            FontAwesomeIcons.check,
+                            FaIconData(const IconData(/* check */ 0xf00c,
+                                fontFamily: 'FontAwesomeSolid',
+                                fontPackage: 'font_awesome_flutter')),
                             color: FlutterFlowTheme.of(context).primaryText,
                             size: 20.0,
                           ),

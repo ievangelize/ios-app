@@ -1,19 +1,16 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/streak/streak_widget.dart';
 import '/components/tap_to_complete_btn/tap_to_complete_btn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import '/actions/actions.dart' as action_blocks;
-import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'accepted_mission_details_model.dart';
 export 'accepted_mission_details_model.dart';
 
@@ -55,8 +52,6 @@ class _AcceptedMissionDetailsWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
@@ -183,7 +178,9 @@ class _AcceptedMissionDetailsWidgetState
                 },
                 text: 'Archive Mission',
                 icon: FaIcon(
-                  FontAwesomeIcons.archive,
+                  FaIconData(const IconData(/* archive */ 0xf187,
+                      fontFamily: 'FontAwesomeSolid',
+                      fontPackage: 'font_awesome_flutter')),
                   size: 15.0,
                 ),
                 options: FFButtonOptions(
@@ -218,131 +215,72 @@ class _AcceptedMissionDetailsWidgetState
                 ),
               ),
             ),
-            Builder(
-              builder: (context) => Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                child: wrapWithModel(
-                  model: _model.tapToCompleteBtnModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: TapToCompleteBtnWidget(
-                    action: () async {
-                      await UserAssignedMissionsTable().update(
-                        data: {
-                          'status': 'completed',
-                          'complete_at':
-                              supaSerialize<DateTime>(getCurrentTimestamp),
-                        },
-                        matchingRows: (rows) => rows
-                            .eqOrNull(
-                              'id',
-                              widget.mission?.id,
-                            )
-                            .eqOrNull(
-                              'user_id',
-                              widget.mission?.userId,
-                            ),
-                      );
-                      unawaited(
-                        () async {
-                          await XpEventsTable().insert({
-                            'user_id': currentUserUid,
-                            'delta': widget.mission?.xpReward,
-                            'reason': 'mission complete',
-                            'idempotency_key': widget.mission?.id,
-                          });
-                        }(),
-                      );
-                      unawaited(
-                        () async {
-                          await action_blocks.sendFriendNotification(
-                            context,
-                            eventType: 'mission complete',
-                          );
-                        }(),
-                      );
-                      FFAppState().clearUserAssignedMissionsCache();
-                      _model.xpEvent = await XpEventsTable().queryRows(
-                        queryFn: (q) => q.eqOrNull(
-                          'user_id',
-                          currentUserUid,
-                        ),
-                      );
-                      Navigator.pop(context);
-                      _model.streak = await actions.calculateStreak(
-                        _model.xpEvent!.map((e) => e.createdAt).toList(),
-                        FFAppState().currentStreak,
-                      );
-                      if (getJsonField(
-                        _model.streak!.lastOrNull,
-                        r'''$.is_streak''',
-                      )) {
-                        FFAppState().currentStreak = getJsonField(
-                          _model.streak!.elementAtOrNull(1),
-                          r'''$.streak''',
-                        );
-                        await UsersTable().update(
-                          data: {
-                            'streak': FFAppState().currentStreak,
-                          },
-                          matchingRows: (rows) => rows.eqOrNull(
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+              child: wrapWithModel(
+                model: _model.tapToCompleteBtnModel,
+                updateCallback: () => safeSetState(() {}),
+                child: TapToCompleteBtnWidget(
+                  action: () async {
+                    await UserAssignedMissionsTable().update(
+                      data: {
+                        'status': 'completed',
+                        'complete_at':
+                            supaSerialize<DateTime>(getCurrentTimestamp),
+                      },
+                      matchingRows: (rows) => rows
+                          .eqOrNull(
                             'id',
-                            currentUserUid,
+                            widget.mission?.id,
+                          )
+                          .eqOrNull(
+                            'user_id',
+                            widget.mission?.userId,
                           ),
+                    );
+                    unawaited(
+                      () async {
+                        await XpEventsTable().insert({
+                          'user_id': currentUserUid,
+                          'delta': widget.mission?.xpReward,
+                          'reason': 'mission complete',
+                          'idempotency_key': widget.mission?.id,
+                        });
+                      }(),
+                    );
+                    unawaited(
+                      () async {
+                        await action_blocks.sendFriendNotification(
+                          context,
+                          eventType: 'mission complete',
                         );
-                        await showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (dialogContext) {
-                            return Dialog(
-                              elevation: 0,
-                              insetPadding: EdgeInsets.zero,
-                              backgroundColor: Colors.transparent,
-                              alignment: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              child: Container(
-                                height: double.infinity,
-                                width: double.infinity,
-                                child: StreakWidget(
-                                  streakAmount: getJsonField(
-                                    _model.streak?.elementAtOrNull(1),
-                                    r'''$.streak''',
-                                  ).toString(),
-                                  streakDays: getJsonField(
-                                    _model.streak?.firstOrNull,
-                                    r'''$.active_days''',
-                                    true,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }
+                      }(),
+                    );
+                    FFAppState().clearUserAssignedMissionsCache();
+                    Navigator.pop(context);
+                    await action_blocks.calculateStreak(context);
 
-                      context.goNamed(
-                        MissionCompleteWidget.routeName,
-                        queryParameters: {
-                          'missionXp': serializeParam(
-                            widget.mission?.xpReward,
-                            ParamType.int,
-                          ),
-                          'missionTitle': serializeParam(
-                            widget.mission?.title,
-                            ParamType.String,
-                          ),
-                        }.withoutNulls,
-                        extra: <String, dynamic>{
-                          '__transition_info__': TransitionInfo(
-                            hasTransition: true,
-                            transitionType: PageTransitionType.fade,
-                            duration: Duration(milliseconds: 0),
-                          ),
-                        },
-                      );
-
-                      safeSetState(() {});
-                    },
-                  ),
+                    context.goNamed(
+                      MissionCompleteWidget.routeName,
+                      queryParameters: {
+                        'missionXp': serializeParam(
+                          widget.mission?.xpReward,
+                          ParamType.int,
+                        ),
+                        'missionTitle': serializeParam(
+                          widget.mission?.title,
+                          ParamType.String,
+                        ),
+                      }.withoutNulls,
+                      extra: <String, dynamic>{
+                        '__transition_info__': TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
+                  },
                 ),
               ),
             ),

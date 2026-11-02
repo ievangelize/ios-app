@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -14,8 +15,8 @@ class ConversationAnalysisModel
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [AI Agent - Send Message to Conversation Starter] action in conversationAnalysis widget.
-  Map<String, dynamic>? agentResponse;
+  // Stores action output result for [Backend Call - API (Conversation Starters)] action in conversationAnalysis widget.
+  ApiCallResponse? apiResultib2;
   // Stores action output result for [Backend Call - Insert Row] action in conversationAnalysis widget.
   SituationRow? newSituation;
 

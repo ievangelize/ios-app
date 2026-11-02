@@ -59,7 +59,7 @@ class _CoursePathWidgetState extends State<CoursePathWidget>
               loop1Index++) {
             final currentLoop1Item = widget.lessons![loop1Index];
             // Add to lessonIds
-            _model.addToLessonIds(currentLoop1Item.id);
+            _model.addToLessonIds(currentLoop1Item.id!);
             safeSetState(() {});
           }
         }),
@@ -130,18 +130,6 @@ class _CoursePathWidgetState extends State<CoursePathWidget>
 
   @override
   void dispose() {
-    // On component dispose action.
-    () async {
-      for (int loop1Index = 0;
-          loop1Index < widget.lessons!.length;
-          loop1Index++) {
-        final currentLoop1Item = widget.lessons![loop1Index];
-        // Add to lessonIds
-        _model.addToLessonIds(currentLoop1Item.id);
-        safeSetState(() {});
-      }
-    }();
-
     _model.maybeDispose();
 
     super.dispose();

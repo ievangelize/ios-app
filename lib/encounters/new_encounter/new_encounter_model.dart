@@ -7,11 +7,14 @@ import 'new_encounter_widget.dart' show NewEncounterWidget;
 import 'package:flutter/material.dart';
 
 class NewEncounterModel extends FlutterFlowModel<NewEncounterWidget> {
+  ///  Local state fields for this page.
+
+  String? newReachedID;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey2 = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
-  final formKey3 = GlobalKey<FormState>();
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -25,7 +28,16 @@ class NewEncounterModel extends FlutterFlowModel<NewEncounterWidget> {
   TextEditingController? encounterNumberTextController;
   String? Function(BuildContext, String?)?
       encounterNumberTextControllerValidator;
-  // State field(s) for Name widget.
+  String? _encounterNumberTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
+  // State field(s) for name widget.
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
@@ -37,24 +49,19 @@ class NewEncounterModel extends FlutterFlowModel<NewEncounterWidget> {
     return null;
   }
 
-  // State field(s) for ChoiceChips widget.
-  FormFieldController<List<String>>? choiceChipsValueController;
-  List<String>? get choiceChipsValues => choiceChipsValueController?.value;
-  set choiceChipsValues(List<String>? val) =>
-      choiceChipsValueController?.value = val;
-  // State field(s) for Phone widget.
+  // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
   TextEditingController? phoneTextController;
   String? Function(BuildContext, String?)? phoneTextControllerValidator;
-  // State field(s) for Email widget.
+  // State field(s) for email widget.
   FocusNode? emailFocusNode;
   TextEditingController? emailTextController;
   String? Function(BuildContext, String?)? emailTextControllerValidator;
-  // State field(s) for Address widget.
+  // State field(s) for address widget.
   FocusNode? addressFocusNode;
   TextEditingController? addressTextController;
   String? Function(BuildContext, String?)? addressTextControllerValidator;
-  // State field(s) for Note widget.
+  // State field(s) for note widget.
   FocusNode? noteFocusNode;
   TextEditingController? noteTextController;
   String? Function(BuildContext, String?)? noteTextControllerValidator;
@@ -66,10 +73,10 @@ class NewEncounterModel extends FlutterFlowModel<NewEncounterWidget> {
     return null;
   }
 
-  // State field(s) for RadioButton widget.
-  FormFieldController<String>? radioButtonValueController;
-  // State field(s) for RadioButtonPray widget.
-  FormFieldController<String>? radioButtonPrayValueController;
+  // State field(s) for savedSwitch widget.
+  bool? savedSwitchValue;
+  // State field(s) for followUpButton widget.
+  FormFieldController<String>? followUpButtonValueController;
   // State field(s) for ChoiceChipsDay widget.
   FormFieldController<List<String>>? choiceChipsDayValueController;
   List<String>? get choiceChipsDayValues =>
@@ -81,25 +88,15 @@ class NewEncounterModel extends FlutterFlowModel<NewEncounterWidget> {
   late LargeBtnModel largeBtnModel;
   // Stores action output result for [Backend Call - Insert Row] action in largeBtn widget.
   ReachedRow? newReached;
-  // Stores action output result for [Backend Call - Query Rows] action in largeBtn widget.
-  List<XpEventsRow>? xpEvents1;
-  // Stores action output result for [Custom Action - calculateStreak] action in largeBtn widget.
-  List<dynamic>? streak1;
   // Stores action output result for [Custom Action - checkPushPermission] action in largeBtn widget.
   bool? pushAllowed;
   // Stores action output result for [Custom Action - getTimeZone] action in largeBtn widget.
-  String? deviceTimeZoneCopy;
-  // Stores action output result for [Backend Call - Insert Row] action in largeBtn widget.
-  ReachedRow? newReached2;
-  // Stores action output result for [Backend Call - Insert Row] action in largeBtn widget.
-  ReachedRow? newReached3;
-  // Stores action output result for [Backend Call - Query Rows] action in largeBtn widget.
-  List<XpEventsRow>? xpEvents2;
-  // Stores action output result for [Custom Action - calculateStreak] action in largeBtn widget.
-  List<dynamic>? streak2;
+  String? deviceTimeZone;
 
   @override
   void initState(BuildContext context) {
+    encounterNumberTextControllerValidator =
+        _encounterNumberTextControllerValidator;
     nameTextControllerValidator = _nameTextControllerValidator;
     noteTextControllerValidator = _noteTextControllerValidator;
     largeBtnModel = createModel(context, () => LargeBtnModel());
@@ -129,6 +126,5 @@ class NewEncounterModel extends FlutterFlowModel<NewEncounterWidget> {
   }
 
   /// Additional helper methods.
-  String? get radioButtonValue => radioButtonValueController?.value;
-  String? get radioButtonPrayValue => radioButtonPrayValueController?.value;
+  String? get followUpButtonValue => followUpButtonValueController?.value;
 }

@@ -27,8 +27,8 @@ class ChallengeWeeksRow extends SupabaseDataRow {
   bool? get inProgress => getField<bool>('in_progress');
   set inProgress(bool? value) => setField<bool>('in_progress', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get churchId => getField<String>('church_id');
   set churchId(String? value) => setField<String>('church_id', value);

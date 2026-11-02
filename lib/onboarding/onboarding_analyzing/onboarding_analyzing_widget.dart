@@ -5,6 +5,7 @@ import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -57,48 +58,51 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
             } else {
               await Future.delayed(
                 Duration(
-                  milliseconds: 100,
+                  milliseconds: 50,
                 ),
               );
             }
 
             if (_model.percentComplete == 5 ? true : false) {
-              if (animationsMap['rowOnActionTriggerAnimation1'] != null) {
-                animationsMap['rowOnActionTriggerAnimation1']!
+              if (animationsMap['containerOnActionTriggerAnimation1'] != null) {
+                animationsMap['containerOnActionTriggerAnimation1']!
                     .controller
                     .forward(from: 0.0);
               }
-              HapticFeedback.selectionClick();
+              HapticFeedback.mediumImpact();
             } else if (_model.percentComplete == 30 ? true : false) {
-              if (animationsMap['rowOnActionTriggerAnimation2'] != null) {
-                animationsMap['rowOnActionTriggerAnimation2']!
+              if (animationsMap['containerOnActionTriggerAnimation2'] != null) {
+                animationsMap['containerOnActionTriggerAnimation2']!
                     .controller
                     .forward(from: 0.0);
               }
-              HapticFeedback.selectionClick();
+              HapticFeedback.mediumImpact();
             } else if (_model.percentComplete == 60 ? true : false) {
-              if (animationsMap['rowOnActionTriggerAnimation3'] != null) {
-                animationsMap['rowOnActionTriggerAnimation3']!
+              if (animationsMap['containerOnActionTriggerAnimation3'] != null) {
+                animationsMap['containerOnActionTriggerAnimation3']!
                     .controller
                     .forward(from: 0.0);
               }
-              HapticFeedback.selectionClick();
+              HapticFeedback.mediumImpact();
             } else if (_model.percentComplete == 90 ? true : false) {
-              if (animationsMap['rowOnActionTriggerAnimation4'] != null) {
-                animationsMap['rowOnActionTriggerAnimation4']!
+              if (animationsMap['containerOnActionTriggerAnimation4'] != null) {
+                animationsMap['containerOnActionTriggerAnimation4']!
                     .controller
                     .forward(from: 0.0);
               }
-              HapticFeedback.selectionClick();
+              HapticFeedback.mediumImpact();
             }
 
             _model.percentComplete = _model.percentComplete + 1;
             safeSetState(() {});
           }
+          _model.countComplete = true;
+          safeSetState(() {});
         }),
         Future(() async {
+          _model.deviceTimeZone = await actions.getTimeZone();
           if (getJsonField(
-                FFAppState().onboardingSnapshot.elementAtOrNull(2),
+                FFAppState().onboardingSnapshot.elementAtOrNull(3),
                 r'''$.experience''',
               ) ==
               getJsonField(
@@ -113,7 +117,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                   '': FFAppState().onboardingSnapshot,
                 },
                 'full_name': getJsonField(
-                  FFAppState().onboardingSnapshot.elementAtOrNull(2),
+                  FFAppState().onboardingSnapshot.elementAtOrNull(1),
                   r'''$.name''',
                 ).toString(),
                 'onboarding_level': 'advanced',
@@ -121,6 +125,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                 'cumulative_xp': 5000,
                 'onboarding_complete': true,
                 'streak': 1,
+                'timezone': _model.deviceTimeZone,
               },
               matchingRows: (rows) => rows.eqOrNull(
                 'id',
@@ -128,7 +133,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
               ),
             );
           } else if ((getJsonField(
-                    FFAppState().onboardingSnapshot.elementAtOrNull(2),
+                    FFAppState().onboardingSnapshot.elementAtOrNull(3),
                     r'''$.experience''',
                   ) ==
                   getJsonField(
@@ -138,12 +143,12 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                     r'''$.experience''',
                   )) ||
               (getJsonField(
-                    FFAppState().onboardingSnapshot.elementAtOrNull(2),
+                    FFAppState().onboardingSnapshot.elementAtOrNull(3),
                     r'''$.experience''',
                   ) ==
                   getJsonField(
                     <String, String>{
-                      'experience': 'share_sometimes',
+                      'experience': 'never_shared',
                     },
                     r'''$.experience''',
                   ))) {
@@ -153,7 +158,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                   '': FFAppState().onboardingSnapshot,
                 },
                 'full_name': getJsonField(
-                  FFAppState().onboardingSnapshot.elementAtOrNull(2),
+                  FFAppState().onboardingSnapshot.elementAtOrNull(1),
                   r'''$.name''',
                 ).toString(),
                 'onboarding_level': 'beginner',
@@ -161,6 +166,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                 'cumulative_xp': 0,
                 'onboarding_complete': true,
                 'streak': 1,
+                'timezone': _model.deviceTimeZone,
               },
               matchingRows: (rows) => rows.eqOrNull(
                 'id',
@@ -174,7 +180,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                   '': FFAppState().onboardingSnapshot,
                 },
                 'full_name': getJsonField(
-                  FFAppState().onboardingSnapshot.elementAtOrNull(2),
+                  FFAppState().onboardingSnapshot.elementAtOrNull(1),
                   r'''$.name''',
                 ).toString(),
                 'onboarding_level': 'intermediate',
@@ -182,6 +188,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                 'cumulative_xp': 1000,
                 'onboarding_complete': true,
                 'streak': 1,
+                'timezone': _model.deviceTimeZone,
               },
               matchingRows: (rows) => rows.eqOrNull(
                 'id',
@@ -201,17 +208,15 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
             return;
           }
 
-          if (animationsMap['largeBtnOnActionTriggerAnimation'] != null) {
-            await animationsMap['largeBtnOnActionTriggerAnimation']!
-                .controller
-                .forward(from: 0.0);
-          }
+          _model.databaseDone = true;
+          safeSetState(() {});
         }),
       ]);
+      safeSetState(() {});
     });
 
     animationsMap.addAll({
-      'rowOnActionTriggerAnimation1': AnimationInfo(
+      'containerOnActionTriggerAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
         applyInitialState: true,
         effectsBuilder: () => [
@@ -224,7 +229,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
           ),
         ],
       ),
-      'rowOnActionTriggerAnimation2': AnimationInfo(
+      'containerOnActionTriggerAnimation2': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
         applyInitialState: true,
         effectsBuilder: () => [
@@ -237,7 +242,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
           ),
         ],
       ),
-      'rowOnActionTriggerAnimation3': AnimationInfo(
+      'containerOnActionTriggerAnimation3': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
         applyInitialState: true,
         effectsBuilder: () => [
@@ -250,20 +255,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
           ),
         ],
       ),
-      'rowOnActionTriggerAnimation4': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.elasticOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-        ],
-      ),
-      'largeBtnOnActionTriggerAnimation': AnimationInfo(
+      'containerOnActionTriggerAnimation4': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
         applyInitialState: true,
         effectsBuilder: () => [
@@ -303,7 +295,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
           child: Column(
@@ -320,7 +312,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                       Align(
                         alignment: AlignmentDirectional(0.0, 0.0),
                         child: Text(
-                          '${_model.percentComplete.toString()} %',
+                          '${_model.percentComplete.toString()}%',
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -330,6 +322,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                                           .bodyMedium
                                           .fontStyle,
                                     ),
+                                    color: Colors.black,
                                     fontSize: 60.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -350,6 +343,7 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                                     .bodyMedium
                                     .fontStyle,
                               ),
+                              color: Colors.black,
                               fontSize: 26.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
@@ -380,142 +374,263 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: Color(0xFF5C9342),
-                                    size: 22.0,
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x19000000),
+                                      offset: Offset(
+                                        0.0,
+                                        2.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
+                                    color: Color(0xFFDFDFDF),
                                   ),
-                                  Text(
-                                    'Analyzing evangelism experience',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 12.0, 12.0, 12.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          'Analyzing evangelism experience',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                color: Colors.black,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                         ),
+                                      ),
+                                      Icon(
+                                        Icons.check_circle,
+                                        color: Color(0xFF5C9342),
+                                        size: 22.0,
+                                      ),
+                                    ].divide(SizedBox(width: 10.0)),
                                   ),
-                                ].divide(SizedBox(width: 10.0)),
+                                ),
                               ).animateOnActionTrigger(
-                                animationsMap['rowOnActionTriggerAnimation1']!,
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation1']!,
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: Color(0xFF5C9342),
-                                    size: 22.0,
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x19000000),
+                                      offset: Offset(
+                                        0.0,
+                                        2.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
+                                    color: Color(0xFFDFDFDF),
                                   ),
-                                  Text(
-                                    'Reviewing conversation patterns',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 12.0, 12.0, 12.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          'Reviewing conversation patterns',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                color: Colors.black,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                         ),
+                                      ),
+                                      Icon(
+                                        Icons.check_circle,
+                                        color: Color(0xFF5C9342),
+                                        size: 22.0,
+                                      ),
+                                    ].divide(SizedBox(width: 10.0)),
                                   ),
-                                ].divide(SizedBox(width: 10.0)),
+                                ),
                               ).animateOnActionTrigger(
-                                animationsMap['rowOnActionTriggerAnimation2']!,
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation2']!,
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: Color(0xFF5C9342),
-                                    size: 22.0,
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x19000000),
+                                      offset: Offset(
+                                        0.0,
+                                        2.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
+                                    color: Color(0xFFDFDFDF),
                                   ),
-                                  Text(
-                                    'Calibrating your growth journey',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 12.0, 12.0, 12.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          'Calibrating your growth journey',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                color: Colors.black,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                         ),
+                                      ),
+                                      Icon(
+                                        Icons.check_circle,
+                                        color: Color(0xFF5C9342),
+                                        size: 22.0,
+                                      ),
+                                    ].divide(SizedBox(width: 10.0)),
                                   ),
-                                ].divide(SizedBox(width: 10.0)),
+                                ),
                               ).animateOnActionTrigger(
-                                animationsMap['rowOnActionTriggerAnimation3']!,
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation3']!,
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: Color(0xFF5C9342),
-                                    size: 22.0,
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x19000000),
+                                      offset: Offset(
+                                        0.0,
+                                        2.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
+                                    color: Color(0xFFDFDFDF),
                                   ),
-                                  Text(
-                                    'Building personalized experience',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 12.0, 12.0, 12.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          'Building personalized experience',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                color: Colors.black,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                         ),
+                                      ),
+                                      Icon(
+                                        Icons.check_circle,
+                                        color: Color(0xFF5C9342),
+                                        size: 22.0,
+                                      ),
+                                    ].divide(SizedBox(width: 10.0)),
                                   ),
-                                ].divide(SizedBox(width: 10.0)),
+                                ),
                               ).animateOnActionTrigger(
-                                animationsMap['rowOnActionTriggerAnimation4']!,
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation4']!,
                               ),
                             ].divide(SizedBox(height: 12.0)),
                           ),
@@ -525,36 +640,36 @@ class _OnboardingAnalyzingWidgetState extends State<OnboardingAnalyzingWidget>
                   ),
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
-                  child: wrapWithModel(
-                    model: _model.largeBtnModel,
-                    updateCallback: () => safeSetState(() {}),
-                    child: LargeBtnWidget(
-                      text: 'Let\'s get started!',
-                      color: FlutterFlowTheme.of(context).secondary,
-                      textColor: FlutterFlowTheme.of(context).info,
-                      action: () async {
-                        context.goNamed(
-                          IcebreakerFeatureWidget.routeName,
-                          extra: <String, dynamic>{
-                            '__transition_info__': TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      },
+              if ((_model.databaseDone == true) &&
+                  (_model.countComplete == true))
+                Align(
+                  alignment: AlignmentDirectional(0.0, 1.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                    child: wrapWithModel(
+                      model: _model.largeBtnModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: LargeBtnWidget(
+                        text: 'Let\'s get started!',
+                        color: Color(0xFF6A55EA),
+                        textColor: FlutterFlowTheme.of(context).info,
+                        action: () async {
+                          context.goNamed(
+                            IcebreakerFeatureWidget.routeName,
+                            extra: <String, dynamic>{
+                              '__transition_info__': TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 0),
+                              ),
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ).animateOnActionTrigger(
-                    animationsMap['largeBtnOnActionTriggerAnimation']!,
                   ),
                 ),
-              ),
             ],
           ),
         ),

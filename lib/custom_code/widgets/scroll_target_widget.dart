@@ -1,5 +1,4 @@
 // Automatic FlutterFlow imports
-import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -7,12 +6,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide RepeatMode;
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'package:flutter/foundation.dart';
 import 'package:scroll_to/scroll_to.dart';
-import '/custom_code/codefiles/scrollable.dart';
+import '/custom_code/scrollable.dart';
 
 class ScrollTargetWidget extends StatefulWidget {
   const ScrollTargetWidget({
@@ -33,18 +33,26 @@ class ScrollTargetWidget extends StatefulWidget {
 }
 
 class _ScrollTargetWidgetState extends State<ScrollTargetWidget> {
+  final GlobalKey _key = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    // ✅ Register this widget's GlobalKey by ID
+    GlobalScrollService.registerKey(widget.id, _key);
+    print("✅ Registered ID: ${widget.id}");
+  }
+
+  @override
+  void dispose() {
+    GlobalScrollService.unregisterKey(widget.id);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = GlobalScrollService.controller;
-
-    /// Prevent crash if controller not ready yet
-    if (controller == null) {
-      return widget.child();
-    }
-
-    return ScrollToWidget(
-      id: widget.id,
-      controller: controller,
+    return SizedBox(
+      key: _key, // ✅ This is what we'll measure
       child: widget.child(),
     );
   }

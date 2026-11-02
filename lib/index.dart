@@ -4,8 +4,6 @@ export '/auth/login/login_widget.dart' show LoginWidget;
 export '/profile/profile_edit/profile_edit_widget.dart' show ProfileEditWidget;
 export '/settings/about/about_widget.dart' show AboutWidget;
 export '/grow/audio_player/audio_player_widget.dart' show AudioPlayerWidget;
-export '/encounters/encounters_list/encounters_list_widget.dart'
-    show EncountersListWidget;
 export '/tools/conversations/selected_starter/selected_starter_widget.dart'
     show SelectedStarterWidget;
 export '/donate/donate/donate_widget.dart' show DonateWidget;
@@ -22,27 +20,18 @@ export '/tools/jad/equipping_card_info/equipping_card_info_widget.dart'
     show EquippingCardInfoWidget;
 export '/tools/conversations/conversation_starters/conversation_starters_widget.dart'
     show ConversationStartersWidget;
-export '/tools/simulator/simulator/simulator_widget.dart' show SimulatorWidget;
 export '/encounters/new_encounter/new_encounter_widget.dart'
     show NewEncounterWidget;
 export '/tools/simulator/pick_persona/pick_persona_widget.dart'
     show PickPersonaWidget;
 export '/tools/simulator/feedback/feedback_widget.dart' show FeedbackWidget;
-export '/tools/tools/tools_widget.dart' show ToolsWidget;
 export '/tools/simulator/simulator_analysis/simulator_analysis_widget.dart'
     show SimulatorAnalysisWidget;
-export '/missions/missions/missions_widget.dart' show MissionsWidget;
-export '/onboarding/onboarding_flow/onboarding_flow_widget.dart'
-    show OnboardingFlowWidget;
 export '/onboarding/commitment/commitment_widget.dart' show CommitmentWidget;
 export '/onboarding/onboarding_analyzing/onboarding_analyzing_widget.dart'
     show OnboardingAnalyzingWidget;
-export '/onboarding/auth_onboard/auth_onboard_widget.dart'
+export '/onboarding/auth/auth_onboard/auth_onboard_widget.dart'
     show AuthOnboardWidget;
-export '/onboarding/onboarding_quote/onboarding_quote_widget.dart'
-    show OnboardingQuoteWidget;
-export '/onboarding/first_mission/first_mission_widget.dart'
-    show FirstMissionWidget;
 export '/grow/course/course_widget.dart' show CourseWidget;
 export '/grow/lesson/lesson_widget.dart' show LessonWidget;
 export '/grow/lesson_complete/lesson_complete_widget.dart'
@@ -62,61 +51,49 @@ export '/tools/conversations/conversation_analysis/conversation_analysis_widget.
     show ConversationAnalysisWidget;
 export '/auth/confirm_o_t_p/confirm_o_t_p_widget.dart' show ConfirmOTPWidget;
 export '/auth/enter_email/enter_email_widget.dart' show EnterEmailWidget;
-export '/profile/profile/profile_widget.dart' show ProfileWidget;
 export '/grow/vertical_video_player_xp/vertical_video_player_xp_widget.dart'
     show VerticalVideoPlayerXpWidget;
-export '/onboarding/enter_email_auth/enter_email_auth_widget.dart'
+export '/onboarding/auth/enter_email_auth/enter_email_auth_widget.dart'
     show EnterEmailAuthWidget;
-export '/onboarding/confirm_o_t_p_auth/confirm_o_t_p_auth_widget.dart'
+export '/onboarding/auth/confirm_o_t_p_auth/confirm_o_t_p_auth_widget.dart'
     show ConfirmOTPAuthWidget;
-export '/tools/selected_feedback/selected_feedback_widget.dart'
+export '/tools/simulator/selected_feedback/selected_feedback_widget.dart'
     show SelectedFeedbackWidget;
 export '/tools/simulator/mic_permission/mic_permission_widget.dart'
     show MicPermissionWidget;
-export '/tools/evangelismpedia/pedia_chat/pedia_chat_widget.dart'
-    show PediaChatWidget;
-export '/tools/evangelismpedia/chat_history/chat_history_widget.dart'
-    show ChatHistoryWidget;
 export '/tools/simulator/simulator_history/simulator_history_widget.dart'
     show SimulatorHistoryWidget;
 export '/settings/update_version/update_version_widget.dart'
     show UpdateVersionWidget;
 export '/tools/conversations/situation/situation_widget.dart'
     show SituationWidget;
-export '/home/home/home_widget.dart' show HomeWidget;
 export '/settings/settings/settings_widget.dart' show SettingsWidget;
 export '/tools/conversations/conversation_history/conversation_history_widget.dart'
     show ConversationHistoryWidget;
-export '/pray_screen/pray_screen_widget.dart' show PrayScreenWidget;
-export '/groups/groups_list/groups_list_widget.dart' show GroupsListWidget;
 export '/groups/campaign_detail/campaign_detail_widget.dart'
     show CampaignDetailWidget;
 export '/groups/group_detail/group_detail_widget.dart' show GroupDetailWidget;
 export '/groups/join_group/join_group_widget.dart' show JoinGroupWidget;
 export '/groups/join_campaign/join_campaign_widget.dart'
     show JoinCampaignWidget;
-export '/grow/pathway/pathway_widget.dart' show PathwayWidget;
 export '/groups/new_encounter_campaign/new_encounter_campaign_widget.dart'
     show NewEncounterCampaignWidget;
 export '/groups/update_encounter_campaign/update_encounter_campaign_widget.dart'
     show UpdateEncounterCampaignWidget;
-export '/friends/friends/friends_widget.dart' show FriendsWidget;
 export '/friends/add_friend/add_friend_widget.dart' show AddFriendWidget;
 export '/friends/new_friend_congrats/new_friend_congrats_widget.dart'
     show NewFriendCongratsWidget;
 export '/onboarding/quiz/quiz_widget.dart' show QuizWidget;
 export '/onboarding/reviews/reviews_widget.dart' show ReviewsWidget;
-export '/onboarding/friends_onboard/friends_onboard_widget.dart'
-    show FriendsOnboardWidget;
-export '/how_the_app_can_help/simulator_feature/simulator_feature_widget.dart'
+export '/onboarding/friends/friends_add/friends_add_widget.dart'
+    show FriendsAddWidget;
+export '/onboarding/how_the_app_can_help/simulator_feature/simulator_feature_widget.dart'
     show SimulatorFeatureWidget;
-export '/how_the_app_can_help/encounters_feature/encounters_feature_widget.dart'
+export '/onboarding/how_the_app_can_help/encounters_feature/encounters_feature_widget.dart'
     show EncountersFeatureWidget;
-export '/how_the_app_can_help/change_everything/change_everything_widget.dart'
-    show ChangeEverythingWidget;
-export '/how_the_app_can_help/missions_feature/missions_feature_widget.dart'
+export '/onboarding/how_the_app_can_help/missions_feature/missions_feature_widget.dart'
     show MissionsFeatureWidget;
-export '/how_the_app_can_help/icebreaker_feature/icebreaker_feature_widget.dart'
+export '/onboarding/how_the_app_can_help/icebreaker_feature/icebreaker_feature_widget.dart'
     show IcebreakerFeatureWidget;
 export '/onboarding/notifications/notifications_widget.dart'
     show NotificationsWidget;
@@ -124,14 +101,39 @@ export '/groups/select_campaign/select_campaign_widget.dart'
     show SelectCampaignWidget;
 export '/tools/simulator/new_simulator/new_simulator_widget.dart'
     show NewSimulatorWidget;
-export '/prayer_hit_list/prayer_list/prayer_list_widget.dart'
-    show PrayerListWidget;
-export '/prayer_hit_list/new_prayer_item/new_prayer_item_widget.dart'
+export '/prayer_list/new_prayer_item/new_prayer_item_widget.dart'
     show NewPrayerItemWidget;
-export '/prayer_hit_list/prayer_item/prayer_item_widget.dart'
-    show PrayerItemWidget;
-export '/prayer_hit_list/update_prayer_item/update_prayer_item_widget.dart'
+export '/prayer_list/target_info/target_info_widget.dart' show TargetInfoWidget;
+export '/prayer_list/update_prayer_item/update_prayer_item_widget.dart'
     show UpdatePrayerItemWidget;
-export '/prayer_hit_list/prayer/prayer_widget.dart' show PrayerWidget;
-export '/prayer_hit_list/prayer_person/prayer_person_widget.dart'
-    show PrayerPersonWidget;
+export '/prayer_list/prayer/prayer_widget.dart' show PrayerWidget;
+export '/prayer_list/pre_prayer/pre_prayer_widget.dart' show PrePrayerWidget;
+export '/prayer_list/prayer_complete/prayer_complete_widget.dart'
+    show PrayerCompleteWidget;
+export '/onboarding/prayer/prayer_intro/prayer_intro_widget.dart'
+    show PrayerIntroWidget;
+export '/onboarding/prayer/prayer_new_target_onboarding/prayer_new_target_onboarding_widget.dart'
+    show PrayerNewTargetOnboardingWidget;
+export '/onboarding/prayer/prayer_quote/prayer_quote_widget.dart'
+    show PrayerQuoteWidget;
+export '/onboarding/prayer/prayer_how_it_works/prayer_how_it_works_widget.dart'
+    show PrayerHowItWorksWidget;
+export '/onboarding/friends/friends_intro/friends_intro_widget.dart'
+    show FriendsIntroWidget;
+export '/onboarding/admin_questions/admin_question/admin_question_widget.dart'
+    show AdminQuestionWidget;
+export '/onboarding/admin_questions/admin_name/admin_name_widget.dart'
+    show AdminNameWidget;
+export '/onboarding/admin_questions/admin_groups_info/admin_groups_info_widget.dart'
+    show AdminGroupsInfoWidget;
+export '/onboarding/admin_questions/admin_team_contact/admin_team_contact_widget.dart'
+    show AdminTeamContactWidget;
+export '/home/main_home/main_home_widget.dart' show MainHomeWidget;
+export '/onboarding/how_the_app_can_help/pathway_feature/pathway_feature_widget.dart'
+    show PathwayFeatureWidget;
+export '/prayer_list/target_saved/target_saved_widget.dart'
+    show TargetSavedWidget;
+export '/prayer_list/friend_prayer_list/friend_prayer_list_widget.dart'
+    show FriendPrayerListWidget;
+export '/encounters/encounter_info/encounter_info_widget.dart'
+    show EncounterInfoWidget;

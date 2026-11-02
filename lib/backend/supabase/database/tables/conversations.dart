@@ -15,8 +15,8 @@ class ConversationsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => ConversationsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
@@ -28,6 +28,6 @@ class ConversationsRow extends SupabaseDataRow {
   set lastMessageAt(DateTime? value) =>
       setField<DateTime>('last_message_at', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

@@ -1,6 +1,10 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/components/home_course_loading/home_course_loading_widget.dart';
+import '/components/leave_campaign/leave_campaign_widget.dart';
 import '/components/mission_empty/mission_empty_widget.dart';
 import '/components/missions_loading/missions_loading_widget.dart';
+import '/components/text_loading/text_loading_widget.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -9,7 +13,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'group_detail_model.dart';
 export 'group_detail_model.dart';
@@ -59,70 +63,86 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 25.0,
+            ),
+            onPressed: () async {
+              context.safePop();
+            },
+          ),
+          title: Text(
+            valueOrDefault<String>(
+              widget.group?.name,
+              'The Send',
+            ),
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.inter(
+                    fontWeight: FontWeight.w600,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
+                  fontSize: 18.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+          actions: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  HapticFeedback.lightImpact();
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: LeaveCampaignWidget(),
+                        ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                },
+                child: FaIcon(
+                  FaIconData(const IconData(/* trashAlt */ 0xf2ed,
+                      fontFamily: 'FontAwesomeRegular',
+                      fontPackage: 'font_awesome_flutter')),
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  size: 25.0,
+                ),
+              ),
+            ),
+          ],
+          centerTitle: true,
+          elevation: 0.0,
+        ),
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
-                child: Container(
-                  width: double.infinity,
-                  height: 56.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 1.0,
-                        buttonSize: 60.0,
-                        icon: Icon(
-                          Icons.arrow_back_rounded,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 25.0,
-                        ),
-                        onPressed: () async {
-                          context.safePop();
-                        },
-                      ),
-                      Text(
-                        valueOrDefault<String>(
-                          widget.group?.name,
-                          'The Send',
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          'https://marketplace.canva.com/EAGrzDBMMkk/3/0/1600w/canva-blue-and-white-simple-church-sermon-presentation-qw-TfdcFaIw.jpg',
-                          width: 45.0,
-                          height: 45.0,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
                 child: FutureBuilder<List<ReachedRow>>(
@@ -135,16 +155,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 20.0,
-                          height: 20.0,
-                          child: SpinKitFadingCircle(
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 20.0,
-                          ),
-                        ),
-                      );
+                      return HomeCourseLoadingWidget();
                     }
                     List<ReachedRow> containerReachedRowList = snapshot.data!;
 
@@ -244,9 +255,10 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                     FFLineChartData(
                                       xData: functions
                                           .buildCumulativeEncounterTrend(
-                                              widget.group!.createdAt,
+                                              widget.group!.createdAt!,
                                               containerReachedRowList
                                                   .map((e) => e.createdAt)
+                                                  .withoutNulls
                                                   .toList(),
                                               containerReachedRowList
                                                   .map((e) => e.peopleReached)
@@ -255,9 +267,10 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                           .firstOrNull!,
                                       yData: functions
                                           .buildCumulativeEncounterTrend(
-                                              widget.group!.createdAt,
+                                              widget.group!.createdAt!,
                                               containerReachedRowList
                                                   .map((e) => e.createdAt)
+                                                  .withoutNulls
                                                   .toList(),
                                               containerReachedRowList
                                                   .map((e) => e.peopleReached)
@@ -367,20 +380,39 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               HapticFeedback.lightImpact();
-
-                              context.pushNamed(
-                                CampaignDetailWidget.routeName,
-                                queryParameters: {
-                                  'campaign': serializeParam(
-                                    listViewCampaignsRow,
-                                    ParamType.SupabaseRow,
-                                  ),
-                                }.withoutNulls,
+                              _model.userCampaigns =
+                                  await UserCampaignsTable().queryRows(
+                                queryFn: (q) => q
+                                    .eqOrNull(
+                                      'user_id',
+                                      currentUserUid,
+                                    )
+                                    .eqOrNull(
+                                      'campaign_id',
+                                      listViewCampaignsRow.id,
+                                    ),
                               );
+                              if (_model.userCampaigns != null &&
+                                  (_model.userCampaigns)!.isNotEmpty) {
+                                context.pushNamed(
+                                  CampaignDetailWidget.routeName,
+                                  queryParameters: {
+                                    'campaign': serializeParam(
+                                      listViewCampaignsRow,
+                                      ParamType.SupabaseRow,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              } else {
+                                context.pushNamed(JoinCampaignWidget.routeName);
+                              }
+
+                              safeSetState(() {});
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).statusColor,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                                 borderRadius: BorderRadius.circular(14.0),
                                 border: Border.all(
                                   color: FlutterFlowTheme.of(context).dfdfdf,
@@ -388,16 +420,19 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    12.0, 8.0, 12.0, 8.0),
+                                    8.0, 8.0, 8.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.network(
-                                        'https://picsum.photos/seed/312/600',
+                                        valueOrDefault<String>(
+                                          listViewCampaignsRow.thumbnailUrl,
+                                          'https://picsum.photos/seed/312/600',
+                                        ),
                                         width: 100.0,
-                                        height: 80.0,
+                                        height: 70.0,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -452,19 +487,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
                                                   if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 20.0,
-                                                        height: 20.0,
-                                                        child:
-                                                            SpinKitFadingCircle(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          size: 20.0,
-                                                        ),
-                                                      ),
-                                                    );
+                                                    return TextLoadingWidget();
                                                   }
                                                   List<UserCampaignsRow>
                                                       textUserCampaignsRowList =

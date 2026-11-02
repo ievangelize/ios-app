@@ -14,8 +14,8 @@ class LessonPagesRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => LessonPagesTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get lessonId => getField<String>('lesson_id');
   set lessonId(String? value) => setField<String>('lesson_id', value);
@@ -32,6 +32,6 @@ class LessonPagesRow extends SupabaseDataRow {
   String? get bodyMd => getField<String>('body_md');
   set bodyMd(String? value) => setField<String>('body_md', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

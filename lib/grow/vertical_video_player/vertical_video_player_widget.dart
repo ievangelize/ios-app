@@ -1,17 +1,15 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/streak/streak_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
-import '/custom_code/actions/index.dart' as actions;
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'vertical_video_player_model.dart';
 export 'vertical_video_player_model.dart';
 
@@ -60,8 +58,6 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return FutureBuilder<List<UserCourseProgressRow>>(
       future: UserCourseProgressTable().querySingleRow(
         queryFn: (q) => q
@@ -117,37 +113,62 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                     Expanded(
                       child: Stack(
                         children: [
-                          Builder(
-                            builder: (context) => Container(
+                          Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: custom_widgets.CustomVidPlayer(
                               width: double.infinity,
                               height: double.infinity,
-                              child: custom_widgets.CustomVidPlayer(
-                                width: double.infinity,
-                                height: double.infinity,
-                                videoPath: widget.resource!.mediaUrl!,
-                                videoComplete: () async {
-                                  unawaited(
-                                    () async {
-                                      await XpEventsTable().insert({
-                                        'user_id': currentUserUid,
-                                        'delta': widget.lesson?.xpReward,
-                                        'reason': 'lesson complete',
-                                        'idempotency_key': widget.lesson?.id,
-                                      });
-                                    }(),
-                                  );
-                                  await UserLessonProgressTable().update(
+                              videoPath: widget.resource!.mediaUrl!,
+                              videoComplete: () async {
+                                var _shouldSetState = false;
+                                unawaited(
+                                  () async {
+                                    await XpEventsTable().insert({
+                                      'user_id': currentUserUid,
+                                      'delta': widget.lesson?.xpReward,
+                                      'reason': 'lesson complete',
+                                      'idempotency_key': widget.lesson?.id,
+                                    });
+                                  }(),
+                                );
+                                await UserLessonProgressTable().update(
+                                  data: {
+                                    'lesson_id': widget.lesson?.id,
+                                    'completed_at': supaSerialize<DateTime>(
+                                        getCurrentTimestamp),
+                                    'status': 'completed',
+                                  },
+                                  matchingRows: (rows) => rows
+                                      .eqOrNull(
+                                        'lesson_id',
+                                        widget.lesson?.id,
+                                      )
+                                      .eqOrNull(
+                                        'user_id',
+                                        currentUserUid,
+                                      )
+                                      .eqOrNull(
+                                        'course_id',
+                                        widget.lesson?.courseId,
+                                      ),
+                                );
+                                _model.currentCompletedLessons =
+                                    verticalVideoPlayerUserCourseProgressRow
+                                        ?.lessonsCompleted;
+                                safeSetState(() {});
+                                if (_model.currentCompletedLessons !=
+                                    verticalVideoPlayerUserCourseProgressRow
+                                        ?.totalLessons) {
+                                  _model.currentCompletedLessons =
+                                      _model.currentCompletedLessons! + 1;
+                                  safeSetState(() {});
+                                  await UserCourseProgressTable().update(
                                     data: {
-                                      'lesson_id': widget.lesson?.id,
-                                      'completed_at': supaSerialize<DateTime>(
-                                          getCurrentTimestamp),
-                                      'status': 'completed',
+                                      'lessons_completed':
+                                          _model.currentCompletedLessons,
                                     },
                                     matchingRows: (rows) => rows
-                                        .eqOrNull(
-                                          'lesson_id',
-                                          widget.lesson?.id,
-                                        )
                                         .eqOrNull(
                                           'user_id',
                                           currentUserUid,
@@ -157,305 +178,143 @@ class _VerticalVideoPlayerWidgetState extends State<VerticalVideoPlayerWidget> {
                                           widget.lesson?.courseId,
                                         ),
                                   );
-                                  _model.currentCompletedLessons =
-                                      verticalVideoPlayerUserCourseProgressRow
-                                          ?.lessonsCompleted;
-                                  safeSetState(() {});
-                                  if (_model.currentCompletedLessons !=
-                                      verticalVideoPlayerUserCourseProgressRow
-                                          ?.totalLessons) {
-                                    _model.currentCompletedLessons =
-                                        _model.currentCompletedLessons! + 1;
-                                    safeSetState(() {});
-                                    await UserCourseProgressTable().update(
-                                      data: {
-                                        'lessons_completed':
-                                            _model.currentCompletedLessons,
-                                      },
-                                      matchingRows: (rows) => rows
-                                          .eqOrNull(
-                                            'user_id',
-                                            currentUserUid,
-                                          )
-                                          .eqOrNull(
-                                            'course_id',
-                                            widget.lesson?.courseId,
-                                          ),
-                                    );
-                                  }
-                                  if (_model
-                                          .ucp?.firstOrNull?.lessonsCompleted ==
-                                      _model.ucp?.firstOrNull?.totalLessons) {
-                                    await UserCourseProgressTable().update(
-                                      data: {
-                                        'status': 'completed',
-                                        'completed_at': supaSerialize<DateTime>(
-                                            getCurrentTimestamp),
-                                      },
-                                      matchingRows: (rows) => rows
-                                          .eqOrNull(
-                                            'user_id',
-                                            currentUserUid,
-                                          )
-                                          .eqOrNull(
-                                            'course_id',
-                                            widget.lesson?.courseId,
-                                          ),
-                                    );
-                                    _model.xpEvents2 =
-                                        await XpEventsTable().queryRows(
+                                  _shouldSetState = true;
+                                }
+                                if (_model.ucp?.firstOrNull?.lessonsCompleted ==
+                                    _model.ucp?.firstOrNull?.totalLessons) {
+                                  await UserCourseProgressTable().update(
+                                    data: {
+                                      'status': 'completed',
+                                      'completed_at': supaSerialize<DateTime>(
+                                          getCurrentTimestamp),
+                                    },
+                                    matchingRows: (rows) => rows
+                                        .eqOrNull(
+                                          'user_id',
+                                          currentUserUid,
+                                        )
+                                        .eqOrNull(
+                                          'course_id',
+                                          widget.lesson?.courseId,
+                                        ),
+                                  );
+                                  await action_blocks.calculateStreak(context);
+                                  if (widget.lesson!.hasMission!) {
+                                    _model.mission1 =
+                                        await MissionsCatalogTable().queryRows(
                                       queryFn: (q) => q.eqOrNull(
-                                        'user_id',
-                                        currentUserUid,
+                                        'lesson_id',
+                                        widget.lesson?.id,
                                       ),
                                     );
-                                    _model.streak2 =
-                                        await actions.calculateStreak(
-                                      _model.xpEvents2!
-                                          .map((e) => e.createdAt)
-                                          .toList(),
-                                      FFAppState().currentStreak,
-                                    );
-                                    if (getJsonField(
-                                      _model.streak2!.lastOrNull,
-                                      r'''$.is_streak''',
-                                    )) {
-                                      FFAppState().currentStreak = getJsonField(
-                                        _model.streak2!.elementAtOrNull(1),
-                                        r'''$.streak''',
-                                      );
-                                      await UsersTable().update(
-                                        data: {
-                                          'streak': FFAppState().currentStreak,
-                                        },
-                                        matchingRows: (rows) => rows.eqOrNull(
-                                          'id',
-                                          currentUserUid,
-                                        ),
-                                      );
-                                      await showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                FocusScope.of(dialogContext)
-                                                    .unfocus();
-                                                FocusManager
-                                                    .instance.primaryFocus
-                                                    ?.unfocus();
-                                              },
-                                              child: Container(
-                                                height: double.infinity,
-                                                width: double.infinity,
-                                                child: StreakWidget(
-                                                  streakAmount: getJsonField(
-                                                    _model.streak2
-                                                        ?.elementAtOrNull(1),
-                                                    r'''$.streak''',
-                                                  ).toString(),
-                                                  streakDays: getJsonField(
-                                                    _model.streak2?.firstOrNull,
-                                                    r'''$.active_days''',
-                                                    true,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    }
-                                    if (widget.lesson!.hasMission!) {
-                                      _model.mission1 =
-                                          await MissionsCatalogTable()
-                                              .queryRows(
-                                        queryFn: (q) => q.eqOrNull(
-                                          'lesson_id',
-                                          widget.lesson?.id,
-                                        ),
-                                      );
+                                    _shouldSetState = true;
 
-                                      context.goNamed(
-                                        NewMissionWidget.routeName,
-                                        queryParameters: {
-                                          'mission': serializeParam(
-                                            _model.mission1?.firstOrNull,
-                                            ParamType.SupabaseRow,
-                                          ),
-                                          'lessonXp': serializeParam(
-                                            widget.lesson?.xpReward,
-                                            ParamType.int,
-                                          ),
-                                          'target': serializeParam(
-                                            'course',
-                                            ParamType.String,
-                                          ),
-                                          'course': serializeParam(
-                                            widget.course,
-                                            ParamType.SupabaseRow,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    } else {
-                                      context.goNamed(
-                                        CourseCompleteWidget.routeName,
-                                        queryParameters: {
-                                          'lessonXp': serializeParam(
-                                            widget.lesson?.xpReward,
-                                            ParamType.int,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          '__transition_info__': TransitionInfo(
-                                            hasTransition: true,
-                                            transitionType:
-                                                PageTransitionType.fade,
-                                            duration: Duration(milliseconds: 0),
-                                          ),
-                                        },
-                                      );
-                                    }
+                                    context.goNamed(
+                                      NewMissionWidget.routeName,
+                                      queryParameters: {
+                                        'mission': serializeParam(
+                                          _model.mission1?.firstOrNull,
+                                          ParamType.SupabaseRow,
+                                        ),
+                                        'lessonXp': serializeParam(
+                                          widget.lesson?.xpReward,
+                                          ParamType.int,
+                                        ),
+                                        'target': serializeParam(
+                                          'course',
+                                          ParamType.String,
+                                        ),
+                                        'course': serializeParam(
+                                          widget.course,
+                                          ParamType.SupabaseRow,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   } else {
-                                    _model.xpEvents1 =
-                                        await XpEventsTable().queryRows(
-                                      queryFn: (q) => q.eqOrNull(
-                                        'user_id',
-                                        currentUserUid,
-                                      ),
-                                    );
-                                    _model.streak1 =
-                                        await actions.calculateStreak(
-                                      _model.xpEvents1!
-                                          .map((e) => e.createdAt)
-                                          .toList(),
-                                      FFAppState().currentStreak,
-                                    );
-                                    if (getJsonField(
-                                      _model.streak1!.lastOrNull,
-                                      r'''$.is_streak''',
-                                    )) {
-                                      FFAppState().currentStreak = getJsonField(
-                                        _model.streak1!.elementAtOrNull(1),
-                                        r'''$.streak''',
-                                      );
-                                      await UsersTable().update(
-                                        data: {
-                                          'streak': FFAppState().currentStreak,
-                                        },
-                                        matchingRows: (rows) => rows.eqOrNull(
-                                          'id',
-                                          currentUserUid,
+                                    context.goNamed(
+                                      CourseCompleteWidget.routeName,
+                                      queryParameters: {
+                                        'lessonXp': serializeParam(
+                                          widget.lesson?.xpReward,
+                                          ParamType.int,
                                         ),
-                                      );
-                                      await showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                FocusScope.of(dialogContext)
-                                                    .unfocus();
-                                                FocusManager
-                                                    .instance.primaryFocus
-                                                    ?.unfocus();
-                                              },
-                                              child: Container(
-                                                height: double.infinity,
-                                                width: double.infinity,
-                                                child: StreakWidget(
-                                                  streakAmount: getJsonField(
-                                                    _model.streak1
-                                                        ?.elementAtOrNull(1),
-                                                    r'''$.streak''',
-                                                  ).toString(),
-                                                  streakDays: getJsonField(
-                                                    _model.streak1?.lastOrNull,
-                                                    r'''$.active_days''',
-                                                    true,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    }
-                                    if (widget.lesson!.hasMission!) {
-                                      _model.mission2 =
-                                          await MissionsCatalogTable()
-                                              .queryRows(
-                                        queryFn: (q) => q.eqOrNull(
-                                          'lesson_id',
-                                          widget.lesson?.id,
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        '__transition_info__': TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
                                         ),
-                                      );
-
-                                      context.goNamed(
-                                        NewMissionWidget.routeName,
-                                        queryParameters: {
-                                          'mission': serializeParam(
-                                            _model.mission2?.firstOrNull,
-                                            ParamType.SupabaseRow,
-                                          ),
-                                          'lessonXp': serializeParam(
-                                            widget.lesson?.xpReward,
-                                            ParamType.int,
-                                          ),
-                                          'target': serializeParam(
-                                            'lesson',
-                                            ParamType.String,
-                                          ),
-                                          'course': serializeParam(
-                                            widget.course,
-                                            ParamType.SupabaseRow,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    } else {
-                                      context.goNamed(
-                                        LessonCompleteWidget.routeName,
-                                        queryParameters: {
-                                          'lessonXp': serializeParam(
-                                            widget.lesson?.xpReward,
-                                            ParamType.int,
-                                          ),
-                                          'course': serializeParam(
-                                            widget.course,
-                                            ParamType.SupabaseRow,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          '__transition_info__': TransitionInfo(
-                                            hasTransition: true,
-                                            transitionType:
-                                                PageTransitionType.fade,
-                                            duration: Duration(milliseconds: 0),
-                                          ),
-                                        },
-                                      );
-                                    }
+                                      },
+                                    );
                                   }
 
-                                  safeSetState(() {});
-                                },
-                              ),
+                                  if (_shouldSetState) safeSetState(() {});
+                                  return;
+                                } else {
+                                  await action_blocks.calculateStreak(context);
+                                  if (widget.lesson!.hasMission!) {
+                                    _model.mission2 =
+                                        await MissionsCatalogTable().queryRows(
+                                      queryFn: (q) => q.eqOrNull(
+                                        'lesson_id',
+                                        widget.lesson?.id,
+                                      ),
+                                    );
+                                    _shouldSetState = true;
+
+                                    context.goNamed(
+                                      NewMissionWidget.routeName,
+                                      queryParameters: {
+                                        'mission': serializeParam(
+                                          _model.mission2?.firstOrNull,
+                                          ParamType.SupabaseRow,
+                                        ),
+                                        'lessonXp': serializeParam(
+                                          widget.lesson?.xpReward,
+                                          ParamType.int,
+                                        ),
+                                        'target': serializeParam(
+                                          'lesson',
+                                          ParamType.String,
+                                        ),
+                                        'course': serializeParam(
+                                          widget.course,
+                                          ParamType.SupabaseRow,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  } else {
+                                    context.goNamed(
+                                      LessonCompleteWidget.routeName,
+                                      queryParameters: {
+                                        'lessonXp': serializeParam(
+                                          widget.lesson?.xpReward,
+                                          ParamType.int,
+                                        ),
+                                        'course': serializeParam(
+                                          widget.course,
+                                          ParamType.SupabaseRow,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        '__transition_info__': TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
+                                        ),
+                                      },
+                                    );
+                                  }
+
+                                  if (_shouldSetState) safeSetState(() {});
+                                  return;
+                                }
+
+                                if (_shouldSetState) safeSetState(() {});
+                              },
                             ),
                           ),
                           Align(

@@ -14,8 +14,8 @@ class LevelsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => LevelsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get name => getField<String>('name');
   set name(String? value) => setField<String>('name', value);
@@ -29,6 +29,6 @@ class LevelsRow extends SupabaseDataRow {
   int? get maxXp => getField<int>('max_xp');
   set maxXp(int? value) => setField<int>('max_xp', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

@@ -115,7 +115,7 @@
       </dict>
     </array>
     <key>FlutterDeepLinkingEnabled</key>
-    <true/>
+    <false/>
     <key>CFBundleVersion</key>
     <string>$(FLUTTER_BUILD_NUMBER)</string>
     <key>LSRequiresIPhoneOS</key>
@@ -161,10 +161,5 @@
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
-    <!-- Add this NEW section for Background Tasks -->
-    <key>BGTaskSchedulerPermittedIdentifiers</key>
-    <array>
-      <string>com.tinochiwara.ievangelize.relock</string>
-    </array>
   </dict>
 </plist>

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -32,68 +31,6 @@ class DeleteUserCall {
   }
 }
 
-class OpenAIAPICall {
-  static Future<ApiCallResponse> call({
-    String? situation = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "situation": "<${situation}>"
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'OpenAI API',
-      apiUrl: 'https://api.ievangelize.app/functions/v1/openai-json',
-      callType: ApiCallType.POST,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  static bool? success(dynamic response) => castToType<bool>(getJsonField(
-        response,
-        r'''$.success''',
-      ));
-  static String? pray(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$.Pray''',
-      ));
-}
-
-class SearchResourcesCall {
-  static Future<ApiCallResponse> call({
-    String? supabaseKey =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2b2Z6a3BieGp0am9maHBkY3V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTI4Nzk4OTUsImV4cCI6MjAyODQ1NTg5NX0.p7VWByVny8KrEJF_SXuTPVTtctCyMou7Bwxr2X4CszU',
-    String? keyword = '',
-  }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Search Resources',
-      apiUrl:
-          'https://api.ievangelize.app/rest/v1/resources?search_metadata_tsv=plfts(english).${keyword}',
-      callType: ApiCallType.GET,
-      headers: {
-        'apikey': '${supabaseKey}',
-      },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
 class AllocateCurrentCourseCall {
   static Future<ApiCallResponse> call({
     String? userId = '',
@@ -101,7 +38,7 @@ class AllocateCurrentCourseCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "user_id": "${userId}"
+  "user_id": ${userId == null ? 'null' : '"${userId}"'}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Allocate Current Course',
@@ -125,61 +62,6 @@ class AllocateCurrentCourseCall {
   }
 }
 
-class EvangelismpediaFirstCall {
-  static Future<ApiCallResponse> call({
-    String? token = '',
-    String? userText = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "prompt": {
-    "id": "pmpt_690e81b0b1e481949a50453573ad77340d03b364c0bfcc60"
-  },
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "${escapeStringForJson(userText)}"
-        }
-      ]
-    }
-  ],
-  "text": {
-    "format": {
-      "type": "text"
-    }
-  },
-  "store": true,
-  "stream": true
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'Evangelismpedia First',
-      apiUrl: 'https://api.openai.com/v1/responses',
-      callType: ApiCallType.POST,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${token}',
-      },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: true,
-      alwaysAllowBody: false,
-    );
-  }
-
-  static String? reponseId(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$.response.id''',
-      ));
-}
-
 class ConversationStartersCall {
   static Future<ApiCallResponse> call({
     String? token = '',
@@ -187,34 +69,17 @@ class ConversationStartersCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "prompt": {
-    "id": "pmpt_692b7c07ff448194bb43c9e3128d66a20b4e4a3edbb342b1"
-  },
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "${escapeStringForJson(userText)} json"
-        }
-      ]
-    }
-  ],
-  "text": {
-    "format": {
-      "type": "json_object"
-    }
-  },
-  "store": true
+  "user_text": ${userText == null ? 'null' : '"${escapeStringForJson(userText)}"'}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Conversation Starters',
-      apiUrl: 'https://api.openai.com/v1/responses',
+      apiUrl:
+          'https://api.ievangelize.app/functions/v1/conversation-starters-openai',
       callType: ApiCallType.POST,
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': 'Bearer ${token}',
+        'apikey': '${token}',
+        'Content-Type': 'application/json',
       },
       params: {},
       body: ffApiRequestBody,
@@ -228,66 +93,14 @@ class ConversationStartersCall {
     );
   }
 
-  static dynamic content(dynamic response) => getJsonField(
+  static dynamic response(dynamic response) => getJsonField(
         response,
-        r'''$.output[:].content[:].text''',
+        r'''$.data''',
       );
-}
-
-class EvangelismpediaNextMessageCall {
-  static Future<ApiCallResponse> call({
-    String? token = '',
-    String? userText = '',
-    String? previousResponseId = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "prompt": {
-    "id": "pmpt_690e81b0b1e481949a50453573ad77340d03b364c0bfcc60"
-  },
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "${escapeStringForJson(userText)}"
-        }
-      ]
-    }
-  ],
-  "text": {
-    "format": {
-      "type": "text"
-    }
-  },
-  "previous_response_id": "${escapeStringForJson(previousResponseId)}",
-  "store": true,
-  "stream": true
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'Evangelismpedia Next Message',
-      apiUrl: 'https://api.openai.com/v1/responses',
-      callType: ApiCallType.POST,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${token}',
-      },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: true,
-      alwaysAllowBody: false,
-    );
-  }
-
-  static String? reponseId(dynamic response) => castToType<String>(getJsonField(
+  static bool? responsSuccess(dynamic response) =>
+      castToType<bool>(getJsonField(
         response,
-        r'''$.response.id''',
+        r'''$.data.success''',
       ));
 }
 
@@ -303,8 +116,8 @@ class SendPushNotificationCall {
     final ffApiRequestBody = '''
 {
   "user_ids": ${userIds},
-  "title": "${escapeStringForJson(title)}",
-  "body": "${escapeStringForJson(body)}"
+  "title": ${title == null ? 'null' : '"${escapeStringForJson(title)}"'},
+  "body": ${body == null ? 'null' : '"${escapeStringForJson(body)}"'}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Send Push Notification',
@@ -334,60 +147,17 @@ class SimulatorAnalyzerCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "prompt": {
-    "id": "pmpt_69376bbfe8108197a06cc8aece4db8a107ce2a98a848e0a8"
-  },
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "${escapeStringForJson(conversation)}"
-        }
-      ]
-    }
-  ],
-  "tools": [
-    {
-      "type": "function",
-      "name": "generate_evangelism_feedback",
-      "parameters": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "feedback_title",
-          "response"
-        ],
-        "properties": {
-          "feedback_title": {
-            "type": "string",
-            "minLength": 1,
-            "description": "A short descriptive title about the conversation."
-          },
-          "response": {
-            "type": "string",
-            "minLength": 1,
-            "description": "A single markdown block containing the feedback with exact required sections and bullet rules."
-          }
-        }
-      },
-      "strict": true
-    }
-  ],
-  "tool_choice": {
-    "type": "function",
-    "name": "generate_evangelism_feedback"
-  },
-  "store": true
+  "conversation": ${conversation == null ? 'null' : '"${escapeStringForJson(conversation)}"'}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Simulator Analyzer',
-      apiUrl: 'https://api.openai.com/v1/responses',
+      apiUrl:
+          'https://api.ievangelize.app/functions/v1/simulator-analyzer-openai',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${token}',
+        'apikey': '${token}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -401,9 +171,15 @@ class SimulatorAnalyzerCall {
     );
   }
 
-  static String? arguments(dynamic response) => castToType<String>(getJsonField(
+  static String? feedbackTitle(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
-        r'''$.output[:].arguments''',
+        r'''$.feedback_title''',
+      ));
+  static String? feedbackResponse(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.response''',
       ));
 }
 
@@ -414,34 +190,16 @@ class PersonaAIFirstCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "prompt": {
-    "id": "pmpt_692b7d42f2e48197a03e9b138f8134be0557a15cffba815b"
-  },
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "${escapeStringForJson(userWords)}"
-        }
-      ]
-    }
-  ],
-  "text": {
-    "format": {
-      "type": "text"
-    }
-  },
-  "store": true
+  "userWords": ${userWords == null ? 'null' : '"${escapeStringForJson(userWords)}"'}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Persona AI First',
-      apiUrl: 'https://api.openai.com/v1/responses',
+      apiUrl: 'https://api.ievangelize.app/functions/v1/persona-ai-first',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${token}',
+        'apikey': '${token}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -457,12 +215,48 @@ class PersonaAIFirstCall {
 
   static String? response(dynamic response) => castToType<String>(getJsonField(
         response,
-        r'''$.output[:].content[:].text''',
+        r'''$.response''',
       ));
   static String? responseID(dynamic response) =>
       castToType<String>(getJsonField(
         response,
-        r'''$.id''',
+        r'''$.openai_response_id''',
+      ));
+}
+
+class PrayerAICall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+    String? targetDescription = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "targetDescription": ${targetDescription == null ? 'null' : '"${escapeStringForJson(targetDescription)}"'}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Prayer AI',
+      apiUrl: 'https://api.ievangelize.app/functions/v1/prayer-ai-openai',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${token}',
+        'apikey': '${token}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? response(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.response''',
       ));
 }
 
@@ -474,35 +268,17 @@ class PersonaAINextCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "prompt": {
-    "id": "pmpt_692b7d42f2e48197a03e9b138f8134be0557a15cffba815b"
-  },
-  "input": [
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "input_text",
-          "text": "${escapeStringForJson(userWords)}"
-        }
-      ]
-    }
-  ],
-  "text": {
-    "format": {
-      "type": "text"
-    }
-  },
-  "previous_response_id": "${escapeStringForJson(previousResponseId)}",
-  "store": true
+  "userWords": ${userWords == null ? 'null' : '"${escapeStringForJson(userWords)}"'},
+  "previousResponseId": ${previousResponseId == null ? 'null' : '"${escapeStringForJson(previousResponseId)}"'}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Persona AI Next',
-      apiUrl: 'https://api.openai.com/v1/responses',
+      apiUrl: 'https://api.ievangelize.app/functions/v1/persona-ai-next',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${token}',
+        'apikey': '${token}',
       },
       params: {},
       body: ffApiRequestBody,
@@ -518,12 +294,12 @@ class PersonaAINextCall {
 
   static String? response(dynamic response) => castToType<String>(getJsonField(
         response,
-        r'''$.output[:].content[:].text''',
+        r'''$.response''',
       ));
   static String? responseID(dynamic response) =>
       castToType<String>(getJsonField(
         response,
-        r'''$.id''',
+        r'''$.openai_response_id''',
       ));
   static String? previousResponseID(dynamic response) =>
       castToType<String>(getJsonField(
@@ -580,9 +356,6 @@ String? escapeStringForJson(String? input) {
   if (input == null) {
     return null;
   }
-  return input
-      .replaceAll('\\', '\\\\')
-      .replaceAll('"', '\\"')
-      .replaceAll('\n', '\\n')
-      .replaceAll('\t', '\\t');
+  final encoded = jsonEncode(input);
+  return encoded.substring(1, encoded.length - 1);
 }

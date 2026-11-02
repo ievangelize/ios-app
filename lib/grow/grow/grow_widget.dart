@@ -3,7 +3,6 @@ import '/backend/supabase/supabase.dart';
 import '/components/course_locked/course_locked_widget.dart';
 import '/components/explore_loading/explore_loading_widget.dart';
 import '/components/explore_row_loading/explore_row_loading_widget.dart';
-import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
@@ -200,7 +199,11 @@ class _GrowWidgetState extends State<GrowWidget> {
                                       ),
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: FaIcon(
-                                        FontAwesomeIcons.solidHeart,
+                                        FaIconData(const IconData(
+                                            /* solidHeart */ 0xf004,
+                                            fontFamily: 'FontAwesomeSolid',
+                                            fontPackage:
+                                                'font_awesome_flutter')),
                                         color: Color(0xFFF13A28),
                                         size: 18.0,
                                       ),
@@ -746,8 +749,12 @@ class _GrowWidgetState extends State<GrowWidget> {
                                                                               0.0),
                                                                       child:
                                                                           FaIcon(
-                                                                        FontAwesomeIcons
-                                                                            .lock,
+                                                                        FaIconData(const IconData(
+                                                                            /* lock */ 0xf023,
+                                                                            fontFamily:
+                                                                                'FontAwesomeSolid',
+                                                                            fontPackage:
+                                                                                'font_awesome_flutter')),
                                                                         color: Color(
                                                                             0xCBFFFFFF),
                                                                         size:
@@ -794,16 +801,6 @@ class _GrowWidgetState extends State<GrowWidget> {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
-                    child: wrapWithModel(
-                      model: _model.navBarModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: NavBarWidget(
-                        selectedPage: 'grow',
-                      ),
                     ),
                   ),
                 ],

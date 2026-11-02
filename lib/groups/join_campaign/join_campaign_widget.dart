@@ -263,6 +263,15 @@ class _JoinCampaignWidgetState extends State<JoinCampaignWidget> {
                                     _model.campaign?.firstOrNull?.groupId,
                                 'role': 'member',
                               });
+                              await UsersTable().update(
+                                data: {
+                                  'joined_group': true,
+                                },
+                                matchingRows: (rows) => rows.eqOrNull(
+                                  'id',
+                                  currentUserUid,
+                                ),
+                              );
                             }
                             await UserCampaignsTable().insert({
                               'user_id': currentUserUid,
@@ -270,7 +279,7 @@ class _JoinCampaignWidgetState extends State<JoinCampaignWidget> {
                               'role': 'member',
                             });
 
-                            context.pushNamed(
+                            context.goNamed(
                               CampaignDetailWidget.routeName,
                               queryParameters: {
                                 'campaign': serializeParam(

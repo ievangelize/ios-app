@@ -1,3 +1,5 @@
+import '/auth/supabase_auth/auth_util.dart';
+import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -5,6 +7,7 @@ import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'notifications_model.dart';
 export 'notifications_model.dart';
 
@@ -41,6 +44,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -48,7 +53,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
           child: Column(
@@ -63,7 +68,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Make talking about Jesus \na habit',
+                        'Crucial Reminders',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
@@ -86,7 +91,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         child: Text(
-                          'Would you like to receive reminders to stay consistent in your evangelism journey?',
+                          'Stay accountable with your friends and consistent with your evangelism journery ',
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -139,9 +144,20 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           await actions.setFCMToken();
+                                          await UsersTable().update(
+                                            data: {
+                                              'fcm_token':
+                                                  FFAppState().fcmToken,
+                                            },
+                                            matchingRows: (rows) =>
+                                                rows.eqOrNull(
+                                              'id',
+                                              currentUserUid,
+                                            ),
+                                          );
 
                                           context.goNamed(
-                                            FriendsOnboardWidget.routeName,
+                                            CommitmentWidget.routeName,
                                             extra: <String, dynamic>{
                                               '__transition_info__':
                                                   TransitionInfo(
@@ -182,13 +198,22 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     updateCallback: () => safeSetState(() {}),
                     child: LargeBtnWidget(
                       text: 'Continue',
-                      color: FlutterFlowTheme.of(context).secondary,
+                      color: Color(0xFF864AF9),
                       textColor: FlutterFlowTheme.of(context).info,
                       action: () async {
                         await actions.setFCMToken();
+                        await UsersTable().update(
+                          data: {
+                            'fcm_token': FFAppState().fcmToken,
+                          },
+                          matchingRows: (rows) => rows.eqOrNull(
+                            'id',
+                            currentUserUid,
+                          ),
+                        );
 
                         context.goNamed(
-                          FriendsOnboardWidget.routeName,
+                          CommitmentWidget.routeName,
                           extra: <String, dynamic>{
                             '__transition_info__': TransitionInfo(
                               hasTransition: true,

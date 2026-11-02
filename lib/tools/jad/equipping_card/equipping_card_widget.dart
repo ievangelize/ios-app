@@ -1,15 +1,13 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/streak/streak_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
-import '/custom_code/actions/index.dart' as actions;
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'equipping_card_model.dart';
 export 'equipping_card_model.dart';
 
@@ -46,8 +44,6 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -59,112 +55,36 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
-          leading: Builder(
-            builder: (context) => InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                unawaited(
-                  () async {
-                    await XpEventsTable().insert({
-                      'user_id': currentUserUid,
-                      'delta': 0,
-                      'reason': 'jad equipping card',
-                      'idempotency_key': random_data.randomString(
-                        16,
-                        16,
-                        true,
-                        true,
-                        true,
-                      ),
-                      'qualified_for_streak': true,
-                    });
-                  }(),
-                );
-                _model.xpEvents = await XpEventsTable().queryRows(
-                  queryFn: (q) => q.eqOrNull(
-                    'user_id',
-                    currentUserUid,
-                  ),
-                );
-                _model.streak = await actions.calculateStreak(
-                  _model.xpEvents!.map((e) => e.createdAt).toList(),
-                  FFAppState().currentStreak,
-                );
-                if (getJsonField(
-                  _model.streak!.lastOrNull,
-                  r'''$.is_streak''',
-                )) {
-                  await showDialog(
-                    barrierColor:
-                        FlutterFlowTheme.of(context).primaryBackground,
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (dialogContext) {
-                      return Dialog(
-                        elevation: 0,
-                        insetPadding: EdgeInsets.zero,
-                        backgroundColor: Colors.transparent,
-                        alignment: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        child: GestureDetector(
-                          onTap: () {
-                            FocusScope.of(dialogContext).unfocus();
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          },
-                          child: Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            child: StreakWidget(
-                              streakAmount: getJsonField(
-                                _model.streak?.elementAtOrNull(1),
-                                r'''$.streak''',
-                              ).toString(),
-                              streakDays: getJsonField(
-                                _model.streak?.firstOrNull,
-                                r'''$.active_days''',
-                                true,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-
-                  FFAppState().currentStreak = getJsonField(
-                    _model.streak!.elementAtOrNull(1),
-                    r'''$.streak''',
-                  );
-                  FFAppState().activeDays = getJsonField(
-                    _model.streak!.firstOrNull,
-                    r'''$.active_days''',
-                    true,
-                  )!
-                      .toList()
-                      .cast<dynamic>();
-                  FFAppState().update(() {});
-                  await UsersTable().update(
-                    data: {
-                      'streak': FFAppState().currentStreak,
-                    },
-                    matchingRows: (rows) => rows.eqOrNull(
-                      'id',
-                      currentUserUid,
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              unawaited(
+                () async {
+                  await XpEventsTable().insert({
+                    'user_id': currentUserUid,
+                    'delta': 0,
+                    'reason': 'jad equipping card',
+                    'idempotency_key': random_data.randomString(
+                      16,
+                      16,
+                      true,
+                      true,
+                      true,
                     ),
-                  );
-                }
-                context.safePop();
-
-                safeSetState(() {});
-              },
-              child: Icon(
-                Icons.close,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 25.0,
-              ),
+                    'qualified_for_streak': true,
+                  });
+                }(),
+              );
+              await action_blocks.calculateStreak(context);
+              context.safePop();
+            },
+            child: Icon(
+              Icons.close,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 25.0,
             ),
           ),
           actions: [],
@@ -182,13 +102,16 @@ class _EquippingCardWidgetState extends State<EquippingCardWidget> {
               children: [
                 FlipCard(
                   fill: Fill.fillBack,
+                  controller: _model.flippableCardController,
+                  onFlip: () => _model.flippableCardIsFront =
+                      !_model.flippableCardIsFront,
                   direction: FlipDirection.HORIZONTAL,
                   speed: 250,
                   front: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(
-                        color: FlutterFlowTheme.of(context).secondaryText,
+                        color: FlutterFlowTheme.of(context).dfdfdf,
                         width: 1.0,
                       ),
                     ),

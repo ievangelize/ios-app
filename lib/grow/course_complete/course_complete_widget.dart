@@ -324,9 +324,17 @@ class _CourseCompleteWidgetState extends State<CourseCompleteWidget> {
                                   color: FlutterFlowTheme.of(context).secondary,
                                   textColor: FlutterFlowTheme.of(context).info,
                                   action: () async {
-                                    FFAppState().clearHomeCourseCache();
+                                    FFAppState().clearUlpsCache();
 
-                                    context.goNamed(PathwayWidget.routeName);
+                                    context.goNamed(
+                                      MainHomeWidget.routeName,
+                                      queryParameters: {
+                                        'tabIndex': serializeParam(
+                                          3,
+                                          ParamType.int,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   },
                                 ),
                               ),
@@ -343,9 +351,17 @@ class _CourseCompleteWidgetState extends State<CourseCompleteWidget> {
                                   textColor:
                                       FlutterFlowTheme.of(context).primaryText,
                                   action: () async {
-                                    FFAppState().clearHomeCourseCache();
-
-                                    context.goNamed(GrowWidget.routeName);
+                                    context.goNamed(
+                                      MainHomeWidget.routeName,
+                                      extra: <String, dynamic>{
+                                        '__transition_info__': TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
+                                        ),
+                                      },
+                                    );
                                   },
                                 ),
                               ),

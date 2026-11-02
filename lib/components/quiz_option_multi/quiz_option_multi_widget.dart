@@ -54,7 +54,7 @@ class _QuizOptionMultiWidgetState extends State<QuizOptionMultiWidget> {
         final currentLoop1Item = widget.supabaseOptionsList!
             .where((e) => e.isCorrect!)
             .toList()[loop1Index];
-        _model.addToCorrectOptionIds(currentLoop1Item.id);
+        _model.addToCorrectOptionIds(currentLoop1Item.id!);
         safeSetState(() {});
       }
     });
@@ -89,7 +89,7 @@ class _QuizOptionMultiWidgetState extends State<QuizOptionMultiWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      _model.addToSelectedOptionIds(optionsListItem.id);
+                      _model.addToSelectedOptionIds(optionsListItem.id!);
                       safeSetState(() {});
                     },
                     child: Container(
@@ -162,7 +162,10 @@ class _QuizOptionMultiWidgetState extends State<QuizOptionMultiWidget> {
                                     .contains(optionsListItem.id) &&
                                 (_model.checkedAnswer == true))
                               FaIcon(
-                                FontAwesomeIcons.solidCheckCircle,
+                                FaIconData(const IconData(
+                                    /* solidCheckCircle */ 0xf058,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: valueOrDefault<Color>(
                                   _model.correctOptionIds
                                               .contains(optionsListItem.id) &&

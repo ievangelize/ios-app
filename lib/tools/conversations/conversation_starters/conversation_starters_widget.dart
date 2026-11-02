@@ -1,10 +1,10 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/streak/streak_widget.dart';
 import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
@@ -77,107 +77,31 @@ class _ConversationStartersWidgetState
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
-          leading: Builder(
-            builder: (context) => InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                unawaited(
-                  () async {
-                    await XpEventsTable().insert({
-                      'user_id': currentUserUid,
-                      'delta': 0,
-                      'reason': 'ai conversation stater',
-                      'idempotency_key':
-                          random_data.randomInteger(0, 16).toString(),
-                      'qualified_for_streak': true,
-                    });
-                  }(),
-                );
-                _model.xpEvents = await XpEventsTable().queryRows(
-                  queryFn: (q) => q.eqOrNull(
-                    'user_id',
-                    currentUserUid,
-                  ),
-                );
-                _model.streak = await actions.calculateStreak(
-                  _model.xpEvents!.map((e) => e.createdAt).toList(),
-                  FFAppState().currentStreak,
-                );
-                if (getJsonField(
-                  _model.streak!.lastOrNull,
-                  r'''$.is_streak''',
-                )) {
-                  await showDialog(
-                    barrierColor:
-                        FlutterFlowTheme.of(context).primaryBackground,
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (dialogContext) {
-                      return Dialog(
-                        elevation: 0,
-                        insetPadding: EdgeInsets.zero,
-                        backgroundColor: Colors.transparent,
-                        alignment: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        child: GestureDetector(
-                          onTap: () {
-                            FocusScope.of(dialogContext).unfocus();
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          },
-                          child: Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            child: StreakWidget(
-                              streakAmount: getJsonField(
-                                _model.streak?.elementAtOrNull(1),
-                                r'''$.streak''',
-                              ).toString(),
-                              streakDays: getJsonField(
-                                _model.streak?.firstOrNull,
-                                r'''$.active_days''',
-                                true,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-
-                  FFAppState().currentStreak = getJsonField(
-                    _model.streak!.elementAtOrNull(1),
-                    r'''$.streak''',
-                  );
-                  FFAppState().activeDays = getJsonField(
-                    _model.streak!.firstOrNull,
-                    r'''$.active_days''',
-                    true,
-                  )!
-                      .toList()
-                      .cast<dynamic>();
-                  FFAppState().update(() {});
-                  await UsersTable().update(
-                    data: {
-                      'streak': FFAppState().currentStreak,
-                    },
-                    matchingRows: (rows) => rows.eqOrNull(
-                      'id',
-                      currentUserUid,
-                    ),
-                  );
-                }
-                context.safePop();
-
-                safeSetState(() {});
-              },
-              child: Icon(
-                Icons.close,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 25.0,
-              ),
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              unawaited(
+                () async {
+                  await XpEventsTable().insert({
+                    'user_id': currentUserUid,
+                    'delta': 0,
+                    'reason': 'ai conversation stater',
+                    'idempotency_key':
+                        random_data.randomInteger(0, 16).toString(),
+                    'qualified_for_streak': true,
+                  });
+                }(),
+              );
+              await action_blocks.calculateStreak(context);
+              context.safePop();
+            },
+            child: Icon(
+              Icons.close,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 25.0,
             ),
           ),
           actions: [],
@@ -228,7 +152,27 @@ class _ConversationStartersWidgetState
                                   ],
                                   borderRadius: BorderRadius.circular(24.0),
                                   border: Border.all(
-                                    color: FlutterFlowTheme.of(context).accent1,
+                                    color: valueOrDefault<Color>(
+                                      () {
+                                        if ('${getJsonField(
+                                              startersItem,
+                                              r'''$.type''',
+                                            ).toString()}' ==
+                                            'generic') {
+                                          return Color(0x7322C55E);
+                                        } else if ('${getJsonField(
+                                              startersItem,
+                                              r'''$.type''',
+                                            ).toString()}' ==
+                                            'tailored') {
+                                          return Color(0x74F97316);
+                                        } else {
+                                          return Color(0x73864AF9);
+                                        }
+                                      }(),
+                                      FlutterFlowTheme.of(context).secondary,
+                                    ),
+                                    width: 4.0,
                                   ),
                                 ),
                                 child: Stack(
@@ -283,11 +227,16 @@ class _ConversationStartersWidgetState
                                           ),
                                         ),
                                       ),
-                                    if ('${getJsonField(
-                                              startersItem,
-                                              r'''$.type''',
-                                            ).toString()}' ==
-                                            'starter'
+                                    if (('${getJsonField(
+                                                  startersItem,
+                                                  r'''$.type''',
+                                                ).toString()}' ==
+                                                'generic') ||
+                                            ('${getJsonField(
+                                                  startersItem,
+                                                  r'''$.type''',
+                                                ).toString()}' ==
+                                                'tailored')
                                         ? true
                                         : false)
                                       Align(
@@ -337,19 +286,48 @@ class _ConversationStartersWidgetState
                                   width: 175.0,
                                   height: 37.0,
                                   decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                    color: valueOrDefault<Color>(
+                                      () {
+                                        if ('${getJsonField(
+                                              startersItem,
+                                              r'''$.type''',
+                                            ).toString()}' ==
+                                            'generic') {
+                                          return Color(0xFF22C55E);
+                                        } else if ('${getJsonField(
+                                              startersItem,
+                                              r'''$.type''',
+                                            ).toString()}' ==
+                                            'tailored') {
+                                          return Color(0xFFF97316);
+                                        } else {
+                                          return FlutterFlowTheme.of(context)
+                                              .secondary;
+                                        }
+                                      }(),
+                                      FlutterFlowTheme.of(context).secondary,
+                                    ),
                                     borderRadius: BorderRadius.circular(37.0),
                                   ),
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Text(
-                                    '${getJsonField(
-                                              startersItem,
-                                              r'''$.type''',
-                                            ).toString()}' ==
-                                            'starter'
-                                        ? 'Conversation starter'
-                                        : 'Here\'s a tip',
+                                    () {
+                                      if ('${getJsonField(
+                                            startersItem,
+                                            r'''$.type''',
+                                          ).toString()}' ==
+                                          'generic') {
+                                        return 'General';
+                                      } else if ('${getJsonField(
+                                            startersItem,
+                                            r'''$.type''',
+                                          ).toString()}' ==
+                                          'tailored') {
+                                        return 'Tailored';
+                                      } else {
+                                        return 'Tip';
+                                      }
+                                    }(),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

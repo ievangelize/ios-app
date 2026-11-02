@@ -14,8 +14,8 @@ class FormsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => FormsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get campaignId => getField<String>('campaign_id');
   set campaignId(String? value) => setField<String>('campaign_id', value);
@@ -29,6 +29,6 @@ class FormsRow extends SupabaseDataRow {
   bool? get isLocked => getField<bool>('is_locked');
   set isLocked(bool? value) => setField<bool>('is_locked', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

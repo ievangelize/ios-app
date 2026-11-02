@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names, depend_on_referenced_packages, prefer_final_fields
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
@@ -15,7 +14,6 @@ import 'package:http/browser_client.dart'
     if (dart.library.io) 'browser_client_stub.dart';
 
 import '/flutter_flow/uploaded_file.dart';
-import '/backend/api_requests/api_streaming.dart';
 
 import 'get_streamed_response.dart';
 
@@ -262,38 +260,6 @@ class ApiManager {
   // If your API calls need authentication, populate this field once
   // the user has authenticated. Alter this as needed.
   static String? _accessToken;
-  // Map of active streaming response subscriptions
-  // Key is a unique identifier for the subscription
-  // Value is the stream subscription
-  final Map<String, StreamSubscription<ResponseStreamMessage>>
-      _activeStreamingResponseSubscriptions = {};
-
-  // Add a new active streaming response subscription
-  void addActiveStreamingResponseSubscription(
-    String subscriptionKey,
-    StreamSubscription<ResponseStreamMessage>? subscription,
-  ) {
-    // Check if the subscription key is empty or if the subscription is null
-    if (subscriptionKey.isEmpty || subscription == null) {
-      return;
-    }
-    // Add the subscription to the map
-    _activeStreamingResponseSubscriptions[subscriptionKey] = subscription;
-  }
-
-  // Cancel an active streaming response subscription
-  Future<void> cancelActiveStreamingResponseSubscription(
-    String subscriptionKey,
-  ) async {
-    // Check if the subscription key is in the map
-    if (_activeStreamingResponseSubscriptions.containsKey(subscriptionKey)) {
-      // Cancel the subscription
-      await _activeStreamingResponseSubscriptions[subscriptionKey]!.cancel();
-    }
-    // Remove the subscription from the map
-    _activeStreamingResponseSubscriptions.remove(subscriptionKey);
-  }
-
   // You may want to call this if, for example, you make a change to the
   // database and no longer want the cached result of a call that may
   // have changed.
@@ -304,7 +270,13 @@ class ApiManager {
   static Map<String, String> toStringMap(Map map) =>
       map.map((key, value) => MapEntry(key.toString(), value.toString()));
 
-  static String asQueryParams(Map<String, dynamic> map) => map.entries
+  // Null values are omitted rather than sent as the string "null".
+  static Map<String, dynamic> withoutNullValues(Map<String, dynamic> map) =>
+      Map.fromEntries(map.entries.where((e) => e.value != null));
+
+  static String asQueryParams(Map<String, dynamic> map) => withoutNullValues(
+          map)
+      .entries
       .map((e) =>
           "${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value.toString())}")
       .join('&');
@@ -419,8 +391,8 @@ class ApiManager {
         e is List<FFUploadedFile> ||
         (e is List && e.firstOrNull is FFUploadedFile);
 
-    final nonFileParams = toStringMap(
-        Map.fromEntries(params.entries.where((e) => !isFile(e.value))));
+    final nonFileParams = toStringMap(Map.fromEntries(
+        withoutNullValues(params).entries.where((e) => !isFile(e.value))));
 
     List<http.MultipartFile> files = [];
     params.entries.where((e) => isFile(e.value)).forEach((e) {
@@ -483,7 +455,7 @@ class ApiManager {
         break;
       case BodyType.X_WWW_FORM_URL_ENCODED:
         contentType = 'application/x-www-form-urlencoded';
-        postBody = toStringMap(params ?? {});
+        postBody = toStringMap(withoutNullValues(params ?? {}));
         break;
       case BodyType.MULTIPART:
         contentType = 'multipart/form-data';

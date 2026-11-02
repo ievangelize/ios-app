@@ -15,8 +15,8 @@ class ActivityReactionsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => ActivityReactionsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get xpEventId => getField<String>('xp_event_id');
   set xpEventId(String? value) => setField<String>('xp_event_id', value);
@@ -27,6 +27,6 @@ class ActivityReactionsRow extends SupabaseDataRow {
   String? get reactionType => getField<String>('reaction_type');
   set reactionType(String? value) => setField<String>('reaction_type', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

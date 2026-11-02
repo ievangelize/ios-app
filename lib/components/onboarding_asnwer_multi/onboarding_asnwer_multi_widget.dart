@@ -70,31 +70,35 @@ class _OnboardingAsnwerMultiWidgetState
                 HapticFeedback.lightImpact();
                 FFAppState().onboardingBtn = true;
                 _model.updatePage(() {});
-                if (FFAppState()
-                    .onboardingSnapshot
-                    .containsMap(<String, String>{
-                  getJsonField(
-                    widget.answersJson,
-                    r'''$.key''',
-                  ).toString(): getJsonField(
-                    answerListItem,
-                    r'''$.id''',
-                  ).toString(),
-                })) {
+                if (FFAppState().onboardingSnapshot.containsMap(getJsonField(
+                      <String, String>{
+                        getJsonField(
+                          widget.answersJson,
+                          r'''$.key''',
+                        ).toString(): getJsonField(
+                          answerListItem,
+                          r'''$.id''',
+                        ).toString(),
+                      },
+                      r'''$.barriers''',
+                    ))) {
                   _model.removeFromSelectedId(getJsonField(
                     answerListItem,
                     r'''$''',
                   ));
                   safeSetState(() {});
-                  FFAppState().removeFromOnboardingSnapshot(<String, String>{
-                    getJsonField(
-                      widget.answersJson,
-                      r'''$.key''',
-                    ).toString(): getJsonField(
-                      answerListItem,
-                      r'''$.id''',
-                    ).toString(),
-                  });
+                  FFAppState().removeFromOnboardingSnapshot(getJsonField(
+                    <String, String>{
+                      getJsonField(
+                        widget.answersJson,
+                        r'''$.key''',
+                      ).toString(): getJsonField(
+                        answerListItem,
+                        r'''$.id''',
+                      ).toString(),
+                    },
+                    r'''$.barriers''',
+                  ));
                   safeSetState(() {});
                   FFAppState().selectedMultiAnswers =
                       FFAppState().selectedMultiAnswers + -1;
@@ -105,15 +109,18 @@ class _OnboardingAsnwerMultiWidgetState
                     r'''$''',
                   ));
                   safeSetState(() {});
-                  FFAppState().addToOnboardingSnapshot(<String, String>{
-                    getJsonField(
-                      widget.answersJson,
-                      r'''$.key''',
-                    ).toString(): getJsonField(
-                      answerListItem,
-                      r'''$.id''',
-                    ).toString(),
-                  });
+                  FFAppState().addToOnboardingSnapshot(getJsonField(
+                    <String, String>{
+                      getJsonField(
+                        widget.answersJson,
+                        r'''$.key''',
+                      ).toString(): getJsonField(
+                        answerListItem,
+                        r'''$.id''',
+                      ).toString(),
+                    },
+                    r'''$.barriers''',
+                  ));
                   safeSetState(() {});
                   FFAppState().selectedMultiAnswers =
                       FFAppState().selectedMultiAnswers + 1;
@@ -129,7 +136,7 @@ class _OnboardingAsnwerMultiWidgetState
                       answerListItem,
                       r'''$''',
                     ))
-                        ? FlutterFlowTheme.of(context).secondary
+                        ? Color(0xFF864AF9)
                         : Color(0xFFF8F7FC),
                     Color(0xFFF8F7FC),
                   ),
@@ -183,7 +190,10 @@ class _OnboardingAsnwerMultiWidgetState
                         child: Align(
                           alignment: AlignmentDirectional(1.0, 0.0),
                           child: FaIcon(
-                            FontAwesomeIcons.solidCheckCircle,
+                            FaIconData(const IconData(
+                                /* solidCheckCircle */ 0xf058,
+                                fontFamily: 'FontAwesomeSolid',
+                                fontPackage: 'font_awesome_flutter')),
                             color: valueOrDefault<Color>(
                               _model.selectedId.containsMap(getJsonField(
                                 answerListItem,

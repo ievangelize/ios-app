@@ -328,7 +328,13 @@ class _ConfirmOTPWidgetState extends State<ConfirmOTPWidget>
                                 );
 
                                 context.goNamed(
-                                  HomeWidget.routeName,
+                                  MainHomeWidget.routeName,
+                                  queryParameters: {
+                                    'tabIndex': serializeParam(
+                                      0,
+                                      ParamType.int,
+                                    ),
+                                  }.withoutNulls,
                                   extra: <String, dynamic>{
                                     '__transition_info__': TransitionInfo(
                                       hasTransition: true,

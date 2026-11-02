@@ -14,8 +14,8 @@ class ChurchesRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => ChurchesTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get name => getField<String>('name');
   set name(String? value) => setField<String>('name', value);
@@ -23,8 +23,8 @@ class ChurchesRow extends SupabaseDataRow {
   String? get code => getField<String>('code');
   set code(String? value) => setField<String>('code', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get logoUrl => getField<String>('logo_url');
   set logoUrl(String? value) => setField<String>('logo_url', value);

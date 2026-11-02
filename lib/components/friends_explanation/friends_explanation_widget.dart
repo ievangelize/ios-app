@@ -41,7 +41,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16.0),
           topRight: Radius.circular(16.0),
@@ -68,7 +68,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                 children: [
                   Expanded(
                     child: Text(
-                      'What are Encounters?',
+                      'What are Friends?',
                       textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
@@ -97,7 +97,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Encounters help you remember every person and moment—so you can follow up, record testimonies, and turn conversations into lasting discipleship.',
+                    'Friends help you stay accountable, encouraged, and consistent in evangelism—so you’re never doing it alone.',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.inter(
                             fontWeight: FlutterFlowTheme.of(context)
@@ -123,8 +123,8 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FaIcon(
-                          FontAwesomeIcons.trophy,
+                        Icon(
+                          Icons.group,
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -134,7 +134,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Make disciples, not converts',
+                                'Accountability and consistency',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -153,7 +153,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                                     ),
                               ),
                               Text(
-                                'Each encounter is a step in someone’s journey—follow up intentionally and nurture spiritual growth over time.',
+                                'Stay consistent knowing others can see and encourage your activity.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -188,7 +188,9 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.solidStar,
+                          FaIconData(const IconData(/* bolt */ 0xf0e7,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -198,7 +200,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Remember your impact',
+                                'Advance the Kingdom together',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -217,7 +219,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                                     ),
                               ),
                               Text(
-                                'Reflect on testimonies and experiences to see how God is working through your conversations.',
+                                'You’re not alone—you can remind your friend to share the gospel by hitting \"Nudge\".',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -252,7 +254,9 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.solidClock,
+                          FaIconData(const IconData(/* pray */ 0xf683,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -262,7 +266,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Prayer reminders',
+                                'Prayer for Prayer List',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -281,7 +285,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                                     ),
                               ),
                               Text(
-                                'Keep track of people you’ve met and pray for them regularly.',
+                                'Friends can pray for your \"Prayer List\" and your conversations.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -344,7 +348,7 @@ class _FriendsExplanationWidgetState extends State<FriendsExplanationWidget> {
                             ),
                       ),
                       Text(
-                        'After sharing or connecting with someone, open Encounters, add their details and notes, so you can revisit them later.',
+                        'Add friends using their code, stay connected through activity, and encourage each other to share the gospel consistently.',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.normal,

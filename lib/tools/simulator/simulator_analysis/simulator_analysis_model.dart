@@ -15,8 +15,6 @@ class SimulatorAnalysisModel extends FlutterFlowModel<SimulatorAnalysisWidget> {
 
   // Stores action output result for [Backend Call - API (Simulator Analyzer)] action in simulatorAnalysis widget.
   ApiCallResponse? apiResultj08;
-  // Stores action output result for [Custom Action - parseSimulatorFeedback] action in simulatorAnalysis widget.
-  dynamic feedbackResponse;
 
   @override
   void initState(BuildContext context) {}

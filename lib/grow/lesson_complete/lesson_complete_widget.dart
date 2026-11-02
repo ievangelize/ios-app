@@ -3,11 +3,9 @@ import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -43,10 +41,6 @@ class _LessonCompleteWidgetState extends State<LessonCompleteWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'lessonComplete'});
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.requestReview();
-    });
   }
 
   @override
@@ -332,11 +326,15 @@ class _LessonCompleteWidgetState extends State<LessonCompleteWidget> {
                                   color: FlutterFlowTheme.of(context).secondary,
                                   textColor: FlutterFlowTheme.of(context).info,
                                   action: () async {
-                                    FFAppState().clearHomeCourseCache();
+                                    FFAppState().clearUlpsCache();
 
                                     context.goNamed(
-                                      PathwayWidget.routeName,
+                                      MainHomeWidget.routeName,
                                       queryParameters: {
+                                        'tabIndex': serializeParam(
+                                          2,
+                                          ParamType.int,
+                                        ),
                                         'scrollToCourseId': serializeParam(
                                           widget.course?.id,
                                           ParamType.String,
@@ -359,9 +357,23 @@ class _LessonCompleteWidgetState extends State<LessonCompleteWidget> {
                                   textColor:
                                       FlutterFlowTheme.of(context).primaryText,
                                   action: () async {
-                                    FFAppState().clearHomeCourseCache();
-
-                                    context.goNamed(GrowWidget.routeName);
+                                    context.goNamed(
+                                      MainHomeWidget.routeName,
+                                      queryParameters: {
+                                        'tabIndex': serializeParam(
+                                          0,
+                                          ParamType.int,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        '__transition_info__': TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
+                                        ),
+                                      },
+                                    );
                                   },
                                 ),
                               ),

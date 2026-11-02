@@ -1,9 +1,11 @@
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'reviews_model.dart';
 export 'reviews_model.dart';
@@ -29,6 +31,10 @@ class _ReviewsWidgetState extends State<ReviewsWidget> {
     _model = createModel(context, () => ReviewsModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'reviews'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.requestReview();
+    });
   }
 
   @override
@@ -47,7 +53,7 @@ class _ReviewsWidgetState extends State<ReviewsWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
           child: Column(
@@ -854,11 +860,11 @@ class _ReviewsWidgetState extends State<ReviewsWidget> {
                   updateCallback: () => safeSetState(() {}),
                   child: LargeBtnWidget(
                     text: 'Continue',
-                    color: FlutterFlowTheme.of(context).secondary,
+                    color: Color(0xFF864AF9),
                     textColor: FlutterFlowTheme.of(context).info,
                     action: () async {
                       context.goNamed(
-                        NotificationsWidget.routeName,
+                        PrayerIntroWidget.routeName,
                         extra: <String, dynamic>{
                           '__transition_info__': TransitionInfo(
                             hasTransition: true,

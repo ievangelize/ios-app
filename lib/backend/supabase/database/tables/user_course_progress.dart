@@ -15,8 +15,8 @@ class UserCourseProgressRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => UserCourseProgressTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
@@ -39,8 +39,8 @@ class UserCourseProgressRow extends SupabaseDataRow {
   DateTime? get completedAt => getField<DateTime>('completed_at');
   set completedAt(DateTime? value) => setField<DateTime>('completed_at', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   DateTime? get lastEngagedAt => getField<DateTime>('last_engaged_at');
   set lastEngagedAt(DateTime? value) =>

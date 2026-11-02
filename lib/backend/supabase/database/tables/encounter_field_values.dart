@@ -15,8 +15,8 @@ class EncounterFieldValuesRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => EncounterFieldValuesTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get encounterId => getField<String>('encounter_id');
   set encounterId(String? value) => setField<String>('encounter_id', value);
@@ -30,6 +30,6 @@ class EncounterFieldValuesRow extends SupabaseDataRow {
   bool? get valueBoolean => getField<bool>('value_boolean');
   set valueBoolean(bool? value) => setField<bool>('value_boolean', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

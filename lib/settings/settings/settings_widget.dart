@@ -2,7 +2,6 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
-import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'settings_model.dart';
 export 'settings_model.dart';
 
@@ -238,6 +238,22 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           ),
                                         );
                                       } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Check your phone app notification settings',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor: Color(0xFFCC2F37),
+                                          ),
+                                        );
                                         safeSetState(() {
                                           _model.switchPushValue = false;
                                         });
@@ -265,175 +281,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                   inactiveTrackColor: Colors.black,
                                   inactiveThumbColor:
                                       FlutterFlowTheme.of(context).info,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            _model.screenTime =
-                                await actions.requestScreenTimePermission();
-                            if (_model.screenTime!) {
-                              await actions.showAppPicker();
-                              await Future.delayed(
-                                Duration(
-                                  milliseconds: 2000,
-                                ),
-                              );
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Apps selected! Click \'Activate Lock\'',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).success,
-                                ),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Apps selected! Click \'Activate Lock\'',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).error,
-                                ),
-                              );
-                            }
-
-                            safeSetState(() {});
-                          },
-                          child: Container(
-                            height: 50.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      'Enable Prayer Lock',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            font: GoogleFonts.inter(
-                                              fontWeight: FontWeight.normal,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
-                                            fontSize: 18.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ),
-                                  FaIcon(
-                                    FontAwesomeIcons.angleRight,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 24.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await actions.lockApps();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Apps locked',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: 50.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).alternate,
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    'Activate Lock',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          font: GoogleFonts.inter(
-                                            fontWeight: FontWeight.normal,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyLarge
-                                                    .fontStyle,
-                                          ),
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
-                                        ),
-                                  ),
-                                ),
-                                FaIcon(
-                                  FontAwesomeIcons.angleRight,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 24.0,
                                 ),
                               ],
                             ),
@@ -519,7 +366,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     ),
                                   ),
                                   FaIcon(
-                                    FontAwesomeIcons.angleRight,
+                                    FaIconData(const IconData(
+                                        /* angleRight */ 0xf105,
+                                        fontFamily: 'FontAwesomeSolid',
+                                        fontPackage: 'font_awesome_flutter')),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     size: 24.0,
@@ -580,7 +430,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     ),
                                   ),
                                   FaIcon(
-                                    FontAwesomeIcons.angleRight,
+                                    FaIconData(const IconData(
+                                        /* angleRight */ 0xf105,
+                                        fontFamily: 'FontAwesomeSolid',
+                                        fontPackage: 'font_awesome_flutter')),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     size: 24.0,
@@ -640,7 +493,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     ),
                                   ),
                                   FaIcon(
-                                    FontAwesomeIcons.angleRight,
+                                    FaIconData(const IconData(
+                                        /* angleRight */ 0xf105,
+                                        fontFamily: 'FontAwesomeSolid',
+                                        fontPackage: 'font_awesome_flutter')),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     size: 24.0,
@@ -696,7 +552,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                   ),
                                 ),
                                 FaIcon(
-                                  FontAwesomeIcons.angleRight,
+                                  FaIconData(const IconData(
+                                      /* angleRight */ 0xf105,
+                                      fontFamily: 'FontAwesomeSolid',
+                                      fontPackage: 'font_awesome_flutter')),
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   size: 24.0,
@@ -745,8 +604,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            await launchURL(
-                                'https://www.ievangelize.app/contact');
+                            await launchUrl(Uri(
+                              scheme: 'mailto',
+                              path: 'contact@ievangelize.app',
+                            ));
                           },
                           child: Container(
                             height: 50.0,
@@ -786,7 +647,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     ),
                                   ),
                                   FaIcon(
-                                    FontAwesomeIcons.angleRight,
+                                    FaIconData(const IconData(
+                                        /* angleRight */ 0xf105,
+                                        fontFamily: 'FontAwesomeSolid',
+                                        fontPackage: 'font_awesome_flutter')),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     size: 24.0,
@@ -847,7 +711,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     ),
                                   ),
                                   FaIcon(
-                                    FontAwesomeIcons.angleRight,
+                                    FaIconData(const IconData(
+                                        /* angleRight */ 0xf105,
+                                        fontFamily: 'FontAwesomeSolid',
+                                        fontPackage: 'font_awesome_flutter')),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     size: 24.0,
@@ -908,7 +775,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     ),
                                   ),
                                   FaIcon(
-                                    FontAwesomeIcons.angleRight,
+                                    FaIconData(const IconData(
+                                        /* angleRight */ 0xf105,
+                                        fontFamily: 'FontAwesomeSolid',
+                                        fontPackage: 'font_awesome_flutter')),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     size: 24.0,
@@ -1196,7 +1066,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'v2.1.3',
+                              'v3.0.3',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -1222,16 +1092,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ]
                         .addToStart(SizedBox(height: 26.0))
                         .addToEnd(SizedBox(height: 100.0)),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.navBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: NavBarWidget(
-                    selectedPage: '',
                   ),
                 ),
               ),

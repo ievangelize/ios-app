@@ -187,7 +187,7 @@ class _SignupWidgetState extends State<SignupWidget>
                               }
 
                               context.goNamedAuth(
-                                  HomeWidget.routeName, context.mounted);
+                                  MainHomeWidget.routeName, context.mounted);
                             },
                             child: Container(
                               width: double.infinity,
@@ -267,7 +267,7 @@ class _SignupWidgetState extends State<SignupWidget>
                             }
 
                             context.goNamedAuth(
-                                HomeWidget.routeName, context.mounted);
+                                MainHomeWidget.routeName, context.mounted);
                           },
                           child: Container(
                             width: double.infinity,

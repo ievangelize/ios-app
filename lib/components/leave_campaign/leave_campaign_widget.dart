@@ -7,12 +7,7 @@ import 'leave_campaign_model.dart';
 export 'leave_campaign_model.dart';
 
 class LeaveCampaignWidget extends StatefulWidget {
-  const LeaveCampaignWidget({
-    super.key,
-    required this.feedback,
-  });
-
-  final String? feedback;
+  const LeaveCampaignWidget({super.key});
 
   @override
   State<LeaveCampaignWidget> createState() => _LeaveCampaignWidgetState();
@@ -75,7 +70,7 @@ class _LeaveCampaignWidgetState extends State<LeaveCampaignWidget> {
                   size: 22.0,
                 ),
                 Text(
-                  'Leave Campaign?',
+                  'Leaving?',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
                         font: GoogleFonts.inter(
@@ -110,7 +105,7 @@ class _LeaveCampaignWidgetState extends State<LeaveCampaignWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Feedback:',
+                        'Instructions:',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.w600,
@@ -128,10 +123,7 @@ class _LeaveCampaignWidgetState extends State<LeaveCampaignWidget> {
                             ),
                       ),
                       Text(
-                        valueOrDefault<String>(
-                          widget.feedback,
-                          'Trying to suppress feelings often gives them more power.',
-                        ),
+                        'Please contact the group administrator to remove you from the groups or campaigm.',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.w500,
@@ -164,7 +156,7 @@ class _LeaveCampaignWidgetState extends State<LeaveCampaignWidget> {
                       model: _model.largeBtnModel,
                       updateCallback: () => safeSetState(() {}),
                       child: LargeBtnWidget(
-                        text: 'Continue',
+                        text: 'Okay',
                         color: Color(0xFFF13A28),
                         textColor: FlutterFlowTheme.of(context).info,
                         action: () async {

@@ -16,9 +16,5 @@
     <key>aps-environment</key>
     <string>production</string>
     <!-- End of APSEnvironment -->
-    <!-- Start of Screen Time Entitlements -->
-    <key>com.apple.developer.family-controls</key>
-    <true/>
-    <!-- End of Screen Time Entitlements -->
   </dict>
 </plist>

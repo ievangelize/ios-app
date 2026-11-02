@@ -149,7 +149,9 @@ class _StartLessonWidgetState extends State<StartLessonWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       FaIcon(
-                        FontAwesomeIcons.solidClock,
+                        FaIconData(const IconData(/* solidClock */ 0xf017,
+                            fontFamily: 'FontAwesomeSolid',
+                            fontPackage: 'font_awesome_flutter')),
                         color: FlutterFlowTheme.of(context).accent1,
                         size: 20.0,
                       ),
@@ -181,7 +183,9 @@ class _StartLessonWidgetState extends State<StartLessonWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       FaIcon(
-                        FontAwesomeIcons.bolt,
+                        FaIconData(const IconData(/* bolt */ 0xf0e7,
+                            fontFamily: 'FontAwesomeSolid',
+                            fontPackage: 'font_awesome_flutter')),
                         color: FlutterFlowTheme.of(context).accent1,
                         size: 20.0,
                       ),

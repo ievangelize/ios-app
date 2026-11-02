@@ -1,4 +1,3 @@
-import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'conversation_starters_widget.dart' show ConversationStartersWidget;
 import 'package:flutter/material.dart';
@@ -16,10 +15,6 @@ class ConversationStartersModel
 
   // State field(s) for SwipeableStack widget.
   late CardSwiperController swipeableStackController;
-  // Stores action output result for [Backend Call - Query Rows] action in Icon widget.
-  List<XpEventsRow>? xpEvents;
-  // Stores action output result for [Custom Action - calculateStreak] action in Icon widget.
-  List<dynamic>? streak;
 
   @override
   void initState(BuildContext context) {

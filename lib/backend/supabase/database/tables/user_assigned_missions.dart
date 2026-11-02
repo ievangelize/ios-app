@@ -15,8 +15,8 @@ class UserAssignedMissionsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => UserAssignedMissionsTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get title => getField<String>('title');
   set title(String? value) => setField<String>('title', value);
@@ -40,6 +40,6 @@ class UserAssignedMissionsRow extends SupabaseDataRow {
   DateTime? get completeAt => getField<DateTime>('complete_at');
   set completeAt(DateTime? value) => setField<DateTime>('complete_at', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

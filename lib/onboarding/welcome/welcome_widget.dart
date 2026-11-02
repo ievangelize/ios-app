@@ -155,7 +155,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFEA9B9B),
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             Container(

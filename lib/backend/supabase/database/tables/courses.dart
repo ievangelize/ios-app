@@ -14,8 +14,8 @@ class CoursesRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => CoursesTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get tierId => getField<String>('tier_id');
   set tierId(String? value) => setField<String>('tier_id', value);
@@ -32,8 +32,8 @@ class CoursesRow extends SupabaseDataRow {
   int? get totalLessons => getField<int>('total_lessons');
   set totalLessons(int? value) => setField<int>('total_lessons', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   int? get sortOrder => getField<int>('sort_order');
   set sortOrder(int? value) => setField<int>('sort_order', value);

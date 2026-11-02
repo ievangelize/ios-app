@@ -274,8 +274,14 @@ class _EnterEmailWidgetState extends State<EnterEmailWidget> {
                                     }
 
                                     context.goNamedAuth(
-                                      HomeWidget.routeName,
+                                      MainHomeWidget.routeName,
                                       context.mounted,
+                                      queryParameters: {
+                                        'tabIndex': serializeParam(
+                                          0,
+                                          ParamType.int,
+                                        ),
+                                      }.withoutNulls,
                                       extra: <String, dynamic>{
                                         '__transition_info__': TransitionInfo(
                                           hasTransition: true,

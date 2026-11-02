@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.1.3+2
+version: 3.0.3+2
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -27,6 +27,7 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
+  aligned_tooltip: 0.0.1
   app_links: 6.3.2
   app_links_platform_interface: 2.0.2
   app_tracking_transparency: ^2.0.5
@@ -48,9 +49,9 @@ dependencies:
   cached_network_image_web: 1.3.1
   carousel_slider: 5.0.0
   chewie: 1.11.3
-  cloud_functions: 5.5.2
-  cloud_functions_platform_interface: 5.7.2
-  cloud_functions_web: 4.11.2
+  cloud_functions: 6.5.0
+  cloud_functions_platform_interface: 6.0.7
+  cloud_functions_web: 5.1.13
   collection: 1.19.1
   cross_file: 0.3.5+1
   csslib: 1.0.2
@@ -58,28 +59,29 @@ dependencies:
   device_info_plus: 11.5.0
   device_info_plus_platform_interface: 7.0.3
   dio: any
-  dropdown_button2: 2.3.9
+  dropdown_button2: 
+    git:
+      url: https://github.com/FlutterFlow/dropdown_button2.git
+      ref: 514178337dfbea442f617daed39c704b57593fc9
+      path: packages/dropdown_button2
   easy_debounce: 2.0.1
   equatable: 2.0.7
-  fetch_api: 2.2.0
-  fetch_client: 1.1.2
   file_picker: 10.1.9
-  firebase_analytics: 11.5.0
-  firebase_analytics_platform_interface: 4.4.0
-  firebase_analytics_web: 0.5.10+13
-  firebase_core: 3.14.0
-  firebase_core_platform_interface: 5.4.0
-  firebase_core_web: 2.23.0
-  firebase_crashlytics: 4.3.7
-  firebase_crashlytics_platform_interface: 3.8.7
+  firebase_analytics: 12.6.0
+  firebase_analytics_platform_interface: 6.0.7
+  firebase_analytics_web: 0.6.1+13
+  firebase_core: 4.15.0
+  firebase_core_platform_interface: 8.1.1
+  firebase_core_web: 3.12.0
+  firebase_crashlytics: 5.4.0
+  firebase_crashlytics_platform_interface: 3.9.0
   firebase_messaging: any
-  firebase_performance: 0.10.1+7
-  firebase_performance_platform_interface: 0.1.5+7
-  firebase_performance_web: 0.1.7+13
-  firebase_remote_config: 5.4.5
-  firebase_remote_config_platform_interface: 1.5.5
-  firebase_remote_config_web: 1.8.5
-  firebase_vertexai: 1.0.1
+  firebase_performance: 0.11.6
+  firebase_performance_platform_interface: 0.2.0+7
+  firebase_performance_web: 0.1.8+13
+  firebase_remote_config: 6.7.0
+  firebase_remote_config_platform_interface: 3.0.7
+  firebase_remote_config_web: 1.10.14
   fl_chart: 1.0.0
   flip_card: 0.7.0
   flutter_animate: 4.5.0
@@ -103,12 +105,12 @@ dependencies:
   flutter_native_splash: 2.4.1
   flutter_pcm_sound: ^3.2.4
   flutter_plugin_android_lifecycle: 2.0.28
-  flutter_sound: ^9.28.0
+  flutter_sound: ^9.30.0
   flutter_spinkit: 5.2.0
-  flutter_streaming_text_markdown: ^1.6.0
+  flutter_streaming_text_markdown: 1.6.0
   flutter_timezone: ^4.1.1
-  flutter_webrtc: ^1.0.0
-  font_awesome_flutter: 10.7.0
+  font_awesome_flutter: 11.0.0
+  foundation: ^0.0.5
   from_css_color: 2.0.0
   functions_client: 2.4.2
   go_router: 12.1.3
@@ -131,7 +133,7 @@ dependencies:
   image_picker_platform_interface: 2.10.1
   image_picker_windows: 0.2.1+1
   in_app_review: ^2.0.8
-  intl: 0.20.2
+  intl: 0.20.3
   json_path: 0.7.2
   just_audio: ^0.10.4
   just_audio_background: ^0.0.1-beta.13
@@ -140,7 +142,7 @@ dependencies:
   openai_realtime_dart: ^0.0.6
   openai_tts: ^0.0.3
   package_info_plus: ^8.3.1
-  page_transition: 2.1.0
+  page_transition: 2.2.2
   path_provider: 2.1.4
   path_provider_android: 2.2.10
   path_provider_foundation: 2.4.0
@@ -163,8 +165,8 @@ dependencies:
   rxdart: 0.27.7
   scroll_to: ^0.0.1
   scrollable_positioned_list: ^0.3.8
-  share_plus: 10.0.2
-  share_plus_platform_interface: 5.0.0
+  share_plus: 10.0.3
+  share_plus_platform_interface: 5.0.1
   shared_preferences: 2.5.3
   shared_preferences_android: 2.4.10
   shared_preferences_foundation: 2.5.4
@@ -207,9 +209,9 @@ dependencies:
   wakelock_plus_platform_interface: 1.2.3
   web_socket_channel: ^3.0.0
   webview_flutter: 4.13.0
-  webview_flutter_android: 4.7.0
-  webview_flutter_platform_interface: 2.13.1
-  webview_flutter_wkwebview: 3.22.0
+  webview_flutter_android: 4.10.13
+  webview_flutter_platform_interface: 2.14.0
+  webview_flutter_wkwebview: 3.23.8
   widgets_to_image: ^2.0.1
   xml: 6.5.0
 
@@ -218,9 +220,16 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dependency_overrides:
+  font_awesome_flutter: 11.0.0
   http: 1.4.0
+  intl: 0.20.3
+  page_transition: 2.2.2
   rxdart: 0.27.7
   uuid: ^4.0.0
+  webview_flutter: 4.13.0
+  webview_flutter_android: 4.10.13
+  webview_flutter_platform_interface: 2.14.0
+  webview_flutter_wkwebview: 3.23.8
 
 dev_dependencies:
   flutter_launcher_icons: 0.13.1
@@ -246,6 +255,16 @@ flutter_launcher_icons:
 
 # The following section is specific to Flutter.
 flutter:
+
+  # Codegen emits the UIScene lifecycle itself where it is safe (see
+  # useUISceneLifecycle). Flutter's migrator would also rewrite the legacy
+  # AppDelegate that every other build still needs.
+  config:
+    # Flutter uses Swift Package Manager for compatible plugins and CocoaPods
+    # for the rest. Projects using the managed Firebase Analytics/GenUI graph
+    # stay CocoaPods-only so privacy behavior and wrapper versions are stable.
+    enable-swift-package-manager: false
+    enable-uiscene-migration: false
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -5,14 +5,23 @@ import '/components/course_path/course_path_widget.dart';
 import '/components/course_path_loading/course_path_loading_widget.dart';
 import '/components/pathway_item_loading/pathway_item_loading_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'pathway_item_model.dart';
 export 'pathway_item_model.dart';
 
 class PathwayItemWidget extends StatefulWidget {
-  const PathwayItemWidget({super.key});
+  const PathwayItemWidget({
+    super.key,
+    required this.cumulativeXp,
+    this.scrollToCourse,
+  });
+
+  final int? cumulativeXp;
+  final String? scrollToCourse;
 
   @override
   State<PathwayItemWidget> createState() => _PathwayItemWidgetState();
@@ -31,6 +40,18 @@ class _PathwayItemWidgetState extends State<PathwayItemWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PathwayItemModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(
+        Duration(
+          milliseconds: 1000,
+        ),
+      );
+      await actions.scrollToIndex(
+        widget.scrollToCourse!,
+      );
+    });
   }
 
   @override
@@ -91,89 +112,87 @@ class _PathwayItemWidgetState extends State<PathwayItemWidget> {
                       header: custom_widgets.ScrollTargetWidget(
                         width: double.infinity,
                         height: 100.0,
-                        id: columnCoursesRow.id,
+                        id: columnCoursesRow.id!,
                         child: () => CourseHeaderWidget(
-                          name: valueOrDefault<String>(
-                            stickyHeaderTiersRow?.name,
-                            'TIER 1: BASICS OF EVANGELISM',
-                          ),
-                          title: valueOrDefault<String>(
-                            columnCoursesRow.title,
-                            'Apologetics for Everyday',
-                          ),
-                          id: columnCoursesRow.id,
-                          totalLessons: columnCoursesRow.totalLessons,
-                          colorCode: stickyHeaderTiersRow?.colorCode,
+                          courseLocked: widget.cumulativeXp! <
+                                  stickyHeaderTiersRow!.minXp!
+                              ? true
+                              : false,
+                          tierName: stickyHeaderTiersRow.name,
+                          colorCode: stickyHeaderTiersRow.colorCode,
+                          course: columnCoursesRow,
                         ),
                       ),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          FutureBuilder<List<UserLessonProgressRow>>(
-                            future: FFAppState().ulps(
-                              uniqueQueryKey: columnCoursesRow.id,
-                              requestFn: () =>
-                                  UserLessonProgressTable().queryRows(
-                                queryFn: (q) => q
-                                    .eqOrNull(
-                                      'course_id',
-                                      columnCoursesRow.id,
-                                    )
-                                    .eqOrNull(
-                                      'user_id',
-                                      currentUserUid,
-                                    )
-                                    .order('created_at', ascending: true),
+                      content: FutureBuilder<List<UserLessonProgressRow>>(
+                        future: FFAppState().ulps(
+                          uniqueQueryKey: columnCoursesRow.id,
+                          requestFn: () => UserLessonProgressTable().queryRows(
+                            queryFn: (q) => q
+                                .eqOrNull(
+                                  'course_id',
+                                  columnCoursesRow.id,
+                                )
+                                .eqOrNull(
+                                  'user_id',
+                                  currentUserUid,
+                                )
+                                .order('created_at', ascending: true),
+                          ),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return CoursePathLoadingWidget();
+                          }
+                          List<UserLessonProgressRow>
+                              containerUserLessonProgressRowList =
+                              snapshot.data!;
+
+                          return Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(0.0),
+                            ),
+                            child: Visibility(
+                              visible: widget.cumulativeXp! >=
+                                      stickyHeaderTiersRow!.minXp!
+                                  ? true
+                                  : false,
+                              child: FutureBuilder<List<CourseLessonsRow>>(
+                                future: FFAppState().lessons(
+                                  uniqueQueryKey: columnCoursesRow.id,
+                                  requestFn: () =>
+                                      CourseLessonsTable().queryRows(
+                                    queryFn: (q) => q
+                                        .eqOrNull(
+                                          'course_id',
+                                          columnCoursesRow.id,
+                                        )
+                                        .order('sort_order', ascending: true),
+                                  ),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return CoursePathLoadingWidget();
+                                  }
+                                  List<CourseLessonsRow>
+                                      coursePathCourseLessonsRowList =
+                                      snapshot.data!;
+
+                                  return CoursePathWidget(
+                                    key: Key(
+                                        'Keyo1g_${columnIndex}_of_${columnCoursesRowList.length}'),
+                                    course: columnCoursesRow,
+                                    colorCode: stickyHeaderTiersRow.colorCode!,
+                                    lessons: coursePathCourseLessonsRowList,
+                                    ulps: containerUserLessonProgressRowList,
+                                  );
+                                },
                               ),
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return CoursePathLoadingWidget();
-                              }
-                              List<UserLessonProgressRow>
-                                  containerUserLessonProgressRowList =
-                                  snapshot.data!;
-
-                              return Container(
-                                decoration: BoxDecoration(),
-                                child: FutureBuilder<List<CourseLessonsRow>>(
-                                  future: FFAppState().lessons(
-                                    uniqueQueryKey: columnCoursesRow.id,
-                                    requestFn: () =>
-                                        CourseLessonsTable().queryRows(
-                                      queryFn: (q) => q
-                                          .eqOrNull(
-                                            'course_id',
-                                            columnCoursesRow.id,
-                                          )
-                                          .order('sort_order', ascending: true),
-                                    ),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return CoursePathLoadingWidget();
-                                    }
-                                    List<CourseLessonsRow>
-                                        coursePathCourseLessonsRowList =
-                                        snapshot.data!;
-
-                                    return CoursePathWidget(
-                                      key: Key(
-                                          'Keyg2i_${columnIndex}_of_${columnCoursesRowList.length}'),
-                                      course: columnCoursesRow,
-                                      colorCode:
-                                          stickyHeaderTiersRow!.colorCode!,
-                                      lessons: coursePathCourseLessonsRowList,
-                                      ulps: containerUserLessonProgressRowList,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                          );
+                        },
                       ),
                     );
                   },

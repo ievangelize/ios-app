@@ -26,6 +26,6 @@ class UserGroupsRow extends SupabaseDataRow {
   DateTime? get joinedAt => getField<DateTime>('joined_at');
   set joinedAt(DateTime? value) => setField<DateTime>('joined_at', value);
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 }

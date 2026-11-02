@@ -1,31 +1,28 @@
+import '/backend/supabase/supabase.dart';
+import '/components/course_locked/course_locked_widget.dart';
 import '/components/courses_list/courses_list_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
 import 'course_header_model.dart';
 export 'course_header_model.dart';
 
 class CourseHeaderWidget extends StatefulWidget {
   const CourseHeaderWidget({
     super.key,
-    this.name,
-    this.title,
-    this.totalLessons,
+    this.tierName,
     this.colorCode,
-    this.id,
+    required this.course,
+    required this.courseLocked,
   });
 
-  final String? name;
-  final String? title;
-  final int? totalLessons;
+  final String? tierName;
   final String? colorCode;
-  final String? id;
+  final CoursesRow? course;
+  final bool? courseLocked;
 
   @override
   State<CourseHeaderWidget> createState() => _CourseHeaderWidgetState();
@@ -55,8 +52,6 @@ class _CourseHeaderWidgetState extends State<CourseHeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
       child: InkWell(
@@ -65,18 +60,33 @@ class _CourseHeaderWidgetState extends State<CourseHeaderWidget> {
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          await showModalBottomSheet(
-            isScrollControlled: true,
-            backgroundColor: Colors.transparent,
-            enableDrag: false,
-            context: context,
-            builder: (context) {
-              return Padding(
-                padding: MediaQuery.viewInsetsOf(context),
-                child: CoursesListWidget(),
-              );
-            },
-          ).then((value) => safeSetState(() {}));
+          if (widget.courseLocked!) {
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              context: context,
+              builder: (context) {
+                return Padding(
+                  padding: MediaQuery.viewInsetsOf(context),
+                  child: CourseLockedWidget(),
+                );
+              },
+            ).then((value) => safeSetState(() {}));
+          } else {
+            await showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              enableDrag: false,
+              useSafeArea: true,
+              context: context,
+              builder: (context) {
+                return Padding(
+                  padding: MediaQuery.viewInsetsOf(context),
+                  child: CoursesListWidget(),
+                );
+              },
+            ).then((value) => safeSetState(() {}));
+          }
         },
         child: Container(
           width: double.infinity,
@@ -116,7 +126,10 @@ class _CourseHeaderWidgetState extends State<CourseHeaderWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.name!,
+                            valueOrDefault<String>(
+                              widget.tierName,
+                              'TIER 1',
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
@@ -136,7 +149,10 @@ class _CourseHeaderWidgetState extends State<CourseHeaderWidget> {
                                 ),
                           ),
                           Text(
-                            widget.title!,
+                            valueOrDefault<String>(
+                              widget.course?.title,
+                              'What is the Gospel?',
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .override(
@@ -159,178 +175,59 @@ class _CourseHeaderWidgetState extends State<CourseHeaderWidget> {
                         ].divide(SizedBox(height: 3.0)),
                       ),
                     ),
-                    FlutterFlowIconButton(
-                      borderRadius: 8.0,
-                      buttonSize: 40.0,
-                      fillColor: Color(0x24FFFFFF),
-                      icon: FaIcon(
-                        FontAwesomeIcons.brain,
-                        color: FlutterFlowTheme.of(context).info,
-                        size: 20.0,
-                      ),
-                      onPressed: () {
-                        print('IconButton pressed ...');
-                      },
+                    Stack(
+                      children: [
+                        if (!widget.courseLocked!)
+                          FlutterFlowIconButton(
+                            borderRadius: 8.0,
+                            buttonSize: 40.0,
+                            fillColor: Color(0x24FFFFFF),
+                            icon: FaIcon(
+                              FaIconData(const IconData(/* brain */ 0xf5dc,
+                                  fontFamily: 'FontAwesomeSolid',
+                                  fontPackage: 'font_awesome_flutter')),
+                              color: FlutterFlowTheme.of(context).info,
+                              size: 20.0,
+                            ),
+                            onPressed: () {
+                              print('IconButton pressed ...');
+                            },
+                          ),
+                        if (widget.courseLocked ?? true)
+                          FlutterFlowIconButton(
+                            borderRadius: 8.0,
+                            buttonSize: 40.0,
+                            fillColor: Color(0xDE2B2B2B),
+                            icon: FaIcon(
+                              FaIconData(const IconData(/* lock */ 0xf023,
+                                  fontFamily: 'FontAwesomeSolid',
+                                  fontPackage: 'font_awesome_flutter')),
+                              color: FlutterFlowTheme.of(context).info,
+                              size: 20.0,
+                            ),
+                            onPressed: () {
+                              print('IconButton pressed ...');
+                            },
+                          ),
+                      ],
                     ),
                   ].divide(SizedBox(width: 2.0)),
                 ),
-                if (FFAppState()
-                        .exploreUcpIdsJson
-                        .where((e) =>
-                            getJsonField(
-                              e,
-                              r'''$.course_id''',
-                            ) ==
-                            getJsonField(
-                              <String, dynamic>{
-                                'course_id': widget.id,
-                              },
-                              r'''$.course_id''',
-                            ))
-                        .toList()
-                        .isNotEmpty
-                    ? true
-                    : false)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: LinearPercentIndicator(
-                          percent: functions.coursePercantage(
-                              getJsonField(
-                                FFAppState()
-                                    .exploreUcpIdsJson
-                                    .where((e) =>
-                                        getJsonField(
-                                          e,
-                                          r'''$.course_id''',
-                                        ) ==
-                                        getJsonField(
-                                          <String, dynamic>{
-                                            'course_id': widget.id,
-                                          },
-                                          r'''$.course_id''',
-                                        ))
-                                    .toList()
-                                    .firstOrNull,
-                                r'''$.lessons_completed''',
-                              ),
-                              getJsonField(
-                                FFAppState()
-                                    .exploreUcpIdsJson
-                                    .where((e) =>
-                                        getJsonField(
-                                          e,
-                                          r'''$.course_id''',
-                                        ) ==
-                                        getJsonField(
-                                          <String, dynamic>{
-                                            'course_id': widget.id,
-                                          },
-                                          r'''$.course_id''',
-                                        ))
-                                    .toList()
-                                    .firstOrNull,
-                                r'''$.total_lessons''',
-                              )),
-                          lineHeight: 8.0,
-                          animation: true,
-                          animateFromLastPercent: true,
-                          progressColor: FlutterFlowTheme.of(context).info,
-                          backgroundColor: Color(0x2DFFFFFF),
-                          barRadius: Radius.circular(4.0),
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                      Text(
-                        '${getJsonField(
-                          FFAppState()
-                              .exploreUcpIdsJson
-                              .where((e) =>
-                                  getJsonField(
-                                    e,
-                                    r'''$.course_id''',
-                                  ) ==
-                                  getJsonField(
-                                    <String, dynamic>{
-                                      'course_id': widget.id,
-                                    },
-                                    r'''$.course_id''',
-                                  ))
-                              .toList()
-                              .firstOrNull,
-                          r'''$.lessons_completed''',
-                        ).toString()} / ${getJsonField(
-                          FFAppState()
-                              .exploreUcpIdsJson
-                              .where((e) =>
-                                  getJsonField(
-                                    e,
-                                    r'''$.course_id''',
-                                  ) ==
-                                  getJsonField(
-                                    <String, dynamic>{
-                                      'course_id': widget.id,
-                                    },
-                                    r'''$.course_id''',
-                                  ))
-                              .toList()
-                              .firstOrNull,
-                          r'''$.total_lessons''',
-                        ).toString()}',
-                        style:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FontWeight.normal,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                      ),
-                    ].divide(SizedBox(width: 10.0)),
-                  ),
-                if (FFAppState()
-                        .exploreUcpIdsJson
-                        .where((e) =>
-                            getJsonField(
-                              e,
-                              r'''$.course_id''',
-                            ) ==
-                            getJsonField(
-                              <String, dynamic>{
-                                'course_id': widget.id,
-                              },
-                              r'''$.course_id''',
-                            ))
-                        .toList()
-                        .isNotEmpty
-                    ? false
-                    : true)
-                  Text(
-                    '${widget.totalLessons?.toString()} lessons',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.inter(
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                          color: FlutterFlowTheme.of(context).info,
-                          letterSpacing: 0.0,
+                Text(
+                  '${widget.course?.totalLessons?.toString()} lessons',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        font: GoogleFonts.inter(
                           fontWeight: FontWeight.w600,
                           fontStyle:
                               FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
-                  ),
+                        color: FlutterFlowTheme.of(context).info,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w600,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                ),
               ].divide(SizedBox(height: 4.0)),
             ),
           ),

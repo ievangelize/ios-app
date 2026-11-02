@@ -43,15 +43,7 @@ class LessonModel extends FlutterFlowModel<LessonWidget> {
   // Stores action output result for [Backend Call - Update Row(s)] action in tapToCompleteBtn widget.
   List<UserCourseProgressRow>? ucp2;
   // Stores action output result for [Backend Call - Query Rows] action in tapToCompleteBtn widget.
-  List<XpEventsRow>? xpEvents2;
-  // Stores action output result for [Custom Action - calculateStreak] action in tapToCompleteBtn widget.
-  List<dynamic>? streak2;
-  // Stores action output result for [Backend Call - Query Rows] action in tapToCompleteBtn widget.
   List<MissionsCatalogRow>? mission1;
-  // Stores action output result for [Backend Call - Query Rows] action in tapToCompleteBtn widget.
-  List<XpEventsRow>? xpEvents1;
-  // Stores action output result for [Custom Action - calculateStreak] action in tapToCompleteBtn widget.
-  List<dynamic>? streak1;
   // Stores action output result for [Backend Call - Query Rows] action in tapToCompleteBtn widget.
   List<MissionsCatalogRow>? mission2;
 

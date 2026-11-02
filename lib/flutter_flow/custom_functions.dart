@@ -8,7 +8,6 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
-import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/auth/supabase_auth/auth_util.dart';
 
@@ -61,7 +60,7 @@ int? nMinusOne(int nValue) {
   return nValue - 1;
 }
 
-int? lastListOfMessages(List<MessageStruct> listOfMessages) {
+int? lastListOfMessages(List listOfMessages) {
   if (listOfMessages.isEmpty) return null;
   return listOfMessages.length - 1;
 }

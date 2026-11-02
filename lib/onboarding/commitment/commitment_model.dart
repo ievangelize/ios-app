@@ -15,6 +15,8 @@ class CommitmentModel extends FlutterFlowModel<CommitmentWidget> {
   void updateHapticsAtIndex(int index, Function(int) updateFn) =>
       haptics[index] = updateFn(haptics[index]);
 
+  bool holding = false;
+
   @override
   void initState(BuildContext context) {}
 

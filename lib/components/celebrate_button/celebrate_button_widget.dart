@@ -1,11 +1,13 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'celebrate_button_model.dart';
@@ -29,8 +31,11 @@ class CelebrateButtonWidget extends StatefulWidget {
   State<CelebrateButtonWidget> createState() => _CelebrateButtonWidgetState();
 }
 
-class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
+class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget>
+    with TickerProviderStateMixin {
   late CelebrateButtonModel _model;
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -54,6 +59,55 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
         safeSetState(() {});
       }
     });
+
+    animationsMap.addAll({
+      'richTextOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.linear,
+            delay: 0.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.1, 1.1),
+          ),
+          ScaleEffect(
+            curve: Curves.linear,
+            delay: 200.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(1.1, 1.1),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+      'richTextOnActionTriggerAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          ScaleEffect(
+            curve: Curves.linear,
+            delay: 0.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(1.0, 1.0),
+            end: Offset(1.1, 1.1),
+          ),
+          ScaleEffect(
+            curve: Curves.linear,
+            delay: 200.0.ms,
+            duration: 200.0.ms,
+            begin: Offset(1.1, 1.1),
+            end: Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -77,6 +131,14 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
+              HapticFeedback.lightImpact();
+              if (animationsMap['richTextOnActionTriggerAnimation1'] != null) {
+                animationsMap['richTextOnActionTriggerAnimation1']!
+                    .controller
+                    .forward(from: 0.0);
+              }
+              _model.hasCelebrated = false;
+              safeSetState(() {});
               await ActivityReactionsTable().delete(
                 matchingRows: (rows) => rows
                     .eqOrNull(
@@ -88,14 +150,10 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                       currentUserUid,
                     ),
               );
-              _model.hasCelebrated = false;
-              safeSetState(() {});
-              safeSetState(() {});
-              HapticFeedback.selectionClick();
             },
             child: Container(
-              width: 95.0,
-              height: 30.0,
+              width: 100.0,
+              height: 36.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondary,
                 borderRadius: BorderRadius.circular(24.0),
@@ -120,7 +178,7 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              fontSize: 14.0,
+                              fontSize: 12.0,
                               letterSpacing: 0.0,
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -131,7 +189,7 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                             ),
                       ),
                       TextSpan(
-                        text: 'Celebrated',
+                        text: ' Celebrate',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.w600,
@@ -169,6 +227,8 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                           lineHeight: 1.0,
                         ),
                   ),
+                ).animateOnActionTrigger(
+                  animationsMap['richTextOnActionTriggerAnimation1']!,
                 ),
               ),
             ),
@@ -180,16 +240,23 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
+              HapticFeedback.lightImpact();
+              if (animationsMap['richTextOnActionTriggerAnimation2'] != null) {
+                animationsMap['richTextOnActionTriggerAnimation2']!
+                    .controller
+                    .forward(from: 0.0);
+              }
+              _model.hasCelebrated = true;
+              safeSetState(() {});
               _model.newActivity = await ActivityReactionsTable().insert({
                 'xp_event_id': widget.xpEvent?.id,
                 'user_id': currentUserUid,
                 'reaction_type': 'celebrate',
               });
-              HapticFeedback.selectionClick();
               _model.apiResultfsm = await SendPushNotificationCall.call(
                 supabaseToken: FFAppState().SupabaseKey,
                 userIdsList: widget.friends,
-                title: '🎉 Celebration ',
+                title: 'Celebration 🎉',
                 body: '${widget.celebratorName}${() {
                   if (widget.xpEvent?.reason == 'mission complete') {
                     return ' celebrates your completed mission!';
@@ -199,6 +266,8 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                     return ' celebrates your completed course!';
                   } else if (widget.xpEvent?.reason == 'new encounter') {
                     return ' celebrates your new encounter!';
+                  } else if (widget.xpEvent?.reason == 'prayer') {
+                    return ' is thankful for your prayer!';
                   } else {
                     return ' is celebrating with you!';
                   }
@@ -206,12 +275,11 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
               );
 
               if ((_model.apiResultfsm?.succeeded ?? true)) {
-                _model.hasCelebrated = true;
-                safeSetState(() {});
-                FFAppState().addToActivityReactions(_model.newActivity!.id);
-                safeSetState(() {});
+                FFAppState().addToActivityReactions(_model.newActivity!.id!);
                 safeSetState(() {});
               } else {
+                _model.hasCelebrated = false;
+                safeSetState(() {});
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
@@ -229,8 +297,8 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
               safeSetState(() {});
             },
             child: Container(
-              width: 95.0,
-              height: 30.0,
+              width: 100.0,
+              height: 36.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 borderRadius: BorderRadius.circular(24.0),
@@ -256,7 +324,7 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              fontSize: 14.0,
+                              fontSize: 12.0,
                               letterSpacing: 0.0,
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -267,7 +335,7 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                             ),
                       ),
                       TextSpan(
-                        text: 'Celebrate',
+                        text: ' Celebrate',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.w600,
@@ -303,6 +371,8 @@ class _CelebrateButtonWidgetState extends State<CelebrateButtonWidget> {
                           lineHeight: 1.0,
                         ),
                   ),
+                ).animateOnActionTrigger(
+                  animationsMap['richTextOnActionTriggerAnimation2']!,
                 ),
               ),
             ),

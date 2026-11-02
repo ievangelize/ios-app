@@ -28,8 +28,14 @@ class OnboardingAnalyzingModel
 
   int percentComplete = 0;
 
+  bool databaseDone = false;
+
+  bool countComplete = false;
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - getTimeZone] action in onboardingAnalyzing widget.
+  String? deviceTimeZone;
   // Stores action output result for [Backend Call - API (Allocate Current Course)] action in onboardingAnalyzing widget.
   ApiCallResponse? apiResultptr;
   // Model for largeBtn component.

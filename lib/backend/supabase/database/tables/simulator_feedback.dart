@@ -24,11 +24,11 @@ class SimulatorFeedbackRow extends SupabaseDataRow {
   String? get feedbackText => getField<String>('feedback_text');
   set feedbackText(String? value) => setField<String>('feedback_text', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get duration => getField<String>('duration');
   set duration(String? value) => setField<String>('duration', value);

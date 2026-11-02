@@ -1,20 +1,28 @@
 import '/auth/supabase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'add_friend_model.dart';
 export 'add_friend_model.dart';
 
 class AddFriendWidget extends StatefulWidget {
-  const AddFriendWidget({super.key});
+  const AddFriendWidget({
+    super.key,
+    required this.user,
+  });
+
+  final UsersRow? user;
 
   static String routeName = 'addFriend';
   static String routePath = 'addFriend';
@@ -61,6 +69,8 @@ class _AddFriendWidgetState extends State<AddFriendWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -149,6 +159,7 @@ class _AddFriendWidgetState extends State<AddFriendWidget> {
                             controller: _model.friendCodeTextController,
                             focusNode: _model.friendCodeFocusNode,
                             autofocus: false,
+                            textCapitalization: TextCapitalization.none,
                             textInputAction: TextInputAction.done,
                             obscureText: false,
                             decoration: InputDecoration(
@@ -195,7 +206,7 @@ class _AddFriendWidgetState extends State<AddFriendWidget> {
                                         .fontStyle,
                                   ),
                                   fontSize: 22.0,
-                                  letterSpacing: 0.0,
+                                  letterSpacing: 5.0,
                                   fontWeight: FontWeight.w500,
                                   fontStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -211,6 +222,17 @@ class _AddFriendWidgetState extends State<AddFriendWidget> {
                                 null,
                             validator: _model.friendCodeTextControllerValidator
                                 .asValidator(context),
+                            inputFormatters: [
+                              if (!isAndroid && !isiOS)
+                                TextInputFormatter.withFunction(
+                                    (oldValue, newValue) {
+                                  return TextEditingValue(
+                                    selection: newValue.selection,
+                                    text: newValue.text.toCapitalization(
+                                        TextCapitalization.none),
+                                  );
+                                }),
+                            ],
                           ),
                         ),
                       ),
@@ -254,6 +276,18 @@ class _AddFriendWidgetState extends State<AddFriendWidget> {
                               'user_id': _model.friend?.firstOrNull?.id,
                               'friend_id': currentUserUid,
                             });
+                            FFAppState().clearFriendsCache();
+                            if (_model.friend?.firstOrNull?.fcmToken != null &&
+                                _model.friend?.firstOrNull?.fcmToken != '') {
+                              await SendPushNotificationCall.call(
+                                supabaseToken: FFAppState().SupabaseKey,
+                                userIdsList: functions.convertToStringList(
+                                    _model.friend!.firstOrNull!.id),
+                                title: 'New Friend 💯',
+                                body:
+                                    '${widget.user?.fullName} just added you as a friend!',
+                              );
+                            }
 
                             context
                                 .pushNamed(NewFriendCongratsWidget.routeName);

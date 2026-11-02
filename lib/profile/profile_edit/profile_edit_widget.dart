@@ -47,14 +47,8 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'profileEdit'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.profile!.profileAdded!) {
-        _model.profileUrl = widget.profile!.profileUrl!;
-        safeSetState(() {});
-      } else {
-        _model.profileUrl =
-            'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg';
-        safeSetState(() {});
-      }
+      _model.profileUrl = widget.profile!.profileUrl!;
+      safeSetState(() {});
     });
 
     if (!isWeb) {
@@ -410,10 +404,11 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                                             _model.fullNameTextController.text,
                                         'profile_url': _model.profileChanged
                                             ? _model.uploadedFileUrl_newProfile
-                                            : 'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg',
-                                        'profile_added': _model.profileChanged
-                                            ? true
-                                            : false,
+                                            : widget.profile?.profileUrl,
+                                        'profile_added': _model.profileUrl ==
+                                                'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg'
+                                            ? false
+                                            : true,
                                         'email':
                                             _model.emailTextController.text,
                                       },
@@ -441,7 +436,15 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                                     );
                                     safeSetState(() {});
 
-                                    context.pushNamed(ProfileWidget.routeName);
+                                    context.pushNamed(
+                                      MainHomeWidget.routeName,
+                                      queryParameters: {
+                                        'tabIndex': serializeParam(
+                                          8,
+                                          ParamType.int,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   } else {
                                     await UsersTable().update(
                                       data: {
@@ -449,10 +452,11 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                                             _model.fullNameTextController.text,
                                         'profile_url': _model.profileChanged
                                             ? _model.uploadedFileUrl_newProfile
-                                            : 'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg',
-                                        'profile_added': _model.profileChanged
-                                            ? true
-                                            : false,
+                                            : widget.profile?.profileUrl,
+                                        'profile_added': _model.profileUrl ==
+                                                'https://api.ievangelize.app/storage/v1/object/public/misc/avatar.jpg'
+                                            ? false
+                                            : true,
                                       },
                                       matchingRows: (rows) => rows.eqOrNull(
                                         'id',
@@ -460,7 +464,15 @@ class _ProfileEditWidgetState extends State<ProfileEditWidget> {
                                       ),
                                     );
 
-                                    context.pushNamed(ProfileWidget.routeName);
+                                    context.pushNamed(
+                                      MainHomeWidget.routeName,
+                                      queryParameters: {
+                                        'tabIndex': serializeParam(
+                                          8,
+                                          ParamType.int,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   }
                                 },
                               ),

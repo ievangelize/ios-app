@@ -14,8 +14,8 @@ class QuizzesRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => QuizzesTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get pageId => getField<String>('page_id');
   set pageId(String? value) => setField<String>('page_id', value);
@@ -29,8 +29,8 @@ class QuizzesRow extends SupabaseDataRow {
   String? get questionText => getField<String>('question_text');
   set questionText(String? value) => setField<String>('question_text', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get answerFeedback => getField<String>('answer_feedback');
   set answerFeedback(String? value) =>

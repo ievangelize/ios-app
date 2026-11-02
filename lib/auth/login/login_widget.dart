@@ -197,7 +197,7 @@ class _LoginWidgetState extends State<LoginWidget>
                               }
 
                               context.goNamedAuth(
-                                  HomeWidget.routeName, context.mounted);
+                                  MainHomeWidget.routeName, context.mounted);
                             },
                             child: Container(
                               width: double.infinity,
@@ -277,7 +277,7 @@ class _LoginWidgetState extends State<LoginWidget>
                             }
 
                             context.goNamedAuth(
-                                HomeWidget.routeName, context.mounted);
+                                MainHomeWidget.routeName, context.mounted);
                           },
                           child: Container(
                             width: double.infinity,

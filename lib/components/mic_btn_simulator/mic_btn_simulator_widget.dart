@@ -52,7 +52,9 @@ class _MicBtnSimulatorWidgetState extends State<MicBtnSimulatorWidget> {
         child: Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: FaIcon(
-            FontAwesomeIcons.microphone,
+            FaIconData(const IconData(/* microphone */ 0xf130,
+                fontFamily: 'FontAwesomeSolid',
+                fontPackage: 'font_awesome_flutter')),
             color: FlutterFlowTheme.of(context).info,
             size: 32.0,
           ),

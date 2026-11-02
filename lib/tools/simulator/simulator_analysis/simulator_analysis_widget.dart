@@ -3,7 +3,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -47,29 +46,22 @@ class _SimulatorAnalysisWidgetState extends State<SimulatorAnalysisWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.apiResultj08 = await SimulatorAnalyzerCall.call(
-        token: FFAppState().openaiApiKey,
+        token: FFAppState().SupabaseKey,
         conversation:
             '{\"persona\":\" ${widget.persona?.personaInstructions}\"},${functions.convertListtoString(FFAppState().simulatorHistory.toList())}',
       );
 
       if ((_model.apiResultj08?.succeeded ?? true)) {
-        _model.feedbackResponse = await actions.parseSimulatorFeedback(
-          SimulatorAnalyzerCall.arguments(
-            (_model.apiResultj08?.jsonBody ?? ''),
-          )!,
-        );
         await SimulatorFeedbackTable().insert({
           'user_id': currentUserUid,
           'persona_id': widget.persona?.id,
-          'feedback_text': getJsonField(
-            _model.feedbackResponse,
-            r'''$.response''',
-          ).toString(),
+          'feedback_text': SimulatorAnalyzerCall.feedbackResponse(
+            (_model.apiResultj08?.jsonBody ?? ''),
+          ),
           'duration': widget.duration,
-          'feedback_title': getJsonField(
-            _model.feedbackResponse,
-            r'''$.feedback_title''',
-          ).toString(),
+          'feedback_title': SimulatorAnalyzerCall.feedbackTitle(
+            (_model.apiResultj08?.jsonBody ?? ''),
+          ),
         });
         FFAppState().simulatorHistory = [];
         safeSetState(() {});
@@ -79,10 +71,9 @@ class _SimulatorAnalysisWidgetState extends State<SimulatorAnalysisWidget> {
           FeedbackWidget.routeName,
           queryParameters: {
             'chatFeedback': serializeParam(
-              getJsonField(
-                _model.feedbackResponse,
-                r'''$.response''',
-              ).toString(),
+              SimulatorAnalyzerCall.feedbackResponse(
+                (_model.apiResultj08?.jsonBody ?? ''),
+              ),
               ParamType.String,
             ),
           }.withoutNulls,
@@ -178,10 +169,10 @@ class _SimulatorAnalysisWidgetState extends State<SimulatorAnalysisWidget> {
                                 .fontStyle,
                           ),
                     ),
-                    Lottie.asset(
-                      'assets/jsons/Sphere_Splitter.json',
+                    Lottie.network(
+                      'https://lottie.host/ba67d75b-3de7-4c15-bcc9-7cfe363574c7/izxKPcxvQn.json',
                       width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 400.0,
+                      height: 200.0,
                       fit: BoxFit.contain,
                       animate: true,
                     ),

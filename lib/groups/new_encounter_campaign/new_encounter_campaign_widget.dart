@@ -2,7 +2,6 @@ import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/form_item/form_item_widget.dart';
 import '/components/large_btn/large_btn_widget.dart';
-import '/components/streak/streak_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
@@ -133,7 +132,24 @@ class _NewEncounterCampaignWidgetState
                   size: 25.0,
                 ),
                 onPressed: () async {
-                  context.safePop();
+                  if (_model.pageViewCurrentIndex == 0) {
+                    context.safePop();
+                  } else if (_model.pageViewCurrentIndex == 1) {
+                    await _model.pageViewController?.previousPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  } else if (_model.pageViewCurrentIndex == 2) {
+                    await _model.pageViewController?.previousPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  } else {
+                    await _model.pageViewController?.previousPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                  }
                 },
               ),
               title: Text(
@@ -384,14 +400,14 @@ class _NewEncounterCampaignWidgetState
                                               return wrapWithModel(
                                                 model: _model.formItemModels
                                                     .getModel(
-                                                  formFieldItemsItem.id,
+                                                  formFieldItemsItem.id!,
                                                   formFieldItemsIndex,
                                                 ),
                                                 updateCallback: () =>
                                                     safeSetState(() {}),
                                                 child: FormItemWidget(
                                                   key: Key(
-                                                    'Key14d_${formFieldItemsItem.id}',
+                                                    'Key14d_${formFieldItemsItem.id!}',
                                                   ),
                                                   formField: formFieldItemsItem,
                                                 ),
@@ -413,7 +429,7 @@ class _NewEncounterCampaignWidgetState
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Would you like to be reminded to pray for this person/encounter?',
+                                          'Would you like to be reminded to follow-up on this person?',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -1013,202 +1029,143 @@ class _NewEncounterCampaignWidgetState
                         if (!(isWeb
                             ? MediaQuery.viewInsetsOf(context).bottom > 0
                             : _isKeyboardVisible))
-                          Builder(
-                            builder: (context) => Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 10.0, 16.0, 12.0),
-                              child: wrapWithModel(
-                                model: _model.largeBtnModel,
-                                updateCallback: () => safeSetState(() {}),
-                                child: LargeBtnWidget(
-                                  text: 'Done',
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  textColor: FlutterFlowTheme.of(context).info,
-                                  action: () async {
-                                    var _shouldSetState = false;
-                                    if (_model.pageViewCurrentIndex == 0) {
-                                      if (_model.formKey.currentState == null ||
-                                          !_model.formKey.currentState!
-                                              .validate()) {
-                                        return;
-                                      }
-                                      await _model.pageViewController?.nextPage(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.ease,
-                                      );
-                                      if (_shouldSetState) safeSetState(() {});
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 10.0, 16.0, 12.0),
+                            child: wrapWithModel(
+                              model: _model.largeBtnModel,
+                              updateCallback: () => safeSetState(() {}),
+                              child: LargeBtnWidget(
+                                text: 'Done',
+                                color: FlutterFlowTheme.of(context).secondary,
+                                textColor: FlutterFlowTheme.of(context).info,
+                                action: () async {
+                                  var _shouldSetState = false;
+                                  if (_model.pageViewCurrentIndex == 0) {
+                                    if (_model.formKey.currentState == null ||
+                                        !_model.formKey.currentState!
+                                            .validate()) {
                                       return;
-                                    } else if (_model.pageViewCurrentIndex ==
-                                        1) {
-                                      for (int loop1Index = 0;
-                                          loop1Index <
-                                              containerFormFieldsRowList.length;
-                                          loop1Index++) {
-                                        final currentLoop1Item =
-                                            containerFormFieldsRowList[
-                                                loop1Index];
-                                        if (currentLoop1Item.fieldType ==
-                                            'text') {
-                                          if (currentLoop1Item.isRequired! &&
-                                              (_model.formItemModels
-                                                          .getValueForKey(
-                                                        currentLoop1Item.id,
-                                                        (m) => m
-                                                            .shortAnswerTextController
-                                                            .text,
-                                                      ) ==
-                                                      null ||
-                                                  _model.formItemModels
-                                                          .getValueForKey(
-                                                        currentLoop1Item.id,
-                                                        (m) => m
-                                                            .shortAnswerTextController
-                                                            .text,
-                                                      ) ==
-                                                      '')) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'You\'re missing some fields',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                              ),
-                                            );
-                                            if (_shouldSetState)
-                                              safeSetState(() {});
-                                            return;
-                                          }
-                                        } else if (currentLoop1Item.fieldType ==
-                                            'longtext') {
-                                          if (currentLoop1Item.isRequired! &&
-                                              (_model.formItemModels
-                                                          .getValueForKey(
-                                                        currentLoop1Item.id,
-                                                        (m) => m
-                                                            .paragraphTextController
-                                                            .text,
-                                                      ) ==
-                                                      null ||
-                                                  _model.formItemModels
-                                                          .getValueForKey(
-                                                        currentLoop1Item.id,
-                                                        (m) => m
-                                                            .paragraphTextController
-                                                            .text,
-                                                      ) ==
-                                                      '')) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'You\'re missing some fields',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                              ),
-                                            );
-                                            if (_shouldSetState)
-                                              safeSetState(() {});
-                                            return;
-                                          }
-                                        } else {
-                                          if (currentLoop1Item.isRequired! &&
-                                              !(_model.formItemModels
-                                                  .getValues(
-                                                    (m) => m.dropDownValue,
-                                                  )
-                                                  .isNotEmpty)) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'You\'re missing some fields',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                              ),
-                                            );
-                                            if (_shouldSetState)
-                                              safeSetState(() {});
-                                            return;
-                                          }
-                                        }
-                                      }
-                                      await _model.pageViewController?.nextPage(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.ease,
-                                      );
-                                      if (_shouldSetState) safeSetState(() {});
-                                      return;
-                                    } else if (_model.pageViewCurrentIndex ==
-                                        2) {
-                                      if (_model.radioButtonPrayValue == 'No'
-                                          ? true
-                                          : false) {
-                                        _model.addNotification = false;
-                                        safeSetState(() {});
-                                      } else {
-                                        _model.pushAllowed =
-                                            await actions.checkPushPermission();
-                                        _shouldSetState = true;
-                                        if (_model.pushAllowed!) {
-                                          await _model.pageViewController
-                                              ?.nextPage(
-                                            duration:
-                                                Duration(milliseconds: 300),
-                                            curve: Curves.ease,
-                                          );
-                                          if (_shouldSetState)
-                                            safeSetState(() {});
-                                          return;
-                                        } else {
-                                          safeSetState(() {
-                                            _model
-                                                .radioButtonPrayValueController
-                                                ?.value = 'No';
-                                          });
+                                    }
+                                    await _model.pageViewController?.nextPage(
+                                      duration: Duration(milliseconds: 300),
+                                      curve: Curves.ease,
+                                    );
+                                    if (_shouldSetState) safeSetState(() {});
+                                    return;
+                                  } else if (_model.pageViewCurrentIndex == 1) {
+                                    for (int loop1Index = 0;
+                                        loop1Index <
+                                            containerFormFieldsRowList.length;
+                                        loop1Index++) {
+                                      final currentLoop1Item =
+                                          containerFormFieldsRowList[
+                                              loop1Index];
+                                      if (currentLoop1Item.fieldType ==
+                                          'text') {
+                                        if (currentLoop1Item.isRequired! &&
+                                            (_model.formItemModels
+                                                        .getValueForKey(
+                                                      currentLoop1Item.id!,
+                                                      (m) => m
+                                                          .shortAnswerTextController
+                                                          .text,
+                                                    ) ==
+                                                    null ||
+                                                _model.formItemModels
+                                                        .getValueForKey(
+                                                      currentLoop1Item.id!,
+                                                      (m) => m
+                                                          .shortAnswerTextController
+                                                          .text,
+                                                    ) ==
+                                                    '')) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                'You need to allow push notifications',
+                                                'You\'re missing some fields',
                                                 style: TextStyle(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .info,
+                                                      .primaryText,
                                                 ),
                                               ),
                                               duration:
                                                   Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondary,
+                                                      .error,
+                                            ),
+                                          );
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
+                                          return;
+                                        }
+                                      } else if (currentLoop1Item.fieldType ==
+                                          'longtext') {
+                                        if (currentLoop1Item.isRequired! &&
+                                            (_model.formItemModels
+                                                        .getValueForKey(
+                                                      currentLoop1Item.id!,
+                                                      (m) => m
+                                                          .paragraphTextController
+                                                          .text,
+                                                    ) ==
+                                                    null ||
+                                                _model.formItemModels
+                                                        .getValueForKey(
+                                                      currentLoop1Item.id!,
+                                                      (m) => m
+                                                          .paragraphTextController
+                                                          .text,
+                                                    ) ==
+                                                    '')) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'You\'re missing some fields',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                            ),
+                                          );
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
+                                          return;
+                                        }
+                                      } else {
+                                        if (currentLoop1Item.isRequired! &&
+                                            !(_model.formItemModels
+                                                .getValues(
+                                                  (m) => m.dropDownValue,
+                                                )
+                                                .isNotEmpty)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'You\'re missing some fields',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
                                             ),
                                           );
                                           if (_shouldSetState)
@@ -1216,307 +1173,267 @@ class _NewEncounterCampaignWidgetState
                                           return;
                                         }
                                       }
-                                    } else {
-                                      _model.addNotification = true;
+                                    }
+                                    await _model.pageViewController?.nextPage(
+                                      duration: Duration(milliseconds: 300),
+                                      curve: Curves.ease,
+                                    );
+                                    if (_shouldSetState) safeSetState(() {});
+                                    return;
+                                  } else if (_model.pageViewCurrentIndex == 2) {
+                                    if (_model.radioButtonPrayValue == 'No'
+                                        ? true
+                                        : false) {
+                                      _model.addNotification = false;
                                       safeSetState(() {});
-                                    }
-
-                                    _model.encounter =
-                                        await ReachedTable().insert({
-                                      'created_by': currentUserUid,
-                                      'campaign_id': widget.campaign?.id,
-                                      'group_id': widget.campaign?.groupId,
-                                    });
-                                    _shouldSetState = true;
-                                    if (_model.addNotification) {
-                                      _model.deviceTimeZone =
-                                          await actions.getTimeZone();
+                                    } else {
+                                      _model.pushAllowed =
+                                          await actions.checkPushPermission();
                                       _shouldSetState = true;
-                                      await ScheduledNotificationsTable()
-                                          .insert({
-                                        'reached_id': _model.encounter?.id,
-                                        'user_id': currentUserUid,
-                                        'title': 'Prayer Reminder',
-                                        'body':
-                                            'Pray for ${_model.encounter?.name}',
-                                        'timezone': _model.deviceTimeZone,
-                                        'scheduled_at': supaSerialize<DateTime>(
-                                            _model.datePicked),
-                                        'monday': _model.choiceChipsDayValues!
-                                                .contains('Mon')
-                                            ? true
-                                            : false,
-                                        'tuesday': _model.choiceChipsDayValues!
-                                                .contains('Tue')
-                                            ? true
-                                            : false,
-                                        'wednesday': _model
-                                                .choiceChipsDayValues!
-                                                .contains('Wed')
-                                            ? true
-                                            : false,
-                                        'thursday': _model.choiceChipsDayValues!
-                                                .contains('Thur')
-                                            ? true
-                                            : false,
-                                        'friday': _model.choiceChipsDayValues!
-                                                .contains('Fri')
-                                            ? true
-                                            : false,
-                                        'saturday': _model.choiceChipsDayValues!
-                                                .contains('Sat')
-                                            ? true
-                                            : false,
-                                        'sunday': _model.choiceChipsDayValues!
-                                                .contains('Sun')
-                                            ? true
-                                            : false,
-                                      });
-                                      await ReachedTable().update(
-                                        data: {
-                                          'pray_reminder': true,
-                                        },
-                                        matchingRows: (rows) => rows.eqOrNull(
-                                          'id',
-                                          _model.encounter?.id,
-                                        ),
-                                      );
-                                    }
-                                    for (int loop2Index = 0;
-                                        loop2Index <
-                                            containerFormFieldsRowList.length;
-                                        loop2Index++) {
-                                      final currentLoop2Item =
-                                          containerFormFieldsRowList[
-                                              loop2Index];
-                                      if (currentLoop2Item.fieldType ==
-                                          'text') {
-                                        _model.newEncounter2 =
-                                            await EncounterFieldValuesTable()
-                                                .insert({
-                                          'encounter_id': _model.encounter?.id,
-                                          'form_field_id': currentLoop2Item.id,
-                                          'value_text': _model.formItemModels
-                                              .getValueForKey(
-                                            currentLoop2Item.id,
-                                            (m) => m
-                                                .shortAnswerTextController.text,
-                                          ),
-                                        });
-                                        _shouldSetState = true;
-                                        if (currentLoop2Item.isPrimaryDisplay) {
-                                          await ReachedTable().update(
-                                            data: {
-                                              'Name': _model
-                                                  .newEncounter2?.valueText,
-                                            },
-                                            matchingRows: (rows) =>
-                                                rows.eqOrNull(
-                                              'id',
-                                              _model.encounter?.id,
-                                            ),
-                                          );
-                                        }
-                                      } else if (currentLoop2Item.fieldType ==
-                                          'longtext') {
-                                        _model.newEncounter3 =
-                                            await EncounterFieldValuesTable()
-                                                .insert({
-                                          'encounter_id': _model.encounter?.id,
-                                          'form_field_id': currentLoop2Item.id,
-                                          'value_text': _model.formItemModels
-                                              .getValueForKey(
-                                            currentLoop2Item.id,
-                                            (m) =>
-                                                m.paragraphTextController.text,
-                                          ),
-                                        });
-                                        _shouldSetState = true;
-                                        if (currentLoop2Item.isPrimaryDisplay) {
-                                          await ReachedTable().update(
-                                            data: {
-                                              'Name': _model
-                                                  .newEncounter3?.valueText,
-                                            },
-                                            matchingRows: (rows) =>
-                                                rows.eqOrNull(
-                                              'id',
-                                              _model.encounter?.id,
-                                            ),
-                                          );
-                                        }
-                                      } else if (currentLoop2Item.fieldType ==
-                                          'multi-select') {
-                                        _model.newEncounter1 =
-                                            await EncounterFieldValuesTable()
-                                                .insert({
-                                          'encounter_id': _model.encounter?.id,
-                                          'form_field_id': currentLoop2Item.id,
-                                        });
-                                        _shouldSetState = true;
-                                        for (int loop3Index = 0;
-                                            loop3Index <
-                                                _model.formItemModels
-                                                    .getValueForKey(
-                                                      currentLoop2Item.id,
-                                                      (m) => m.dropDownValue,
-                                                    )!
-                                                    .length;
-                                            loop3Index++) {
-                                          final currentLoop3Item = _model
-                                              .formItemModels
-                                              .getValueForKey(
-                                            currentLoop2Item.id,
-                                            (m) => m.dropDownValue,
-                                          )![loop3Index];
-                                          await EncounterFieldValueOptionsTable()
-                                              .insert({
-                                            'encounter_field_value_id':
-                                                _model.newEncounter1?.id,
-                                            'field_option_id': currentLoop3Item,
-                                          });
-                                        }
-                                      } else {
-                                        await EncounterFieldValuesTable()
-                                            .insert({
-                                          'encounter_id': _model.encounter?.id,
-                                          'form_field_id': currentLoop2Item.id,
-                                          'value_boolean': _model.formItemModels
-                                              .getValueForKey(
-                                            currentLoop2Item.id,
-                                            (m) => m.switchValue,
-                                          ),
-                                        });
-                                      }
-                                    }
-                                    FFAppState().clearEncountersCache();
-                                    unawaited(
-                                      () async {
-                                        await XpEventsTable().insert({
-                                          'user_id': currentUserUid,
-                                          'delta': 50,
-                                          'reason': 'new encounter',
-                                          'idempotency_key':
-                                              _model.encounter?.id,
-                                        });
-                                      }(),
-                                    );
-                                    unawaited(
-                                      () async {
-                                        await action_blocks
-                                            .sendFriendNotification(
-                                          context,
-                                          eventType: 'new encounter',
+                                      if (_model.pushAllowed!) {
+                                        await _model.pageViewController
+                                            ?.nextPage(
+                                          duration: Duration(milliseconds: 300),
+                                          curve: Curves.ease,
                                         );
-                                      }(),
-                                    );
-                                    _model.xpEvents =
-                                        await XpEventsTable().queryRows(
-                                      queryFn: (q) => q.eqOrNull(
-                                        'user_id',
-                                        currentUserUid,
-                                      ),
-                                    );
-                                    _shouldSetState = true;
-                                    _model.streak =
-                                        await actions.calculateStreak(
-                                      _model.xpEvents!
-                                          .map((e) => e.createdAt)
-                                          .toList(),
-                                      FFAppState().currentStreak,
-                                    );
-                                    _shouldSetState = true;
-                                    if (getJsonField(
-                                      _model.streak!.lastOrNull,
-                                      r'''$.is_streak''',
-                                    )) {
-                                      FFAppState().currentStreak = getJsonField(
-                                        _model.streak!.elementAtOrNull(1),
-                                        r'''$.streak''',
-                                      );
-                                      FFAppState().activeDays = getJsonField(
-                                        _model.streak!.firstOrNull,
-                                        r'''$.active_days''',
-                                        true,
-                                      )!
-                                          .toList()
-                                          .cast<dynamic>();
-                                      FFAppState().update(() {});
-                                      await UsersTable().update(
-                                        data: {
-                                          'streak': FFAppState().currentStreak,
-                                        },
-                                        matchingRows: (rows) => rows.eqOrNull(
-                                          'id',
-                                          currentUserUid,
-                                        ),
-                                      );
-                                      await showDialog(
-                                        barrierColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                FocusScope.of(dialogContext)
-                                                    .unfocus();
-                                                FocusManager
-                                                    .instance.primaryFocus
-                                                    ?.unfocus();
-                                              },
-                                              child: Container(
-                                                height: double.infinity,
-                                                width: double.infinity,
-                                                child: StreakWidget(
-                                                  streakAmount: getJsonField(
-                                                    _model.streak
-                                                        ?.elementAtOrNull(1),
-                                                    r'''$.streak''',
-                                                  ).toString(),
-                                                  streakDays: getJsonField(
-                                                    _model.streak?.firstOrNull,
-                                                    r'''$.active_days''',
-                                                    true,
-                                                  ),
-                                                ),
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
+                                        return;
+                                      } else {
+                                        safeSetState(() {
+                                          _model.radioButtonPrayValueController
+                                              ?.value = 'No';
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'You need to allow push notifications',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
                                               ),
                                             ),
-                                          );
-                                        },
-                                      );
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
+                                        return;
+                                      }
                                     }
+                                  } else {
+                                    _model.addNotification = true;
+                                    safeSetState(() {});
+                                  }
 
-                                    context.goNamed(
-                                      EncounterCompleteWidget.routeName,
-                                      queryParameters: {
-                                        'encounterXp': serializeParam(
-                                          50,
-                                          ParamType.int,
-                                        ),
-                                      }.withoutNulls,
-                                      extra: <String, dynamic>{
-                                        '__transition_info__': TransitionInfo(
-                                          hasTransition: true,
-                                          transitionType:
-                                              PageTransitionType.fade,
-                                          duration: Duration(milliseconds: 0),
-                                        ),
+                                  _model.encounter =
+                                      await ReachedTable().insert({
+                                    'created_by': currentUserUid,
+                                    'campaign_id': widget.campaign?.id,
+                                    'group_id': widget.campaign?.groupId,
+                                  });
+                                  _shouldSetState = true;
+                                  if (_model.addNotification) {
+                                    _model.deviceTimeZone =
+                                        await actions.getTimeZone();
+                                    _shouldSetState = true;
+                                    await ScheduledNotificationsTable().insert({
+                                      'reached_id': _model.encounter?.id,
+                                      'user_id': currentUserUid,
+                                      'title': 'Prayer Reminder',
+                                      'body':
+                                          'Pray for ${_model.encounter?.name}',
+                                      'timezone': _model.deviceTimeZone,
+                                      'scheduled_at': supaSerialize<DateTime>(
+                                          _model.datePicked),
+                                      'monday': _model.choiceChipsDayValues!
+                                              .contains('Mon')
+                                          ? true
+                                          : false,
+                                      'tuesday': _model.choiceChipsDayValues!
+                                              .contains('Tue')
+                                          ? true
+                                          : false,
+                                      'wednesday': _model.choiceChipsDayValues!
+                                              .contains('Wed')
+                                          ? true
+                                          : false,
+                                      'thursday': _model.choiceChipsDayValues!
+                                              .contains('Thur')
+                                          ? true
+                                          : false,
+                                      'friday': _model.choiceChipsDayValues!
+                                              .contains('Fri')
+                                          ? true
+                                          : false,
+                                      'saturday': _model.choiceChipsDayValues!
+                                              .contains('Sat')
+                                          ? true
+                                          : false,
+                                      'sunday': _model.choiceChipsDayValues!
+                                              .contains('Sun')
+                                          ? true
+                                          : false,
+                                    });
+                                    await ReachedTable().update(
+                                      data: {
+                                        'pray_reminder': true,
                                       },
+                                      matchingRows: (rows) => rows.eqOrNull(
+                                        'id',
+                                        _model.encounter?.id,
+                                      ),
                                     );
+                                  }
+                                  for (int loop2Index = 0;
+                                      loop2Index <
+                                          containerFormFieldsRowList.length;
+                                      loop2Index++) {
+                                    final currentLoop2Item =
+                                        containerFormFieldsRowList[loop2Index];
+                                    if (currentLoop2Item.fieldType == 'text') {
+                                      _model.newEncounter2 =
+                                          await EncounterFieldValuesTable()
+                                              .insert({
+                                        'encounter_id': _model.encounter?.id,
+                                        'form_field_id': currentLoop2Item.id,
+                                        'value_text': _model.formItemModels
+                                            .getValueForKey(
+                                          currentLoop2Item.id!,
+                                          (m) =>
+                                              m.shortAnswerTextController.text,
+                                        ),
+                                      });
+                                      _shouldSetState = true;
+                                      if (currentLoop2Item.isPrimaryDisplay!) {
+                                        await ReachedTable().update(
+                                          data: {
+                                            'Name':
+                                                _model.newEncounter2?.valueText,
+                                          },
+                                          matchingRows: (rows) => rows.eqOrNull(
+                                            'id',
+                                            _model.encounter?.id,
+                                          ),
+                                        );
+                                      }
+                                    } else if (currentLoop2Item.fieldType ==
+                                        'longtext') {
+                                      _model.newEncounter3 =
+                                          await EncounterFieldValuesTable()
+                                              .insert({
+                                        'encounter_id': _model.encounter?.id,
+                                        'form_field_id': currentLoop2Item.id,
+                                        'value_text': _model.formItemModels
+                                            .getValueForKey(
+                                          currentLoop2Item.id!,
+                                          (m) => m.paragraphTextController.text,
+                                        ),
+                                      });
+                                      _shouldSetState = true;
+                                      if (currentLoop2Item.isPrimaryDisplay!) {
+                                        await ReachedTable().update(
+                                          data: {
+                                            'Name':
+                                                _model.newEncounter3?.valueText,
+                                          },
+                                          matchingRows: (rows) => rows.eqOrNull(
+                                            'id',
+                                            _model.encounter?.id,
+                                          ),
+                                        );
+                                      }
+                                    } else if (currentLoop2Item.fieldType ==
+                                        'multi-select') {
+                                      _model.newEncounter1 =
+                                          await EncounterFieldValuesTable()
+                                              .insert({
+                                        'encounter_id': _model.encounter?.id,
+                                        'form_field_id': currentLoop2Item.id,
+                                      });
+                                      _shouldSetState = true;
+                                      for (int loop3Index = 0;
+                                          loop3Index <
+                                              _model.formItemModels
+                                                  .getValueForKey(
+                                                    currentLoop2Item.id!,
+                                                    (m) => m.dropDownValue,
+                                                  )!
+                                                  .length;
+                                          loop3Index++) {
+                                        final currentLoop3Item = _model
+                                            .formItemModels
+                                            .getValueForKey(
+                                          currentLoop2Item.id!,
+                                          (m) => m.dropDownValue,
+                                        )![loop3Index];
+                                        await EncounterFieldValueOptionsTable()
+                                            .insert({
+                                          'encounter_field_value_id':
+                                              _model.newEncounter1?.id,
+                                          'field_option_id': currentLoop3Item,
+                                        });
+                                      }
+                                    } else {
+                                      await EncounterFieldValuesTable().insert({
+                                        'encounter_id': _model.encounter?.id,
+                                        'form_field_id': currentLoop2Item.id,
+                                        'value_boolean': _model.formItemModels
+                                            .getValueForKey(
+                                          currentLoop2Item.id!,
+                                          (m) => m.switchValue,
+                                        ),
+                                      });
+                                    }
+                                  }
+                                  FFAppState().clearEncountersCache();
+                                  unawaited(
+                                    () async {
+                                      await XpEventsTable().insert({
+                                        'user_id': currentUserUid,
+                                        'delta': 50,
+                                        'reason': 'new encounter',
+                                        'idempotency_key': _model.encounter?.id,
+                                        'share_with_friends': true,
+                                      });
+                                    }(),
+                                  );
+                                  unawaited(
+                                    () async {
+                                      await action_blocks
+                                          .sendFriendNotification(
+                                        context,
+                                        eventType: 'new encounter',
+                                      );
+                                    }(),
+                                  );
+                                  await action_blocks.calculateStreak(context);
 
-                                    if (_shouldSetState) safeSetState(() {});
-                                  },
-                                ),
+                                  context.goNamed(
+                                    EncounterCompleteWidget.routeName,
+                                    queryParameters: {
+                                      'encounterXp': serializeParam(
+                                        50,
+                                        ParamType.int,
+                                      ),
+                                    }.withoutNulls,
+                                    extra: <String, dynamic>{
+                                      '__transition_info__': TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                        duration: Duration(milliseconds: 0),
+                                      ),
+                                    },
+                                  );
+
+                                  if (_shouldSetState) safeSetState(() {});
+                                },
                               ),
                             ),
                           ),

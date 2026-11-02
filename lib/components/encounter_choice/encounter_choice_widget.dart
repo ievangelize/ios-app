@@ -102,9 +102,9 @@ class _EncounterChoiceWidgetState extends State<EncounterChoiceWidget> {
                   color: FlutterFlowTheme.of(context).secondary,
                   textColor: FlutterFlowTheme.of(context).info,
                   action: () async {
-                    context.pushNamed(GroupsListWidget.routeName);
-
                     Navigator.pop(context);
+
+                    context.pushNamed(SelectCampaignWidget.routeName);
                   },
                 ),
               ),
@@ -141,6 +141,7 @@ class _EncounterChoiceWidgetState extends State<EncounterChoiceWidget> {
                       ),
                   elevation: 0.0,
                   borderSide: BorderSide(
+                    color: Colors.transparent,
                     width: 1.0,
                   ),
                   borderRadius: BorderRadius.circular(24.0),

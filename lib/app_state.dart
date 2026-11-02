@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show ChangeNotifier, Color, Colors, VoidCallback;
 import 'flutter_flow/request_manager.dart';
-import '/backend/schema/structs/index.dart';
 import 'backend/supabase/supabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
@@ -25,10 +25,6 @@ class FFAppState extends ChangeNotifier {
       _viewedReached = prefs.getBool('ff_viewedReached') ?? _viewedReached;
     });
     _safeInit(() {
-      _completedOnboarding =
-          prefs.getBool('ff_completedOnboarding') ?? _completedOnboarding;
-    });
-    _safeInit(() {
       _madeNoAuthPrompt =
           prefs.getBool('ff_madeNoAuthPrompt') ?? _madeNoAuthPrompt;
     });
@@ -41,12 +37,6 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _madeFirstImpact =
           prefs.getBool('ff_madeFirstImpact') ?? _madeFirstImpact;
-    });
-    _safeInit(() {
-      _firstExplore = prefs.getBool('ff_firstExplore') ?? _firstExplore;
-    });
-    _safeInit(() {
-      _openaiApiKey = prefs.getString('ff_openaiApiKey') ?? _openaiApiKey;
     });
     _safeInit(() {
       _deepgramApiKey = prefs.getString('ff_deepgramApiKey') ?? _deepgramApiKey;
@@ -96,6 +86,16 @@ class FFAppState extends ChangeNotifier {
       _activityReactions =
           prefs.getStringList('ff_activityReactions') ?? _activityReactions;
     });
+    _safeInit(() {
+      _lastEngagedCourseId =
+          prefs.getString('ff_lastEngagedCourseId') ?? _lastEngagedCourseId;
+    });
+    _safeInit(() {
+      _firstEncounter = prefs.getBool('ff_firstEncounter') ?? _firstEncounter;
+    });
+    _safeInit(() {
+      _firstMission = prefs.getBool('ff_firstMission') ?? _firstMission;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -118,13 +118,6 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_viewedReached', value);
   }
 
-  bool _completedOnboarding = false;
-  bool get completedOnboarding => _completedOnboarding;
-  set completedOnboarding(bool value) {
-    _completedOnboarding = value;
-    prefs.setBool('ff_completedOnboarding', value);
-  }
-
   bool _madeNoAuthPrompt = false;
   bool get madeNoAuthPrompt => _madeNoAuthPrompt;
   set madeNoAuthPrompt(bool value) {
@@ -132,8 +125,7 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_madeNoAuthPrompt', value);
   }
 
-  String _SupabaseKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2b2Z6a3BieGp0am9maHBkY3V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTI4Nzk4OTUsImV4cCI6MjAyODQ1NTg5NX0.p7VWByVny8KrEJF_SXuTPVTtctCyMou7Bwxr2X4CszU';
+  String _SupabaseKey = 'sb_publishable_Ey2U0Jczx6gaovAcuXIZ-A_-aVzxUO8';
   String get SupabaseKey => _SupabaseKey;
   set SupabaseKey(String value) {
     _SupabaseKey = value;
@@ -166,26 +158,10 @@ class FFAppState extends ChangeNotifier {
     _fcmToken = value;
   }
 
-  /// first time opening explore page
-  bool _firstExplore = true;
-  bool get firstExplore => _firstExplore;
-  set firstExplore(bool value) {
-    _firstExplore = value;
-    prefs.setBool('ff_firstExplore', value);
-  }
-
   String _sst = '';
   String get sst => _sst;
   set sst(String value) {
     _sst = value;
-  }
-
-  String _openaiApiKey =
-      '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';
-  String get openaiApiKey => _openaiApiKey;
-  set openaiApiKey(String value) {
-    _openaiApiKey = value;
-    prefs.setString('ff_openaiApiKey', value);
   }
 
   bool _isListening = false;
@@ -521,35 +497,6 @@ class FFAppState extends ChangeNotifier {
     exploreUcpIdsJson.insert(index, value);
   }
 
-  List<MessageStruct> _messages = [];
-  List<MessageStruct> get messages => _messages;
-  set messages(List<MessageStruct> value) {
-    _messages = value;
-  }
-
-  void addToMessages(MessageStruct value) {
-    messages.add(value);
-  }
-
-  void removeFromMessages(MessageStruct value) {
-    messages.remove(value);
-  }
-
-  void removeAtIndexFromMessages(int index) {
-    messages.removeAt(index);
-  }
-
-  void updateMessagesAtIndex(
-    int index,
-    MessageStruct Function(MessageStruct) updateFn,
-  ) {
-    messages[index] = updateFn(_messages[index]);
-  }
-
-  void insertAtIndexInMessages(int index, MessageStruct value) {
-    messages.insert(index, value);
-  }
-
   List<String> _simulatorLogs = [];
   List<String> get simulatorLogs => _simulatorLogs;
   set simulatorLogs(List<String> value) {
@@ -665,11 +612,32 @@ class FFAppState extends ChangeNotifier {
     prefs.setStringList('ff_activityReactions', _activityReactions);
   }
 
-  final _homeCourseManager = FutureRequestManager<List<CoursesRow>>();
-  Future<List<CoursesRow>> homeCourse({
+  String _lastEngagedCourseId = '';
+  String get lastEngagedCourseId => _lastEngagedCourseId;
+  set lastEngagedCourseId(String value) {
+    _lastEngagedCourseId = value;
+    prefs.setString('ff_lastEngagedCourseId', value);
+  }
+
+  bool _firstEncounter = true;
+  bool get firstEncounter => _firstEncounter;
+  set firstEncounter(bool value) {
+    _firstEncounter = value;
+    prefs.setBool('ff_firstEncounter', value);
+  }
+
+  bool _firstMission = true;
+  bool get firstMission => _firstMission;
+  set firstMission(bool value) {
+    _firstMission = value;
+    prefs.setBool('ff_firstMission', value);
+  }
+
+  final _homeCourseManager = FutureRequestManager<List<GroupsRow>>();
+  Future<List<GroupsRow>> homeCourse({
     String? uniqueQueryKey,
     bool? overrideCache,
-    required Future<List<CoursesRow>> Function() requestFn,
+    required Future<List<GroupsRow>> Function() requestFn,
   }) =>
       _homeCourseManager.performRequest(
         uniqueQueryKey: uniqueQueryKey,
@@ -741,21 +709,6 @@ class FFAppState extends ChangeNotifier {
   void clearSimulatorFeedbackCache() => _simulatorFeedbackManager.clear();
   void clearSimulatorFeedbackCacheKey(String? uniqueKey) =>
       _simulatorFeedbackManager.clearRequest(uniqueKey);
-
-  final _chatHistoryManager = FutureRequestManager<List<ConversationsRow>>();
-  Future<List<ConversationsRow>> chatHistory({
-    String? uniqueQueryKey,
-    bool? overrideCache,
-    required Future<List<ConversationsRow>> Function() requestFn,
-  }) =>
-      _chatHistoryManager.performRequest(
-        uniqueQueryKey: uniqueQueryKey,
-        overrideCache: overrideCache,
-        requestFn: requestFn,
-      );
-  void clearChatHistoryCache() => _chatHistoryManager.clear();
-  void clearChatHistoryCacheKey(String? uniqueKey) =>
-      _chatHistoryManager.clearRequest(uniqueKey);
 
   final _experienceVideosManager =
       FutureRequestManager<List<ExperienceVideosRow>>();
@@ -863,6 +816,82 @@ class FFAppState extends ChangeNotifier {
   void clearLessonsCache() => _lessonsManager.clear();
   void clearLessonsCacheKey(String? uniqueKey) =>
       _lessonsManager.clearRequest(uniqueKey);
+
+  final _friendsManager = FutureRequestManager<List<FriendsRow>>();
+  Future<List<FriendsRow>> friends({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<List<FriendsRow>> Function() requestFn,
+  }) =>
+      _friendsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearFriendsCache() => _friendsManager.clear();
+  void clearFriendsCacheKey(String? uniqueKey) =>
+      _friendsManager.clearRequest(uniqueKey);
+
+  final _userManager = FutureRequestManager<List<UsersRow>>();
+  Future<List<UsersRow>> user({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<List<UsersRow>> Function() requestFn,
+  }) =>
+      _userManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearUserCache() => _userManager.clear();
+  void clearUserCacheKey(String? uniqueKey) =>
+      _userManager.clearRequest(uniqueKey);
+
+  final _activityReactionManager =
+      FutureRequestManager<List<ActivityReactionsRow>>();
+  Future<List<ActivityReactionsRow>> activityReaction({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<List<ActivityReactionsRow>> Function() requestFn,
+  }) =>
+      _activityReactionManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearActivityReactionCache() => _activityReactionManager.clear();
+  void clearActivityReactionCacheKey(String? uniqueKey) =>
+      _activityReactionManager.clearRequest(uniqueKey);
+
+  final _prayerTargetsManager = FutureRequestManager<List<PrayerTargetsRow>>();
+  Future<List<PrayerTargetsRow>> prayerTargets({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<List<PrayerTargetsRow>> Function() requestFn,
+  }) =>
+      _prayerTargetsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearPrayerTargetsCache() => _prayerTargetsManager.clear();
+  void clearPrayerTargetsCacheKey(String? uniqueKey) =>
+      _prayerTargetsManager.clearRequest(uniqueKey);
+
+  final _userGroupsManager = FutureRequestManager<List<UserGroupsRow>>();
+  Future<List<UserGroupsRow>> userGroups({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<List<UserGroupsRow>> Function() requestFn,
+  }) =>
+      _userGroupsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearUserGroupsCache() => _userGroupsManager.clear();
+  void clearUserGroupsCacheKey(String? uniqueKey) =>
+      _userGroupsManager.clearRequest(uniqueKey);
 }
 
 void _safeInit(Function() initializeField) {

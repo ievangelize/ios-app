@@ -15,8 +15,8 @@ class MissionsCatalogRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => MissionsCatalogTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get title => getField<String>('title');
   set title(String? value) => setField<String>('title', value);
@@ -33,6 +33,6 @@ class MissionsCatalogRow extends SupabaseDataRow {
   int? get peopleComplete => getField<int>('people_complete');
   set peopleComplete(int? value) => setField<int>('people_complete', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 }

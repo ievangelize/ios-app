@@ -190,7 +190,15 @@ class _NewFriendCongratsWidgetState extends State<NewFriendCongratsWidget>
                               color: FlutterFlowTheme.of(context).secondary,
                               textColor: FlutterFlowTheme.of(context).info,
                               action: () async {
-                                context.goNamed(FriendsWidget.routeName);
+                                context.goNamed(
+                                  MainHomeWidget.routeName,
+                                  queryParameters: {
+                                    'tabIndex': serializeParam(
+                                      4,
+                                      ParamType.int,
+                                    ),
+                                  }.withoutNulls,
+                                );
                               },
                             ),
                           ).animateOnPageLoad(

@@ -160,8 +160,8 @@ class _AboutWidgetState extends State<AboutWidget>
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(
                       Theme.of(context).brightness == Brightness.dark
-                          ? 'assets/images/logo_white.png'
-                          : 'assets/images/logo_dark_(2).png',
+                          ? 'assets/images/logo_og_white.png'
+                          : 'assets/images/Group_152.png',
                       height: 40.0,
                       fit: BoxFit.contain,
                     ),

@@ -26,9 +26,9 @@ class MissionsRow extends SupabaseDataRow {
   int? get peopleCompleted => getField<int>('people_completed');
   set peopleCompleted(int? value) => setField<int>('people_completed', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 }

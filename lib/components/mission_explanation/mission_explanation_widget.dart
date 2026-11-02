@@ -41,7 +41,7 @@ class _MissionExplanationWidgetState extends State<MissionExplanationWidget> {
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16.0),
           topRight: Radius.circular(16.0),
@@ -124,7 +124,9 @@ class _MissionExplanationWidgetState extends State<MissionExplanationWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.trophy,
+                          FaIconData(const IconData(/* trophy */ 0xf091,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -188,7 +190,9 @@ class _MissionExplanationWidgetState extends State<MissionExplanationWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.bolt,
+                          FaIconData(const IconData(/* bolt */ 0xf0e7,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -252,7 +256,10 @@ class _MissionExplanationWidgetState extends State<MissionExplanationWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.solidCheckCircle,
+                          FaIconData(const IconData(
+                              /* solidCheckCircle */ 0xf058,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),

@@ -15,15 +15,7 @@ class VerticalVideoPlayerModel
   // Stores action output result for [Backend Call - Update Row(s)] action in CustomVidPlayer widget.
   List<UserCourseProgressRow>? ucp;
   // Stores action output result for [Backend Call - Query Rows] action in CustomVidPlayer widget.
-  List<XpEventsRow>? xpEvents2;
-  // Stores action output result for [Custom Action - calculateStreak] action in CustomVidPlayer widget.
-  List<dynamic>? streak2;
-  // Stores action output result for [Backend Call - Query Rows] action in CustomVidPlayer widget.
   List<MissionsCatalogRow>? mission1;
-  // Stores action output result for [Backend Call - Query Rows] action in CustomVidPlayer widget.
-  List<XpEventsRow>? xpEvents1;
-  // Stores action output result for [Custom Action - calculateStreak] action in CustomVidPlayer widget.
-  List<dynamic>? streak1;
   // Stores action output result for [Backend Call - Query Rows] action in CustomVidPlayer widget.
   List<MissionsCatalogRow>? mission2;
 

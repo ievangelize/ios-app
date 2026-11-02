@@ -184,10 +184,10 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
                         width: 82.0,
                         height: 82.0,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondary,
+                          color: Color(0xFF864AF9),
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondary,
+                            color: Color(0xFF864AF9),
                             width: 1.0,
                           ),
                         ),
@@ -199,6 +199,8 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
                       alignment: AlignmentDirectional(0.0, 1.0),
                       child: GestureDetector(
                         onLongPressStart: (details) async {
+                          _model.holding = true;
+                          safeSetState(() {});
                           if (animationsMap[
                                   'containerOnActionTriggerAnimation'] !=
                               null) {
@@ -225,7 +227,13 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
                           HapticFeedback.vibrate();
 
                           context.goNamed(
-                            HomeWidget.routeName,
+                            MainHomeWidget.routeName,
+                            queryParameters: {
+                              'tabIndex': serializeParam(
+                                0,
+                                ParamType.int,
+                              ),
+                            }.withoutNulls,
                             extra: <String, dynamic>{
                               '__transition_info__': TransitionInfo(
                                 hasTransition: true,
@@ -238,10 +246,10 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
                           width: 82.0,
                           height: 82.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondary,
+                            color: Color(0xFF864AF9),
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: FlutterFlowTheme.of(context).secondary,
+                              color: Color(0xFF864AF9),
                               width: 1.0,
                             ),
                           ),
@@ -279,7 +287,9 @@ class _CommitmentWidgetState extends State<CommitmentWidget>
                                 .bodyMedium
                                 .fontStyle,
                           ),
-                          color: Colors.black,
+                          color: _model.holding
+                              ? FlutterFlowTheme.of(context).info
+                              : Colors.black,
                           fontSize: 16.0,
                           letterSpacing: 0.0,
                           fontWeight: FlutterFlowTheme.of(context)

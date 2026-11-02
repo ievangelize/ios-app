@@ -72,7 +72,7 @@ class _CourseWidgetState extends State<CourseWidget> {
               loop1Index++) {
             final currentLoop1Item = _model.lessons![loop1Index];
             // Add Id to lessonIds
-            _model.addToLessonIds(currentLoop1Item.id);
+            _model.addToLessonIds(currentLoop1Item.id!);
             safeSetState(() {});
           }
         }),
@@ -870,7 +870,12 @@ class _CourseWidgetState extends State<CourseWidget> {
                                                             .center,
                                                     children: [
                                                       FaIcon(
-                                                        FontAwesomeIcons.clock,
+                                                        FaIconData(const IconData(
+                                                            /* clock */ 0xf017,
+                                                            fontFamily:
+                                                                'FontAwesomeRegular',
+                                                            fontPackage:
+                                                                'font_awesome_flutter')),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)

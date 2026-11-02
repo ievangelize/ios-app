@@ -1,16 +1,17 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/large_btn/large_btn_widget.dart';
-import '/components/streak/streak_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:async';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'feedback_model.dart';
@@ -42,6 +43,14 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
     _model = createModel(context, () => FeedbackModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'feedback'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().firstSimulator) {
+        await actions.requestReview();
+        FFAppState().firstSimulator = false;
+        safeSetState(() {});
+      }
+    });
   }
 
   @override
@@ -66,95 +75,37 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
-          leading: Builder(
-            builder: (context) => FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.close,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: 25.0,
-              ),
-              onPressed: () async {
-                unawaited(
-                  () async {
-                    await XpEventsTable().insert({
-                      'user_id': currentUserUid,
-                      'delta': 10,
-                      'reason': 'ai simulator',
-                      'idempotency_key': random_data.randomString(
-                        16,
-                        16,
-                        true,
-                        true,
-                        true,
-                      ),
-                    });
-                  }(),
-                );
-                _model.xpEvents2 = await XpEventsTable().queryRows(
-                  queryFn: (q) => q.eqOrNull(
-                    'user_id',
-                    currentUserUid,
-                  ),
-                );
-                _model.streak2 = await actions.calculateStreak(
-                  _model.xpEvents2!.map((e) => e.createdAt).toList(),
-                  FFAppState().currentStreak,
-                );
-                if (getJsonField(
-                  _model.streak2!.lastOrNull,
-                  r'''$.is_streak''',
-                )) {
-                  FFAppState().currentStreak = getJsonField(
-                    _model.streak2!.elementAtOrNull(1),
-                    r'''$.streak''',
-                  );
-                  await showDialog(
-                    barrierColor:
-                        FlutterFlowTheme.of(context).primaryBackground,
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (dialogContext) {
-                      return Dialog(
-                        elevation: 0,
-                        insetPadding: EdgeInsets.zero,
-                        backgroundColor: Colors.transparent,
-                        alignment: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        child: GestureDetector(
-                          onTap: () {
-                            FocusScope.of(dialogContext).unfocus();
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          },
-                          child: Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            child: StreakWidget(
-                              streakAmount: getJsonField(
-                                _model.streak2?.elementAtOrNull(1),
-                                r'''$.streak''',
-                              ).toString(),
-                              streakDays: getJsonField(
-                                _model.streak2?.firstOrNull,
-                                r'''$.active_days''',
-                                true,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }
-
-                context.goNamed(PickPersonaWidget.routeName);
-
-                safeSetState(() {});
-              },
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.close,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 25.0,
             ),
+            onPressed: () async {
+              unawaited(
+                () async {
+                  await XpEventsTable().insert({
+                    'user_id': currentUserUid,
+                    'delta': 10,
+                    'reason': 'ai simulator',
+                    'idempotency_key': random_data.randomString(
+                      16,
+                      16,
+                      true,
+                      true,
+                      true,
+                    ),
+                  });
+                }(),
+              );
+              await action_blocks.calculateStreak(context);
+
+              context.goNamed(PickPersonaWidget.routeName);
+            },
           ),
           title: Text(
             'Feedback',
@@ -193,7 +144,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         custom_widgets.CustomMarkdown(
                           width: double.infinity,
                           height: 50.0,
-                          fontSize: 16.0,
+                          fontSize: 17.0,
                           textColor: FlutterFlowTheme.of(context).primaryText,
                           blockquoteBackground:
                               FlutterFlowTheme.of(context).blackAlternate,
@@ -201,118 +152,43 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                               FlutterFlowTheme.of(context).primaryText,
                           data: widget.chatFeedback!,
                         ),
-                      ].addToEnd(SizedBox(height: 10.0)),
+                      ]
+                          .divide(SizedBox(height: 35.0))
+                          .addToEnd(SizedBox(height: 10.0)),
                     ),
                   ),
                 ),
               ),
-              Builder(
-                builder: (context) => Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 12.0),
-                  child: wrapWithModel(
-                    model: _model.largeBtnModel,
-                    updateCallback: () => safeSetState(() {}),
-                    child: LargeBtnWidget(
-                      text: 'Done',
-                      color: FlutterFlowTheme.of(context).secondary,
-                      textColor: FlutterFlowTheme.of(context).info,
-                      action: () async {
-                        unawaited(
-                          () async {
-                            await XpEventsTable().insert({
-                              'user_id': currentUserUid,
-                              'delta': 0,
-                              'reason': 'ai simulator',
-                              'idempotency_key': random_data.randomString(
-                                16,
-                                16,
-                                true,
-                                true,
-                                true,
-                              ),
-                            });
-                          }(),
-                        );
-                        _model.xpEvents = await XpEventsTable().queryRows(
-                          queryFn: (q) => q.eqOrNull(
-                            'user_id',
-                            currentUserUid,
-                          ),
-                        );
-                        _model.streak = await actions.calculateStreak(
-                          _model.xpEvents!.map((e) => e.createdAt).toList(),
-                          FFAppState().currentStreak,
-                        );
-                        if (getJsonField(
-                          _model.streak!.lastOrNull,
-                          r'''$.is_streak''',
-                        )) {
-                          await showDialog(
-                            barrierColor:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(dialogContext).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                  },
-                                  child: Container(
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    child: StreakWidget(
-                                      streakAmount: getJsonField(
-                                        _model.streak?.elementAtOrNull(1),
-                                        r'''$.streak''',
-                                      ).toString(),
-                                      streakDays: getJsonField(
-                                        _model.streak?.firstOrNull,
-                                        r'''$.active_days''',
-                                        true,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-
-                          FFAppState().currentStreak = getJsonField(
-                            _model.streak!.elementAtOrNull(1),
-                            r'''$.streak''',
-                          );
-                          FFAppState().activeDays = getJsonField(
-                            _model.streak!.firstOrNull,
-                            r'''$.active_days''',
-                            true,
-                          )!
-                              .toList()
-                              .cast<dynamic>();
-                          await UsersTable().update(
-                            data: {
-                              'streak': FFAppState().currentStreak,
-                            },
-                            matchingRows: (rows) => rows.eqOrNull(
-                              'id',
-                              currentUserUid,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 12.0),
+                child: wrapWithModel(
+                  model: _model.largeBtnModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: LargeBtnWidget(
+                    text: 'Done',
+                    color: FlutterFlowTheme.of(context).secondary,
+                    textColor: FlutterFlowTheme.of(context).info,
+                    action: () async {
+                      unawaited(
+                        () async {
+                          await XpEventsTable().insert({
+                            'user_id': currentUserUid,
+                            'delta': 0,
+                            'reason': 'ai simulator',
+                            'idempotency_key': random_data.randomString(
+                              16,
+                              16,
+                              true,
+                              true,
+                              true,
                             ),
-                          );
-                        }
+                          });
+                        }(),
+                      );
+                      await action_blocks.calculateStreak(context);
 
-                        context.goNamed(PickPersonaWidget.routeName);
-
-                        safeSetState(() {});
-                      },
-                    ),
+                      context.goNamed(PickPersonaWidget.routeName);
+                    },
                   ),
                 ),
               ),

@@ -42,7 +42,7 @@ class _EncounterExplanationWidgetState
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16.0),
           topRight: Radius.circular(16.0),
@@ -125,7 +125,9 @@ class _EncounterExplanationWidgetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.trophy,
+                          FaIconData(const IconData(/* trophy */ 0xf091,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -189,7 +191,9 @@ class _EncounterExplanationWidgetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.solidStar,
+                          FaIconData(const IconData(/* solidStar */ 0xf005,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),
@@ -253,7 +257,9 @@ class _EncounterExplanationWidgetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FaIcon(
-                          FontAwesomeIcons.solidClock,
+                          FaIconData(const IconData(/* solidClock */ 0xf017,
+                              fontFamily: 'FontAwesomeSolid',
+                              fontPackage: 'font_awesome_flutter')),
                           color: FlutterFlowTheme.of(context).secondary,
                           size: 20.0,
                         ),

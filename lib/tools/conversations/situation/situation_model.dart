@@ -1,4 +1,3 @@
-import '/components/nav_bar/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'situation_widget.dart' show SituationWidget;
@@ -21,21 +20,15 @@ class SituationModel extends FlutterFlowModel<SituationWidget> {
     return null;
   }
 
-  // Model for NavBar component.
-  late NavBarModel navBarModel;
-
   @override
   void initState(BuildContext context) {
     situationInfoTextControllerValidator =
         _situationInfoTextControllerValidator;
-    navBarModel = createModel(context, () => NavBarModel());
   }
 
   @override
   void dispose() {
     situationInfoFocusNode?.dispose();
     situationInfoTextController?.dispose();
-
-    navBarModel.dispose();
   }
 }

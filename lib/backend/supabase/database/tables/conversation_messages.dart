@@ -15,8 +15,8 @@ class ConversationMessagesRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => ConversationMessagesTable();
 
-  String get id => getField<String>('id')!;
-  set id(String value) => setField<String>('id', value);
+  String? get id => getField<String>('id');
+  set id(String? value) => setField<String>('id', value);
 
   String? get conversationId => getField<String>('conversation_id');
   set conversationId(String? value) =>
@@ -28,8 +28,8 @@ class ConversationMessagesRow extends SupabaseDataRow {
   String? get role => getField<String>('role');
   set role(String? value) => setField<String>('role', value);
 
-  DateTime get createdAt => getField<DateTime>('created_at')!;
-  set createdAt(DateTime value) => setField<DateTime>('created_at', value);
+  DateTime? get createdAt => getField<DateTime>('created_at');
+  set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
   String? get openaiPreviousResponseId =>
       getField<String>('openai_previous_response_id');

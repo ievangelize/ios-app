@@ -171,7 +171,9 @@ class _ArchivedMissionDetailsWidgetState
                 },
                 text: 'Unarchive Mission',
                 icon: FaIcon(
-                  FontAwesomeIcons.folderOpen,
+                  FaIconData(const IconData(/* folderOpen */ 0xf07c,
+                      fontFamily: 'FontAwesomeRegular',
+                      fontPackage: 'font_awesome_flutter')),
                   size: 15.0,
                 ),
                 options: FFButtonOptions(

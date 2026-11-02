@@ -7,6 +7,7 @@ import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,9 +18,11 @@ class AppbarHomeWidget extends StatefulWidget {
   const AppbarHomeWidget({
     super.key,
     required this.user,
+    required this.navToProfile,
   });
 
   final UsersRow? user;
+  final Future Function()? navToProfile;
 
   @override
   State<AppbarHomeWidget> createState() => _AppbarHomeWidgetState();
@@ -67,7 +70,7 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
           GoRouter.of(context).clearRedirectLocation();
 
           context.goNamedAuth(
-            OnboardingFlowWidget.routeName,
+            WelcomeWidget.routeName,
             context.mounted,
             extra: <String, dynamic>{
               '__transition_info__': TransitionInfo(
@@ -77,14 +80,42 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
               ),
             },
           );
+
+          return;
         } else {
+          await actions.initPushNavigationHandler(
+            context,
+          );
           if (FFAppState().firstHomeVisit) {
+            if ((widget.user?.onboardingComplete == false) &&
+                (FFAppState().onboardingComplete == true)) {
+              FFAppState().onboardingComplete = false;
+              FFAppState().onboardingStarted = false;
+              FFAppState().update(() {});
+              GoRouter.of(context).prepareAuthEvent();
+              await authManager.signOut();
+              GoRouter.of(context).clearRedirectLocation();
+
+              context.goNamedAuth(
+                WelcomeWidget.routeName,
+                context.mounted,
+                extra: <String, dynamic>{
+                  '__transition_info__': TransitionInfo(
+                    hasTransition: true,
+                    transitionType: PageTransitionType.fade,
+                    duration: Duration(milliseconds: 0),
+                  ),
+                },
+              );
+
+              return;
+            }
             FFAppState().currentStreak = widget.user!.streak!;
             FFAppState().firstHomeVisit = false;
             FFAppState().update(() {});
             _model.donate = await actions.showDonatePage();
             if (_model.donate!) {
-              context.goNamedAuth(
+              context.pushNamedAuth(
                 DonateWidget.routeName,
                 context.mounted,
                 extra: <String, dynamic>{
@@ -94,7 +125,13 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                   ),
                 },
               );
+
+              return;
+            } else {
+              return;
             }
+          } else {
+            return;
           }
         }
       }
@@ -174,6 +211,8 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              HapticFeedback.lightImpact();
+
                               context.pushNamed(
                                 DonateWidget.routeName,
                                 extra: <String, dynamic>{
@@ -193,10 +232,14 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 shape: BoxShape.circle,
                               ),
                               alignment: AlignmentDirectional(0.0, 0.0),
-                              child: FaIcon(
-                                FontAwesomeIcons.solidHeart,
-                                color: Color(0xFFF13A28),
-                                size: 20.0,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/heart_(3).png',
+                                  width: 24.0,
+                                  height: 24.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -209,7 +252,7 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(ProfileWidget.routeName);
+                        await widget.navToProfile?.call();
                       },
                       child: Container(
                         width: 38.0,
@@ -285,7 +328,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ),
                           ),
                           FaIcon(
-                            FontAwesomeIcons.bolt,
+                            FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                fontFamily: 'FontAwesomeSolid',
+                                fontPackage: 'font_awesome_flutter')),
                             color: FlutterFlowTheme.of(context).secondary,
                             size: 12.0,
                           ),
@@ -341,7 +386,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ? false
                                 : true))
                               FaIcon(
-                                FontAwesomeIcons.bolt,
+                                FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 size: 14.0,
                               ),
@@ -434,7 +481,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ? false
                                 : true))
                               FaIcon(
-                                FontAwesomeIcons.bolt,
+                                FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 size: 14.0,
                               ),
@@ -527,7 +576,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ? false
                                 : true))
                               FaIcon(
-                                FontAwesomeIcons.bolt,
+                                FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 size: 14.0,
                               ),
@@ -620,7 +671,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ? false
                                 : true))
                               FaIcon(
-                                FontAwesomeIcons.bolt,
+                                FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 size: 14.0,
                               ),
@@ -709,7 +762,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ? false
                                 : true))
                               FaIcon(
-                                FontAwesomeIcons.bolt,
+                                FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 size: 14.0,
                               ),
@@ -802,7 +857,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ? false
                                 : true))
                               FaIcon(
-                                FontAwesomeIcons.bolt,
+                                FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 size: 14.0,
                               ),
@@ -895,7 +952,9 @@ class _AppbarHomeWidgetState extends State<AppbarHomeWidget> {
                                 ? false
                                 : true))
                               FaIcon(
-                                FontAwesomeIcons.bolt,
+                                FaIconData(const IconData(/* bolt */ 0xf0e7,
+                                    fontFamily: 'FontAwesomeSolid',
+                                    fontPackage: 'font_awesome_flutter')),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 size: 14.0,
                               ),
